@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>个人信息</title>
+    <script src="res/jquery/external/jquery/jquery.js"></script>
+    <script src="res/jquery/jquery-ui.js"></script>
+    <link href="res/jquery/jquery-ui.css" rel="stylesheet">
+    <link href="res/css/base.css" rel="stylesheet">
+    <script src="res/script/base.js"></script>
+    <link href="res/css/navigation.css" rel="stylesheet">
+
+    <link href="res/css/list.css" rel="stylesheet">
+    <link href="res/css/tabs.css" rel="stylesheet">
+    <link href="res/css/personal.css" rel="stylesheet">
+    <script src="res/script/personal.js"></script>
+
+</head>
+<body>
+
+<!-- 头部 -->
+<div class="base_container">
+    <div class="web_header">
+        <div class="element_left" style="margin-left: 20px">
+            <img src="res/images/logo.png" style="width: 20px; height: 22px; margin-top: 13px">
+        </div>
+        <div class="element_left" style="margin-left: 10px; font-size: 20px">
+            欢迎使用OA系统
+        </div>
+        <div class="element_right" style="margin-right: 20px">
+            <a href="personal.html" style="color: orange">张三</a>&nbsp;|&nbsp;<a href="logout.html" style="color: orange;">退出</a>
+        </div>
+        <div class="element_right" style="margin-right: 10px">
+            <a href="personal.html">
+                <img id='header_user_portrait' src="res/images/portrait_demo.png" style="width: 36px; height: 36px; border-radius: 18px;">
+            </a>
+        </div>
+    </div>
+    <div class="div-header-navigation-bar base_container">
+        <ul id="guild_bar">
+        </ul>
+    </div>
+</div>
+<script>
+    function showGuildBar() {
+        var guild = [
+            {href: 'index.html', label: '首页', authority: __common_authority},
+            {href: 'personal.html', label: '个人信息', authority: __admin_authority},
+            {href: 'error.html', label: '通讯录', authority: __admin_authority},
+            {href: 'error.html', label: '工作流', authority: __dept_leader_authority},
+            {href: 'error.html', label: '办公室发文', authority: __common_authority},
+            {href: 'error.html', label: '证明材料申请', authority: __admin_authority},
+            {href: 'error.html', label: '人事流程', authority: __dept_leader_authority},
+            {href: 'error.html', label: '采购流程', authority: __admin_authority},
+            {href: 'error.html', label: '公司制度', authority: __dept_leader_authority},
+            {href: 'error.html', label: '文件下载', authority: __dept_leader_authority}
+        ];
+        var html = '';
+        guild.forEach(function (item, p2, p3) {
+            if (item.authority >= __authority) {
+                html += getGuildItemHtml(item);
+            }
+        });
+        $("#guild_bar").append(html);
+    }
+    function getGuildItemHtml(item) {
+        return '<li><a href="' + item.href + '">' + item.label + '</a></li>'
+    }
+</script>
+
+
+<div class="base_container">
+    <div id="__common_tag_area" class="common_tag_area"></div>
+
+    <div id="tabs" style="margin-top: 10px;">
+        <ul>
+            <li><a href="#personal_info">个人信息</a> </li>
+            <li><a href="#alter_password">修改密码</a> </li>
+            <li><a href="#password_protect">密码保护</a> </li>
+            <li><a href="#bind_phone">绑定手机</a> </li>
+        </ul>
+        <div id="personal_info">
+            <div class="personal_base_info_container">
+                <div class="element_left">
+                    <div class="topic_title">基本信息</div>
+                    <div class="personal_info_detail_container">
+                        <ul>
+                            <li>工号：<span id="account">T1234567</span></li>
+                            <li>姓名：<span id="user_name">张三</span></li>
+                            <li>身份证：<span id="id_card">421234199909091234</span></li>
+                            <li></li>
+                            <li>部门：<span id="user_dept">人力资源部</span></li>
+                            <li>职位：<span id="user_role">助理</span></li>
+                            <li>入职时间：<span id="join_time">2013-08-11</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="element_right">
+                    <img id='personal_portrait' class="personal_portrait" src="res/images/portrait_demo.png">
+                </div>
+            </div>
+            <div class="personal_other_info_container">
+                <div style="width: 98%; height: 32px; line-height: 32px;">
+                    <div class="topic_title element_left">其他信息</div>
+                    <div class="element_right common_clickable" id="alert_info">编辑</div>
+                    <div class="element_right common_clickable" style="color: gray; margin-right: 2em;" id="cancle_alert_info">取消</div>
+                </div>
+                <div class="personal_info_detail_container">
+                    <ul>
+                        <li>学历：<input disabled id="education" type="text" class="common_editor"></li>
+                        <li>专业：<input disabled id="major" type="text" class="common_editor"></li>
+                        <li></li>
+                        <li>手机：<input disabled id="phone_number" type="text" class="common_editor"></li>
+                        <li>座机：<input disabled id="telephone" type="text" class="common_editor"></li>
+                        <li></li>
+                        <li>邮箱：<input disabled id="email" type="text" class="common_editor"></li>
+                        <li>微信：<input disabled id="wechat" type="text" class="common_editor"></li>
+                        <li>QQ：<input disabled id="qq" type="text" class="common_editor"></li>
+                        <li style="width: 90%">地址：<input disabled id="address" type="text" class="common_editor" style="width: 80%"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="alter_password">
+            <div style="width: 360px; margin-left: auto; margin-right: auto; padding-bottom: 24px;">
+                <div class="personal_alter_psd_item">原密码：　<input type="password" class="common_editor" id="original_psd"> </div>
+                <div class="personal_alter_psd_item">新密码：　<input type="password" class="common_editor" id="new_psd"> </div>
+                <div class="personal_alter_psd_item">确认密码：<input type="password" class="common_editor" id="confirm_psd"> </div>
+                <div class="personal_result_item">&nbsp;</div>
+                <div class=" personal_btn"><button class="ui-button ui-corner-all" style="width: 100%">提交</button></div>
+            </div>
+        </div>
+        <div id="password_protect"></div>
+        <div id="bind_phone"></div>
+    </div>
+
+
+    <div class="web_footer">版权所有 my-oa.com</div>
+
+</div>
+</body>
+
+<script>
+    $("#__common_tag_area").hide();
+    var __authority = 1;
+    showGuildBar();
+</script>
+
+
+<script>
+    var account_info = {}
+
+    account_info['qq'] = '10086';
+
+    account_info['account'] = 'T001';
+
+    account_info['name'] = '张三';
+
+    account_info['dept'] = '人力资源部';
+
+    account_info['id_card'] = '410000201010101234';
+
+    account_info['telephone'] = '0755-88881234';
+
+    account_info['id'] = '1';
+
+    account_info['phone'] = '12345678910';
+
+    account_info['academic'] = '本科';
+
+    account_info['role'] = '招聘助理';
+
+    account_info['address'] = '深圳市****';
+
+    account_info['portrait'] = 'res/images/portrait_demo.png';
+
+    account_info['major'] = '人力管理';
+
+    account_info['password'] = '10470c3b4b1fed12c3baac014be15fac67c6e815';
+
+    account_info['wechat'] = 'we999';
+
+    account_info['email'] = '123@qq.com';
+
+    account_info['add_time'] = '2015-05-22';
+
+</script>
+
+</html>

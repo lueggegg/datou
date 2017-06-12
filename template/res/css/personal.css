@@ -1,0 +1,88 @@
+.personal_portrait {
+    width: 180px;
+    height: 240px;
+    margin-top: 10px;
+    margin-right: 20px;
+    border: 1px solid gray;
+}
+
+.personal_base_info_container {
+    min-height: 270px;
+}
+
+.personal_base_info_container ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    width:580px;
+}
+
+.personal_base_info_container ul li {
+    width: 48%;
+    height: 45px;
+    float: left;
+    font-size: 16px;
+    margin-top:10px;
+}
+
+.personal_other_info_container {
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    width: 98%;
+    background: white;
+}
+
+.personal_other_info_container ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    width:100%;
+}
+
+.personal_other_info_container ul li {
+    width: 33%;
+    height: 45px;
+    float: left;
+    font-size: 14px;
+    margin-top:10px;
+}
+.personal_other_info_container ul li input{
+    width: 60%;
+}
+.personal_info_detail_container {
+    margin-left: 2em;
+    min-height: 250px;
+}
+
+.personal_alter_psd_item {
+    height: 30px;
+    margin-top:20px;
+    font-size: 15px;
+}
+
+.personal_result_item {
+    margin-top:5px;
+    height: 30px;
+    color: red;
+    font-size: 14px;
+    margin-left: 1em;
+}
+
+.personal_btn {
+    margin-top:5px;
+    width: 120px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.personal_psd_protect_item {
+    height: 30px;
+    margin-top:10px;
+    font-size: 15px;
+}
+
+.personal_psd_protect_item input {
+    width: 270px;
+}

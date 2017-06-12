@@ -1,0 +1,123 @@
+{% extends base.html %}
+<title>{% block title %}个人信息{% end %}</title>
+
+{% block custom_head %}
+<link href="res/css/list.css" rel="stylesheet">
+<link href="res/css/tabs.css" rel="stylesheet">
+<link href="res/css/personal.css" rel="stylesheet">
+<script src="res/script/personal.js"></script>
+<script src="res/script/md5.js"></script>
+<script src="res/script/sha1.js"></script>
+{% end %}
+
+{% block custom_body %}
+<div id="tabs" style="margin-top: 10px;">
+    <ul>
+        <li><a href="#personal_info">个人信息</a> </li>
+        <li><a href="#alter_password">修改密码</a> </li>
+        <li><a href="#password_protect">密码保护</a> </li>
+        <li><a href="#bind_phone">绑定手机</a> </li>
+    </ul>
+
+    <div id="personal_info">
+        <div class="personal_base_info_container">
+            <div class="element_left">
+                <div class="topic_title">基本信息</div>
+                <div class="personal_info_detail_container">
+                    <ul>
+                        <li>工号：<span id="account">T1234567</span></li>
+                        <li>姓名：<span id="user_name">张三</span></li>
+                        <li>身份证：<span id="id_card">421234199909091234</span></li>
+                        <li></li>
+                        <li>部门：<span id="user_dept">人力资源部</span></li>
+                        <li>职位：<span id="user_role">助理</span></li>
+                        <li>入职时间：<span id="join_time">2013-08-11</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="element_right">
+                <img id='personal_portrait' class="personal_portrait" src="res/images/portrait_demo.png">
+            </div>
+        </div>
+        <div class="personal_other_info_container">
+            <div style="width: 98%; height: 32px; line-height: 32px;">
+                <div class="topic_title element_left">其他信息</div>
+                <div class="element_right common_clickable" id="alert_info">编辑</div>
+                <div class="element_right common_clickable" style="color: gray; margin-right: 2em;" id="cancle_alert_info">取消</div>
+            </div>
+            <div class="personal_info_detail_container">
+                <ul>
+                    <li>学历：<input disabled id="education" type="text" class="common_editor"></li>
+                    <li>专业：<input disabled id="major" type="text" class="common_editor"></li>
+                    <li></li>
+                    <li>手机：<input disabled id="phone_number" type="text" class="common_editor"></li>
+                    <li>座机：<input disabled id="telephone" type="text" class="common_editor"></li>
+                    <li></li>
+                    <li>邮箱：<input disabled id="email" type="text" class="common_editor"></li>
+                    <li>微信：<input disabled id="wechat" type="text" class="common_editor"></li>
+                    <li>QQ：<input disabled id="qq" type="text" class="common_editor"></li>
+                    <li style="width: 90%">地址：<input disabled id="address" type="text" class="common_editor" style="width: 80%"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="alter_password">
+        <div style="width: 360px; margin-left: auto; margin-right: auto; padding-bottom: 24px;">
+            <div class="personal_alter_psd_item">原密码：　<input type="password" class="common_editor" id="original_psd"> </div>
+            <div class="personal_alter_psd_item">新密码：　<input type="password" class="common_editor" id="new_psd"> </div>
+            <div class="personal_alter_psd_item">确认密码：<input type="password" class="common_editor" id="confirm_psd"> </div>
+            <div id='alter_psd_result' class="personal_result_item">&nbsp;</div>
+            <div class=" personal_btn"><button id="alter_psd_btn" class="ui-button ui-corner-all" style="width: 100%">提交</button></div>
+        </div>
+    </div>
+
+    <div id="password_protect">
+        <div style="width: 450px; margin-left: auto; margin-right: auto; padding-bottom: 24px;">
+            <div class="personal_psd_protect_item">问题1：　<input type="text" class="common_editor" id="psd_question_1">
+                &nbsp;&nbsp;<span class="common_clickable" style="color: orange; font-size: 12px" id="edit_psd_question_1">编辑</span>
+                &nbsp;&nbsp;<span class="common_clickable" style="color: gray; font-size: 12px" id="cancel_edit_psd_question_1">取消</span>
+            </div>
+            <div id='psd_answer_1_container' class="personal_psd_protect_item">答案1：　<input type="text" class="common_editor" id="psd_answer_1" placeholder="请输入答案">
+            </div>
+            <div style="height: 20px"></div>
+            <div class="personal_psd_protect_item">问题2：　<input type="text" class="common_editor" id="psd_question_2">
+                &nbsp;&nbsp;<span class="common_clickable" style="color: orange; font-size: 12px" id="edit_psd_question_2">编辑</span>
+                &nbsp;&nbsp;<span class="common_clickable" style="color: gray; font-size: 12px" id="cancel_edit_psd_question_2">取消</span>
+            </div>
+            <div id='psd_answer_2_container' class="personal_psd_protect_item">答案2：　<input type="text" class="common_editor" id="psd_answer_2" placeholder="请输入答案">
+            </div>
+            <div style="height: 20px"></div>
+            <div class="personal_psd_protect_item">问题3：　<input type="text" class="common_editor" id="psd_question_3">
+                &nbsp;&nbsp;<span class="common_clickable" style="color: orange; font-size: 12px" id="edit_psd_question_3">编辑</span>
+                &nbsp;&nbsp;<span class="common_clickable" style="color: gray; font-size: 12px" id="cancel_edit_psd_question_3">取消</span>
+            </div>
+            <div id='psd_answer_3_container' class="personal_psd_protect_item">答案3：　<input type="text" class="common_editor" id="psd_answer_3" placeholder="请输入答案">
+            </div>
+            <div id='psd_protect_result' class="personal_result_item">&nbsp;</div>
+            <div id='psd_protect_btn_container' class=" personal_btn"><button id="psd_protect_btn" class="ui-button ui-corner-all" style="width: 100%">提交</button></div>
+        </div>
+    </div>
+
+    <div id="bind_phone">
+        <div style="width: 400px; margin-left: auto; margin-right: auto; padding-bottom: 24px;">
+            <div class="personal_alter_psd_item">手机号码：<input type="text" class="common_editor" id="login_phone">&nbsp;&nbsp;
+                <span  class="common_clickable" style="color: orange; font-size: 12px" id="cancel_bind_btn">取消绑定</span>
+            </div>
+            <div class="personal_alter_psd_item">登录密码：<input type="password" class="common_editor" id="login_password"> </div>
+            <div id='update_login_phone_result' class="personal_result_item">&nbsp;</div>
+            <div class=" personal_btn"><button id="update_login_phone_btn" class="ui-button ui-corner-all" style="width: 100%">提交</button></div>
+        </div>
+    </div>
+</div>
+{% end %}
+
+{% block custom_foot %}
+<script>
+    var account_info = {}
+    {% for key in account_info %}
+        account_info['{{ key }}'] = '{{ account_info[key] }}';
+    {% end %}
+
+</script>
+{% end %}

@@ -1,0 +1,64 @@
+{% extends base.html %}
+<title>{% block title %}主页{% end %}</title>
+
+{% block custom_head %}
+<link href="res/css/index.css" rel="stylesheet">
+<link href="res/css/list.css" rel="stylesheet">
+<script src="res/script/index.js"></script>
+{% end %}
+
+{% block custom_body %}
+<div class="index_container">
+    <div class="index_left common_border element_left">
+        <div class="index_broadcast">重要通知：********!!!</div>
+        <div class="index_recent_task_container">
+            <div class="topic_title">
+                最近的工作流
+            </div>
+            <ul class="base_ul">
+                <li>item1</li>
+                <li>item2</li>
+                <li>item3</li>
+                <li>item4</li>
+                <li>item5</li>
+            </ul>
+        </div>
+    </div>
+    <div class="index_right common_border element_right">
+        <div class="topic_title">
+            图片要闻
+        </div>
+        <div>
+            <img class="index_news_big_img" src="res/images/a.jpg" id="index_big_img">
+        </div>
+        <div class="index_news_divider"></div>
+        <div class="topic_title">
+            <div class="element_left">公司要闻</div>
+            <div class="element_right"><a href="error.html" style="font-size: 14px">更多》</a></div>
+        </div>
+        <div>
+            <ul class="base_ul">
+                <li>item1</li>
+                <li>item2</li>
+                <li>item3</li>
+                <li>item4</li>
+                <li>item5</li>
+            </ul>
+        </div>
+        <div class="index_news_divider"></div>
+        <div class="topic_title">
+            <div class="element_left">其他资讯</div>
+            <div class="element_right"><a href="error.html" style="font-size: 14px">更多》</a></div>
+        </div>
+        <div>
+            <ul class="base_ul">
+                <li>item1</li>
+                <li>item2</li>
+                <li>item3</li>
+                <li>item4</li>
+                <li>item5</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% end %}

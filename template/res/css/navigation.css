@@ -1,0 +1,38 @@
+.div-header-navigation-bar{
+    background: orange;
+    height:36px;
+    border-bottom:#e0e0e0 1px;
+}
+
+.div-header-navigation-bar ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    margin-left: 20px;
+}
+
+.div-header-navigation-bar ul li{
+    float: left;
+    margin-right:40px;
+}
+
+.div-header-navigation-bar a, a:visited{
+    line-height:36px;
+    color: white;
+    font-size:16px;
+    text-decoration:none;
+}
+
+.div-header-navigation-bar a:hover{
+    line-height:36px;
+    color:#0066ff;
+    font-size:16px;
+    text-decoration:none;
+}
+
+.div-header-navigation-bar a:active{
+    line-height:36px;
+    color:#66ccff;
+    font-size:16px;
+    text-decoration:none;
+}

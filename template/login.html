@@ -1,0 +1,77 @@
+{% extends base.html %}
+
+
+<title>{% block title %}登录{% end %}</title>
+
+{% block custom_head %}
+<link href="res/css/login.css" rel="stylesheet">
+<script src="res/script/sha1.js"></script>
+<script src="res/script/md5.js"></script>
+{% end %}
+
+{% block custom_header %}
+<!--{% module Template("login_header.html") %}-->
+{% end %}
+
+{% block custom_body %}
+<div class="login_container">
+    <div class="element_left common_border login_image"></div>
+    <div class="element_right common_border login_form">
+        <div class="login_container">
+            <div class="login_title">欢迎使用OA系统</div>
+            <div class="login_account_container">
+                账号：
+                <input id='account' type="text" class="common_editor">
+            </div>
+            <div class="login_password_container">
+                密码：
+                <input id='password' type="password" class="common_editor">
+            </div>
+            <div class="login_forget_password">
+                <a href="error.html"> 忘记密码？</a>
+            </div>
+            <div id="login_result" class="login_result_info">&nbsp;</div>
+            <div class="login_btn_container">
+                <button id='login_btn' class="ui-button ui-corner-all" style="width: 120px;">登　　录</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#login_btn").click(function (event) {
+        var account = $("#account").val();
+        if (!account) {
+            setLoginResultInfo('账号不能为空');
+            return;
+        }
+        var password = $("#password").val();
+        if (!password) {
+            setLoginResultInfo('密码不能为空');
+            return;
+        }
+        $.post('login.html', {account: account, password: getHash(password)}, function (data) {
+            try {
+                if (data.status !== 0) {
+                    setLoginResultInfo('登录错误：' + data.msg);
+                    return;
+                }
+                window.location.href = '/index.html';
+            } catch (e) {
+                console.debug('login exception ' + e);
+                redirectError();
+            }
+        })
+    });
+
+    function setLoginResultInfo(info) {
+        $("#login_result").text(info);
+    }
+</script>
+{% end %}
+
+{% block custom_init %}
+<script>
+    $("#__common_tag_area").hide();
+</script>
+{% end %}

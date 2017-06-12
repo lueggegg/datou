@@ -1,0 +1,51 @@
+<!-- 头部 -->
+<div class="base_container">
+    <div class="web_header">
+        <div class="element_left" style="margin-left: 20px">
+            <img src="res/images/logo.png" style="width: 20px; height: 22px; margin-top: 13px">
+        </div>
+        <div class="element_left" style="margin-left: 10px; font-size: 20px">
+            欢迎使用OA系统
+        </div>
+        <div class="element_right" style="margin-right: 20px">
+            <a href="personal.html"  style="color: orange">{{ account_info['name']}}</a>&nbsp;|&nbsp;<a href="logout.html" style="color: orange;">退出</a>
+        </div>
+        <div class="element_right" style="margin-right: 10px">
+            <a href="personal.html">
+            <img id='header_user_portrait' src="{{ account_info['portrait'] }}" style="width: 36px; height: 36px; border-radius: 18px;">
+            </a>
+        </div>
+    </div>
+
+    <div class="div-header-navigation-bar base_container">
+        <ul id="guild_bar">
+        </ul>
+    </div>
+</div>
+
+<script>
+    function showGuildBar() {
+        var guild = [
+            {href: 'index.html', label: '首页', authority: __common_authority},
+            {href: 'personal.html', label: '个人信息', authority: __admin_authority},
+            {href: 'error.html', label: '通讯录', authority: __admin_authority},
+            {href: 'error.html', label: '工作流', authority: __dept_leader_authority},
+            {href: 'error.html', label: '办公室发文', authority: __common_authority},
+            {href: 'error.html', label: '证明材料申请', authority: __admin_authority},
+            {href: 'error.html', label: '人事流程', authority: __dept_leader_authority},
+            {href: 'error.html', label: '采购流程', authority: __admin_authority},
+            {href: 'error.html', label: '公司制度', authority: __dept_leader_authority},
+            {href: 'error.html', label: '文件下载', authority: __dept_leader_authority}
+        ];
+        var html = '';
+        guild.forEach(function (item, p2, p3) {
+            if (item.authority >= __authority) {
+                html += getGuildItemHtml(item);
+            }
+        });
+        $("#guild_bar").append(html);
+    }
+    function getGuildItemHtml(item) {
+        return '<li><a href="' + item.href + '">' + item.label + '</a></li>'
+    }
+</script>

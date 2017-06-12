@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{% block title %}Default title{% end %}</title>
+    <script src="res/jquery/external/jquery/jquery.js"></script>
+    <script src="res/jquery/jquery-ui.js"></script>
+    <link href="res/jquery/jquery-ui.css" rel="stylesheet">
+    <link href="res/css/base.css" rel="stylesheet">
+    <script src="res/script/base.js"></script>
+    <link href="res/css/navigation.css" rel="stylesheet">
+    {% block custom_head %}{% end %}
+</head>
+
+<body>
+{% block custom_header %}
+{% module Template("header.html", account_info=account_info) %}
+{% end %}
+<div class="base_container">
+
+    <div id="__common_tag_area" class="common_tag_area"></div>
+
+    {% block custom_body %}
+    {% end %}
+
+    {% block custom_footer %}
+    <div class="web_footer">版权所有 my-oa.com</div>
+    {% end %}
+</div>
+
+</body>
+
+{% block custom_init %}
+<script>
+    $("#__common_tag_area").hide();
+    var __authority = 1;
+    showGuildBar();
+</script>
+{% end %}
+
+{% block custom_foot %} {% end %}
+</html>

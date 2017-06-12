@@ -1,0 +1,11 @@
+.base_ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.base_ul li {
+    margin-left: 16px;
+    height: 32px;
+    line-height: 32px;
+}
