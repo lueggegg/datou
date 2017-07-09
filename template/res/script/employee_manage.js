@@ -236,6 +236,9 @@ function openEmployeeDialog(data) {
         $("#position").val(data.position);
         $("#join_date").val(data.join_date.slice(0,10));
         join_date = null;
+        if (data.cellphone) {
+            $("#cellphone").val(data.cellphone);
+        }
         enableResetEmployeePassword(false);
     }
     employee_dialog.dialog('option', 'title', getOperationString());
