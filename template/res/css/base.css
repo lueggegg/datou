@@ -8,10 +8,6 @@
     color: rgb(0,127,255);
 }
 
-.base_container a:visited{
-    color: rgb(0,127,255);
-}
-
 .element_left {
     float: left;
     position: relative;
@@ -30,6 +26,10 @@
     line-height: 44px;
     color: rgb(0,127,255);
     border-bottom: 1px solid gray;
+}
+
+.web_header a:visited {
+    color: rgb(0,127,255);
 }
 
 .web_footer {
