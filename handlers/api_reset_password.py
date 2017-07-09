@@ -11,7 +11,7 @@ class ApiResetPassword(ApiNoVerifyHandler):
     @gen.coroutine
     def _real_deal_request(self):
         res = {"status": error_codes.EC_SUCCESS}
-        password = self.get_argument('uid', None)
+        password = self.get_argument('password', None)
         uid = self.get_argument('uid', None)
         ret = self.account_dao.update_account(uid, password=password)
 
