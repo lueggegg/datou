@@ -31,13 +31,40 @@
 
 </body>
 
-{% block custom_init %}
 <script>
     $("#__common_tag_area").hide();
-    var __authority = 1;
-    showGuildBar();
+    var __authority = {{ account_info['authority'] }};
+
+    function getGuildItemHtml(item) {
+        return '<li><a style="color: white;" href="' + item.href + '">' + item.label + '</a></li>'
+    }
+
+    function showGuildBar() {
+        {% block custom_guild_bar %}
+        var guild = [
+            {href: 'index.html', label: '首页', authority: __common_authority},
+            {href: 'personal.html', label: '个人信息', authority: __admin_authority},
+            {href: 'error.html', label: '通讯录', authority: __admin_authority},
+            {href: 'error.html', label: '工作流', authority: __dept_leader_authority},
+            {href: 'error.html', label: '办公室发文', authority: __common_authority},
+            {href: 'error.html', label: '证明材料申请', authority: __admin_authority},
+            {href: 'error.html', label: '人事流程', authority: __dept_leader_authority},
+            {href: 'error.html', label: '采购流程', authority: __admin_authority},
+            {href: 'error.html', label: '公司制度', authority: __dept_leader_authority},
+            {href: 'error.html', label: '文件下载', authority: __dept_leader_authority}
+        ];
+        {% end %}
+        var html = '';
+        guild.forEach(function (item, p2, p3) {
+            if (item.authority >= __authority) {
+                html += getGuildItemHtml(item);
+            }
+        });
+        $("#guild_bar").append(html);
+    }
+
+    $(showGuildBar);
 </script>
-{% end %}
 
 {% block custom_foot %} {% end %}
 </html>

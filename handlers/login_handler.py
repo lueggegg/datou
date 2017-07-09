@@ -9,8 +9,6 @@ class LoginHandler(BaseHandler):
 
     @gen.coroutine
     def _deal_request(self):
-        BaseHandler._deal_request(self)
-
         account = self.get_argument('account', None)
         password = self.get_argument('password', None)
         print account, password

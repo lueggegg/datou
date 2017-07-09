@@ -1,0 +1,110 @@
+{% extends base_admin.html %}
+
+{% block title %}公司架构管理{% end %}
+{% block custom_head %}
+<link href="res/css/list.css" rel="stylesheet">
+<link href="res/css/tabs.css" rel="stylesheet">
+<script src="res/script/employee_manage.js"></script>
+<script src="res/script/md5.js"></script>
+<script src="res/script/sha1.js"></script>
+{% end %}
+
+
+{% block custom_body %}
+    <div id="tabs" style="margin-top: 10px;">
+        <ul>
+            <li><a href="#dept_config_container">部门管理</a></li>
+            <li><a href="#employee_config_container">员工管理</a></li>
+        </ul>
+
+        <div class="tab_config_container" id="dept_config_container">
+            <div class="element_right">
+                <button id="add_dept" style="width: 140px" class="ui-button ui-corner-all ui-widget">+增加部门</button>
+            </div>
+            <div id="dept_list" style="margin-top: 20px;">
+            </div>
+        </div>
+
+
+        <div class="tab_config_container" id="employee_config_container" style="padding-bottom: 24px;">
+            <div class="selector_container">
+                <div style="float: left">
+                    当前部门：
+                    <select id="current_department_menu">
+                        <option selected disabled value="-1">请选择</option>
+                        <option value="0">全部</option>
+                    </select>
+                </div>
+                <div class="element_right">
+                    <!--<button id="add_employee_list" style="width: 140px" class="ui-button ui-corner-all ui-widget">+批量增加员工</button>                    &nbsp;&nbsp;-->
+                    <button id="add_employee" style="width: 140px" class="ui-button ui-corner-all ui-widget">+增加员工</button>
+                </div>
+            </div>
+            <p>员工数：<span style="color: red" id="current_employee_count">0</span></p>
+            <div id="employee_list" style="margin-top: 20px;"></div>
+        </div>
+        <br/>
+    </div>
+{% end %}
+{% block custom_foot %}
+
+
+<div id="edit_dept_dialog" title="增加部门">
+    <p>
+        上级部门：
+        <select id="leader_dept">
+            <option selected disabled value="-1">请选择</option>
+            <option value="null" id="noneLeader">无</option>
+        </select>
+    </p>
+    <p>
+        部门名称：<input id="dept_name" type="text" class="common_editor"/>
+    </p>
+    <p>&nbsp;</p>
+</div>
+
+
+<div id="edit_employee_dialog" title="增加员工">
+    <div>
+        <input type="file" id="portrait_file" onchange="onPortrailChange()" accept="image/*" class="ui-button ui-corner-all"/>
+        <span class="sp_text">*</span>
+        <div style="width: 150px; margin-left: auto; margin-right: auto; margin-top: 10px;">
+            <img id="personal_portrait" src="res/images/default_portrait.png" style="width: 150px; height: 200px;">
+        </div>
+    </div>
+    <p>
+        　　账号：<input id="employee_account" type="text" class="common_editor"/><span class="sp_text">*</span>
+    </p>
+    <p>
+        　　密码：<input id="employee_password" type="password" class="common_editor" placeholder="默认为：oa123456"/>
+        <button id="reset_employee_password" class="common_editor">重置</button>
+        &nbsp;&nbsp;
+        <span class="common_clickable" id="cancel_reset_employee_password">取消</span>
+    </p>
+    <p>
+        　　姓名：<input id="employee_name" type="text" class="common_editor"/><span class="sp_text">*</span>
+    </p>
+    <p>
+        　身份证：<input id="id_card" type="text" class="common_editor"/><span class="sp_text">*</span>
+    </p>
+    <p class="department_selector" id="edit_employee_dept">
+        　　部门：
+        <select id="belong_dept">
+            <option selected disabled value="-1">请选择部门</option>
+        </select>
+        <span class="sp_text">*</span>
+    </p>
+    <p>
+        　　职位：<input id="position" type="text" class="common_editor"/><span class="sp_text">*</span>
+    </p>
+    <p>
+        入职日期：<input id="join_date" type="text" class="common_editor"/><span class="sp_text">*</span>
+    </p>
+    <p>
+        手机号码：<input id="cellphone" type="text" class="common_editor"/>
+    </p>
+    <p>&nbsp;</p>
+</div>
+
+
+ {% end %}

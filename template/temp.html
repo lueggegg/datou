@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>个人信息</title>
+    <title>公司架构管理</title>
     <script src="res/jquery/external/jquery/jquery.js"></script>
     <script src="res/jquery/jquery-ui.js"></script>
     <link href="res/jquery/jquery-ui.css" rel="stylesheet">
@@ -13,8 +13,9 @@
 
     <link href="res/css/list.css" rel="stylesheet">
     <link href="res/css/tabs.css" rel="stylesheet">
-    <link href="res/css/personal.css" rel="stylesheet">
-    <script src="res/script/personal.js"></script>
+    <script src="res/script/employee_manage.js"></script>
+    <script src="res/script/md5.js"></script>
+    <script src="res/script/sha1.js"></script>
 
 </head>
 <body>
@@ -29,11 +30,11 @@
             欢迎使用OA系统
         </div>
         <div class="element_right" style="margin-right: 20px">
-            <a href="personal.html" style="color: orange">张三</a>&nbsp;|&nbsp;<a href="logout.html" style="color: orange;">退出</a>
+            <a href="personal.html" style="color: rgb(0,127,255)">test_name</a>&nbsp;|&nbsp;<a href="logout.html" style="color: rgb(0,127,255);">退出</a>
         </div>
         <div class="element_right" style="margin-right: 10px">
             <a href="personal.html">
-                <img id='header_user_portrait' src="res/images/portrait_demo.png" style="width: 36px; height: 36px; border-radius: 18px;">
+                <img id='header_user_portrait' src="https://b3.hoopchina.com.cn/images/logo2013/v1/hp_logo_nba.png" style="width: 36px; height: 36px; border-radius: 18px;">
             </a>
         </div>
     </div>
@@ -75,64 +76,34 @@
 
     <div id="tabs" style="margin-top: 10px;">
         <ul>
-            <li><a href="#personal_info">个人信息</a> </li>
-            <li><a href="#alter_password">修改密码</a> </li>
-            <li><a href="#password_protect">密码保护</a> </li>
-            <li><a href="#bind_phone">绑定手机</a> </li>
+            <li><a href="#dept_config_container">部门管理</a></li>
+            <li><a href="#employee_config_container">员工管理</a></li>
         </ul>
-        <div id="personal_info">
-            <div class="personal_base_info_container">
-                <div class="element_left">
-                    <div class="topic_title">基本信息</div>
-                    <div class="personal_info_detail_container">
-                        <ul>
-                            <li>工号：<span id="account">T1234567</span></li>
-                            <li>姓名：<span id="user_name">张三</span></li>
-                            <li>身份证：<span id="id_card">421234199909091234</span></li>
-                            <li></li>
-                            <li>部门：<span id="user_dept">人力资源部</span></li>
-                            <li>职位：<span id="user_role">助理</span></li>
-                            <li>入职时间：<span id="join_time">2013-08-11</span></li>
-                        </ul>
-                    </div>
+        <div class="tab_config_container" id="dept_config_container">
+            <div class="element_right">
+                <button id="add_dept" style="width: 140px" class="ui-button ui-corner-all ui-widget">+增加部门</button>
+            </div>
+            <div id="dept_list" style="margin-top: 20px;">
+            </div>
+        </div>
+        <div class="tab_config_container" id="employee_config_container" style="padding-bottom: 24px;">
+            <div class="selector_container">
+                <div style="float: left">
+                    当前部门：
+                    <select id="current_department_menu">
+                        <option selected disabled value="-1">请选择</option>
+                        <option value="0">全部</option>
+                    </select>
                 </div>
                 <div class="element_right">
-                    <img id='personal_portrait' class="personal_portrait" src="res/images/portrait_demo.png">
+                    <!--<button id="add_employee_list" style="width: 140px" class="ui-button ui-corner-all ui-widget">+批量增加员工</button> &nbsp;&nbsp;-->
+                    <button id="add_employee" style="width: 140px" class="ui-button ui-corner-all ui-widget">+增加员工</button>
                 </div>
             </div>
-            <div class="personal_other_info_container">
-                <div style="width: 98%; height: 32px; line-height: 32px;">
-                    <div class="topic_title element_left">其他信息</div>
-                    <div class="element_right common_clickable" id="alert_info">编辑</div>
-                    <div class="element_right common_clickable" style="color: gray; margin-right: 2em;" id="cancle_alert_info">取消</div>
-                </div>
-                <div class="personal_info_detail_container">
-                    <ul>
-                        <li>学历：<input disabled id="education" type="text" class="common_editor"></li>
-                        <li>专业：<input disabled id="major" type="text" class="common_editor"></li>
-                        <li></li>
-                        <li>手机：<input disabled id="phone_number" type="text" class="common_editor"></li>
-                        <li>座机：<input disabled id="telephone" type="text" class="common_editor"></li>
-                        <li></li>
-                        <li>邮箱：<input disabled id="email" type="text" class="common_editor"></li>
-                        <li>微信：<input disabled id="wechat" type="text" class="common_editor"></li>
-                        <li>QQ：<input disabled id="qq" type="text" class="common_editor"></li>
-                        <li style="width: 90%">地址：<input disabled id="address" type="text" class="common_editor" style="width: 80%"></li>
-                    </ul>
-                </div>
-            </div>
+            <p>员工数：<span style="color: red" id="current_employee_count">0</span></p>
+            <div id="employee_list" style="margin-top: 20px;"></div>
         </div>
-        <div id="alter_password">
-            <div style="width: 360px; margin-left: auto; margin-right: auto; padding-bottom: 24px;">
-                <div class="personal_alter_psd_item">原密码：　<input type="password" class="common_editor" id="original_psd"> </div>
-                <div class="personal_alter_psd_item">新密码：　<input type="password" class="common_editor" id="new_psd"> </div>
-                <div class="personal_alter_psd_item">确认密码：<input type="password" class="common_editor" id="confirm_psd"> </div>
-                <div class="personal_result_item">&nbsp;</div>
-                <div class=" personal_btn"><button class="ui-button ui-corner-all" style="width: 100%">提交</button></div>
-            </div>
-        </div>
-        <div id="password_protect"></div>
-        <div id="bind_phone"></div>
+        <br/>
     </div>
 
 
@@ -148,43 +119,54 @@
 </script>
 
 
-<script>
-    var account_info = {}
-
-    account_info['qq'] = '10086';
-
-    account_info['account'] = 'T001';
-
-    account_info['name'] = '张三';
-
-    account_info['dept'] = '人力资源部';
-
-    account_info['id_card'] = '410000201010101234';
-
-    account_info['telephone'] = '0755-88881234';
-
-    account_info['id'] = '1';
-
-    account_info['phone'] = '12345678910';
-
-    account_info['academic'] = '本科';
-
-    account_info['role'] = '招聘助理';
-
-    account_info['address'] = '深圳市****';
-
-    account_info['portrait'] = 'res/images/portrait_demo.png';
-
-    account_info['major'] = '人力管理';
-
-    account_info['password'] = '10470c3b4b1fed12c3baac014be15fac67c6e815';
-
-    account_info['wechat'] = 'we999';
-
-    account_info['email'] = '123@qq.com';
-
-    account_info['add_time'] = '2015-05-22';
-
-</script>
+<div id="edit_dept_dialog" title="增加部门">
+    <p class="department_selector">
+        上级部门：
+        <select id="leader_dept">
+            <option selected disabled value="-1">请选择</option>
+            <option value="null" id="noneLeader">无</option>
+        </select>
+    </p>
+    <p>
+        部门名称：<input id="dept_name" type="text" class="common_editor"/>
+    </p>
+    <p>&nbsp;</p>
+</div>
+<div id="edit_employee_dialog" title="增加员工">
+    <div>
+        <input type="file" id="portrait_file" onchange="onPortrailChange()" accept="image/*" class="ui-button ui-corner-all"/>
+        <div style="width: 150px; margin-left: auto; margin-right: auto; margin-top: 10px;">
+            <img id="personal_portrait" src="res/images/default_portrait.png" style="width: 150px; height: 200px;">
+        </div>
+    </div>
+    <p>
+        　　账号：<input id="employee_account" type="text" class="common_editor"/>
+    </p>
+    <p>
+        　　密码：<input id="employee_password" type="password" class="common_editor" placeholder="默认为：oa123456"/>
+        <button id="reset_employee_password" class="common_editor">重置</button>
+        &nbsp;&nbsp;
+        <span class="common_clickable" id="cancel_reset_employee_password">取消</span>
+    </p>
+    <p>
+        　　姓名：<input id="employee_name" type="text" class="common_editor"/>
+    </p>
+    <p>
+        　身份证：<input id="id_card" type="text" class="common_editor"/>
+    </p>
+    <p class="department_selector" id="edit_employee_dept">
+        　　部门：
+        <select id="belong_dept">
+            <option selected disabled value="-1">请选择部门</option>
+        </select>
+    </p>
+    <p>
+        　　职位：<input id="position" type="text" class="common_editor"/><span class="sp_text">&nbsp;*</span>
+    </p>
+    <p>
+        入职日期：<input id="join_date" type="text" class="common_editor"/>
+    </p>
+    <p>&nbsp;</p>
+</div>
 
 </html>

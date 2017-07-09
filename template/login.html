@@ -1,19 +1,24 @@
-{% extends base.html %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>登录</title>
+    <script src="res/jquery/external/jquery/jquery.js"></script>
+    <script src="res/jquery/jquery-ui.js"></script>
+    <link href="res/jquery/jquery-ui.css" rel="stylesheet">
+    <link href="res/css/base.css" rel="stylesheet">
+    <script src="res/script/base.js"></script>
+    <link href="res/css/navigation.css" rel="stylesheet">
+    <link href="res/css/login.css" rel="stylesheet">
+    <script src="res/script/sha1.js"></script>
+    <script src="res/script/md5.js"></script>
+    <script src="res/script/login.js"></script>
+</head>
 
 
-<title>{% block title %}登录{% end %}</title>
-
-{% block custom_head %}
-<link href="res/css/login.css" rel="stylesheet">
-<script src="res/script/sha1.js"></script>
-<script src="res/script/md5.js"></script>
-{% end %}
-
-{% block custom_header %}
-<!--{% module Template("login_header.html") %}-->
-{% end %}
-
-{% block custom_body %}
+<body>
+<div class="base_container">
 <div class="login_container">
     <div class="element_left common_border login_image"></div>
     <div class="element_right common_border login_form">
@@ -27,9 +32,7 @@
                 密码：
                 <input id='password' type="password" class="common_editor">
             </div>
-            <div class="login_forget_password">
-                <a href="error.html"> 忘记密码？</a>
-            </div>
+            <div class="login_forget_password common_clickable" id="forget_psd">忘记密码？</div>
             <div id="login_result" class="login_result_info">&nbsp;</div>
             <div class="login_btn_container">
                 <button id='login_btn' class="ui-button ui-corner-all" style="width: 120px;">登　　录</button>
@@ -37,41 +40,57 @@
         </div>
     </div>
 </div>
+</div>
 
-<script>
-    $("#login_btn").click(function (event) {
-        var account = $("#account").val();
-        if (!account) {
-            setLoginResultInfo('账号不能为空');
-            return;
-        }
-        var password = $("#password").val();
-        if (!password) {
-            setLoginResultInfo('密码不能为空');
-            return;
-        }
-        $.post('login.html', {account: account, password: getHash(password)}, function (data) {
-            try {
-                if (data.status !== 0) {
-                    setLoginResultInfo('登录错误：' + data.msg);
-                    return;
-                }
-                window.location.href = '/index.html';
-            } catch (e) {
-                console.debug('login exception ' + e);
-                redirectError();
-            }
-        })
-    });
+<div id="forget_psd_dialog" title="忘记密码">
+    <p>账号：<input type="text" id="fetch_account" class="common_editor"></p>
+    <p>
+        <span id='fetch_psd_from_admin' class="common_clickable">1. 向管理员申请取回密码</span>
+    </p>
+    <p>
+        <span id='fetch_psd_by_protect_question' class="common_clickable">2. 通过密保问题取回</span>
+    </p>
+    <p>&nbsp;</p>
+</div>
 
-    function setLoginResultInfo(info) {
-        $("#login_result").text(info);
-    }
-</script>
-{% end %}
+<div id="fetch_psd_by_quetion_dialog" title="取回密码">
+    <p style="color: red;">正确回答2个（含2个）以上问题才能重新设置密码</p>
+    <div class="question_out_container">
+        <div class="question_in_container">
+            问题1：<input disabled type="text" id="question_0" class="common_editor">
+        </div>
+        <div class="question_in_container">
+            答案1：<input type="text" id="answer_0" class="common_editor">
+        </div>
+    </div>
+    <div class="question_out_container">
+        <div class="question_in_container">
+            问题2：<input disabled type="text" id="question_1" class="common_editor">
+        </div>
+        <div class="question_in_container">
+            答案2：<input type="text" id="answer_1" class="common_editor">
+        </div>
+    </div>
+    <div class="question_out_container">
+        <div class="question_in_container">
+            问题3：<input disabled type="text" id="question_2" class="common_editor">
+        </div>
+        <div class="question_in_container">
+            答案3：<input type="text" id="answer_2" class="common_editor">
+        </div>
+    </div>
+    <p>&nbsp;</p>
+</div>
 
-{% block custom_init %}
-<script>
-    $("#__common_tag_area").hide();
-</script>
-{% end %}
+<div id="reset_psd_dialog" title="重置密码">
+    <div class="question_out_container">
+        　新密码：<input type="password" id="new_psd" class="common_editor">
+    </div>
+    <div class="question_out_container">
+        确认密码：<input type="password" id="confirm_psd" class="common_editor">
+    </div>
+</div>
+
+</body>
+
+</html>

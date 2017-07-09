@@ -4,6 +4,18 @@ var editing_info = false;
 var psd_questions = null;
 var editing_psd_question = [false, false, false];
 
+var custom_info_map = [
+    ['#education', 'degree'],
+    ['#college', 'college'],
+    ['#major', 'major'],
+    ['#phone_number', 'cellphone'],
+    ['#telephon', 'telephone'],
+    ['#email', 'email'],
+    ['#wechat', 'wechat'],
+    ['#qq', 'qq'],
+    ['#address', 'address']
+];
+
 OP_NONE = -1;
 OP_UPDATE_CUSTOM_INFO = 1;
 OP_ALTER_PSD = 2;
@@ -16,10 +28,10 @@ op_current = OP_NONE;
 $(document).ready(function () {
     verticalTabs("#tabs");
 
-    info_editors = [$("#education"), $("#major"), $("#phone_number"), $("#telephone"), $("#email"),
+    info_editors = [$("#education"), $("#college"), $("#major"), $("#phone_number"), $("#telephone"), $("#email"),
         $("#wechat"), $("#qq"), $("#address")
     ];
-    $("#alert_info").click(function (event) {
+    $("#alter_info").click(function (event) {
         if (editing_info) {
             updatePersonalInfo();
         }
@@ -28,7 +40,7 @@ $(document).ready(function () {
         event.preventDefault();
     });
 
-    $("#cancle_alert_info").click(function (event) {
+    $("#cancle_alter_info").click(function (event) {
         editing_info = false;
         updateInfoEditorStatus();
         setPersonalCustomInfo();
@@ -62,14 +74,14 @@ $(document).ready(function () {
 });
 
 function initPersonalInfo() {
-    $("#cancle_alert_info").hide();
+    $("#cancle_alter_info").hide();
 
     $("#account").text(account_info.account);
     $("#user_name").text(account_info.name);
     $("#id_card").text(account_info.id_card);
     $("#user_dept").text(account_info.dept);
-    $("#user_role").text(account_info.role);
-    $("#join_time").text(account_info.add_time);
+    $("#user_role").text(account_info.position);
+    $("#join_time").text(account_info.join_date.slice(0,10));
 
     setPersonalCustomInfo();
 
@@ -86,6 +98,9 @@ function setPersonalCustomInfo() {
     $("#qq").val(account_info.qq);
     $("#address").val(account_info.address);
 
+    custom_info_map.forEach(function (p1, p2, p3) {
+        $(p1[0]).val(account_info[p1[1]]);
+    });
     if (account_info.login_phone) {
         $("#login_phone").val(account_info.login_phone);
         $("#cancel_bind_btn").show();
@@ -95,7 +110,7 @@ function setPersonalCustomInfo() {
 }
 
 function initPsdProtectInfo() {
-    $.post('/api/get_password_protect_question', null, function (data) {
+    $.post('/api/get_password_protect_question', {uid: account_info.id}, function (data) {
         try {
             if (data.status !== 0) {
                 redirectError();
@@ -120,15 +135,12 @@ function initPsdProtectInfo() {
 }
 
 function setPsdProtectInfo() {
-    $("#psd_question_1")[0].disabled = true;
-    $("#psd_question_2")[0].disabled = true;
-    $("#psd_question_3")[0].disabled = true;
-    $("#psd_question_1").val(psd_questions.psd_question_1);
-    $("#psd_question_2").val(psd_questions.psd_question_2);
-    $("#psd_question_3").val(psd_questions.psd_question_3);
-    $("#psd_answer_1_container").hide();
-    $("#psd_answer_2_container").hide();
-    $("#psd_answer_3_container").hide();
+    psd_questions.forEach(function (p1, p2, p3) {
+        question_container = $("#psd_question_" + (p2+1));
+        question_container.val(p1.question);
+        question_container[0].disabled = true;
+        $("#psd_answer_" +  (p2+1) + "_container").hide();
+    });
     $("#psd_protect_btn_container").hide();
 }
 
@@ -162,7 +174,7 @@ function initPsdQuestionEditBnt(index) {
             cancel_btn.hide();
             question_editor[0].disabled = true;
             answer_container.hide();
-            updatePsdQuestions(index, question, answer);
+            updatePsdQuestions(index-1, question, answer);
         }
     });
     cancel_btn.click(function (event) {
@@ -183,26 +195,24 @@ function updateInfoEditorStatus() {
     info_editors.forEach(function (p1, p2, p3) {
         p1[0].disabled = !editing_info;
     });
-    $("#alert_info").text(editing_info? '保存' : '编辑');
+    $("#alter_info").text(editing_info? '保存' : '编辑');
     if (editing_info) {
-        $("#cancle_alert_info").show();
+        $("#cancle_alter_info").show();
     } else {
-        $("#cancle_alert_info").hide();
+        $("#cancle_alter_info").hide();
     }
 }
 
 function updatePersonalInfo() {
-    account_info.academic = $("#education").val();
-    account_info.major = $("#major").val();
-    account_info.phone = $("#phone_number").val();
-    account_info.telephone = $("#telephone").val();
-    account_info.email = $("#email").val();
-    account_info.wechat = $("#wechat").val();
-    account_info.qq = $("#qq").val();
-    account_info.address = $("#address").val();
+    var info = {};
+
+    custom_info_map.forEach(function (p1, p2, p3) {
+       var item = $(p1[0]).val();
+       if (item !== account_info[p1[1]]) info[p1[1]] = item;
+    });
 
     op_current = OP_UPDATE_CUSTOM_INFO;
-    $.post('/api/update_account_info', {account_info: JSON.stringify(account_info)}, operationResult);
+    $.post('/api/alter_account', {op: 'update', uid: account_info.id, account_info: JSON.stringify(info)}, operationResult);
 }
 
 function updatePassword() {
@@ -231,9 +241,9 @@ function updatePassword() {
         return;
     }
 
-    account_info.password = getHash(new_psd);
+    var info = {password: getHash(new_psd)};
     op_current = OP_ALTER_PSD;
-    $.post('/api/update_account_info', {account_info: JSON.stringify(account_info)}, operationResult);
+    $.post('/api/alter_account', {op: 'update', uid: account_info.id, account_info: JSON.stringify(info)}, operationResult);
 }
 
 function setAlterPasswordResult(msg) {
@@ -251,27 +261,26 @@ function addPsdQuestions() {
         setPsdProtectResult('请填写完所有密码保护问题与答案');
         return;
     }
-    psd_questions = {};
-    psd_questions['psd_question_1'] = question_1;
-    psd_questions['psd_answer_1'] = answer_1;
-    psd_questions['psd_question_2'] = question_2;
-    psd_questions['psd_answer_2'] = answer_2;
-    psd_questions['psd_question_3'] = question_3;
-    psd_questions['psd_answer_3'] = answer_3;
+    psd_questions = [[], [], []];
+    psd_questions[0].push(question_1);
+    psd_questions[0].push(answer_1);
+    psd_questions[1].push(question_2);
+    psd_questions[1].push(answer_2);
+    psd_questions[2].push(question_3);
+    psd_questions[2].push(answer_3);
     op_current = OP_ADD_PSD_QUESTION;
-    $.post('/api/update_password_protect_question', {question_info: JSON.stringify(psd_questions)}, operationResult);
+    $.post('/api/update_password_protect_question', {op: 'add', question_info: JSON.stringify(psd_questions)}, operationResult);
 }
 
 function updatePsdQuestions(index, question, answer) {
-    var question_key = 'psd_question_' + index;
-    var answer_key = 'psd_answer_' + index;
-    psd_questions[question_key] = question;
-    psd_questions[answer_key] = answer;
+    psd_questions[index][0] = question;
+    psd_questions[index][1] = answer;
     var data = {};
-    data[question_key] = question;
-    data[answer_key] = answer;
+    data['question'] = question;
+    data['answer'] = answer;
     op_current = OP_UPDATE_PSD_QUESTION;
-    $.post('/api/update_password_protect_question', {question_info: JSON.stringify(data)}, operationResult);
+    $.post('/api/update_password_protect_question',
+        {op: 'update', question_id: psd_questions[index].id, question_info: JSON.stringify(data)}, operationResult);
 }
 
 function setPsdProtectResult(msg) {
@@ -280,7 +289,7 @@ function setPsdProtectResult(msg) {
 
 function bindPhone(cancel) {
     cancel = !!cancel;
-    var phone = '';
+    var phone = null;
     if (cancel) {
         op_current = OP_CANCEL_BIND_PHONE;
     } else {
@@ -305,7 +314,8 @@ function bindPhone(cancel) {
         return;
     }
     $("#login_password").val('');
-    $.post('/api/update_login_phone', {login_phone: phone}, operationResult);
+    var info = {login_phone: phone};
+    $.post('/api/alter_account', {op: 'update', uid: account_info.id, account_info: JSON.stringify(info)}, operationResult);
 }
 
 function setBindPhoneResult(msg) {

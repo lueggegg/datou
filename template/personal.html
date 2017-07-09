@@ -42,14 +42,14 @@
         <div class="personal_other_info_container">
             <div style="width: 98%; height: 32px; line-height: 32px;">
                 <div class="topic_title element_left">其他信息</div>
-                <div class="element_right common_clickable" id="alert_info">编辑</div>
-                <div class="element_right common_clickable" style="color: gray; margin-right: 2em;" id="cancle_alert_info">取消</div>
+                <div class="element_right common_clickable" id="alter_info">编辑</div>
+                <div class="element_right common_clickable" style="color: gray; margin-right: 2em;" id="cancle_alter_info">取消</div>
             </div>
             <div class="personal_info_detail_container">
                 <ul>
                     <li>学历：<input disabled id="education" type="text" class="common_editor"></li>
+                    <li>学校：<input disabled id="college" type="text" class="common_editor"></li>
                     <li>专业：<input disabled id="major" type="text" class="common_editor"></li>
-                    <li></li>
                     <li>手机：<input disabled id="phone_number" type="text" class="common_editor"></li>
                     <li>座机：<input disabled id="telephone" type="text" class="common_editor"></li>
                     <li></li>
@@ -75,21 +75,21 @@
     <div id="password_protect">
         <div style="width: 450px; margin-left: auto; margin-right: auto; padding-bottom: 24px;">
             <div class="personal_psd_protect_item">问题1：　<input type="text" class="common_editor" id="psd_question_1">
-                &nbsp;&nbsp;<span class="common_clickable" style="color: orange; font-size: 12px" id="edit_psd_question_1">编辑</span>
+                &nbsp;&nbsp;<span class="common_clickable" style="color: rgb(0,127,255); font-size: 12px" id="edit_psd_question_1">编辑</span>
                 &nbsp;&nbsp;<span class="common_clickable" style="color: gray; font-size: 12px" id="cancel_edit_psd_question_1">取消</span>
             </div>
             <div id='psd_answer_1_container' class="personal_psd_protect_item">答案1：　<input type="text" class="common_editor" id="psd_answer_1" placeholder="请输入答案">
             </div>
             <div style="height: 20px"></div>
             <div class="personal_psd_protect_item">问题2：　<input type="text" class="common_editor" id="psd_question_2">
-                &nbsp;&nbsp;<span class="common_clickable" style="color: orange; font-size: 12px" id="edit_psd_question_2">编辑</span>
+                &nbsp;&nbsp;<span class="common_clickable" style="color: rgb(0,127,255); font-size: 12px" id="edit_psd_question_2">编辑</span>
                 &nbsp;&nbsp;<span class="common_clickable" style="color: gray; font-size: 12px" id="cancel_edit_psd_question_2">取消</span>
             </div>
             <div id='psd_answer_2_container' class="personal_psd_protect_item">答案2：　<input type="text" class="common_editor" id="psd_answer_2" placeholder="请输入答案">
             </div>
             <div style="height: 20px"></div>
             <div class="personal_psd_protect_item">问题3：　<input type="text" class="common_editor" id="psd_question_3">
-                &nbsp;&nbsp;<span class="common_clickable" style="color: orange; font-size: 12px" id="edit_psd_question_3">编辑</span>
+                &nbsp;&nbsp;<span class="common_clickable" style="color: rgb(0,127,255); font-size: 12px" id="edit_psd_question_3">编辑</span>
                 &nbsp;&nbsp;<span class="common_clickable" style="color: gray; font-size: 12px" id="cancel_edit_psd_question_3">取消</span>
             </div>
             <div id='psd_answer_3_container' class="personal_psd_protect_item">答案3：　<input type="text" class="common_editor" id="psd_answer_3" placeholder="请输入答案">
@@ -102,7 +102,7 @@
     <div id="bind_phone">
         <div style="width: 400px; margin-left: auto; margin-right: auto; padding-bottom: 24px;">
             <div class="personal_alter_psd_item">手机号码：<input type="text" class="common_editor" id="login_phone">&nbsp;&nbsp;
-                <span  class="common_clickable" style="color: orange; font-size: 12px" id="cancel_bind_btn">取消绑定</span>
+                <span  class="common_clickable" style="color: rgb(0,127,255); font-size: 12px" id="cancel_bind_btn">取消绑定</span>
             </div>
             <div class="personal_alter_psd_item">登录密码：<input type="password" class="common_editor" id="login_password"> </div>
             <div id='update_login_phone_result' class="personal_result_item">&nbsp;</div>
@@ -116,7 +116,7 @@
 <script>
     var account_info = {}
     {% for key in account_info %}
-        account_info['{{ key }}'] = '{{ account_info[key] }}';
+        account_info['{{ key }}'] = '{{ account_info[key] if account_info[key] else ""}}';
     {% end %}
 
 </script>

@@ -8,13 +8,16 @@
             欢迎使用OA系统
         </div>
         <div class="element_right" style="margin-right: 20px">
-            <a href="personal.html"  style="color: orange">{{ account_info['name']}}</a>&nbsp;|&nbsp;<a href="logout.html" style="color: orange;">退出</a>
+            <a href="personal.html">{{ account_info['name']}}</a>&nbsp;|&nbsp;<a href="logout.html">退出</a>
         </div>
         <div class="element_right" style="margin-right: 10px">
             <a href="personal.html">
             <img id='header_user_portrait' src="{{ account_info['portrait'] }}" style="width: 36px; height: 36px; border-radius: 18px;">
             </a>
         </div>
+        {% if account_info['authority'] <= 8 %}
+        <div class="element_right" style="margin-right: 20px"><a href="admin.html">管理员后台</a></div>
+        {% end %}
     </div>
 
     <div class="div-header-navigation-bar base_container">
@@ -22,30 +25,3 @@
         </ul>
     </div>
 </div>
-
-<script>
-    function showGuildBar() {
-        var guild = [
-            {href: 'index.html', label: '首页', authority: __common_authority},
-            {href: 'personal.html', label: '个人信息', authority: __admin_authority},
-            {href: 'error.html', label: '通讯录', authority: __admin_authority},
-            {href: 'error.html', label: '工作流', authority: __dept_leader_authority},
-            {href: 'error.html', label: '办公室发文', authority: __common_authority},
-            {href: 'error.html', label: '证明材料申请', authority: __admin_authority},
-            {href: 'error.html', label: '人事流程', authority: __dept_leader_authority},
-            {href: 'error.html', label: '采购流程', authority: __admin_authority},
-            {href: 'error.html', label: '公司制度', authority: __dept_leader_authority},
-            {href: 'error.html', label: '文件下载', authority: __dept_leader_authority}
-        ];
-        var html = '';
-        guild.forEach(function (item, p2, p3) {
-            if (item.authority >= __authority) {
-                html += getGuildItemHtml(item);
-            }
-        });
-        $("#guild_bar").append(html);
-    }
-    function getGuildItemHtml(item) {
-        return '<li><a href="' + item.href + '">' + item.label + '</a></li>'
-    }
-</script>

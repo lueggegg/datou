@@ -11,14 +11,6 @@ from tornado import gen
 import error_codes
 import utils
 
-def get_hash(string):
-    md5 = hashlib.md5()
-    md5.update(string)
-    sha1 = hashlib.sha1()
-    sha1.update(md5.hexdigest())
-    return sha1.hexdigest()
-
-
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, datetime):
@@ -33,44 +25,44 @@ class MyEncoder(json.JSONEncoder):
 class BaseHandler(RequestHandler):
     def __init__(self, application, request, **kwargs):
         RequestHandler.__init__(self, application, request, **kwargs)
+        self.account_dao = self.settings['account_dao']
         self.account_info = None
         self.psd_question = None
-        self.cookie_expires_days = 100
-        fid = open(os.path.join(os.path.dirname(__file__), "account.txt"), 'r')
-        data = fid.read()
-        fid.close()
-        self.accounts = json.loads(data, 'utf8')
-        fid = open(os.path.join(os.path.dirname(__file__), "psd_question.txt"), 'r')
-        data = fid.read()
-        fid.close()
-        if len(data) > 0:
-            self.psd_questions = json.loads(data, 'utf8')
-        else:
-            self.psd_questions = {}
+        self.cookie_expires_days = 10
+
+    def post(self, *args, **kwargs):
+        return self._deal_request()
+
+    def get(self, *args, **kwargs):
+        return self._deal_request()
 
     @gen.coroutine
-    def _deal_request(self):
-        # self.set_header("Content-Type", "application/json; charset=utf-8")
+    def _deal_request(self, verify=True):
+        if verify:
+            st = yield self.verify_user()
+            if not st:
+                return
+        try:
+            yield self._real_deal_request()
+        except Exception, e:
+            self.write_result(error_codes.EC_UNKNOW_ERROR, '程序异常')
+            return
+
+    @gen.coroutine
+    def _real_deal_request(self):
         pass
 
     @gen.coroutine
     def check_account(self, **kwargs):
         if 'uid' in kwargs:
-            if kwargs['uid'] in self.accounts:
-                self.account_info = self.accounts[kwargs['uid']]
+            self.account_info = yield self.account_dao.query_account_by_id(kwargs['uid'])
         elif 'password' in kwargs and 'account' in kwargs:
-            for account in self.accounts.values():
-                if account['account'] == kwargs['account'] and account['password'] == kwargs['password']:
-                    self.account_info = account
-                elif account['login_phone'] == kwargs['account'] and account['password'] == kwargs['password']:
-                    self.account_info = account
+            self.account_info = yield self.account_dao.query_account(kwargs['account'], kwargs['password'])
 
         if not self.account_info:
             raise gen.Return((error_codes.EC_USER_NOT_EXIST, None))
 
-        if str(self.account_info['id']) in self.psd_questions:
-            self.psd_question = self.psd_questions[str(self.account_info['id'])]
-
+        self.account_info['portrait'] = self.get_portrait_path(self.account_info['portrait'])
         raise gen.Return((error_codes.EC_SUCCESS, self.account_info))
 
     def redirect_error(self):
@@ -99,6 +91,13 @@ class BaseHandler(RequestHandler):
 
     @gen.coroutine
     def verify_user(self):
+        if self.settings['test_mode']:
+            self.account_info = {'id': 5, 'account': 'test', 'name': 'test_name',
+                'portrait': '4f705390ffbbf1c46691ddfa0b839d8b.png',
+                'authority': 1,
+            }
+            raise gen.Return(True)
+
         uid, account = self.get_token()
         if not uid or not account:
             self.redirect_login()
@@ -120,3 +119,16 @@ class BaseHandler(RequestHandler):
 
     def loads_json(self, arg):
         return json.loads(arg, object_hook=utils.decode_dict)
+
+    def get_portrait_path(self, filename, local=False):
+        path = '/res/images/portrait/' + filename
+        if local:
+            path = self.get_template_path() + path
+        return path
+
+    def get_hash(self, string):
+        md5 = hashlib.md5()
+        md5.update(string)
+        sha1 = hashlib.sha1()
+        sha1.update(md5.hexdigest())
+        return sha1.hexdigest()

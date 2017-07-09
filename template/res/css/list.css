@@ -9,3 +9,25 @@
     height: 32px;
     line-height: 32px;
 }
+
+.th{ font-weight:bold;}
+
+.list_view_ul{
+    list-style:none; width:97%; clear:right;
+    height:36px; line-height:36px; border-bottom:solid 1px #e2e9ff; font-size:16px;
+}
+
+.list_view_ul li {
+    display:block;
+    text-indent:1em;
+    float: left;
+}
+
+.list_view_ul li div {
+    width: 95%;
+    height:36px;
+    line-height: 36px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
