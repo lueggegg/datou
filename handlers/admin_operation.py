@@ -10,6 +10,11 @@ class AdminOperation(ApiNoVerifyHandler):
         ret = True
         msg = '未定义操作'
         if op == 'init':
+            account = yield self.account_dao.query_account('admin')
+            if account:
+                self.process_result(False, '已经初始化')
+                return
+
             dept_info = {
                 'name': '后台',
                 'status': 2,
@@ -25,6 +30,7 @@ class AdminOperation(ApiNoVerifyHandler):
                     'join_date': self.now(),
                     'id_card': '1234561999909091234',
                     'position': '大总管',
+                    'authority': 1,
                     'portrait': 'default_portrait.png'
                 }
                 ret = yield self.account_dao.add_account(**account_info)
