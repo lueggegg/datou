@@ -25,6 +25,7 @@ class AdminOperation(ApiNoVerifyHandler):
                     'join_date': self.now(),
                     'id_card': '1234561999909091234',
                     'position': '大总管',
+                    'portrait': 'default_portrait.png'
                 }
                 ret = yield self.account_dao.add_account(**account_info)
             msg = '初始化'
