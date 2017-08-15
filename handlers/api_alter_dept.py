@@ -14,16 +14,14 @@ class ApiAlterDept(ApiHandler):
         if op != 'del':
             data = self.get_argument('dept_info', None)
             if not data:
-                self.write_result(error_codes.EC_ARGUMENT_ERROR, '参数错误')
-                return
+                self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '参数错误')
             info = self.loads_json(data)
 
         if op == 'update':
             msg = '更新部门'
             dept_id = self.get_argument('dept_id', None)
             if not dept_id:
-                self.write_result(error_codes.EC_ARGUMENT_ERROR, '部门id错误')
-                return
+                self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '部门id错误')
             ret = self.account_dao.update_dept(dept_id, **info)
         elif op == 'add':
             msg = '添加部门'
@@ -32,15 +30,14 @@ class ApiAlterDept(ApiHandler):
             msg = '删除部门'
             dept_id = self.get_argument('dept_id', None)
             if not dept_id:
-                self.write_result(error_codes.EC_ARGUMENT_ERROR, '部门id错误')
-                return
+                self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '部门id错误')
             dept_id = int(dept_id)
             dept_tree = yield self.get_department_tree()
             ret = yield self.travel_del_dept(dept_tree, dept_id)
         else:
-            self.write_result(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
-            return
+            self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
 
+        self.on_dept_info_changed()
         self.process_result(ret, msg)
 
 

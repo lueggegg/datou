@@ -1,0 +1,82 @@
+{% extends base.html %}
+<title>{% block title %}公文详情{% end %}</title>
+
+{% block custom_head %}
+<link href="res/css/doc_detail.css" rel="stylesheet">
+<link href="res/css/official_doc.css" rel="stylesheet">
+<link href="res/css/list.css" rel="stylesheet">
+<script type="text/javascript" src="res/script/doc_detail.js"></script>
+<script type="text/javascript" src="res/script/attachment_list.js"></script>
+{% end %}
+
+{% block custom_body %}
+<div class="doc_detail_anchor common_border">
+    <ul id="doc_node_list_anchor">
+        <li><a href="#main_info_container">跳到顶部</a></li>
+        <li><a href="#bottom_anchor">跳到底部</a></li>
+        <li id="complete_btn" class="common_clickable">归档</li>
+    </ul>
+</div>
+<div class="doc_detail_container">
+    <div id="main_info_container">
+        主题：
+        <span id="doc_topic"></span>
+        <div class="element_right" style="margin-right: 20px" id="job_status"></div>
+    </div>
+    <div id="doc_node_list">
+    </div>
+    <!--<div class="common_bold_divider"></div>-->
+    <div id="process_container">
+        <div class="node_info_item">
+            <div class="element_left node_info_item_label">发送到：</div>
+            <div class="common_editor node_info_item_input element_left">
+                <button id="add_rec_btn" class="node_info_item_add_btn">+</button>
+                <span id="doc_rec" class="node_info_item_rec">joe</span>
+                <img src="res/images/icon/red_del.png" id="del_rec_btn" class="common_small_del_btn">
+            </div>
+            <div class="element_left" style="margin-left: 40px;">
+                <div class="quick_rec_selector">
+                    <button id="reply_last_btn" class="ui-corner-all ui-button">发送到上一审阅人</button>
+                    <button id="reply_invoker_btn" class="ui-button ui-corner-all">发送到公文发件人</button>
+                </div>
+                <div class="remind_complete_container">
+                    <input type="checkbox" id="request_to_complete"><label for="request_to_complete">提醒发件人归档</label>
+                </div>
+            </div>
+        </div>
+        <div class="attachment_container" id="attachment_container"></div>
+        <div class="attachment_container" id="img_attachment_container"></div>
+        <!--<div class="common_divider"></div>-->
+        <div class="doc_text_area_container">
+            <textarea id='doc_content' class="doc_text_area"></textarea>
+        </div>
+        <div style="height: 32px;">
+            <button id='doc_send_btn' class="doc_send_btn">发 送</button>
+        </div>
+    </div>
+    <div id="bottom_anchor"></div>
+</div>
+
+<div id="select_rec_dlg" title="发送到">
+    <div class="common_container">
+        <select id="rec_dept_selector">
+            <option selected disabled value="-1">请选择部门</option>
+            <option value="0">全部</option>
+        </select>
+    </div>
+    <div id="rec_type_set" class="common_container">
+        <input type="radio" name="radio" value="0" id="leader_type" checked><label for="leader_type">部门主管</label>
+        <input type="radio" name="radio" value="1" id="sp_type"><label for="sp_type">指定员工</label>
+    </div>
+    <div class="common_container rec_selector_container">
+        <ul class="employee_selector" id="rec_selector"></ul>
+        <div class="single_dept_leader_rec_item" id="rec_single_item"></div>
+    </div>
+</div>
+{% end %}
+
+{% block custom_foot %}
+<script>
+    var __job_id = {{ arg['job_id'][0] }};
+</script>
+{% end %}

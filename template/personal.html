@@ -114,7 +114,7 @@
 
 {% block custom_foot %}
 <script>
-    var account_info = {}
+    var account_info = {};
     {% for key in account_info %}
         account_info['{{ key }}'] = '{{ account_info[key] if account_info[key] else ""}}';
     {% end %}

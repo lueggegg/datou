@@ -1,0 +1,19 @@
+.tag_selector {
+    margin-top: 10px;
+}
+
+.tag_selector_checkbox {
+
+}
+
+.tag_selector_radio {
+
+}
+
+.tag_value_selector {
+    padding: 5px;
+    min-height: 40px;
+    border: 1px solid rgb(188,188,188);
+    border-radius: 4px;
+
+}

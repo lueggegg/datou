@@ -1,43 +1,16 @@
-import mysql_executor
 import db_helper
+from base_dao import BaseDAO
+import type_define
 
 from tornado import gen
 
-class AccountDAOException(Exception):
-    def __init__(self, message):
-        self._message = message
-
-    def __str__(self):
-        return self._message
-
-
-class AccountDAO:
+class AccountDAO(BaseDAO):
     def __init__(self, *args, **kwargs):
+        BaseDAO.__init__(self, *args, **kwargs)
+        self.desc = 'account'
         self.account_tab = 'employee'
         self.dept_tab = 'department'
         self.question_tab = 'protect_question'
-
-        if len(args) > 0:
-            self._inst_mgr = args[0]
-        else:
-            self._inst_mgr = kwargs["inst_mgr"]
-
-        self._executor = mysql_executor.MySQLExecutor()
-
-    def _get_inst(self, readonly=False):
-        inst = None
-
-        if readonly:
-            inst = self._inst_mgr.get_inst_by_random(readonly)
-
-        # Second try get rw instance
-        if not inst:
-            inst = self._inst_mgr.get_inst_by_random()
-
-        if not inst:
-            raise AccountDAOException("Get account mysql instance error, not found")
-        return inst
-
 
     @gen.coroutine
     def add_account(self, **kwargs):
@@ -63,10 +36,25 @@ class AccountDAO:
         raise gen.Return(ret[0] if ret else False)
 
     @gen.coroutine
-    def query_account_list(self, dept_id=None):
-        sql = 'SELECT * FROM %s WHERE status=1' % (self.account_tab)
+    def query_account_list(self, dept_id=None, type=type_define.TYPE_ACCOUNT_NORMAL, **kwargs):
+        if type == type_define.TYPE_ACCOUNT_CONTACT:
+            account_fields = ['id', 'account', 'name', 'department_id', 'cellphone', 'position', 'email', 'qq', 'wechat', 'address']
+            account_fields = 'a.' + ', a.'.join(account_fields)
+        elif type == type_define.TYPE_ACCOUNT_SAMPLE:
+            account_fields = ['id', 'account', 'name', 'department_id']
+            account_fields = 'a.' + ', a.'.join(account_fields)
+        else:
+            account_fields = 'a.*'
+        sql = 'SELECT %s, d.name AS dept FROM %s a ' \
+              'LEFT JOIN %s d ON a.department_id = d.id ' \
+              'WHERE a.status=1' % (account_fields, self.account_tab, self.dept_tab)
         if dept_id:
-            sql += ' AND department_id=%s' % dept_id
+            sql += ' AND a.department_id=%s' % dept_id
+        if kwargs:
+            conditions = ['account', 'name']
+            for condition in conditions:
+                if condition in kwargs and kwargs[condition]:
+                    sql += " AND a.%s LIKE '%%%s%%'" % (condition, kwargs[condition])
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
@@ -82,7 +70,10 @@ class AccountDAO:
 
     @gen.coroutine
     def query_dept_list(self):
-        sql = 'SELECT a.*, b.name AS parent_name FROM %s a LEFT JOIN %s b ON a.parent=b.id WHERE a.status=1' % (self.dept_tab, self.dept_tab)
+        sql = 'SELECT a.*, b.name AS parent_name, c.account AS leader_account, c.name AS leader_name FROM %s a ' \
+              'LEFT JOIN %s b ON a.parent=b.id ' \
+              'LEFT JOIN %s c ON a.leader=c.id ' \
+              'WHERE a.status=1' % (self.dept_tab, self.dept_tab, self.account_tab)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 

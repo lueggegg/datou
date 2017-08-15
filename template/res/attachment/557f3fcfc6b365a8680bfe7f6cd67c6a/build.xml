@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project name="Build_4_0" default="default" basedir=".">
+    <target name="default" />
+
+    <target name="RollingBuild">
+        <exec executable="python" failonerror="true">
+            <arg value="build.py" />
+            <arg value="clean" />
+            <arg value="package" />
+            <arg value="--release" />
+            <arg value="--recompile" />
+            <arg value="--setup" />
+            <arg value="--rev" />
+            <arg value="${svn.rev}" />
+            <arg value="--sign" />
+        </exec>
+    </target>
+
+    <target name="DailyBuild">
+        <exec executable="python" failonerror="true">
+            <arg value="build.py" />
+            <arg value="clean" />
+            <arg value="package" />
+            <arg value="--release" />
+            <arg value="--setup" />
+            <arg value="--rev" />
+            <arg value="${svn.rev}" />
+            <arg value="--sign" />
+            <arg value="--inject-version" />
+            <arg value="--treat-as-warning" />
+            <arg value="--with-source-index" />
+        </exec>
+
+        <delete dir="dist/yy40" />
+        <mkdir dir="dist/yy40" />
+        <copy file="dist/release/pdb.tar.bz2" tofile="dist/yy40/pdb.tar.bz2" />
+        <!--<copy file="dist/release/automate.tar.bz2" tofile="dist/yy40/automate.tar.bz2" />-->
+        <copy todir="dist/yy40">
+            <fileset dir="dist/release">
+                <include name="setups/*/RuiXueYSSetup*.exe" />
+                <include name="setups/*/liveupdate.tar.gz" />
+            </fileset>
+        </copy>
+        <copy file="dist/release/setups/zh-CN/RuiXueYSSetup-zh-CN.exe" tofile="dist/yy40/RuiXueYSSetup.exe" />
+        <copy file="dist/release/setups/zh-CN/liveupdate.tar.gz" tofile="dist/yy40/liveupdate.tar.gz" />
+    </target>
+
+    <target name="CoverageBuild">
+        <exec executable="python" failonerror="true">
+            <arg value="build.py" />
+            <arg value="clean" />
+            <arg value="package" />
+            <arg value="--release" />
+            <arg value="--coverage" />
+            <arg value="--setup" />
+            <arg value="--rev" />
+            <arg value="${svn.rev}" />
+            <arg value="--sign" />
+            <arg value="--inject-version" />
+        </exec>
+
+        <delete dir="dist/yy40" />
+        <mkdir dir="dist/yy40" />
+        <copy file="dist/release/pdb.tar.bz2" tofile="dist/yy40/pdb.tar.bz2" />
+        <!--<copy file="dist/release/automate.tar.bz2" tofile="dist/yy40/automate.tar.bz2" />-->
+        <copy todir="dist/yy40">
+            <fileset dir="dist/release">
+                <include name="setups/*/RuiXueYSSetup*.exe" />
+                <include name="setups/*/liveupdate.tar.gz" />
+            </fileset>
+        </copy>
+        <copy file="dist/release/setups/zh-CN/RuiXueYSSetup-zh-CN.exe" tofile="dist/yy40/RuiXueYSSetup.exe" />
+        <copy file="dist/release/setups/zh-CN/liveupdate.tar.gz" tofile="dist/yy40/liveupdate.tar.gz" />
+    </target>
+
+    <!-- 调用者通过判定这个属性是否存在，决定是否调用PublishBuild -->
+    <property name="delegate_publish_build" value="True" />
+
+    <target name="PublishBuild">
+        <exec executable="python" failonerror="true">
+            <arg value="build.py" />
+            <arg value="clean" />
+            <arg value="package" />
+            <arg value="--release" />
+            <arg value="--recompile" />
+            <arg value="--setup" />
+            <arg value="--rev" />
+            <arg value="${svn.rev}" />
+            <arg value="--sign" />
+            <arg value="--sign-with-timestamp" />
+            <arg value="--official-build" />
+            <arg value="--inject-version" />
+            <arg value="--with-source-index" />
+        </exec>
+    </target>
+
+</project>

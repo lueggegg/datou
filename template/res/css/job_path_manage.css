@@ -1,0 +1,62 @@
+.add_path_node_btn {
+
+}
+
+.job_path_node_container {
+    width: 60%;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 6px;
+    display: inline-block;
+    background: rgb(235,235,255);
+}
+
+.job_path_node_list_container {
+    width: 70%;
+    float: left;
+
+}
+
+.job_path_node_list_container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.job_path_node_list_container ul li {
+    height: 32px;
+    line-height: 32px;
+    margin: 0.4em;
+    text-indent: 1em;
+}
+
+.job_path_node_op_container {
+    float: right;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 6px;
+    background: white;
+}
+
+.job_path_node_op_container div {
+    margin: 5px;
+    text-align: right;
+}
+
+.dept_item {
+    background: rgb(0,196,0);
+    color: white;
+}
+
+.employee_item {
+    border: 1px solid rgb(0,196,0);
+    color: rgb(69,69,69);
+    background: white;
+}
+
+.leader_item {
+    background: rgb(255,196,0);
+    color: white;
+
+}

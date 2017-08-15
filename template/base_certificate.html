@@ -1,0 +1,71 @@
+{% extends base.html %}
+
+{% block title %}**证明{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/job_common.css">
+{% block more_head %}{% end %}
+{% end %}
+
+{% block custom_body %}
+<div class="job_process_outer">
+<div class="job_process_container">
+    <div class="job_process_main">
+        <div class="job_process_title">{% block certificate_title %}**证明{% end %}</div>
+        <div class="job_process_content">
+            {% block certificate_content %}
+            {% end %}
+        </div>
+    </div>
+    <div class="job_process_warning">
+        注意事项：
+        <div>
+            1.abc<br>
+            2.cd<br>
+        </div>
+    </div>
+    <div class="job_process_btn">
+        <button class="ui-button ui-corner-all" id="job_process_btn">提交</button>
+    </div>
+</div>
+<div class="job_process_guild">
+    {% block guild_module %}{% module Template("module_certificate_guild.html") %}{% end %}
+</div>
+</div>
+{% end %}
+
+{% block custom_foot %}
+<script>
+    var account_info = {};
+    {% for key in ['name', 'id_card', 'position'] %}
+    account_info['{{ key }}'] = '{{ account_info[key] if account_info[key] else ""}}';
+    {% end %}
+
+    initConfirmDialog();
+
+    $("#job_process_btn").click(function (event) {
+        var param = getParam();
+        if (!param) {
+            return;
+        }
+        showConfirmDialog('确认提交申请？', function () {
+            commonPost("/api/process_auto_job", param, function (data) {
+                promptMsg('发送成功，2s后自动跳转...');
+                setTimeout(function () {
+                    window.location.href = '/job_record.html#job_sent_by_myself';
+                }, 2000);
+            });
+        })
+    });
+
+    $(function () {
+        try {
+            getParam(true);
+        } catch (e) {
+            promptMsg('系统错误，未定义:getParam()');
+        }
+    });
+</script>
+
+{% block js_script %}{% end %}
+{% end %}
+

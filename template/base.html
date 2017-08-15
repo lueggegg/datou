@@ -4,36 +4,42 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>{% block title %}Default title{% end %}</title>
-    <script src="res/jquery/external/jquery/jquery.js"></script>
-    <script src="res/jquery/jquery-ui.js"></script>
+    <script type="text/javascript" src="res/jquery/external/jquery/jquery.js"></script>
+    <script type="text/javascript" src="res/jquery/jquery-ui.js"></script>
     <link href="res/jquery/jquery-ui.css" rel="stylesheet">
     <link href="res/css/base.css" rel="stylesheet">
-    <script src="res/script/base.js"></script>
+    <script type="text/javascript" src="res/script/type_define.js"></script>
+    <script type="text/javascript" src="res/script/base.js"></script>
     <link href="res/css/navigation.css" rel="stylesheet">
     {% block custom_head %}{% end %}
 </head>
 
 <body>
-{% block custom_header %}
-{% module Template("header.html", account_info=account_info) %}
-{% end %}
 <div class="base_container">
-
-    <div id="__common_tag_area" class="common_tag_area"></div>
-
-    {% block custom_body %}
+    {% block custom_header %}
+    {% module Template("header.html", account_info=account_info) %}
     {% end %}
 
-    {% block custom_footer %}
-    <div class="web_footer">版权所有 my-oa.com</div>
-    {% end %}
+    <div class="base_body_container">
+
+        <div id="__common_tag_area" class="common_tag_area"></div>
+
+        <div class="content_body_container">
+        {% block custom_body %}
+        {% end %}
+        </div>
+
+        {% block custom_footer %}
+        <div class="web_footer">版权所有 my-oa.com</div>
+        {% end %}
+    </div>
 </div>
-
 </body>
 
 <script>
     $("#__common_tag_area").hide();
     var __authority = {{ account_info['authority'] }};
+    var __my_uid = {{ account_info['id'] }};
 
     function getGuildItemHtml(item) {
         return '<li><a style="color: white;" href="' + item.href + '">' + item.label + '</a></li>'
@@ -44,12 +50,10 @@
         var guild = [
             {href: 'index.html', label: '首页', authority: __common_authority},
             {href: 'personal.html', label: '个人信息', authority: __common_authority},
-            {href: 'error.html', label: '通讯录', authority: __common_authority},
-            {href: 'error.html', label: '工作流', authority: __common_authority},
-            {href: 'error.html', label: '办公室发文', authority: __common_authority},
-            {href: 'error.html', label: '证明材料申请', authority: __admin_authority},
-            {href: 'error.html', label: '人事流程', authority: __common_authority},
-            {href: 'error.html', label: '采购流程', authority: __common_authority},
+            {href: 'contact.html', label: '通讯录', authority: __common_authority},
+            {href: 'job_record.html', label: '工作流', authority: __common_authority},
+            {href: 'official_doc.html', label: '办公室发文', authority: __common_authority},
+            {href: 'auto_job.html', label: '自动化流程', authority: __common_authority},
             {href: 'error.html', label: '公司制度', authority: __common_authority},
             {href: 'error.html', label: '文件下载', authority: __common_authority}
         ];
@@ -63,7 +67,12 @@
         $("#guild_bar").append(html);
     }
 
-    $(showGuildBar);
+    $(function () {
+        showGuildBar();
+        initPromptDialog();
+    });
+
+
 </script>
 
 {% block custom_foot %} {% end %}

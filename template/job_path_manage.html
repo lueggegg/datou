@@ -1,0 +1,27 @@
+{% extends base_admin.html %}
+
+{% block title %}设置工作流节点{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/tabs.css">
+<link rel="stylesheet" href="res/css/job_path_manage.css">
+<script type="text/javascript" src="res/script/job_path_manage.js"></script>
+<link rel="stylesheet" href="res/css/tag_selector.css">
+<script type="text/javascript" src="res/script/tag_selector.js"></script>
+{% end %}
+
+{% block custom_body %}
+<div id="tabs">
+    <ul>
+    </ul>
+</div>
+
+<div id="processor_selector_dlg" title="设置审批员工">
+<div id="path_types">
+    <input type="radio" checked value="0" name="path_type_radio" id="path_type_radio_0">
+    <label for="path_type_radio_0">部门主管</label>
+    <input type="radio" value="1" name="path_type_radio" id="path_type_radio_1">
+    <label for="path_type_radio_1">自定义</label>
+</div>
+    <div id="processor_selector_container" class="common_container"></div>
+</div>
+{% end %}

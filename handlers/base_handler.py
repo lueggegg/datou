@@ -4,7 +4,8 @@ from tornado.web import RequestHandler
 import hashlib
 import json
 import os
-from datetime import datetime
+import datetime
+import config
 
 from tornado import gen
 
@@ -13,8 +14,14 @@ import utils
 
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):
-        if isinstance(obj, datetime):
+        if obj is None:
+            return ' '
+
+        if isinstance(obj, datetime.datetime):
             return obj.strftime("%Y-%m-%d %H:%M:%S")
+
+        if isinstance(obj, datetime.date):
+            return obj.strftime("%Y-%m-%d")
 
         if isinstance(obj, datetime.timedelta):
             return "%02d:%02d:%02d" % (obj.seconds / 3600, obj.seconds % 3600 / 60, obj.seconds % 60)
@@ -26,9 +33,11 @@ class BaseHandler(RequestHandler):
     def __init__(self, application, request, **kwargs):
         RequestHandler.__init__(self, application, request, **kwargs)
         self.account_dao = self.settings['account_dao']
+        self.job_dao = self.settings['job_dao']
         self.account_info = None
         self.psd_question = None
         self.cookie_expires_days = 10
+        self.end_notification = Exception('finish notification')
 
     def post(self, *args, **kwargs):
         return self._deal_request()
@@ -45,7 +54,9 @@ class BaseHandler(RequestHandler):
         try:
             yield self._real_deal_request()
         except Exception, e:
-            self.write_result(error_codes.EC_UNKNOW_ERROR, '程序异常')
+            if e is not self.end_notification:
+                self.debug_msg('exception %s' % e)
+                self.write_result(error_codes.EC_UNKNOW_ERROR, '程序异常')
             return
 
     @gen.coroutine
@@ -71,9 +82,24 @@ class BaseHandler(RequestHandler):
     def redirect_login(self):
         self.redirect('login.html')
 
-    @gen.coroutine
     def write_result(self, result, msg=''):
         self.write_json({'status': result, 'msg': msg})
+
+    def finish_with_error(self, err_code, msg):
+        self.debug_msg('%s: %s' % (err_code, msg))
+        self.write_result(err_code, msg)
+        raise self.end_notification
+
+    def get_argument_and_check_it(self, arg_name, error_msg='参数错误'):
+        arg = self.get_argument(arg_name, None)
+        if arg is None:
+            self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, error_msg)
+        return arg
+
+    def check_result_and_finish_while_failed(self, ret, error_msg='系统错误'):
+        if not ret:
+            self.finish_with_error(error_codes.EC_SYS_ERROR, error_msg)
+
 
     def set_token(self, uid, account):
         self.set_secure_cookie('uid', str(uid), self.cookie_expires_days)
@@ -121,9 +147,12 @@ class BaseHandler(RequestHandler):
         return json.loads(arg, object_hook=utils.decode_dict)
 
     def get_portrait_path(self, filename, local=False):
-        path = '/res/images/portrait/' + filename
+        return self.get_res_file_path(filename, 'res/images/portrait', local)
+
+    def get_res_file_path(self, filename, res_dir, local=False):
+        path = os.path.join(res_dir, filename)
         if local:
-            path = self.get_template_path() + path
+            path = os.path.join(self.get_template_path(), path)
         return path
 
     def get_hash(self, string):
@@ -132,3 +161,18 @@ class BaseHandler(RequestHandler):
         sha1 = hashlib.sha1()
         sha1.update(md5.hexdigest())
         return sha1.hexdigest()
+
+    def is_valid_datetime(self, time, format='%Y-%m-%d'):
+        try:
+            datetime.datetime.strptime(time, format)
+            return True
+        except Exception, e:
+            return False
+
+    def now(self):
+        return datetime.datetime.now()
+
+    def debug_msg(self, msg):
+        if config.console_debug:
+            print '%s: [ %s ]' % (self.__class__, msg)
+

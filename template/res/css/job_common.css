@@ -1,0 +1,119 @@
+.job_process_outer {
+    display: inline-block;
+}
+
+.job_process_container {
+    width: 750px;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    float: left;
+    background: rgb(235,245,255);
+}
+
+.job_process_main {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    background: white;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+}
+
+.job_process_title {
+    text-align: center;
+    font-size: 2em;
+}
+
+.job_process_content {
+    margin-top: 5px;
+    line-height: 36px;
+}
+
+.job_process_content span {
+    color: blue;
+}
+
+.job_process_content select {
+    border: 1px solid gray;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 6px;
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 24px;
+    background: rgb(245,245,245)
+}
+
+.job_process_content_editor {
+    border: 1px solid gray;
+    border-radius: 6px;
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.job_process_content_date_picker {
+    border: 1px solid gray;
+    border-radius: 6px;
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 24px;
+    width: 120px;
+    text-align: center;
+}
+
+.job_process_warning {
+    color: orange;
+    margin-top: 20px;
+    font-size: 16px;
+    font-family: 楷体;
+}
+
+.job_process_warning div {
+    margin-left: 2em;
+}
+
+.job_process_guild {
+    margin-left: 20px;
+    width: 240px;
+    float: right;
+    padding: 20px;
+    letter-spacing: 5px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    background: rgb(245,245,245);
+}
+
+.job_process_guild a,a:visited {
+    text-decoration: none;
+    color: rgb(0,127,255);
+}
+
+.job_process_guild ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.job_process_guild ul li {
+    padding: 0.2em;
+}
+
+
+.job_process_btn {
+    margin-top: 10px;
+    text-align: right;
+    margin-right: 20px;
+}
+
+.job_attachment_container {
+    /*margin: 10px;*/
+    padding: 5px;
+    background: white;
+    border: 1px solid rgb(169,169,169);
+    border-radius: 4px;
+}

@@ -1,0 +1,49 @@
+{% extends base_certificate.html %}
+
+{% block title %}收入证明{% end %}
+{% block certificate_title %}收入证明{% end %}
+
+{% block certificate_content %}
+        　　兹证明，我司员工<span>{{ account_info['name'] }}</span>（身份证：<span>{{ account_info['id_card'] }}</span>）
+        在我司任职<span>{{ account_info['position'] }}</span>，
+        <select id="salary_type">
+            <option value="税前月薪" selected>税前月薪</option>
+            <option value="税后月薪">税后月薪</option>
+            <option value="税前年薪">税前年薪</option>
+            <option value="税后年薪">税后年薪</option>
+        </select>
+        为<input id="salary" class="job_process_content_editor" type="text">元，
+        此证明仅作<input id="usage" class="job_process_content_editor" type="text">之用。
+{% end %}
+
+{% block js_script %}
+<script>
+    function getParam(check) {
+        if (check) return;
+        var salary_type = $("#salary_type").val();
+        var salary = $("#salary").val();
+        if (!salary) {
+            promptMsg('请填写工资');
+            return;
+        }
+        var usage = $("#usage").val();
+        if (!usage) {
+            promptMsg('请填写用途');
+            return;
+        }
+        var content = "　　兹证明，我司员工<span>" + account_info['name'] + "</span>";
+        content += "（身份证：<span>" + account_info['id_card'] +  "</span>）";
+        content += "在我司任职<span>" + account_info['position'] + "</span>，";
+        content += "<span>" + salary_type + "</span>";
+        content += "为<span>" + salary + "</span>元，";
+        content += "此证明仅作<span>" + usage + "</span>之用。";
+
+        return {
+            op: 'add',
+            job_type: TYPE_JOB_CERTIFICATE_SALARY,
+            title: '收入证明',
+            content: wrapJobContent(content)
+        };
+    }
+</script>
+{% end %}

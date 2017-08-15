@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>请假流程</title>
+    <script type="text/javascript" src="res/jquery/external/jquery/jquery.js"></script>
+    <script type="text/javascript" src="res/jquery/jquery-ui.js"></script>
+    <link href="res/jquery/jquery-ui.css" rel="stylesheet">
+    <link href="res/css/base.css" rel="stylesheet">
+    <script type="text/javascript" src="res/script/type_define.js"></script>
+    <script type="text/javascript" src="res/script/base.js"></script>
+    <link href="res/css/navigation.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="res/css/job_common.css">
+
+    <link rel="stylesheet" type="text/css" href="res/jquery/jquery.datetimepicker.css">
+    <script type="text/javascript" src="res/jquery/jquery.datetimepicker.js"></script>
+    <script type="text/javascript" src="res/jquery/jquery.datetimepicker.full.js"></script>
+
+
+</head>
+<body>
+<div class="base_container">
+
+    <!-- 头部 -->
+    <div class="base_header_container">
+        <div class="web_header">
+            <div class="element_left" style="margin-left: 20px">
+                <img src="res/images/logo.png" style="width: 20px; height: 22px; margin-top: 13px">
+            </div>
+            <div class="element_left" style="margin-left: 10px; font-size: 20px">
+                欢迎使用OA系统
+            </div>
+            <div class="element_right" style="margin-right: 20px">
+                <a href="personal.html">我大哥</a>&nbsp;|&nbsp;<a href="logout.html">退出</a>
+            </div>
+            <div class="element_right" style="margin-right: 10px">
+                <a href="personal.html">
+                    <img id='header_user_portrait' src="res/images/portrait\8a7897e1ae64d545b88eed7394e741ae.png" style="margin-top: 5px; width: 36px; height: 36px; border-radius: 18px;">
+                </a>
+            </div>
+
+        </div>
+        <div class="div-header-navigation-bar base_container">
+            <ul id="guild_bar">
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="base_body_container">
+        <div id="__common_tag_area" class="common_tag_area"></div>
+        <div class="content_body_container">
+
+            <div class="job_process_outer">
+                <div class="job_process_container">
+                    <div class="job_process_main">
+                        <div class="job_process_title">请假流程</div>
+                        <div class="job_process_content">
+
+                            <div>
+                                <input id="datetimepicker" type="text" >
+                                所属部门：<span>组织建设组</span>　　　　　　　　职位：<span>打杂</span>
+                            </div>
+                            <div>
+                                意向部门：
+                                <select id="dept_selector">
+                                    <option selected disabled value="-1">请选择部门</option>
+                                </select>
+                            </div>
+                            <div>
+                                意向职位：<input id="position" type="text" class="common_editor">
+                            </div>
+                            <div>
+                                调岗原因：
+                                <div>
+                                    <textarea id="reason" class="common_text_area"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="job_process_warning">
+                        注意事项：
+                        <div>
+                            1.abc<br>
+                            2.cd<br>
+                        </div>
+                    </div>
+                    <div class="job_process_btn">
+                        <button class="ui-button ui-corner-all" id="job_process_btn">提交</button>
+                    </div>
+                </div>
+                <div class="job_process_guild">
+                    <ul>
+                        <li><a href="ask_for_leave.html">请假流程</a></li>
+                        <li><a href="apply_resign.html">离职申请</a></li>
+                        <li><a href="recommend_new.html">伯乐推荐</a></li>
+                        <li><a href="apply_for_another_post.html">调岗申请</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="web_footer">版权所有 my-oa.com</div>
+
+    </div>
+</div>
+</body>
+<script>
+    $("#__common_tag_area").hide();
+    var __authority = 1024;
+    var __my_uid = 9;
+    function getGuildItemHtml(item) {
+        return '<li><a style="color: white;" href="' + item.href + '">' + item.label + '</a></li>'
+    }
+    function showGuildBar() {
+
+        var guild = [
+            {href: 'index.html', label: '首页', authority: __common_authority},
+            {href: 'personal.html', label: '个人信息', authority: __common_authority},
+            {href: 'contact.html', label: '通讯录', authority: __common_authority},
+            {href: 'job_record.html', label: '工作流', authority: __common_authority},
+            {href: 'official_doc.html', label: '办公室发文', authority: __common_authority},
+            {href: 'auto_job.html', label: '自动化流程', authority: __common_authority},
+            {href: 'error.html', label: '公司制度', authority: __common_authority},
+            {href: 'error.html', label: '文件下载', authority: __common_authority}
+        ];
+
+        var html = '';
+        guild.forEach(function (item, p2, p3) {
+            if (item.authority >= __authority) {
+                html += getGuildItemHtml(item);
+            }
+        });
+        $("#guild_bar").append(html);
+    }
+    $(function () {
+        showGuildBar();
+        initPromptDialog();
+    });
+</script>
+
+<script>
+    var account_info = {};
+
+    account_info['name'] = '我大哥';
+
+    account_info['id_card'] = '123456199909091234';
+
+    account_info['position'] = '打杂';
+
+    initConfirmDialog();
+    $("#job_process_btn").click(function (event) {
+        var param = getParam();
+        if (!param) {
+            return;
+        }
+        showConfirmDialog('确认提交申请？', function () {
+            commonPost("/api/process_auto_job", param, function (data) {
+                promptMsg('发送成功，2s后自动跳转...');
+                setTimeout(function () {
+                    window.location.href = '/job_record.html#job_sent_by_myself';
+                }, 2000);
+            });
+        })
+    });
+    $(function () {
+        try {
+            getParam(true);
+        } catch (e) {
+            promptMsg('系统错误，未定义:getParam()');
+        }
+    });
+</script>
+
+<script>
+    $(function () {
+        $('#datetimepicker').datetimepicker();
+        selectMenu($("#dept_selector"));
+        commonPost('/api/query_dept_list', null, function (data) {
+            var options = '';
+            data.forEach(function (p1, p2, p3) {
+                options += '<option value="' + p1.name + '">' + p1.name + '</option>';
+            });
+            $("#dept_selector").append(options).selectmenu('refresh');
+        });
+    });
+    function getParam(check) {
+        if (check) return;
+        var dept = $("#dept_selector").val();
+        if (dept === '-1') {
+            promptMsg('请选择意向部门');
+            return;
+        }
+        var position = $("#position").val();
+        if (!position) {
+            promptMsg('请填写意向职位');
+            return;
+        }
+        var reason = $("#reason").val();
+        if (!reason) {
+            promptMsg('请填写调岗原因');
+            return
+        }
+        var content = "<div>所属部门：<span>组织建设组</span>　　　　　　　　职位：<span>打杂</span> </div>";
+        content += "<div>意向部门：" + wrapWithSpan(dept) + "</div>";
+        content += "<div>意向职位：" + wrapWithSpan(position) + "</div>";
+        content += "<div>调岗原因：</div>";
+        content += "<div style='margin-left:2em'>" + reason + "</div>";
+        return {
+            op: 'add',
+            job_type: TYPE_JOB_HR_ANOTHER_POST,
+            title: '调岗申请',
+            content: wrapJobContent(content)
+        };
+    }
+</script>
+
+
+</html>

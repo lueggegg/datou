@@ -1,0 +1,55 @@
+{% extends base_certificate.html %}
+
+{% block title %}工作证明{% end %}
+{% block certificate_title %}工作证明{% end %}
+
+{% block certificate_content %}
+　　兹证明，我司员工<span>{{ account_info['name'] }}</span>（身份证：<span>{{ account_info['id_card'] }}</span>）
+于<input class="job_process_content_date_picker" type="text" id="begin_date">
+至<input class="job_process_content_date_picker" type="text" id="end_date"> 在我司工作，
+目前任职<span>{{ account_info['position'] }}</span>，
+此证明仅作<input id="usage" class="job_process_content_editor" type="text">之用。
+{% end %}
+
+
+{% block js_script %}
+<script>
+    initDatePicker($("#begin_date"));
+    initDatePicker($("#end_date"));
+
+    function getParam(ckeck) {
+        if (ckeck) return;
+        var begin_date = $("#begin_date").val();
+        if (!begin_date) {
+            promptMsg('请选择开始日期');
+            return;
+        }
+        var end_date = $("#end_date").val();
+        if (!end_date) {
+            promptMsg('请选择结束日期').val();
+            return;
+        }
+        var usage = $("#usage").val();
+        if (!usage) {
+            promptMsg('请填写用途');
+            return;
+        }
+        var content = "　　兹证明，我司员工" + wrapWithSpan(account_info['name']);
+        content += "（身份证：" + wrapWithSpan(account_info['id_card']) + "）";
+        content += "于" + wrapWithSpan(begin_date) + "至" + wrapWithSpan(end_date) + "在我司工作，";
+        content += "目前任职" + wrapWithSpan(account_info['position']) + "，";
+        content += "此证明仅作" + wrapWithSpan(usage) + "之用。";
+
+        return {
+            op: 'add',
+            job_type: TYPE_JOB_CERTIFICATE_LABOR,
+            title: '工作证明',
+            content: wrapJobContent(content)
+        };
+
+    }
+</script>
+{% end %}
+
+
+

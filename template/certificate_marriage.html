@@ -1,0 +1,52 @@
+{% extends base_certificate.html %}
+
+{% block title %}婚育证明{% end %}
+{% block certificate_title %}婚育证明{% end %}
+
+{% block certificate_content %}
+　　兹证明，我司员工<span>{{ account_info['name'] }}</span>（身份证：<span>{{ account_info['id_card'] }}</span>）
+婚育状况为
+<select id="marriage_type">
+    <option value="未婚未育" selected>未婚未育</option>
+    <option value="已婚未育">已婚未育</option>
+    <option value="已婚已育">已婚已育</option>
+    <option value="离婚未育">离婚未育</option>
+    <option value="离婚已育">离婚已育</option>
+    <option value="再婚未育">再婚未育</option>
+    <option value="再婚已育">再婚已育</option>
+    <option value="未婚已育">未婚已育</option>
+</select>，
+此证明仅作<input id="usage" class="job_process_content_editor" type="text">之用。
+{% end %}
+
+{% block js_script %}
+<script>
+
+    function getParam(ckeck) {
+        if (ckeck) return;
+
+        var marriage_type = $("#marriage_type").val();
+        var usage = $("#usage").val();
+        if (!usage) {
+            promptMsg('请填写用途');
+            return;
+        }
+        var content = "　　兹证明，" + wrapWithSpan(account_info['name']);
+        content += "（身份证：" + wrapWithSpan(account_info['id_card']) + "）";
+        content += "婚育状况为" + wrapWithSpan(marriage_type) + "，";
+        content += "此证明仅作" + wrapWithSpan(usage) + "之用。";
+
+        return {
+            op: 'add',
+            job_type: TYPE_JOB_CERTIFICATE_MARRIAGE,
+            title: '婚育证明',
+            content: wrapJobContent(content)
+        };
+    }
+</script>
+{% end %}
+
+
+
+
+

@@ -1,0 +1,146 @@
+#invoke_doc_container {
+    background: rgb(255,255,237);
+}
+
+#invoke_doc_container img {
+    max-width: 98%;
+}
+
+.node_info_item {
+    margin-left: 10px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.node_info_item_label {
+    width: 64px;
+}
+
+.node_info_item_input {
+    margin-top:4px;
+    /*position:absolute;*/
+    color: rgb(0,50,225);
+    background: white;
+}
+
+.node_info_item_add_btn {
+    color: green;
+    border: 1px solid green;
+    border-radius: 2px;
+}
+
+.node_info_item_add_btn:hover {
+    cursor: pointer;
+    background: rgb(235,235,235);
+    border: 1px solid yellowgreen;
+    color: yellowgreen;
+}
+
+.node_info_item_del_btn {
+    margin-left: 5px;
+    color: red;
+    border: 1px solid red;
+    border-radius: 12px;
+    background: white;
+}
+
+.node_info_item_del_btn:hover {
+    cursor: pointer;
+    background: rgb(255,235,235);
+}
+
+.node_info_item_rec {
+    color: rgb(85,85,85);
+}
+
+.rec_selector_container {
+
+}
+
+
+.single_dept_leader_rec_item {
+    height: 32px;
+    line-height: 32px;
+    padding-left: 10px;
+    background: rgb(45, 200, 45);
+    color: white;
+}
+
+.rec_item_field {
+    width: 30%;
+    float: left;
+    background:inherit;
+}
+
+.attachment_container {
+    margin: 10px;
+    padding: 5px;
+    background: white;
+    border: 1px solid rgb(169,169,169);
+    border-radius: 4px;
+}
+
+.doc_text_area_container {
+    margin: 10px;
+}
+
+.doc_text_area {
+    padding: 5px;
+    width: 98.5%;
+    height: 240px;
+    border-radius: 4px;
+}
+
+.doc_send_btn {
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    float: right;
+    margin-right: 20px;
+    background: rgb(235,255,235);
+    color: green;
+    border-radius: 3px;
+    border: 1px solid green;
+}
+
+.doc_send_btn:hover {
+    cursor: pointer;
+    background: rgb(245,245,245);
+    letter-spacing: 5px;
+    /*     color: white; */
+}
+
+.doc_send_btn:active {
+    cursor: pointer;
+    background: rgb(0,168,0);
+    color: white;
+}
+
+.doc_reject_btn {
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    float: right;
+    margin-right: 20px;
+    background: rgb(255,235,235);
+    color: rgb(245,64,0);
+    border-radius: 3px;
+    border: 1px solid rgb(245,64,0);
+}
+
+.doc_reject_btn:hover {
+    cursor: pointer;
+    background: rgb(245,245,245);
+    letter-spacing: 5px;
+    /*     color: white; */
+}
+
+.doc_reject_btn:active {
+    cursor: pointer;
+    background: rgb(255,32,0);
+    color: white;
+}
+
+.job_img_attachment {
+
+}

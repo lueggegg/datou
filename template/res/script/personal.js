@@ -81,7 +81,7 @@ function initPersonalInfo() {
     $("#id_card").text(account_info.id_card);
     $("#user_dept").text(account_info.dept);
     $("#user_role").text(account_info.position);
-    $("#join_time").text(account_info.join_date.slice(0,10));
+    $("#join_time").text(account_info.join_date);
 
     setPersonalCustomInfo();
 

@@ -1,0 +1,74 @@
+{% extends base_certificate.html %}
+
+{% block title %}调岗申请{% end %}
+{% block certificate_title %}调岗申请{% end %}
+
+{% block certificate_content %}
+<div>
+    所属部门：<span>{{ account_info['dept'] }}</span>　　　　　　　　职位：<span>{{ account_info['position'] }}</span>
+</div>
+<div>
+    意向部门：
+    <select id="dept_selector">
+        <option selected disabled value="-1">请选择部门</option>
+    </select>
+</div>
+<div>
+    意向职位：<input id="position" type="text" class="common_editor">
+</div>
+<div>
+    调岗原因：
+    <div>
+        <textarea id="reason" class="common_text_area"></textarea>
+    </div>
+</div>
+{% end %}
+
+{% block guild_module %}{% module Template("module_hr_guild.html") %}{% end %}
+
+{% block js_script %}
+<script>
+    $(function () {
+       selectMenu($("#dept_selector"));
+       commonPost('/api/query_dept_list', null, function (data) {
+           var options = '';
+           data.forEach(function (p1, p2, p3) {
+               options += '<option value="' + p1.name + '">' + p1.name + '</option>';
+           });
+           $("#dept_selector").append(options).selectmenu('refresh');
+       });
+    });
+    function getParam(check) {
+        if (check) return;
+
+        var dept = $("#dept_selector").val();
+        if (dept === '-1') {
+            promptMsg('请选择意向部门');
+            return;
+        }
+        var position = $("#position").val();
+        if (!position) {
+            promptMsg('请填写意向职位');
+            return;
+        }
+        var reason = $("#reason").val();
+        if (!reason) {
+            promptMsg('请填写调岗原因');
+            return
+        }
+
+        var content =  "<div>所属部门：<span>{{ account_info['dept'] }}</span>　　　　　　　　职位：<span>{{ account_info['position'] }}</span> </div>";
+        content += "<div>意向部门：" + wrapWithSpan(dept) + "</div>";
+        content += "<div>意向职位：" + wrapWithSpan(position) + "</div>";
+        content += "<div>调岗原因：</div>";
+        content += "<div style='margin-left:2em'>" + reason + "</div>";
+
+        return {
+            op: 'add',
+            job_type: TYPE_JOB_HR_ANOTHER_POST,
+            title: '调岗申请',
+            content: wrapJobContent(content)
+        };
+    }
+</script>
+{% end %}

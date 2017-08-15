@@ -1,0 +1,30 @@
+{% extends base.html %}
+
+{% block title %}自动化流程{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/auto_job.css">
+{% end %}
+
+{% block custom_body %}
+<div class="outer_container">
+<div class="job_guild_container">
+    <div class="job_type">证明材料申请</div>
+    <div class="job_guild_list">
+        {% module Template("module_certificate_guild.html") %}
+    </div>
+</div>
+<div class="job_guild_container">
+    <div class="job_type">人事流程</div>
+    <div class="job_guild_list">
+        {% module Template("module_hr_guild.html") %}
+    </div>
+</div>
+<div class="job_guild_container">
+    <div class="job_type">账务流程</div>
+    <div class="job_guild_list">
+        {% module Template("module_financial_guild.html") %}
+    </div>
+</div>
+</div>
+{% end %}
+

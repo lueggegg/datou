@@ -1,5 +1,5 @@
 <!-- 头部 -->
-<div class="base_container">
+<div class="base_header_container">
     <div class="web_header">
         <div class="element_left" style="margin-left: 20px">
             <img src="res/images/logo.png" style="width: 20px; height: 22px; margin-top: 13px">
@@ -12,7 +12,7 @@
         </div>
         <div class="element_right" style="margin-right: 10px">
             <a href="personal.html">
-            <img id='header_user_portrait' src="{{ account_info['portrait'] }}" style="width: 36px; height: 36px; border-radius: 18px;">
+            <img id='header_user_portrait' src="{{ account_info['portrait'] }}" style="margin-top: 5px; width: 36px; height: 36px; border-radius: 18px;">
             </a>
         </div>
         {% if account_info['authority'] <= 8 %}

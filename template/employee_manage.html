@@ -11,7 +11,7 @@
 
 
 {% block custom_body %}
-    <div id="tabs" style="margin-top: 10px;">
+    <div id="tabs">
         <ul>
             <li><a href="#dept_config_container">部门管理</a></li>
             <li><a href="#employee_config_container">员工管理</a></li>
@@ -21,7 +21,7 @@
             <div class="element_right">
                 <button id="add_dept" style="width: 140px" class="ui-button ui-corner-all ui-widget">+增加部门</button>
             </div>
-            <div id="dept_list" style="margin-top: 20px;">
+            <div id="dept_list" style="margin-top: 40px;">
             </div>
         </div>
 
@@ -102,6 +102,9 @@
     </p>
     <p>
         手机号码：<input id="cellphone" type="text" class="common_editor"/>
+    </p>
+    <p>
+        出生日期：<input id="birthday" type="text" class="common_editor" placeholder="不填写则使用身份证的出生日期"/>
     </p>
     <p>&nbsp;</p>
 </div>

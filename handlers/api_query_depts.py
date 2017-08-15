@@ -11,6 +11,10 @@ class ApiQueryDeptList(ApiHandler):
     @gen.coroutine
     def _real_deal_request(self):
         res = {"status": error_codes.EC_SUCCESS}
-        dept_list = yield self.account_dao.query_dept_list()
+        tree = self.get_argument('tree', None)
+        if tree is None:
+            dept_list = yield self.account_dao.query_dept_list()
+        else:
+            dept_list = yield self.get_department_tree(with_level=True)
         res["data"] = dept_list
         self.write_json(res)

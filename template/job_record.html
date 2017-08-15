@@ -1,0 +1,25 @@
+{% extends base.html %}
+
+{% block title %}工作流{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/list.css">
+<link rel="stylesheet" href="res/css/tabs.css">
+<link rel="stylesheet" href="res/css/job_record.css">
+<script type="text/javascript" src="res/script/job_record.js"></script>
+{% end %}
+
+{% block custom_body %}
+<div id="tabs">
+    <ul>
+        <li><a href="#job_waiting">待办的工作流</a> </li>
+        <li><a href="#job_processed">已办的工作流</a> </li>
+        <li><a href="#job_completed">已归档的工作流</a> </li>
+        <li><a href="#job_sent_by_myself">我发起的工作流</a> </li>
+    </ul>
+    <div id="job_waiting"></div>
+    <div id="job_processed"></div>
+    <div id="job_completed"></div>
+    <div id="job_sent_by_myself"></div>
+</div>
+{% end %}
+

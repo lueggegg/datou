@@ -12,4 +12,7 @@ class HtmlHandler(BaseHandler):
         if not st:
             return
         path = self.request.path
-        self.render(path[1:], account_info=self.account_info)
+        try:
+            self.render(path[1:], account_info=self.account_info, arg=self.request.arguments)
+        except IOError:
+            self.send_error(404)

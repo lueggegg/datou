@@ -8,6 +8,25 @@
     color: rgb(0,127,255);
 }
 
+.base_header_container {
+    /*position: fixed;*/
+    /*height: 90px;*/
+    /*z-index: 10;*/
+    /*background: white;*/
+    top: 0;
+}
+
+.base_body_container {
+    /*top: 80px;*/
+    /*position: relative;*/
+    margin-top: 10px;
+
+}
+
+.content_body_container {
+    /*display: inline-block;*/
+}
+
 .element_left {
     float: left;
     position: relative;
@@ -52,7 +71,19 @@
 
 .common_editor {
     width: 220px;
-    min-height: 28px;
+    height: 30px;
+    line-height: 30px;
+    margin-left:4px;
+    border: 1px solid rgb(197,197,197);
+    border-radius: 3px;
+    padding-left: 5px;
+    padding-right:5px;
+}
+
+.common_long_editor {
+    width: 600px;
+    height: 30px;
+    line-height: 30px;
     margin-left:4px;
     border: 1px solid rgb(197,197,197);
     border-radius: 3px;
@@ -69,7 +100,7 @@
 
 .common_clickable {
     color: rgb(0,127,255);
-    text-decoration: underline;
+    /*text-decoration: underline;*/
     font-size: 15px;
 }
 
@@ -102,4 +133,81 @@
     margin-left: 10px;
     float:right;
     margin-right:70px;
+}
+
+.common_container {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.common_ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.common_divider {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid lightgray;
+}
+
+#tabs {
+    margin-top: 10px;
+}
+
+.common_attachment {
+    background: url("../images/logo.png");
+}
+
+.common_bold_divider {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-bottom: 4px solid rgb(0,127,255);
+}
+
+.common_small_del_btn {
+    margin-left: 5px;
+    width: 13px;
+    height: 13px;
+}
+
+.common_small_del_btn:hover {
+    cursor: pointer;
+}
+
+.common_file_input {
+    position: relative;
+    display: inline-block;
+    background: rgb(235,245,255);
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #1E88C7;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+.common_file_input input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.common_file_input:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: white;
+    text-decoration: none;
+}
+
+.common_text_area {
+    padding: 5px;
+    width: 98%;
+    height: 240px;
+    border-radius: 4px;
 }

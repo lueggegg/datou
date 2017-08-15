@@ -1,8 +1,12 @@
+var __my_uid = null;
 
 var __super_authority = 1;
 var __admin_authority = 8;
 var __dept_leader_authority = 16;
 var __common_authority = 1024;
+
+var NULL_OPERATION = -1;
+var __current_operation = NULL_OPERATION;
 
 function redirectError(e) {
     if (e) {
@@ -24,13 +28,15 @@ function removeChildren(container) {
     container.children().remove();
 }
 
-function selectMenu(container) {
+function selectMenu(container, onChange) {
     container.selectmenu({
-        width: 230
+        width: 230,
+        change: onChange
     });
 }
 
 function verticalTabs(target_id) {
+    if (!target_id) target_id = "#tabs";
     $( target_id ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     $( target_id + " li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" )
 }
@@ -38,33 +44,77 @@ function verticalTabs(target_id) {
 function isValidPhoneNumber(number) {
     return number.length === 11 && parseInt(number)>= 10000000000;
 }
-function updateListView(container, data, without_title){
-    removeChildren(container);
 
+function isValidIdCard(id_card) {
+    var valid = true;
+    valid &= id_card.length === 18;
+    if (!valid) {
+        return false;
+    }
+    var divider = [[0,6], [6,10], [10,12], [12,14], [14,17]];
+    var limit = [[100000, 999999], [1900,2017], [0,12], [0,31], [0,999]];
+    valid &= divider.every(function (p1, p2, p3) {
+        var num = parseInt(id_card.slice(p1[0], p1[1]));
+        return num > limit[p2][0] && num <= limit[p2][1];
+    });
+    return valid;
+}
+
+function compareParam(default_param, param) {
+    if (!param) return;
+    for (var key in default_param) {
+        if (default_param.hasOwnProperty(key) && param.hasOwnProperty(key)) {
+            default_param[key] = param[key];
+        }
+    }
+}
+function updateListView(container, data, param) {
+    removeChildren(container);
+    container.append(getListViewHtml(data, param));
+}
+
+function getListViewHtml(data, param){
+
+    var default_param = {
+        without_title: false,
+        weight: null,
+        diff_background: true,
+        ul_class: 'list_view_ul',
+        item_callback: null
+    };
+    compareParam(default_param, param);
+
+    var total = 98;
     var content = "";
-    var i = 0;
-    var length = data.length;
-    var li_style =  "";
-    if (!without_title) {
-        content += "<ul class='th list_view_ul'>";
-        var item = data[i];
-        var item_size = item.length;
-        li_style += "width: " + Math.floor(100/item_size) + "%;";
-        for (var j = 0; j < item_size; ++j) {
-            content += "<li style='" + li_style + "'>" + item[j] + "</li>"
+    var item_size = data[0].length;
+    var widths = [];
+    var background = [default_param.diff_background?' list_view_ul_even_row':'', ''];
+    if (default_param.weight && default_param.weight.length === item_size) {
+        var total_weight = 0;
+        default_param.weight.forEach(function (p1, p2, p3) {
+            total_weight += p1;
+        });
+        default_param.weight.forEach(function (p1, p2, p3) {
+            widths.push(Math.floor(p1/total_weight*total));
+        })
+    } else {
+        for (var i = 0; i < item_size; ++i) {
+            widths.push(Math.floor(total/item_size));
         }
-        content += "</ul>";
-        i++;
     }
-    for (; i < length; ++i) {
-        content += "<ul class='list_view_ul'>";
-        var item = data[i];
-        for (var j = 0; j < item.length; ++j) {
-            content += "<li style='" + li_style + "'>" + item[j] + "</li>"
-        }
+
+    data.forEach(function (p1, p2, p3) {
+       if (p2 === 0 && !default_param.without_title) {
+           content += "<ul class='th " + default_param.ul_class + "'>";
+       } else {
+           content += "<ul class='" + default_param.ul_class + background[p2 % 2] + "'>";
+       }
+        p1.forEach(function (field, index, p) {
+            content += "<li style='width: " + widths[index] + "%'>" + field + "</li>";
+        });
         content += "</ul>";
-    }
-    container.append(content);
+    });
+    return content;
 }
 
 var __common_confirm_dlg;
@@ -106,8 +156,10 @@ function showConfirmDialog(msg, continue_callback) {
     }
 }
 
-var __common_prompt_dlg;
+var __common_prompt_dlg = null;
 function initPromptDialog(modal) {
+    if (__common_prompt_dlg) return;
+
     modal = !!modal;
     var html = "<div id='__common_prompt_dlg' title='提示'><p id='__common_prompt_dlg_info' class='common_prompt_info'>info</p><p>&nbsp;</p></div>";
     $("body").append(html);
@@ -148,13 +200,141 @@ function commonTagMsg(msg) {
     }, 3000);
 }
 
-function initDatePicker(container, onSelectCb) {
-    container.datepicker({
+function initDatePicker(container, onSelectCb, init, noMaxDate) {
+    var param = {
         dateFormat: "yy-mm-dd",
         changeYear: true,
-        maxDate: "0d",
         defaultDate : new Date(),
         onSelect: onSelectCb
+    };
+    if (!noMaxDate) {
+        param['maxDate'] = '0d';
+    }
+    container.datepicker(param);
+    init = !!init;
+    if (init) {
+        container.datepicker("setDate", new Date());
+    }
+}
+
+function consoleDebug(msg) {
+    window.console.debug(msg);
+}
+
+function commonSelectable(container, onSelected, filter) {
+    if (!filter) filter = 'li';
+
+    container.selectable({
+        first_selecting: null,
+        last_selected: null,
+
+        selecting: function (event, ui) {
+            if (!this.first_selecting) {
+                this.first_selecting = ui.selecting.value;
+            }
+        },
+
+        stop: function (event, ui) {
+            if (this.first_selecting) {
+                this.last_selected = this.first_selecting;
+            }
+            this.first_selecting = null;
+            var container = $(event.target);
+            container.children(this.filter).removeClass('ui-selected');
+            if (this.last_selected) {
+                var value = this.last_selected;
+                container.children(this.filter).filter(function () { return $(this).val() === value; }).addClass('ui-selected');
+                if (onSelected) {
+                    onSelected(this.last_selected);
+                }
+            }
+        },
+
+        filter: filter
+    })
+}
+
+function commonInitDialog(dialog, onOK, param) {
+    var default_param = {
+        width: 400,
+        modal: true
+    };
+    compareParam(default_param, param);
+
+    dialog.dialog({
+        autoOpen: false,
+        modal: default_param.modal,
+        width: default_param.width,
+        buttons: [
+            {
+                text: "确定",
+                click: onOK
+            },
+            {
+                text: "取消",
+                click: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        ]
     });
-    container.datepicker("setDate", new Date());
+}
+
+function abstractDateFromDatetime(datetime) {
+    return datetime.slice(0, 10);
+}
+
+function commonPost(url, param, successCallback) {
+    $.post(url, param, function (data) {
+        try {
+            if (data.status !== 0) {
+                if (data.hasOwnProperty('msg')) {
+                    promptMsg(data.msg);
+                } else {
+                    promptMsg('服务器错误');
+                }
+                return;
+            }
+            successCallback(data.data);
+        } catch (e) {
+            redirectError(e);
+        }
+    });
+}
+
+function html2Text(sHtml) {
+    sHtml = sHtml.replace(/(<br\/>|<br>)/ig, '\n');
+    return sHtml.replace(/[ <>&"\n\r]/g,function(c){
+        return {
+            ' ': '&nbsp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '&': '&amp;',
+            '"': '&quot;',
+            '\n': "<br/>",
+            '\r': "<br/>"
+        }[c];
+    });
+}
+
+function commonGetString(str, default_value) {
+    if (!default_value) {
+        default_value = '无';
+    }
+    if (!str) {
+        return default_value;
+    }
+    return str;
+}
+
+function wrapJobContent(content) {
+    return '{' + content + '}';
+}
+
+function abstractJobContent(content) {
+    return content.slice(1, content.length-1);
+}
+
+function wrapWithSpan(item) {
+    return '<span>' + item + '</span>';
 }

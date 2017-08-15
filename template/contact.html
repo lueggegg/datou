@@ -1,0 +1,51 @@
+{% extends base.html %}
+
+{% block title %}通讯录{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/contact.css">
+<link rel="stylesheet" href="res/css/list.css">
+<link rel="stylesheet" href="res/css/tabs.css">
+<script type="text/javascript" src="res/script/contact.js"></script>
+{% end %}
+
+{% block custom_body %}
+<div id="tabs">
+    <ul>
+        <li><a href="#dept_contact_container">公司架构</a></li>
+        <li><a href="#search_contact_container">通讯录</a></li>
+    </ul>
+
+    <div class="tab_config_container" id="dept_contact_container">
+        <div class="common_container" id="dept_list"></div>
+        <div class="contact_dept_divider"></div>
+        {% module Template("module_contact_list.html", contact_type="dept") %}
+    </div>
+
+    <div class="tab_config_container" id="search_contact_container">
+        <div class="common_container" id="search_condition">
+            <div class="topic_title">搜索联系人</div>
+            <div class="contact_condition_container">
+                <p>
+                    部门：
+                    <select id="condition_dept">
+                        <option selected disabled value="-1">请选择</option>
+                        <option value="0">全部</option>
+                    </select>
+                </p>
+                <p>
+                    工号：<input id="condition_account" type="text" class="common_editor">
+                </p>
+                <p>
+                    姓名：<input id="condition_name" type="text" class="common_editor">
+                </p>
+                <div class="contact_condition_btn">
+                    <button id="search_button" class="ui-button ui-corner-all">　搜索　</button>
+                </div>
+            </div>
+        </div>
+        <div class="contact_dept_divider"></div>
+        {% module Template("module_contact_list.html", contact_type="search") %}
+
+    </div>
+</div>
+{% end %}}

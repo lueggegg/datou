@@ -1,0 +1,46 @@
+{% extends base.html %}
+<title>{% block title %}{{ arg['title'][0] }}{% end %}</title>
+
+{% block custom_head %}
+<link href="res/css/doc_detail.css" rel="stylesheet">
+<link href="res/css/official_doc.css" rel="stylesheet">
+<link href="res/css/list.css" rel="stylesheet">
+<script type="text/javascript" src="res/script/auto_job_detail.js"></script>
+{% end %}
+
+{% block custom_body %}
+<div class="doc_detail_anchor common_border">
+    <ul id="doc_node_list_anchor">
+        <li><a href="#main_info_container">跳到顶部</a></li>
+        <li><a href="#bottom_anchor">跳到底部</a></li>
+        <li id="cancel_btn" class="common_clickable">撤消</li>
+    </ul>
+</div>
+<div class="doc_detail_container">
+    <div id="main_info_container">
+        主题：
+        <span id="doc_topic"></span>
+        <div class="element_right" style="margin-right: 20px" id="job_status"></div>
+    </div>
+    <div id="doc_node_list">
+    </div>
+    <div id="process_container">
+        <div class="doc_text_area_container">
+            <textarea id='doc_content' class="doc_text_area"></textarea>
+        </div>
+        <div style="height: 32px;">
+            <button id='doc_send_btn' class="doc_send_btn">同意</button>
+            <button id='doc_reject_btn' class="doc_reject_btn">不同意</button>
+        </div>
+    </div>
+    <div id="bottom_anchor"></div>
+</div>
+
+{% end %}
+
+{% block custom_foot %}
+<script>
+    var __job_id = {{ arg['job_id'][0] }};
+    var __title = "{{ arg['title'][0] }}";
+</script>
+{% end %}

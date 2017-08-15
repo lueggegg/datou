@@ -1,0 +1,52 @@
+{% extends base_certificate.html %}
+
+{% block title %}离职申请{% end %}
+{% block certificate_title %}离职申请{% end %}
+
+{% block certificate_content %}
+<div>
+    所属部门：<span>{{ account_info['dept'] }}</span>　　　　　　　　职位：<span>{{ account_info['position'] }}</span>
+</div>
+<div>
+    预计离职日期：
+    <input class="job_process_content_date_picker" type="text" id="resign_date">
+</div>
+<div>
+    离职原因：
+    <div>
+        <textarea id="reason" class="common_text_area"></textarea>
+    </div>
+</div>
+{% end %}
+
+{% block guild_module %}{% module Template("module_hr_guild.html") %}{% end %}
+
+{% block js_script %}
+<script>
+    initDatePicker($("#resign_date"), null, false, true);
+
+    function getParam(check) {
+        if (check) return null;
+
+        var reason = $("#reason").val();
+        if (!reason) {
+            promptMsg('请填写离职原因');
+            return null;
+        }
+
+        var resign_date = $("#resign_date").val();
+
+        var content =  "<div>所属部门：<span>{{ account_info['dept'] }}</span>　　　　　　　　职位：<span>{{ account_info['position'] }}</span> </div>";
+        content += "<div>预计离职日期：" + wrapWithSpan(resign_date) + "</div>";
+        content += "<div>离职原因：</div>";
+        content += "<div style='margin-left:2em'>" + reason + "</div>";
+
+        return {
+            op: 'add',
+            job_type: TYPE_JOB_HR_RESIGN,
+            title: '离职申请',
+            content: wrapJobContent(content)
+        };
+    }
+</script>
+{% end %}

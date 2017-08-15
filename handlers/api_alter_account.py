@@ -18,16 +18,14 @@ class ApiAlterAccount(ApiHandler):
         if op != 'del':
             data = self.get_argument('account_info', None)
             if not data:
-                self.write_result(error_codes.EC_ARGUMENT_ERROR, '参数错误')
-                return
+                self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '参数错误')
             info = self.loads_json(data)
 
             if 'portrait' in info:
                 portrait_data = info['portrait']
                 r = re.match('data:image/(.+);base64,(.+)', portrait_data)
                 if not r:
-                    self.write_result(error_codes.EC_ARGUMENT_ERROR, '证件照文件格式错误')
-                    return
+                    self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '证件照文件格式错误')
                 postfix = r.group(1)
                 portrait = r.group(2)
                 md5 = hashlib.md5()
@@ -45,26 +43,39 @@ class ApiAlterAccount(ApiHandler):
             msg = '更新员工信息'
             uid = self.get_argument('uid', None)
             if not uid:
-                self.write_result(error_codes.EC_ARGUMENT_ERROR, '员工id错误')
-                return
+                self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '员工id错误')
+            account = yield self.account_dao.query_account_by_id(uid)
+            if not account:
+                self.finish_with_error(error_codes.EC_USER_NOT_EXIST, '员工不存在')
+            if not account['birthday'] and 'birthday' not in info:
+                info['birthday'] = self.get_birthday_from_id_card(info['id_card'])
+                self.check_birthday(info['birthday'])
             ret = self.account_dao.update_account(uid, **info)
         elif op == 'add':
             msg = '添加员工'
             account = yield self.account_dao.query_account(info['account'])
             if account:
-                self.write_result(error_codes.EC_SYS_ERROR, '账号已经存在')
-                return
+                self.finish_with_error(error_codes.EC_SYS_ERROR, '账号已经存在')
+            if 'birthday' not in info:
+                info['birthday'] = self.get_birthday_from_id_card(info['id_card'])
+            self.check_birthday(info['birthday'])
             ret = self.account_dao.add_account(**info)
         elif op == 'del':
             msg = '删除员工'
             uid = self.get_argument('uid', None)
             if not uid:
-                self.write_result(error_codes.EC_ARGUMENT_ERROR, '员工id错误')
-                return
+                self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '员工id错误')
             info = {'status': 0, 'login_phone': None}
             ret = self.account_dao.update_account(uid, **info)
         else:
-            self.write_result(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
-            return
+            self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
 
         self.process_result(ret, msg)
+
+
+    def check_birthday(self, birthday):
+        if not self.is_valid_datetime(birthday):
+            self.finish_with_error(error_codes.EC_SYS_ERROR, '无效的日期')
+
+    def get_birthday_from_id_card(self, id_card):
+        return '%s-%s-%s' % (id_card[6:10], id_card[10:12], id_card[12:14])

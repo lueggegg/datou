@@ -1,0 +1,97 @@
+{% extends base_certificate.html %}
+
+{% block title %}请假流程{% end %}
+{% block more_head %}
+<link rel="stylesheet" type="text/css" href="res/jquery/jquery.datetimepicker.css">
+<script type="text/javascript" src="res/jquery/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="res/jquery/jquery.datetimepicker.full.js"></script>
+<script type="text/javascript" src="res/script/attachment_list.js"></script>
+<link rel="stylesheet" href="res/css/list.css">
+{% end %}
+{% block certificate_title %}请假流程{% end %}
+
+{% block certificate_content %}
+<div>
+    开始时间：<input type="text" id="begin_time" class="job_process_content_date_picker">
+</div>
+<div>
+    结束时间：<input type="text" id="end_time" class="job_process_content_date_picker">
+</div>
+<div>
+    请假类型：
+    <select id="leave_type">
+        <option selected value="病假">病假</option>
+        <option value="事假">事假</option>
+        <option value="年假">年假</option>
+        <option value="调休">调休</option>
+        <option value="婚假">婚假</option>
+        <option value="产假">产假</option>
+        <option value="丧假">丧假</option>
+    </select>
+</div>
+<div>
+    请假原因：
+    <div>
+        <textarea id="reason" class="common_text_area"></textarea>
+    </div>
+</div>
+<div class="job_attachment_container" id="attachment_container"></div>
+{% end %}
+
+{% block guild_module %}{% module Template("module_hr_guild.html") %}{% end %}
+
+{% block js_script %}
+<script>
+    var attachment_controller = initAttachmentController($("#attachment_container"));
+
+    $(function () {
+        $('#begin_time').datetimepicker();
+        $('#end_time').datetimepicker();
+
+        selectMenu($("#leave_type"));
+    });
+
+    function getParam(check) {
+        if (check) return;
+
+        var begin_time = $("#begin_time").val();
+        if (!begin_time) {
+            promptMsg('请选择开始时间');
+            return''
+        }
+        var end_time = $("#end_time").val();
+        if (!end_time) {
+            promptMsg('请选择结束时间');
+            return''
+        }
+
+        var type = $("#leave_type").val();
+
+        var reason = $("#reason").val();
+        if (!reason) {
+            promptMsg('请填写请假原因');
+            return
+        }
+
+        var content =  "<div>开始时间：" + wrapWithSpan(begin_time) + "</div>";
+        content += "<div>开始时间：" + wrapWithSpan(end_time) + "</div>";
+        content += "<div>请假类型：" + wrapWithSpan(type) + "</div>";
+        content += "<div>请假原因：</div>";
+        content += "<div style='margin-left:2em'>" + reason + "</div>";
+
+        var param = {
+            op: 'add',
+            job_type: TYPE_JOB_HR_ASK_FOR_LEAVE,
+            title: '请假流程',
+            content: wrapJobContent(content)
+        };
+
+        var attachment = attachment_controller.get_upload_files();
+        if (attachment) {
+            param['has_attachment'] = 1;
+            param['file_list'] = JSON.stringify(attachment);
+        }
+        return param;
+    }
+</script>
+{% end %}

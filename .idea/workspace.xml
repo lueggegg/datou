@@ -2,81 +2,131 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/default_portrait.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/portrait/4f705390ffbbf1c46691ddfa0b839d8b.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/portrait/596d5020d813172a152dc5745d924e23.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/portrait/a01e9138fdb031c644845d013b1bdc66.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/portrait/ad9790787497ebb2467b5f330cff1749.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/portrait/b3a2a456b70713c4e873cdfc4034664c.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/jquery/images/ui-icons_444444_256x240.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/jquery/images/ui-icons_555555_256x240.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/jquery/images/ui-icons_777620_256x240.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/jquery/images/ui-icons_777777_256x240.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/jquery/images/ui-icons_cc0000_256x240.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/account_dao.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/db_helper.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/mysql_config.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/mysql_executor.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/mysql_inst_mgr.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/mysql_pool.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_alter_account.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_alter_dept.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_handler.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_is_account_exist.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_query_accounts.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_query_depts.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_reset_password.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/employee_manage_handler.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/html_handler.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/admin.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/base.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/base_admin.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/employee_manage.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/script/employee_manage.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/script/login.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/handlers/account - 副本.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/template/res/jquery/images/ui-bg_diagonals-thick_18_b81900_40x40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/template/res/jquery/images/ui-bg_diagonals-thick_20_666666_40x40.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/template/res/jquery/images/ui-bg_glass_100_f6f6f6_1x400.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/template/res/jquery/images/ui-bg_glass_100_fdf5ce_1x400.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/template/res/jquery/images/ui-bg_glass_65_ffffff_1x400.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/template/res/jquery/images/ui-bg_gloss-wave_35_f6a828_500x100.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/template/res/jquery/images/ui-bg_highlight-soft_100_eeeeee_1x100.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/template/res/jquery/images/ui-bg_highlight-soft_75_ffe45c_1x100.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/template/res/jquery/images/ui-icons_222222_256x240.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/template/res/jquery/images/ui-icons_228ef1_256x240.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/template/res/jquery/images/ui-icons_ef8c08_256x240.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/template/res/jquery/images/ui-icons_ffd27a_256x240.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/images/logo.png" afterPath="$PROJECT_DIR$/template/res/images/logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/favicon.ico" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/4f705390ffbbf1c46691ddfa0b839d8b/不要不要的.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/a01e9138fdb031c644845d013b1bdc66/phone.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/cc468d3756178ef5ee95b9adca76a6e8/bug_restore.docx" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/e91ed7f462812b5330f7f99c58c66be8/SecureConnect.exe" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/images/4db2f0ad375cff644aeb8d93771efa36.x-icon" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/images/4f705390ffbbf1c46691ddfa0b839d8b.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/images/a01e9138fdb031c644845d013b1bdc66.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/images/a38d4245e00c676c1a864ec6282ea34d.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/images/ad9790787497ebb2467b5f330cff1749.jpeg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/icon/gray_del.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/icon/red_del.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/portrait/7cf7db399d18fb476382e7636ec772ee.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/portrait/8a7897e1ae64d545b88eed7394e741ae.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/base_dao.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/job_dao.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/readme.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gen_defines.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/admin_operation.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_alter_job.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_alter_job_path.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_create_new_job.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_job_handler.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_process_auto_job.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_query_job_info.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_query_job_list.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_query_job_path_info.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_query_job_status_mark.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_send_official_doc.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_upload_file.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/apply_for_another_post.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/apply_resign.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/ask_for_leave.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/auto_job.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/auto_job_detail.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/base_certificate.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/certificate_apply.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/certificate_internship.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/certificate_marriage.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/certificate_on_job.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/certificate_salary.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/contact.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/doc_detail.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/financial_purchase.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/financial_reimbursement.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/job_path_manage.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/job_record.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/module_certificate_guild.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/module_contact_list.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/module_financial_guild.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/module_hr_guild.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/official_doc.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/recommend_new.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/099624f0da93dc5ff95522ace6d549b5/configure.bat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/20818d5b0c65479dcb1990f30c3eb053/build.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/3634d0a0e24b9cd8a7ff936f86f148a1/debug.log" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/3c190710836477ae69fd13bfdc938583/dd.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/42b0e01165ee97969a4a78fafa70fd8e/build.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/557f3fcfc6b365a8680bfe7f6cd67c6a/build.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/5a67f2f00bf196652c55db3bb97acffa/it300(3).log" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/64ca5a7895c62b4dec5fd83d06bd1820/deladapter.bat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/926ca83cf1819f5b2398bbe6cecdfd40/build.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/a99e6dc4afb6e6758667f887205a8e56/build.conf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/c4121e9ae4c1835cdf05b2c0a1e0170f/upddepend.bat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/d902002bb0bb9917c12d104d327672c8/addadapter.bat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/dec62accc5c5830dc749bde1d49461c0/update-soui.bat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/e87076ca1a16b2fbb71da8651eb0fdf0/it300(1).log" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/eb288ac1d23c547692f6e47c437cae5f/target.luegg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/css/auto_job.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/css/contact.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/css/doc_detail.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/css/job_common.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/css/job_path_manage.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/css/job_record.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/css/official_doc.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/css/process_guild.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/css/tag_selector.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/jquery/jquery.datetimepicker.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/jquery/jquery.datetimepicker.full.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/jquery/jquery.datetimepicker.full.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/jquery/jquery.datetimepicker.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/jquery/jquery.datetimepicker.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/script/attachment_list.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/script/auto_job_detail.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/script/certificate_utils.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/script/contact.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/script/doc_detail.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/script/job_path_manage.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/script/job_record.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/script/official_doc.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/script/tag_selector.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/script/type_define.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/test.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/type_define.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/type_define.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/datou.iml" afterPath="$PROJECT_DIR$/.idea/datou.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/account_dao.py" afterPath="$PROJECT_DIR$/db/account_dao.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/__init__.py" afterPath="$PROJECT_DIR$/handlers/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_get_password_protect_question.py" afterPath="$PROJECT_DIR$/handlers/api_get_password_protect_question.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_update_password_protect_question.py" afterPath="$PROJECT_DIR$/handlers/api_update_password_protect_question.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_alter_account.py" afterPath="$PROJECT_DIR$/handlers/api_alter_account.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_alter_dept.py" afterPath="$PROJECT_DIR$/handlers/api_alter_dept.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_handler.py" afterPath="$PROJECT_DIR$/handlers/api_handler.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_query_accounts.py" afterPath="$PROJECT_DIR$/handlers/api_query_accounts.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_query_depts.py" afterPath="$PROJECT_DIR$/handlers/api_query_depts.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_reset_password.py" afterPath="$PROJECT_DIR$/handlers/api_reset_password.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/base_handler.py" afterPath="$PROJECT_DIR$/handlers/base_handler.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/login_handler.py" afterPath="$PROJECT_DIR$/handlers/login_handler.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/html_handler.py" afterPath="$PROJECT_DIR$/handlers/html_handler.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/base.html" afterPath="$PROJECT_DIR$/template/base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/base_admin.html" afterPath="$PROJECT_DIR$/template/base_admin.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/employee_manage.html" afterPath="$PROJECT_DIR$/template/employee_manage.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/header.html" afterPath="$PROJECT_DIR$/template/header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/login.html" afterPath="$PROJECT_DIR$/template/login.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/personal.html" afterPath="$PROJECT_DIR$/template/personal.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/css/base.css" afterPath="$PROJECT_DIR$/template/res/css/base.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/css/index.css" afterPath="$PROJECT_DIR$/template/res/css/index.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/css/list.css" afterPath="$PROJECT_DIR$/template/res/css/list.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/css/login.css" afterPath="$PROJECT_DIR$/template/res/css/login.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/css/navigation.css" afterPath="$PROJECT_DIR$/template/res/css/navigation.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/css/tabs.css" afterPath="$PROJECT_DIR$/template/res/css/tabs.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/jquery/jquery-ui.css" afterPath="$PROJECT_DIR$/template/res/jquery/jquery-ui.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/jquery/jquery-ui.js" afterPath="$PROJECT_DIR$/template/res/jquery/jquery-ui.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/jquery/jquery-ui.min.css" afterPath="$PROJECT_DIR$/template/res/jquery/jquery-ui.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/jquery/jquery-ui.min.js" afterPath="$PROJECT_DIR$/template/res/jquery/jquery-ui.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/jquery/jquery-ui.structure.min.css" afterPath="$PROJECT_DIR$/template/res/jquery/jquery-ui.structure.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/jquery/jquery-ui.theme.css" afterPath="$PROJECT_DIR$/template/res/jquery/jquery-ui.theme.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/jquery/jquery-ui.theme.min.css" afterPath="$PROJECT_DIR$/template/res/jquery/jquery-ui.theme.min.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/base.js" afterPath="$PROJECT_DIR$/template/res/script/base.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/employee_manage.js" afterPath="$PROJECT_DIR$/template/res/script/employee_manage.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/personal.js" afterPath="$PROJECT_DIR$/template/res/script/personal.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/temp.html" afterPath="$PROJECT_DIR$/template/temp.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -85,117 +135,206 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="datou" />
+  </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="28" column="56" lean-forward="false" selection-start-line="28" selection-start-column="56" selection-end-line="28" selection-end-column="56" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="account_dao.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db/account_dao.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="113" column="28" lean-forward="false" selection-start-line="113" selection-start-column="28" selection-end-line="113" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base_handler.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/handlers/base_handler.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="95" column="65" lean-forward="false" selection-start-line="95" selection-start-column="65" selection-end-line="95" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="api_get_password_protect_question.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/handlers/api_get_password_protect_question.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-              <folding>
-                <element signature="e#25#48#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="api_query_depts.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/handlers/api_query_depts.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="15" column="28" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding>
-                <element signature="e#25#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="api_handler.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/handlers/api_handler.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="521">
-              <caret line="42" column="39" lean-forward="false" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
-              <folding>
-                <element signature="e#25#48#0" expanded="true" />
-                <element signature="e#717#1241#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/handlers/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="18" column="47" lean-forward="false" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
-              <folding>
-                <element signature="e#1#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="api_reset_password.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/handlers/api_reset_password.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="15" column="41" lean-forward="false" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
-              <folding>
-                <element signature="e#25#48#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="api_is_account_exist.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/handlers/api_is_account_exist.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
-              <folding>
-                <element signature="e#25#48#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.4774536">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="job_dao.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/db/job_dao.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1045">
+                  <caret line="60" column="64" lean-forward="false" selection-start-line="60" selection-start-column="64" selection-end-line="60" selection-end-column="64" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api_alter_job.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/handlers/api_alter_job.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="380">
+                  <caret line="24" column="44" lean-forward="false" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+                  <folding>
+                    <element signature="e#25#48#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api_query_job_status_mark.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/handlers/api_query_job_status_mark.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="266">
+                  <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#25#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api_query_job_info.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/handlers/api_query_job_info.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="513">
+                  <caret line="33" column="46" lean-forward="false" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="46" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api_send_official_doc.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/handlers/api_send_official_doc.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="311">
+                  <caret line="47" column="32" lean-forward="false" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="type_define.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/type_define.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="779">
+                  <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api_alter_job_path.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/handlers/api_alter_job_path.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="95">
+                  <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+                  <folding>
+                    <element signature="e#25#48#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api_query_job_path_info.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/handlers/api_query_job_path_info.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="152">
+                  <caret line="14" column="62" lean-forward="false" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="62" />
+                  <folding>
+                    <element signature="e#25#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api_job_handler.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/handlers/api_job_handler.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="152">
+                  <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#25#43#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="base_handler.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/handlers/base_handler.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1558">
+                  <caret line="92" column="8" lean-forward="false" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="api_query_job_list.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="304">
+                  <caret line="22" column="48" lean-forward="false" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api_process_auto_job.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/handlers/api_process_auto_job.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="19">
+                  <caret line="60" column="30" lean-forward="false" selection-start-line="60" selection-start-column="30" selection-end-line="60" selection-end-column="30" />
+                  <folding>
+                    <element signature="e#25#48#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/handlers/__init__.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="570">
+                  <caret line="30" column="47" lean-forward="false" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/main.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="627">
+                  <caret line="40" column="33" lean-forward="false" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="33" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="account_dao.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/db/account_dao.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1235">
+                  <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="type_define.txt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/type_define.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api_handler.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/handlers/api_handler.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="969">
+                  <caret line="54" column="18" lean-forward="false" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -204,54 +343,119 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>query_account</find>
+      <find>query_account_</find>
+      <find>query_account_l</find>
+      <find>query_account_lis</find>
+      <find>query_account_list</find>
+      <find>initPromptDialog|initPromptDialog</find>
+      <find>selected_rec_employee</find>
+      <find>f</find>
+      <find>filt</find>
+      <find>filter</find>
+      <find>file_id</find>
+      <find>T</find>
+      <find>TYPE</find>
+      <find>TY</find>
+      <find>S</find>
+      <find>STAT</find>
+      <find>STATU</find>
+      <find>STATUSE</find>
+      <find>STATUS</find>
+      <find>STATUS_</find>
+      <find>STATUS_J</find>
+      <find>STATUS_JOB</find>
+      <find>STATUS_JOB_</find>
+      <find>STATUS_JOB_C</find>
+      <find>STATUS_JOB_CA</find>
+      <find>STATUS_JOB_CAN</find>
+      <find>STATUS_JOB_CANC</find>
+      <find>STATUS_JOB_CANCE</find>
+      <find>STATUS_JOB_CANCEL</find>
+      <find>4</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>fid</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>D:\code\python\tornado\datou\template\res\script</dir>
+    </dirStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/handlers/error_handler.py" />
-        <option value="$PROJECT_DIR$/template/res/css/navigation.css" />
-        <option value="$PROJECT_DIR$/template/res/css/base.css" />
-        <option value="$PROJECT_DIR$/template/base.html" />
-        <option value="$PROJECT_DIR$/template/header.html" />
-        <option value="$PROJECT_DIR$/handlers/logout_handler.py" />
-        <option value="$PROJECT_DIR$/handlers/personal_handler.py" />
-        <option value="$PROJECT_DIR$/handlers/utils.py" />
-        <option value="$PROJECT_DIR$/handlers/api_update_account_info.py" />
-        <option value="$PROJECT_DIR$/handlers/error_codes.py" />
-        <option value="$PROJECT_DIR$/handlers/api_update_login_phone.py" />
-        <option value="$PROJECT_DIR$/db/MysqlPool.py" />
-        <option value="$PROJECT_DIR$/db/MysqlExecutor.py" />
-        <option value="$PROJECT_DIR$/db/mysql_inst_mgr.py" />
-        <option value="$PROJECT_DIR$/db/mysql_executor.py" />
-        <option value="$PROJECT_DIR$/db/db_helper.py" />
-        <option value="$PROJECT_DIR$/db/mysql_pool.py" />
-        <option value="$PROJECT_DIR$/db/mysql_config.py" />
-        <option value="$PROJECT_DIR$/handlers/config.py" />
-        <option value="$PROJECT_DIR$/handlers/api_add_dept.py" />
         <option value="$PROJECT_DIR$/handlers/employee_manage_handler.py" />
         <option value="$PROJECT_DIR$/handlers/api_add_account.py" />
-        <option value="$PROJECT_DIR$/handlers/api_query_accounts.py" />
         <option value="$PROJECT_DIR$/handlers/login_handler.py" />
-        <option value="$PROJECT_DIR$/handlers/api_query_depts.py" />
-        <option value="$PROJECT_DIR$/handlers/api_alter_account.py" />
-        <option value="$PROJECT_DIR$/handlers/api_alter_dept.py" />
         <option value="$PROJECT_DIR$/handlers/api_update_password_protect_question.py" />
         <option value="$PROJECT_DIR$/handlers/add_admin.py" />
         <option value="$PROJECT_DIR$/handlers/index_handler.py" />
-        <option value="$PROJECT_DIR$/handlers/html_handler.py" />
-        <option value="$PROJECT_DIR$/handlers/api_handler.py" />
         <option value="$PROJECT_DIR$/handlers/api_is_account_exist.py" />
+        <option value="$PROJECT_DIR$/handlers/api_get_password_protect_question.py" />
+        <option value="$PROJECT_DIR$/handlers/api_query_depts.py" />
+        <option value="$PROJECT_DIR$/handlers/api_alter_account.py" />
+        <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/base_dao.py" />
+        <option value="$PROJECT_DIR$/db/base_dao.py" />
+        <option value="$PROJECT_DIR$/handlers/api_create_new_job.py" />
+        <option value="$PROJECT_DIR$/handlers/api_query_accounts.py" />
+        <option value="$PROJECT_DIR$/template/res/script/contact.js" />
+        <option value="$PROJECT_DIR$/template/res/css/base.css" />
+        <option value="$PROJECT_DIR$/template/res/css/official_doc.css" />
+        <option value="$PROJECT_DIR$/template/res/css/list.css" />
+        <option value="$PROJECT_DIR$/template/res/script/attachment_list.js" />
+        <option value="$PROJECT_DIR$/db/readme.txt" />
+        <option value="$PROJECT_DIR$/template/res/script/defines.js" />
+        <option value="$PROJECT_DIR$/type_define.py" />
+        <option value="$PROJECT_DIR$/template/base.html" />
+        <option value="$PROJECT_DIR$/gen_defines.py" />
         <option value="$PROJECT_DIR$/handlers/api_reset_password.py" />
+        <option value="$PROJECT_DIR$/template/official_doc.html" />
+        <option value="$PROJECT_DIR$/template/test.html" />
+        <option value="$PROJECT_DIR$/template/res/script/base.js" />
+        <option value="$PROJECT_DIR$/handlers/api_query_job_list.py" />
+        <option value="$PROJECT_DIR$/template/res/script/official_doc.js" />
+        <option value="$PROJECT_DIR$/handlers/api_qeury_job_info.py" />
+        <option value="$PROJECT_DIR$/handlers/api_handler.py" />
+        <option value="$PROJECT_DIR$/handlers/html_handler.py" />
+        <option value="$PROJECT_DIR$/handlers/api_upload_file.py" />
+        <option value="$PROJECT_DIR$/handlers/api_job_handler.py" />
+        <option value="$PROJECT_DIR$/handlers/admin_operation.py" />
+        <option value="$PROJECT_DIR$/handlers/api_query_job_path_info.py" />
+        <option value="$PROJECT_DIR$/handlers/api_alter_dept.py" />
+        <option value="$PROJECT_DIR$/handlers/base_handler.py" />
+        <option value="$PROJECT_DIR$/handlers/api_alter_job_path.py" />
+        <option value="$PROJECT_DIR$/db/account_dao.py" />
+        <option value="$PROJECT_DIR$/type_define.txt" />
+        <option value="$PROJECT_DIR$/handlers/api_query_job_status_mark.py" />
         <option value="$PROJECT_DIR$/handlers/__init__.py" />
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/db/account_dao.py" />
-        <option value="$PROJECT_DIR$/handlers/api_get_password_protect_question.py" />
-        <option value="$PROJECT_DIR$/handlers/base_handler.py" />
-        <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/handlers/api_query_job_info.py" />
+        <option value="$PROJECT_DIR$/handlers/api_send_official_doc.py" />
+        <option value="$PROJECT_DIR$/handlers/api_alter_job.py" />
+        <option value="$PROJECT_DIR$/db/job_dao.py" />
+        <option value="$PROJECT_DIR$/handlers/api_process_auto_job.py" />
       </list>
     </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
@@ -300,7 +504,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="template" />
+              <option name="myItemId" value="handlers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -314,21 +518,26 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="handlers" />
+              <option name="myItemId" value="db" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/template" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Other File Types" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\code\python\tornado\datou\db" />
       <recent name="D:\code\python\tornado\datou" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -349,7 +558,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration default="false" name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="gen_defines" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -361,7 +570,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="datou" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gen_defines.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -431,12 +640,31 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
-    <list size="1">
+    <configuration default="false" name="main" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="datou" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Python.main" />
+      <item index="1" class="java.lang.String" itemvalue="Python.gen_defines" />
     </list>
     <recent_temporary>
       <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Python.main" />
+        <item index="0" class="java.lang.String" itemvalue="Python.gen_defines" />
       </list>
     </recent_temporary>
   </component>
@@ -453,17 +681,58 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1495911074860</updated>
+      <workItem from="1501495371285" duration="22678000" />
+      <workItem from="1502073814787" duration="641000" />
+      <workItem from="1502195108416" duration="28000" />
     </task>
+    <task id="LOCAL-00001" summary="admin">
+      <created>1499639059442</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1499639059442</updated>
+    </task>
+    <task id="LOCAL-00002" summary="debug 1">
+      <created>1499641627861</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1499641627861</updated>
+    </task>
+    <task id="LOCAL-00003" summary="debug 1">
+      <created>1499641849572</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1499641849572</updated>
+    </task>
+    <task id="LOCAL-00004" summary="debug 3">
+      <created>1499642787777</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1499642787777</updated>
+    </task>
+    <task id="LOCAL-00005" summary="debug 4">
+      <created>1499643174716</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1499643174716</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="23347000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15364583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15208334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33188248" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32897604" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3278867" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -474,484 +743,423 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3301282" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="admin" />
+    <MESSAGE value="debug 1" />
+    <MESSAGE value="debug 3" />
+    <MESSAGE value="debug 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="debug 4" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/handlers/api_alter_dept.py</url>
-          <line>48</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/handlers/html_handler.py</url>
-          <line>10</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-      </breakpoints>
-      <default-breakpoints>
-        <breakpoint type="python-exception">
-          <properties notifyOnTerminate="true" exception="BaseException">
-            <option name="notifyOnTerminate" value="true" />
-          </properties>
-        </breakpoint>
-      </default-breakpoints>
-      <option name="time" value="35" />
+      <option name="time" value="86" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="self.request.arguments" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/handlers/api_get_password_protect_question.py">
+    <entry file="file://$PROJECT_DIR$/template/employee_manage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="646">
+          <caret line="67" column="9" lean-forward="true" selection-start-line="67" selection-start-column="9" selection-end-line="68" selection-end-column="126" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_update_password_protect_question.py">
+    <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
-          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
-          <folding />
+          <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/login_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="20" column="44" lean-forward="true" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
-          <folding>
-            <element signature="e#25#61#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_update_account_info.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
-          <folding>
-            <element signature="e#25#61#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_update_login_phone.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="13" column="37" lean-forward="true" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
-          <folding>
-            <element signature="e#25#61#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/error_codes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/__init__.py">
+    <entry file="file://$PROJECT_DIR$/template/res/css/contact.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
-          <caret line="10" column="27" lean-forward="false" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/base_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="32" column="22" lean-forward="true" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-          <folding>
-            <element signature="e#25#63#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/hashlib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
-          <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/socket.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="223" column="42" lean-forward="true" selection-start-line="223" selection-start-column="42" selection-end-line="223" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/template/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/template/login_header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="10" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/template/res/css/navigation.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="23" column="1" lean-forward="false" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="14" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/template/res/css/base.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="57" column="1" lean-forward="false" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
+        <state relative-caret-position="423">
+          <caret line="120" column="11" lean-forward="false" selection-start-line="120" selection-start-column="11" selection-end-line="120" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/template/index.html">
+    <entry file="file://$PROJECT_DIR$/template/res/script/attachment_list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="43" column="41" lean-forward="true" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/res/css/tabs.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/res/jquery/jquery-ui.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="9552" column="4" lean-forward="false" selection-start-line="9552" selection-start-column="4" selection-end-line="9552" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/readme.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="5" lean-forward="false" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/res/script/employee_manage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="263" column="29" lean-forward="false" selection-start-line="263" selection-start-column="29" selection-end-line="263" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/res/css/official_doc.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1539">
+          <caret line="81" column="19" lean-forward="false" selection-start-line="81" selection-start-column="19" selection-end-line="81" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/res/script/contact.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="149" column="42" lean-forward="false" selection-start-line="149" selection-start-column="40" selection-end-line="149" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/res/css/list.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1169">
+          <caret line="71" column="1" lean-forward="true" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/res/script/defines.js" />
+    <entry file="file://$PROJECT_DIR$/handlers/api_reset_password.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/official_doc.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="42" column="76" lean-forward="false" selection-start-line="42" selection-start-column="76" selection-end-line="42" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="116" column="8" lean-forward="false" selection-start-line="116" selection-start-column="8" selection-end-line="116" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/res/script/type_define.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/contact.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="40" lean-forward="false" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/template/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="627">
-          <caret line="36" column="24" lean-forward="false" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
+          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/template/header.html">
+    <entry file="file://$PROJECT_DIR$/template/res/script/official_doc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="58" lean-forward="false" selection-start-line="10" selection-start-column="58" selection-end-line="10" selection-end-column="58" />
+        <state relative-caret-position="532">
+          <caret line="40" column="33" lean-forward="false" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/utils.py">
+    <entry file="file://$PROJECT_DIR$/template/res/script/base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/error_codes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_update_login_phone.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="13" column="37" lean-forward="true" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
-          <folding>
-            <element signature="e#25#61#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/db_helper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="26" column="4" lean-forward="true" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
-          <folding>
-            <element signature="e#24#38#0" expanded="false" />
-            <element signature="e#145#602#0" expanded="false" />
-            <element signature="e#698#1172#0" expanded="false" />
-            <element signature="e#1276#1670#0" expanded="false" />
-            <element signature="e#1746#1936#0" expanded="false" />
-            <element signature="e#2041#2383#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/mysql_pool.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="20" column="30" lean-forward="false" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/mysql_inst_mgr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="866">
-          <caret line="86" column="8" lean-forward="false" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
-          <folding>
-            <element signature="e#25#39#0" expanded="false" />
-            <element signature="e#257#2062#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_update_account_info.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="12" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="e#25#61#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/mysql_config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="63" lean-forward="false" selection-start-line="4" selection-start-column="63" selection-end-line="4" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/template/employee_manage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_query_accounts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="50" lean-forward="false" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
-          <folding>
-            <element signature="e#25#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/mysql_executor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="38" column="8" lean-forward="false" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/tornado/web.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="1476" column="0" lean-forward="false" selection-start-line="1476" selection-start-column="0" selection-end-line="1476" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/login_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="10" column="28" lean-forward="false" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_alter_dept.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
-          <folding>
-            <element signature="e#25#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_update_password_protect_question.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="29" column="64" lean-forward="true" selection-start-line="29" selection-start-column="64" selection-end-line="29" selection-end-column="64" />
-          <folding>
-            <element signature="e#25#59#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/add_admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_alter_account.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1110">
-          <caret line="69" column="37" lean-forward="true" selection-start-line="69" selection-start-column="37" selection-end-line="69" selection-end-column="37" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/html_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/error_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="6" lean-forward="false" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/personal_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="4" column="6" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/logout_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="6" lean-forward="false" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/index_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="6" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/employee_manage_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="4" column="6" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/tornado/gen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="269" column="0" lean-forward="false" selection-start-line="269" selection-start-column="0" selection-end-line="269" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="843">
+          <caret line="273" column="25" lean-forward="false" selection-start-line="273" selection-start-column="25" selection-end-line="273" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_query_depts.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="15" column="28" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python27/Lib/compiler/transformer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="353" column="8" lean-forward="false" selection-start-line="353" selection-start-column="8" selection-end-line="353" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_query_accounts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="19" column="60" lean-forward="true" selection-start-line="19" selection-start-column="60" selection-end-line="19" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gen_defines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_create_new_job.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_upload_file.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="950">
+          <caret line="56" column="30" lean-forward="false" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/db_helper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="46" column="51" lean-forward="false" selection-start-line="46" selection-start-column="51" selection-end-line="46" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/mysql_executor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="56" column="8" lean-forward="false" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_job_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding>
+            <element signature="e#25#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_alter_dept.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_query_job_path_info.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="14" column="62" lean-forward="false" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="62" />
           <folding>
             <element signature="e#25#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_is_account_exist.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
-          <folding>
-            <element signature="e#25#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_reset_password.py">
+    <entry file="file://$PROJECT_DIR$/handlers/api_alter_account.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="15" column="41" lean-forward="false" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+          <caret line="33" column="47" lean-forward="true" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_alter_job_path.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
           <folding>
             <element signature="e#25#48#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/__init__.py">
+    <entry file="file://$PROJECT_DIR$/handlers/html_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="47" lean-forward="false" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
-          <folding>
-            <element signature="e#1#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="247">
+          <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_handler.py">
+    <entry file="file://$PROJECT_DIR$/handlers/error_codes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="42" column="39" lean-forward="false" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
-          <folding>
-            <element signature="e#25#48#0" expanded="true" />
-            <element signature="e#717#1241#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/db/account_dao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="113" column="28" lean-forward="false" selection-start-line="113" selection-start-column="28" selection-end-line="113" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1235">
+          <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="969">
+          <caret line="54" column="18" lean-forward="false" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/base_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="95" column="65" lean-forward="false" selection-start-line="95" selection-start-column="65" selection-end-line="95" selection-end-column="65" />
+        <state relative-caret-position="1558">
+          <caret line="92" column="8" lean-forward="false" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="30" column="47" lean-forward="false" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="28" column="56" lean-forward="false" selection-start-line="28" selection-start-column="56" selection-end-line="28" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="15" lean-forward="false" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
+        <state relative-caret-position="627">
+          <caret line="40" column="33" lean-forward="false" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_get_password_protect_question.py">
+    <entry file="file://$PROJECT_DIR$/handlers/api_query_job_info.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="513">
+          <caret line="33" column="46" lean-forward="false" selection-start-line="33" selection-start-column="46" selection-end-line="33" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="22" column="48" lean-forward="false" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/type_define.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="779">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_alter_job.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="24" column="44" lean-forward="false" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+          <folding>
+            <element signature="e#25#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/job_dao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1045">
+          <caret line="60" column="64" lean-forward="false" selection-start-line="60" selection-start-column="64" selection-end-line="60" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_query_job_status_mark.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#25#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/type_define.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_send_official_doc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="47" column="32" lean-forward="false" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_process_auto_job.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="60" column="30" lean-forward="false" selection-start-line="60" selection-start-column="30" selection-end-line="60" selection-end-column="30" />
           <folding>
             <element signature="e#25#48#0" expanded="true" />
           </folding>

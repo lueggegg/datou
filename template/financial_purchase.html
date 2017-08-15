@@ -1,0 +1,78 @@
+{% extends base_certificate.html %}
+
+{% block title %}采购流程{% end %}
+{% block more_head %}
+<script type="text/javascript" src="res/script/attachment_list.js"></script>
+<link rel="stylesheet" href="res/css/list.css">
+{% end %}
+{% block certificate_title %}采购流程{% end %}
+
+{% block certificate_content %}
+<div>
+    采购项目：
+    <input class="common_long_editor" type="text" id="project">
+</div>
+<div>
+    项目单价：
+    <input class="job_process_content_date_picker" type="text" id="price">元
+</div>
+<div>
+    采购数量：
+    <input class="job_process_content_date_picker" type="text" id="count">
+</div>
+<div>
+    采购原因：
+    <div>
+        <textarea id="reason" class="common_text_area"></textarea>
+    </div>
+</div>
+<div class="job_attachment_container" id="attachment_container"></div>
+{% end %}
+
+{% block guild_module %}{% module Template("module_financial_guild.html") %}{% end %}
+
+{% block js_script %}
+<script>
+    var attachment_controller = initAttachmentController($("#attachment_container"));
+
+    function getParam(check) {
+        if (check) return;
+
+        var field = [['project', '采购项目', ''], ['price', '项目单价', '元'], ['count', '采购数量', ''], ['reason', '采购原因', '']];
+
+        var mistake = false;
+        var content = '';
+        field.some(function (p1, p2, p3) {
+            var value = $("#" + p1[0]).val();
+            if (!value) {
+                mistake = true;
+                promptMsg('请填写' + p1[1]);
+                return true;
+            }
+            if (p1[0] === 'reason') {
+                content += "<div>" + p1[1] + "：</div>";
+                content += "<div style='margin-left:2em'>" + value + "</div>";
+            } else {
+                content += "<div>" + p1[1] + "：" + wrapWithSpan(value) + p1[2] + "</div>";
+            }
+            return false;
+        });
+        if (mistake) {
+            return;
+        }
+
+        var param =  {
+            op: 'add',
+            job_type: TYPE_JOB_FINANCIAL_PURCHASE,
+            title: '采购流程',
+            content: wrapJobContent(content)
+        };
+        var attachment = attachment_controller.get_upload_files();
+        if (attachment) {
+            param['has_attachment'] = 1;
+            param['file_list'] = JSON.stringify(attachment);
+        }
+        return param;
+    }
+</script>
+{% end %}
