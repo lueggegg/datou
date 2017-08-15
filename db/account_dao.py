@@ -21,7 +21,7 @@ class AccountDAO(BaseDAO):
     def query_account(self, account, password=None):
         sql = "SELECT a.*, d.name AS dept FROM %s a " \
               "LEFT JOIN %s d ON a.department_id = d.id " \
-              "WHERE (a.account='%s' OR a.login_phone='%s') AND a.status=1" % (self.account_tab, self.dept_tab, account, account)
+              "WHERE (a.account='%s' OR a.login_phone='%s') AND a.status!=0" % (self.account_tab, self.dept_tab, account, account)
         if password:
             sql += " AND a.password='%s'" % password
         ret = yield self._executor.async_select(self._get_inst(True), sql)
