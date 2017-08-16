@@ -275,3 +275,20 @@ class JobDAO(BaseDAO):
             sql = "DELETE FROM %s" % tab
             yield self._executor.async_delete(self._get_inst(), sql)
         raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_job_memo(self, job_type):
+        sql = "SELECT * FROM job_memo WHERE type=%s" % job_type
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret[0] if ret else None)
+
+    @gen.coroutine
+    def update_job_memo(self, job_type, memo):
+        sql = "SELECT * FROM job_memo WHERE type=%s" % job_type
+        exist = yield self._executor.async_select(self._get_inst(True), sql)
+        if exist:
+            sql = "UPDATE job_memo SET memo='%s' WHERE type=%s" % (memo, job_type)
+            ret = yield self._executor.async_update(self._get_inst(), sql)
+        else:
+            ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, 'job_memo', type=job_type, memo=memo)
+        raise gen.Return(ret)

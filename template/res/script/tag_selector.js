@@ -13,7 +13,9 @@ function createTagSelectorController(container, param) {
                         if (!tag.checked) continue;
                         if (tag.all) {
                             type_list.push(key);
-                        } else {
+                        } else if (tag.leader){
+                            value_list.push(tag.type.leader);
+                        }else {
                             tag.selected_values.forEach(function (p1, p2, p3) {
                                 value_list.push(p1);
                             });
@@ -81,6 +83,7 @@ function initTagSelectorContainer(controller) {
         values: [],
         checked: false,
         all: false,
+        leader: false,
         selected_values: [],
         selector_radio_value: 0/1,
         selector_radio: ui,
@@ -95,9 +98,10 @@ function createTagSelector(controller, tag_id) {
     html += "<label for='" + checkbox_id + "'>" + tag.type.name + "</label>";
     var radio_id = [
         '__radio_tag_all_' + tag_id,
-        '__radio_tag_unfold_' + tag_id
+        '__radio_tag_unfold_' + tag_id,
+        '__radio_tag_leader_' + tag_id
     ];
-    var radio_label = ['全部', '展开'];
+    var radio_label = ['全部', '展开', '主管'];
     var radio_check = ['checked', ''];
     var radio_container_id = '__tag_selector_radio_' + tag_id;
     var radio_name = '__radio_tag_selector_' + tag_id;
@@ -118,6 +122,7 @@ function createTagSelector(controller, tag_id) {
     tag.value_selector.hide();
     tag['checked'] = false;
     tag['all'] = true;
+    tag['leader'] = false;
     tag['selected_values'] = [];
     $("[name='" + radio_name + "']").on('change', function(event) {
         var value = parseInt($(event.target).val());
@@ -125,7 +130,15 @@ function createTagSelector(controller, tag_id) {
         if (value === 0) {
             tag.value_selector.hide();
             tag.all = true;
-        } else {
+            tag.leader = false;
+        } else if (value === 2) {
+            if (!tag.type.leader) {
+                promptMsg('该部门未设置主管');
+            }
+            tag.value_selector.hide();
+            tag.all = false;
+            tag.leader = true;
+        }else {
             if (!tag.values) {
                 commonPost(controller.param.value_url, controller.param.get_value_url_arg(tag_id), function (data) {
                     __tag_map[tag_id].values = data;
@@ -134,6 +147,7 @@ function createTagSelector(controller, tag_id) {
             }
             tag.value_selector.show();
             tag.all = false;
+            tag.leader = false;
         }
     });
 }
@@ -145,7 +159,7 @@ function initTagValueSelector(list_data, tag_id) {
     list_data.forEach(function (p1, p2, p3) {
         var item_id = '__tag_value_selector_item_' + p1.id;
         html += "<input type='checkbox' value='" + p1.id + "' name='" + item_name + "' id='" + item_id + "'>";
-        html += "<label for='" + item_id + "'>" + p1.name + "</label>";
+        html += "<label for='" + item_id + "'>" + p1.name + (p1.is_leader? '（主管）': '') + "</label>";
     });
     var tag = __tag_map[tag_id];
     tag.value_selector.append(html);

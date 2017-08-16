@@ -44,4 +44,62 @@ class AdminOperation(ApiNoVerifyHandler):
             ret = yield self.job_dao.clear_all_job_path_data()
             msg = '清除工作流自动路径'
 
+        elif op == 'init_account':
+            yield self.init_accounts()
+            ret = True
+            msg = '初始化员工信息'
+
         self.process_result(ret, msg)
+
+
+    @gen.coroutine
+    def init_accounts(self):
+        dept_list = [
+            '公司领导',
+            '财务总监',
+            '编委',
+            '办公室',
+            '人事部',
+            '总编办',
+            '营销策划部',
+            '财务室',
+            '广告部',
+            '工会',
+            '专题部',
+            '播出部',
+            '新闻与编辑部',
+            '众创TV',
+            '技术部',
+            '电台编辑部',
+        ]
+        dept_map = {}
+        for dept in dept_list:
+            exist = yield self.account_dao.query_dept(name=dept)
+            if exist:
+                dept_map[dept] = exist['id']
+                continue
+            id = yield self.account_dao.add_dept(name=dept)
+            dept_map[dept] = id
+
+        filename = self.get_res_file_path('info.txt', '', True)
+        fid = open(filename, 'r')
+        index = 1000
+        psd = self.get_hash('oa123456')
+        for line in fid:
+            index += 1
+            line = line.rstrip()
+            info = line.split('\t')
+            account_info = {
+                'account': 'S%s' % index,
+                'name': info[0],
+                'department_id': dept_map[info[2]],
+                'login_phone': info[1],
+                'cellphone': info[1],
+                'portrait': 'default_portrait.png',
+                'position': '职员',
+                'join_date': self.now(),
+                'id_card': '12345619900101%s' % index,
+                'password': psd,
+            }
+            yield self.account_dao.add_account(**account_info)
+

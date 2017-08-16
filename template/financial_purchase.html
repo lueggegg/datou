@@ -63,7 +63,7 @@
 
         var param =  {
             op: 'add',
-            job_type: TYPE_JOB_FINANCIAL_PURCHASE,
+            job_type: getType(),
             title: '采购流程',
             content: wrapJobContent(content)
         };
@@ -73,6 +73,10 @@
             param['file_list'] = JSON.stringify(attachment);
         }
         return param;
+    }
+
+    function getType() {
+        return TYPE_JOB_FINANCIAL_PURCHASE;
     }
 </script>
 {% end %}

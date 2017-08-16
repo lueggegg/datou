@@ -77,12 +77,16 @@
 
         return {
             op: 'add',
-            job_type: TYPE_JOB_HR_RECOMMEND,
+            job_type: getType(),
             title: '伯乐推荐',
             content: wrapJobContent(content),
             has_attachment: 1,
             file_list: JSON.stringify(attachment)
         };
+    }
+
+    function getType() {
+        return TYPE_JOB_HR_RECOMMEND;
     }
 </script>
 {% end %}

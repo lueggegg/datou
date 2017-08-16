@@ -42,12 +42,16 @@
 
         return {
             op: 'add',
-            job_type: TYPE_JOB_CERTIFICATE_LABOR,
+            job_type: getType(),
             title: '工作证明',
             content: wrapJobContent(content)
         };
-
     }
+
+    function getType() {
+        return TYPE_JOB_CERTIFICATE_LABOR;
+    }
+
 </script>
 {% end %}
 

@@ -40,10 +40,14 @@
 
         return {
             op: 'add',
-            job_type: TYPE_JOB_CERTIFICATE_SALARY,
+            job_type: getType(),
             title: '收入证明',
             content: wrapJobContent(content)
         };
+    }
+
+    function getType() {
+        return TYPE_JOB_CERTIFICATE_SALARY;
     }
 </script>
 {% end %}

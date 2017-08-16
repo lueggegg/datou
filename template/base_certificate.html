@@ -17,10 +17,8 @@
         </div>
     </div>
     <div class="job_process_warning">
-        注意事项：
-        <div>
-            1.abc<br>
-            2.cd<br>
+        备注：
+        <div id="job_memo_container">
         </div>
     </div>
     <div class="job_process_btn">
@@ -59,9 +57,17 @@
 
     $(function () {
         try {
+            getType();
             getParam(true);
+
+            commonPost('/api/job_memo', {op: 'query', job_type: getType()}, function (data) {
+                if (data) {
+                    var memo = abstractJobContent(data.memo);
+                    $("#job_memo_container").html(html2Text(memo));
+                }
+            })
         } catch (e) {
-            promptMsg('系统错误，未定义:getParam()');
+            promptMsg('系统错误，未定义:getType() or getParam()');
         }
     });
 </script>

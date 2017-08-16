@@ -43,10 +43,14 @@
 
         return {
             op: 'add',
-            job_type: TYPE_JOB_HR_RESIGN,
+            job_type: getType(),
             title: '离职申请',
             content: wrapJobContent(content)
         };
+    }
+
+    function getType() {
+        return TYPE_JOB_HR_RESIGN;
     }
 </script>
 {% end %}

@@ -153,7 +153,7 @@ class BaseHandler(RequestHandler):
         path = os.path.join(res_dir, filename)
         if local:
             path = os.path.join(self.get_template_path(), path)
-        return path
+        return path.replace('\\', '/')
 
     def get_hash(self, string):
         md5 = hashlib.md5()

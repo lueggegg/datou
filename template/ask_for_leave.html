@@ -81,7 +81,7 @@
 
         var param = {
             op: 'add',
-            job_type: TYPE_JOB_HR_ASK_FOR_LEAVE,
+            job_type: getType(),
             title: '请假流程',
             content: wrapJobContent(content)
         };
@@ -92,6 +92,10 @@
             param['file_list'] = JSON.stringify(attachment);
         }
         return param;
+    }
+
+    function getType() {
+        return TYPE_JOB_HR_ASK_FOR_LEAVE;
     }
 </script>
 {% end %}

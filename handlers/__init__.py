@@ -29,3 +29,4 @@ from api_alter_job_path import ApiAlterJobPath
 from api_query_job_path_info import ApiQueryJobPathInfo
 from api_process_auto_job import ApiProcessAutoJob
 from api_query_job_status_mark import ApiQueryJobStatusMark
+from api_job_memo import ApiJobMemo

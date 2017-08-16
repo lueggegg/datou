@@ -56,8 +56,11 @@ function initTabs() {
     var tab_container_html = '';
     job_type_list.forEach(function (p1, p2, p3) {
         var id = container_prefix + p1[0];
+        var text_area_id = id + '_text';
         tab_list_html += '<li value="' + p1[0] + '"><a href="#' + id + '">' + p1[1] + '</a>';
         tab_container_html += '<div id="' + id + '">';
+        tab_container_html += '<div>备注信息：<span class="common_clickable" onclick="updateMemo(' + p1[0] + ')">更新</span> </div> ';
+        tab_container_html += '<div><textarea id="' + text_area_id + '" class="memo_text_area"></textarea></div>';
         tab_container_html += '<button class="ui-button ui-corner-all add_path_node_btn">增加节点</button>';
         tab_container_html += '</div>';
     });
@@ -74,8 +77,25 @@ function initTabs() {
     });
 }
 
+function queryMemo(job_type) {
+    commonPost('/api/job_memo', {op: 'query', 'job_type': job_type}, function (data) {
+        if (data) {
+            $("#" + container_prefix + job_type + "_text").val(abstractJobContent(data.memo));
+        }
+    });
+}
+
+function updateMemo(job_type) {
+    var memo = $("#" + container_prefix + job_type + "_text").val();
+    commonPost('/api/job_memo', {op: 'update', 'job_type': job_type, memo: wrapJobContent(memo)}, function (data) {
+        promptMsg('更新备注信息成功');
+    });
+}
+
 function queryJobPathData() {
     job_type_list.forEach(function (p1, p2, p3) {
+        queryMemo(p1[0]);
+
         var container = $("#" + container_prefix + p1[0]);
         commonPost('/api/query_job_path_info', {type: p1[0]}, function (data) {
             if (data.length === 0) {
@@ -106,7 +126,7 @@ function createJobPathNode(container, node_data) {
 
     html += '<div class="job_path_node_list_container"><ul>';
     if (node_data.to_leader) {
-        html += '<li class="leader_item">部门主管</li>';
+        html += '<li class="leader_item">直属主管</li>';
     } else {
         var dept_list = '';
         var uid_list = '';

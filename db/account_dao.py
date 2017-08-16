@@ -45,7 +45,7 @@ class AccountDAO(BaseDAO):
             account_fields = 'a.' + ', a.'.join(account_fields)
         else:
             account_fields = 'a.*'
-        sql = 'SELECT %s, d.name AS dept FROM %s a ' \
+        sql = 'SELECT %s, d.name AS dept, a.id=d.leader AS is_leader FROM %s a ' \
               'LEFT JOIN %s d ON a.department_id = d.id ' \
               'WHERE a.status=1' % (account_fields, self.account_tab, self.dept_tab)
         if dept_id:
@@ -67,6 +67,16 @@ class AccountDAO(BaseDAO):
     def add_dept(self, **kwargs):
         ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.dept_tab, **kwargs)
         raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_dept(self, id=None, name=None):
+        sql = "SELECT * FROM %s WHERE status=1" % self.dept_tab
+        if id:
+            sql += " AND id=%s" % id
+        if name:
+            sql += " AND name='%s'" % name
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret[0] if ret else None)
 
     @gen.coroutine
     def query_dept_list(self):

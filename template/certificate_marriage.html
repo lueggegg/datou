@@ -38,10 +38,14 @@
 
         return {
             op: 'add',
-            job_type: TYPE_JOB_CERTIFICATE_MARRIAGE,
+            job_type: getType(),
             title: '婚育证明',
             content: wrapJobContent(content)
         };
+    }
+
+    function getType() {
+        return TYPE_JOB_CERTIFICATE_MARRIAGE;
     }
 </script>
 {% end %}

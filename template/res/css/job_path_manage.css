@@ -60,3 +60,16 @@
     color: white;
 
 }
+
+.memo_text_area {
+    width: 80%;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 4px;
+    height: 120px;
+    color: rgb(81,81,81);
+}
+
+.update_memo {
+
+}

@@ -39,6 +39,7 @@ app = tornado.web.Application([
     (r'/api/query_job_path_info', handlers.ApiQueryJobPathInfo),
     (r'/api/process_auto_job', handlers.ApiProcessAutoJob),
     (r'/api/query_job_status_mark', handlers.ApiQueryJobStatusMark),
+    (r'/api/job_memo', handlers.ApiJobMemo),
     (r'/(.*)', handlers.HtmlHandler),
 ],
     test_mode=config.test_mode,

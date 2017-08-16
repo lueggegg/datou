@@ -59,7 +59,7 @@
 
         var param =  {
             op: 'add',
-            job_type: TYPE_JOB_FINANCIAL_REIMBURSEMENT,
+            job_type: getType(),
             title: '报销流程',
             content: wrapJobContent(content)
         };
@@ -69,6 +69,10 @@
             param['file_list'] = JSON.stringify(attachment);
         }
         return param;
+    }
+
+    function getType() {
+        return TYPE_JOB_FINANCIAL_REIMBURSEMENT;
     }
 </script>
 {% end %}

@@ -19,9 +19,10 @@ var EDIT_EMPLOYEE = 10;
 var DEL_EMPLOYEE = 11;
 var ADD_EMPLOYEE = 12;
 var SET_AS_LEADER = 13;
+var SET_DEPT_LEADER = 20;
 var current_operation = NULL_OPERATION;
 
-var ready_import_employees = null;
+var dept_leader_setting_dlg;
 
 $(document).ready(function () {
 
@@ -29,9 +30,11 @@ $(document).ready(function () {
 
     dept_dialog = $( "#edit_dept_dialog" );
     employee_dialog = $("#edit_employee_dialog");
+    dept_leader_setting_dlg = $("#edit_dept_leader_dlg");
 
     initDialog(dept_dialog);
     initDialog(employee_dialog, 450);
+    initDialog(dept_leader_setting_dlg);
 
     $( "#add_dept" ).click(function( event ) {
         current_operation = ADD_DEPT;
@@ -59,6 +62,7 @@ $(document).ready(function () {
     selectMenu($("#current_department_menu"));
     selectMenu($("#leader_dept"));
     selectMenu($("#belong_dept"));
+    selectMenu($("#dept_leader_selector"));
 
     initDatePicker($("#join_date"), function (dateText, inst) {
         join_date = dateText;
@@ -123,7 +127,30 @@ function dealOperation() {
         case DEL_EMPLOYEE:
             deleteEmployee();
             break;
+        case SET_DEPT_LEADER:
+            var uid = $("#dept_leader_selector").val();
+            if (!uid || uid === '-1') {
+                promptMsg('请选择员工');
+                return;
+            }
+            setDeptLeader(selected_dept, uid);
+            break;
     }
+}
+
+function openLeaderSettingDlg(dept_id) {
+    commonPost('/api/query_account_list', {dept_id: dept_id}, function (data) {
+        var container = $("#dept_leader_selector");
+        removeChildren(container);
+        var options = '<option selected disabled value="-1">请选择</option>';
+        data.forEach(function (p1, p2, p3) {
+            options += '<option value="' + p1.id + '">' + p1.name + '</option>';
+        });
+        container.append(options).selectmenu('refresh');
+        dept_leader_setting_dlg.dialog('open');
+        selected_dept = dept_id;
+        current_operation = SET_DEPT_LEADER;
+    });
 }
 
 function updateDepartment() {
@@ -156,7 +183,6 @@ function deleteDepartment() {
 }
 
 function setDeptLeader(dept_id, uid) {
-    current_operation = SET_AS_LEADER;
     var data = {leader: uid};
     data = JSON.stringify(data);
     $.post( '/api/alter_dept', {dept_info: data, dept_id: dept_id, op: 'update'}, operationResult);
@@ -477,10 +503,14 @@ function setDepartmentList(data) {
 }
 
 function getDeptLeaderHtml(dept) {
+    var html = '<span class="common_clickable" onclick="openLeaderSettingDlg(' + dept.id + ')">';
     if (dept.leader_account) {
-        return dept.leader_name + '（' + dept.leader_account + '）';
+        html +=  dept.leader_name + '（' + dept.leader_account + '）';
+    } else {
+        html += '未设置';
     }
-    return '未设置';
+    html += '<span>';
+    return html;
 }
 
 function setEmployeeList(data) {
@@ -612,6 +642,8 @@ function getOperationString() {
             return '删除员工';
         case EDIT_EMPLOYEE:
             return '编辑员工信息';
+        case SET_DEPT_LEADER:
+            return '设置部门主管';
     }
     return '无效操作';
 }
@@ -621,10 +653,12 @@ function getResultLocation() {
         case EDIT_DEPT:
         case ADD_DEPT:
         case DEL_DEPT:
+        case SET_DEPT_LEADER:
             return 'dept_config_container';
         case ADD_EMPLOYEE:
         case DEL_EMPLOYEE:
         case EDIT_EMPLOYEE:
+        case SET_AS_LEADER:
             return 'employee_config_container';
     }
     return '';

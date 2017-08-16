@@ -65,10 +65,14 @@
 
         return {
             op: 'add',
-            job_type: TYPE_JOB_HR_ANOTHER_POST,
+            job_type: getType(),
             title: '调岗申请',
             content: wrapJobContent(content)
         };
+    }
+
+    function getType() {
+        return TYPE_JOB_HR_ANOTHER_POST;
     }
 </script>
 {% end %}

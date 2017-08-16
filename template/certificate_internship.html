@@ -42,10 +42,14 @@
 
         return {
             op: 'add',
-            job_type: TYPE_JOB_CERTIFICATE_INTERNSHIP,
+            job_type: getType(),
             title: '实习证明',
             content: wrapJobContent(content)
         };
+    }
+
+    function getType() {
+        return TYPE_JOB_CERTIFICATE_INTERNSHIP;
     }
 </script>
 {% end %}
