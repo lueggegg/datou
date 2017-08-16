@@ -29,18 +29,6 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="financial_purchase.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/financial_purchase.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="387">
-                  <caret line="75" column="5" lean-forward="true" selection-start-line="75" selection-start-column="5" selection-end-line="79" selection-end-column="5" />
-                  <folding>
-                    <marker date="1502841320503" expanded="true" signature="1582:1597" ph="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="financial_reimbursement.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/financial_reimbursement.html">
               <provider selected="true" editor-type-id="text-editor">
@@ -63,11 +51,21 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="employee_manage.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="employee_manage.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/res/script/employee_manage.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="345">
                   <caret line="604" column="72" lean-forward="false" selection-start-line="604" selection-start-column="72" selection-end-line="604" selection-end-column="72" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="info.txt" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/info.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="285">
+                  <caret line="117" column="24" lean-forward="true" selection-start-line="117" selection-start-column="24" selection-end-line="117" selection-end-column="24" />
                   <folding />
                 </state>
               </provider>
@@ -287,7 +285,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/res/script/contact.js" />
         <option value="$PROJECT_DIR$/header.html" />
         <option value="$PROJECT_DIR$/res/css/list.css" />
         <option value="$PROJECT_DIR$/res/script/attachment_list.js" />
@@ -338,6 +335,7 @@
         <option value="$PROJECT_DIR$/base_certificate.html" />
         <option value="$PROJECT_DIR$/employee_manage.html" />
         <option value="$PROJECT_DIR$/res/script/employee_manage.js" />
+        <option value="$PROJECT_DIR$/info.txt" />
       </list>
     </option>
   </component>
@@ -579,12 +577,12 @@
       <workItem from="1501434589227" duration="64000" />
       <workItem from="1502195139951" duration="116716000" />
       <workItem from="1502788575657" duration="1771000" />
-      <workItem from="1502836657872" duration="6423000" />
+      <workItem from="1502836657872" duration="7090000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="275589000" />
+    <option name="totallyTimeSpent" value="276256000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1932" height="1047" extended-state="0" />
@@ -621,13 +619,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/css/tag_selector.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="1" lean-forward="false" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/common.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
@@ -1043,6 +1034,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="604" column="72" lean-forward="false" selection-start-line="604" selection-start-column="72" selection-end-line="604" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="117" column="24" lean-forward="true" selection-start-line="117" selection-start-column="24" selection-end-line="117" selection-end-column="24" />
           <folding />
         </state>
       </provider>
