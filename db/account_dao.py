@@ -47,7 +47,7 @@ class AccountDAO(BaseDAO):
             account_fields = 'a.*'
         sql = 'SELECT %s, d.name AS dept, a.id=d.leader AS is_leader FROM %s a ' \
               'LEFT JOIN %s d ON a.department_id = d.id ' \
-              'WHERE a.status=1' % (account_fields, self.account_tab, self.dept_tab)
+              'WHERE a.status=1 and d.status=1' % (account_fields, self.account_tab, self.dept_tab)
         if dept_id:
             sql += ' AND a.department_id=%s' % dept_id
         if kwargs:
