@@ -41,7 +41,7 @@ class AccountDAO(BaseDAO):
             account_fields = ['id', 'account', 'name', 'department_id', 'cellphone', 'position', 'email', 'qq', 'wechat', 'address']
             account_fields = 'a.' + ', a.'.join(account_fields)
         elif type == type_define.TYPE_ACCOUNT_SAMPLE:
-            account_fields = ['id', 'account', 'name', 'department_id']
+            account_fields = ['id', 'account', 'name', 'department_id', 'position']
             account_fields = 'a.' + ', a.'.join(account_fields)
         else:
             account_fields = 'a.*'

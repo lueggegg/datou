@@ -17,6 +17,7 @@ class JobDAO(BaseDAO):
         self.mark_tab = 'job_status_mark'
         self.auto_path_tab = 'job_auto_path'
         self.auto_path_detail_tab = 'job_auto_path_detail'
+        self.broadcast_tab = 'note_broadcast'
 
     @gen.coroutine
     def clear_all_job_data(self):
@@ -292,3 +293,23 @@ class JobDAO(BaseDAO):
         else:
             ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, 'job_memo', type=job_type, memo=memo)
         raise gen.Return(ret)
+
+    @gen.coroutine
+    def cerate_broadcast(self, **kwargs):
+        ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.broadcast_tab, **kwargs)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_broadcast_list(self, **kwargs):
+        sql = 'SELECT b.*, a.name, d.name FROM %s b' \
+              ' LEFT JOIN employee a ON a.id=b.sender' \
+              ' LEFT JOIN department d ON d.id=a.department_id' \
+              % (self.broadcast_tab)
+        conditions = []
+        if 'begin_type' in kwargs:
+            if kwargs['begin_type'] == type_define.STATUS_BROADCAST_WOULD_START:
+                conditions.append("begin_time>'%s'" % datetime.datetime.now())
+            elif kwargs['begin_type'] == type_define.STATUS_BROADCAST_STARTED:
+                conditions.append("begin_time<='%s")
+
+

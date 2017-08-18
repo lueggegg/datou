@@ -142,7 +142,7 @@ function createTagSelector(controller, tag_id) {
             if (!tag.values) {
                 commonPost(controller.param.value_url, controller.param.get_value_url_arg(tag_id), function (data) {
                     __tag_map[tag_id].values = data;
-                    initTagValueSelector(data, tag_id);
+                    initTagValueSelector(data, tag_id, controller.param);
                 });
             }
             tag.value_selector.show();
@@ -152,14 +152,14 @@ function createTagSelector(controller, tag_id) {
     });
 }
 
-function initTagValueSelector(list_data, tag_id) {
+function initTagValueSelector(list_data, tag_id, param) {
     if (list_data.length === 0) return;
     var item_name = '__tag_value_selector_item_in_' + tag_id;
     var html = "";
     list_data.forEach(function (p1, p2, p3) {
         var item_id = '__tag_value_selector_item_' + p1.id;
         html += "<input type='checkbox' value='" + p1.id + "' name='" + item_name + "' id='" + item_id + "'>";
-        html += "<label for='" + item_id + "'>" + p1.name + (p1.is_leader? '（主管）': '') + "</label>";
+        html += "<label for='" + item_id + "'>" + param.get_value_label(p1) + "</label>";
     });
     var tag = __tag_map[tag_id];
     tag.value_selector.append(html);

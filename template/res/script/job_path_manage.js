@@ -31,7 +31,10 @@ $(document).ready(function () {
         type_url: '/api/query_dept_list',
         value_url: '/api/query_account_list',
         get_value_url_arg: function (tag_id) {
-            return {dept_id: tag_id};
+            return {dept_id: tag_id, type: TYPE_ACCOUNT_SAMPLE};
+        },
+        get_value_label: function (item) {
+            return item.name + "（" + (item.is_leader? "主管": item.position) + "）";
         }
     });
 
