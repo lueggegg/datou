@@ -63,6 +63,8 @@ $(document).ready(function () {
     selectMenu($("#leader_dept"));
     selectMenu($("#belong_dept"));
     selectMenu($("#dept_leader_selector"));
+    selectMenu($("#position_selector"));
+    initPositionSelector();
 
     initDatePicker($("#join_date"), function (dateText, inst) {
         join_date = dateText;
@@ -76,6 +78,22 @@ $(document).ready(function () {
     initPromptDialog();
     initConfirmDialog();
 });
+
+function initPageWhileHasCondition() {
+    if (__dept_id) {
+        $("#current_department_menu").val(__dept_id).selectmenu('refresh');
+        queryDepartmentEmployees(__dept_id);
+    }
+}
+
+function initPositionSelector() {
+    var positions = ['主任', '副主任', '一级主管', '二级主管', '一级员工', '临聘员工'];
+    var options = '';
+    positions.forEach(function (p1, p2, p3) {
+        options += '<option value="' + p1 + '">' + p1 + '</option>';
+    });
+    $("#position_selector").append(options).selectmenu('refresh');
+}
 
 function initDialog(dialog, width) {
     if (!width) {
@@ -257,7 +275,7 @@ function openEmployeeDialog(data) {
         $("#employee_name").val("");
         $("#id_card").val('');
         $("#belong_dept").val(-1).selectmenu('refresh');
-        $("#position").val('');
+        $("#position_selector").val(-1).selectmenu('refresh');
         $("#join_date").datepicker('setDate', new Date());
         join_date = $("#join_date").val();
         $("#cellphone").val('');
@@ -273,7 +291,7 @@ function openEmployeeDialog(data) {
         $("#employee_name").val(data.name);
         $("#id_card").val(data.id_card);
         $("#belong_dept").val(data.department_id).selectmenu('refresh');
-        $("#position").val(data.position);
+        $("#position_selector").val(data.position).selectmenu('refresh');
         $("#join_date").val(data.join_date);
         join_date = null;
         if (data.cellphone) {
@@ -331,9 +349,9 @@ function addEmployee() {
         promptMsg('请选择部门');
         return;
     }
-    var position = $("#position").val();
-    if (!position) {
-        promptMsg('职位不能为空');
+    var position = $("#position_selector").val();
+    if (!position || position === '-1') {
+        promptMsg('请选择职位');
         return;
     }
     var password = $("#employee_password").val();
@@ -397,9 +415,9 @@ function updateEmployee() {
         promptMsg('请选择部门');
         return;
     }
-    var position = $("#position").val();
-    if (!position) {
-        promptMsg('职位不能为空');
+    var position = $("#position_selector").val();
+    if (!position || position === '-1') {
+        promptMsg('请选择职位');
         return;
     }
 
@@ -496,6 +514,8 @@ function setDepartmentList(data) {
                 }
             });
             $("#belong_dept").append(options).selectmenu();
+
+            initPageWhileHasCondition();
         }
     } catch (e) {
         redirectError();
@@ -618,7 +638,7 @@ function onItemOperation(operation, index) {
 function operationResult(data) {
     try {
         if (data.status === 0) {
-            freshCurrent(getResultLocation());
+            freshCurrent(getResultLocation(), getLocationArgs());
         } else {
             var msg = ('msg' in data)? data['msg'] : data['status'];
             promptMsg(getOperationString() + '失败: ' + msg);
@@ -662,4 +682,15 @@ function getResultLocation() {
             return 'employee_config_container';
     }
     return '';
+}
+
+function getLocationArgs() {
+    switch (current_operation) {
+        case ADD_EMPLOYEE:
+            return {dept_id: $("#belong_dept").val()};
+        case EDIT_EMPLOYEE:
+            return {dept_id: selected_dept_for_employee};
+    }
+    return null;
+
 }

@@ -2,12 +2,19 @@ import os
 
 import tornado.web
 from tornado import ioloop
+import tornado.options
+from tornado.options import define, options
+
 import handlers
 import config
 
 from db import account_dao, job_dao, mysql_config, mysql_inst_mgr
 
-_mysql_config = mysql_config.MySQLConfig()
+define("mode", 0, int, "Enable debug mode, 2 is release, 1 is network debug, 0 is local debug")
+define("port", 5505, int, "Listen port")
+define("address", "0.0.0.0", str, "Bind address")
+
+_mysql_config = mysql_config.MySQLConfig(mode=options.mode)
 _mysql_inst_mgr = mysql_inst_mgr.MySQLInstMgr(metas=_mysql_config.global_metas)
 _account_dao = account_dao.AccountDAO(_mysql_inst_mgr)
 _job_dao = job_dao.JobDAO(_mysql_inst_mgr)
@@ -50,5 +57,5 @@ app = tornado.web.Application([
     job_dao=_job_dao,
 )
 
-app.listen(5505, '0.0.0.0')
+app.listen(options.port, options.address)
 ioloop.IOLoop.current().start()

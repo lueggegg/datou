@@ -16,8 +16,17 @@ function redirectError(e) {
     // window.location.href = 'error.html';
 }
 
-function freshCurrent(location) {
-    window.location.href = '?update=' + Math.random() + '#' + location;
+function freshCurrent(location, args) {
+    var param = '';
+    if (args) {
+        for (var key in args) {
+            if (args.hasOwnProperty(key)) {
+                param += '&' + key + '=' + args[key];
+            }
+        }
+    }
+
+    window.location.href = '?update=' + Math.random() + param + '#' + location;
 }
 
 function getHash(str) {

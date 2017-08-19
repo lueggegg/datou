@@ -45,9 +45,6 @@
         </div>
         <br/>
     </div>
-{% end %}
-{% block custom_foot %}
-
 
 <div id="edit_dept_dialog" title="增加部门">
     <p>
@@ -99,7 +96,11 @@
         <span class="sp_text">*</span>
     </p>
     <p>
-        　　职位：<input id="position" type="text" class="common_editor"/><span class="sp_text">*</span>
+        　　职位：
+        <select id="position_selector">
+            <option selected value="-1">请选择职位</option>
+        </select>
+        <span class="sp_text">*</span>
     </p>
     <p>
         入职日期：<input id="join_date" type="text" class="common_editor"/><span class="sp_text">*</span>
@@ -112,6 +113,14 @@
     </p>
     <p>&nbsp;</p>
 </div>
+{% end %}
 
 
- {% end %}
+{% block custom_foot %}
+<script>
+    var __dept_id = null;
+    {% if 'dept_id' in arg %}
+        __dept_id = {{ arg['dept_id'][0]}};
+    {% end %}
+</script>
+{% end %}
