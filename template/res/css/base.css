@@ -1,3 +1,7 @@
+img {
+    max-width: 100%;
+}
+
 .base_container {
     width: 1080px;
     margin-left: auto;
@@ -49,6 +53,15 @@
 
 .web_header a:visited {
     color: rgb(0,127,255);
+}
+
+.web_header_portrait_container {
+    overflow: hidden;
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    border: 1px solid rgb(0,127,255);
+    display: inline-block;
 }
 
 .web_footer {
@@ -191,6 +204,7 @@
     text-indent: 0;
     line-height: 20px;
 }
+
 .common_file_input input {
     position: absolute;
     font-size: 100px;
@@ -203,6 +217,7 @@
     border-color: #78C3F3;
     color: white;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .common_text_area {

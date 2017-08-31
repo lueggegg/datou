@@ -4,6 +4,7 @@
     margin-top: 10px;
     margin-right: 20px;
     border: 1px solid gray;
+    overflow: hidden;
 }
 
 .personal_base_info_container {

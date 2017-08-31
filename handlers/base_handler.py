@@ -76,6 +76,19 @@ class BaseHandler(RequestHandler):
         self.account_info['portrait'] = self.get_portrait_path(self.account_info['portrait'])
         raise gen.Return((error_codes.EC_SUCCESS, self.account_info))
 
+    def generate_extend(self, account_info):
+        if 'extend' in account_info:
+            if account_info['extend']:
+                account_info['extend'] = self.loads_json(account_info['extend'])
+            else:
+                extend_field = ['name', 'sex', 'birthday', 'politics', 'id_card', 'position',
+                            'education_level', 'college', 'degree', 'major',
+                            'join_date', 'cellphone', 'address',]
+                extend = {}
+                for field in extend_field:
+                    extend[field] = account_info[field]
+                account_info['extend'] = extend
+
     def redirect_error(self):
         self.redirect('error.html')
 
@@ -145,6 +158,9 @@ class BaseHandler(RequestHandler):
 
     def loads_json(self, arg):
         return json.loads(arg, object_hook=utils.decode_dict)
+
+    def dumps_json(self, obj):
+        return json.dumps(obj, ensure_ascii=False, encoding='utf-8')
 
     def get_portrait_path(self, filename, local=False):
         return self.get_res_file_path(filename, 'res/images/portrait', local)

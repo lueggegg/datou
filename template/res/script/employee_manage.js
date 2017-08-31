@@ -42,8 +42,9 @@ $(document).ready(function () {
     });
 
     $( "#add_employee" ).click(function( event ) {
-        current_operation = ADD_EMPLOYEE;
-        openEmployeeDialog();
+        // current_operation = ADD_EMPLOYEE;
+        // openEmployeeDialog();
+        window.open('employee_info_table.html?op=add');
     });
 
     $("#reset_employee_password").click(function (event) {
@@ -305,7 +306,7 @@ function openEmployeeDialog(data) {
 }
 
 var portrait_data = null;
-function onPortrailChange() {
+function onPortraitChange() {
     var files = $("#portrait_file")[0].files;
     if (files.length === 0) {
         return;
@@ -602,7 +603,8 @@ function onItemOperation(operation, index) {
             });
             break;
         case EDIT_EMPLOYEE:
-            openEmployeeDialog(employee_list_data[index]);
+            window.open('employee_info_table.html?op=update&uid=' + employee_list_data[index].id);
+            // openEmployeeDialog(employee_list_data[index]);
             break;
         case DEL_EMPLOYEE:
             if (employee_list_data[index].role_data <= __authority) {

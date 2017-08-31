@@ -18,6 +18,7 @@ from api_query_depts import ApiQueryDeptList
 from api_query_accounts import ApiQueryAccountList
 from api_is_account_exist import ApiIsAccountExist
 from api_reset_password import ApiResetPassword
+from api_query_account_extend import ApiQueryAccountExtend
 
 from api_create_new_job import ApiCreateNewJob
 from api_upload_file import ApiUploadFile

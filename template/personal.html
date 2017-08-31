@@ -35,8 +35,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="element_right">
-                <img id='personal_portrait' class="personal_portrait" src="res/images/portrait_demo.png">
+            <div class="element_right personal_portrait">
+                <img id='personal_portrait' src="res/images/portrait_demo.png">
             </div>
         </div>
         <div class="personal_other_info_container">
@@ -59,6 +59,9 @@
                     <li style="width: 90%">地址：<input disabled id="address" type="text" class="common_editor" style="width: 80%"></li>
                 </ul>
             </div>
+        </div>
+        <div style="margin: 10px; text-align: right;">
+            <a href="employee_info_table.html?op=update&uid={{ account_info['id'] }}" target="_blank">信息登记表</a>
         </div>
     </div>
 

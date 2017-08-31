@@ -11,11 +11,18 @@ class AccountDAO(BaseDAO):
         self.account_tab = 'employee'
         self.dept_tab = 'department'
         self.question_tab = 'protect_question'
+        self.account_prefix = 'S'
 
     @gen.coroutine
     def add_account(self, **kwargs):
+        sql = 'SELECT MAX(id) AS max_id FROM %s' % self.account_tab
+        max_id = yield self._executor.async_select(self._get_inst(True), sql)
+        if max_id:
+            kwargs['account'] = '%s%s' % (self.account_prefix, 10000 + max_id[0]['max_id'])
+        else:
+            kwargs['account'] = '%s%s' % (self.account_prefix, 10001)
         ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.account_tab, **kwargs)
-        raise gen.Return(ret)
+        raise gen.Return({'id': ret, 'account': kwargs['account']} if ret else None)
 
     @gen.coroutine
     def query_account(self, account, password=None):

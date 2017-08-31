@@ -11,8 +11,8 @@
             <a href="personal.html">{{ account_info['name']}}</a>&nbsp;|&nbsp;<a href="logout.html">退出</a>
         </div>
         <div class="element_right" style="margin-right: 10px">
-            <a href="personal.html">
-            <img id='header_user_portrait' src="{{ account_info['portrait'] }}" style="margin-top: 5px; width: 36px; height: 36px; border-radius: 18px;">
+            <a href="personal.html" class="web_header_portrait_container">
+            <img id='header_user_portrait' src="{{ account_info['portrait'] }}">
             </a>
         </div>
         {% if account_info['authority'] <= 8 %}

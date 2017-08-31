@@ -10,9 +10,9 @@ var __current_operation = NULL_OPERATION;
 
 function redirectError(e) {
     if (e) {
-        window.console.debug('exception: ' + e);
+        console.debug('exception: ' + e);
     }
-    alert('error');
+    alert('error: ' + e);
     // window.location.href = 'error.html';
 }
 
@@ -227,7 +227,7 @@ function initDatePicker(container, onSelectCb, init, noMaxDate) {
 }
 
 function consoleDebug(msg) {
-    window.console.debug(msg);
+    console.debug(msg);
 }
 
 function commonSelectable(container, onSelected, filter) {

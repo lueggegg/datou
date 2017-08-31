@@ -39,6 +39,10 @@ class ApiAlterAccount(ApiHandler):
                     fid.close()
                 info['portrait'] = md5_ret
 
+
+        extend_field = ['name', 'sex', 'birthday', 'politics', 'id_card', 'position',
+                        'education_level', 'college', 'degree', 'major',
+                        'join_date', 'cellphone', 'address',]
         if op == 'update':
             msg = '更新员工信息'
             uid = self.get_argument('uid', None)
@@ -47,19 +51,27 @@ class ApiAlterAccount(ApiHandler):
             account = yield self.account_dao.query_account_by_id(uid)
             if not account:
                 self.finish_with_error(error_codes.EC_USER_NOT_EXIST, '员工不存在')
+
+            self.get_info_from_extend(info, extend_field)
             if not account['birthday'] and 'birthday' not in info:
                 info['birthday'] = self.get_birthday_from_id_card(info['id_card'])
                 self.check_birthday(info['birthday'])
             ret = self.account_dao.update_account(uid, **info)
         elif op == 'add':
             msg = '添加员工'
-            account = yield self.account_dao.query_account(info['account'])
-            if account:
-                self.finish_with_error(error_codes.EC_SYS_ERROR, '账号已经存在')
+            self.get_info_from_extend(info, extend_field)
+            if 'password' not in info:
+                info['password'] = self.get_hash('oa123456')
             if 'birthday' not in info:
                 info['birthday'] = self.get_birthday_from_id_card(info['id_card'])
             self.check_birthday(info['birthday'])
-            ret = self.account_dao.add_account(**info)
+            ret = yield self.account_dao.add_account(**info)
+            if ret:
+                self.write_json({
+                    'status': error_codes.EC_SUCCESS,
+                    'data': ret,
+                })
+                return
         elif op == 'del':
             msg = '删除员工'
             uid = self.get_argument('uid', None)
@@ -72,6 +84,17 @@ class ApiAlterAccount(ApiHandler):
 
         self.process_result(ret, msg)
 
+
+    def get_info_from_extend(self, info, extend_field):
+            if 'extend' in info:
+                extend = info['extend']
+                for field in extend_field:
+                    if field in extend:
+                        info[field] = extend[field]
+                if 'birthday' in extend and not extend['birthday']:
+                    info['birthday'] = self.get_birthday_from_id_card(info['id_card'])
+                    self.check_birthday(info['birthday'])
+                info['extend'] = self.dumps_json(extend)
 
     def check_birthday(self, birthday):
         if not self.is_valid_datetime(birthday):
