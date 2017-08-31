@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_query_account_extend.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/account_dao.py" afterPath="$PROJECT_DIR$/db/account_dao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/__init__.py" afterPath="$PROJECT_DIR$/handlers/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_alter_account.py" afterPath="$PROJECT_DIR$/handlers/api_alter_account.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/base_handler.py" afterPath="$PROJECT_DIR$/handlers/base_handler.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/employee_manage.html" afterPath="$PROJECT_DIR$/template/employee_manage.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/error.html" afterPath="$PROJECT_DIR$/template/error.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/header.html" afterPath="$PROJECT_DIR$/template/header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/personal.html" afterPath="$PROJECT_DIR$/template/personal.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/css/base.css" afterPath="$PROJECT_DIR$/template/res/css/base.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/css/personal.css" afterPath="$PROJECT_DIR$/template/res/css/personal.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/base.js" afterPath="$PROJECT_DIR$/template/res/script/base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/employee_manage.js" afterPath="$PROJECT_DIR$/template/res/script/employee_manage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/temp.html" afterPath="$PROJECT_DIR$/template/temp.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/test.html" afterPath="$PROJECT_DIR$/template/test.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -701,7 +684,14 @@
       <option name="project" value="LOCAL" />
       <updated>1503183260706</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="release 3">
+      <created>1504188227550</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1504188227550</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -756,7 +746,8 @@
     <MESSAGE value="debug 4" />
     <MESSAGE value="release 1" />
     <MESSAGE value="release 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="release 2" />
+    <MESSAGE value="release 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="release 3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
