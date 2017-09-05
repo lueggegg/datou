@@ -75,7 +75,7 @@
     color: gray;
 }
 
-.attachment_list a, a:visited {
+.attachment_list a, .attachment_list a:visited {
     color: rgb(45,200,45);
     text-decoration: none;
 }

@@ -122,31 +122,31 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="index.css" pinned="false" current-in-tab="true">
+          <file leaf-file-name="index.css" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/res/css/index.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="515">
-                  <caret line="145" column="1" lean-forward="false" selection-start-line="145" selection-start-column="1" selection-end-line="145" selection-end-column="1" />
+                <state relative-caret-position="97">
+                  <caret line="123" column="0" lean-forward="true" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="job_record.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/job_record.html">
+          <file leaf-file-name="navigation.css" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/res/css/navigation.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="76">
-                  <caret line="4" column="40" lean-forward="false" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
+                <state relative-caret-position="211">
+                  <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="base.css" pinned="false" current-in-tab="false">
+          <file leaf-file-name="base.css" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/res/css/base.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="4332">
-                  <caret line="228" column="0" lean-forward="false" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
+                <state relative-caret-position="515">
+                  <caret line="234" column="1" lean-forward="false" selection-start-line="234" selection-start-column="1" selection-end-line="234" selection-end-column="1" />
                   <folding />
                 </state>
               </provider>
@@ -155,8 +155,8 @@
           <file leaf-file-name="list.css" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/res/css/list.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1273">
-                  <caret line="67" column="26" lean-forward="true" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
+                <state relative-caret-position="325">
+                  <caret line="71" column="21" lean-forward="true" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="21" />
                   <folding />
                 </state>
               </provider>
@@ -287,7 +287,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/res/css/official_doc.css" />
         <option value="$PROJECT_DIR$/res/script/official_doc.js" />
         <option value="$PROJECT_DIR$/res/script/auto_job_detail.js" />
         <option value="$PROJECT_DIR$/hr_another_post.html" />
@@ -324,12 +323,10 @@
         <option value="$PROJECT_DIR$/res/script/doc_detail.js" />
         <option value="$PROJECT_DIR$/res/script/base.js" />
         <option value="$PROJECT_DIR$/res/script/job_record.js" />
-        <option value="$PROJECT_DIR$/res/css/base.css" />
         <option value="$PROJECT_DIR$/auto_job_detail.html" />
         <option value="$PROJECT_DIR$/ask_for_leave.html" />
         <option value="$PROJECT_DIR$/base.html" />
         <option value="$PROJECT_DIR$/res/css/index_page_manage.css" />
-        <option value="$PROJECT_DIR$/res/css/list.css" />
         <option value="$PROJECT_DIR$/employee_info_table.html" />
         <option value="$PROJECT_DIR$/job_path_manage.html" />
         <option value="$PROJECT_DIR$/res/script/tag_selector.js" />
@@ -338,6 +335,9 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/res/script/index.js" />
         <option value="$PROJECT_DIR$/res/css/index.css" />
+        <option value="$PROJECT_DIR$/res/css/navigation.css" />
+        <option value="$PROJECT_DIR$/res/css/list.css" />
+        <option value="$PROJECT_DIR$/res/css/base.css" />
       </list>
     </option>
   </component>
@@ -462,7 +462,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="SearchEverywhereHistoryKey" value="index.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index.css&#10;index.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;index.html&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;job_pa&#9;FILE&#9;file://D:/code/python/tornado/datou/template/job_path_manage.html&#10;index_pa&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index_page_manage.css&#10;base&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;ask&#9;FILE&#9;file://D:/code/python/tornado/datou/template/ask_for_leave.html&#10;doc_de&#9;FILE&#9;file://D:/code/python/tornado/datou/template/doc_detail.html&#10;doc&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_detail.js&#10;jo&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;job_reco&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;inde&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index.css&#10;job_record.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;job_record.htm&#9;FILE&#9;file://D:/code/python/tornado/datou/template/job_record.html&#10;job_record.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/job_record.css&#10;doc_&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/doc_detail.css&#10;doc_deta&#9;FILE&#9;file://D:/code/python/tornado/datou/template/doc_detail.html&#10;index.&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;base.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/base.css&#10;base.html&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;he&#9;FILE&#9;file://D:/code/python/tornado/datou/template/header.html&#10;person&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/personal.css&#10;test&#9;FILE&#9;file://D:/code/python/tornado/datou/template/test.html&#10;tes&#9;FILE&#9;file://D:/code/python/tornado/datou/template/test.html&#10;empl&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js" />
+    <property name="SearchEverywhereHistoryKey" value="navig&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/navigation.css&#10;index.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index.css&#10;index.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;index.html&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;job_pa&#9;FILE&#9;file://D:/code/python/tornado/datou/template/job_path_manage.html&#10;index_pa&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index_page_manage.css&#10;base&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;ask&#9;FILE&#9;file://D:/code/python/tornado/datou/template/ask_for_leave.html&#10;doc_de&#9;FILE&#9;file://D:/code/python/tornado/datou/template/doc_detail.html&#10;doc&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_detail.js&#10;jo&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;job_reco&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;inde&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index.css&#10;job_record.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;job_record.htm&#9;FILE&#9;file://D:/code/python/tornado/datou/template/job_record.html&#10;job_record.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/job_record.css&#10;doc_&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/doc_detail.css&#10;doc_deta&#9;FILE&#9;file://D:/code/python/tornado/datou/template/doc_detail.html&#10;index.&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;base.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/base.css&#10;base.html&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;he&#9;FILE&#9;file://D:/code/python/tornado/datou/template/header.html&#10;person&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/personal.css&#10;test&#9;FILE&#9;file://D:/code/python/tornado/datou/template/test.html&#10;tes&#9;FILE&#9;file://D:/code/python/tornado/datou/template/test.html&#10;empl&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -600,18 +600,17 @@
       <workItem from="1504507238070" duration="6879000" />
       <workItem from="1504515666959" duration="825000" />
       <workItem from="1504526334487" duration="6436000" />
-      <workItem from="1504579394418" duration="2493000" />
+      <workItem from="1504579394418" duration="3174000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="364312000" />
+    <option name="totallyTimeSpent" value="364993000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1899" height="1047" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19649495" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19649495" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32967034" sideWeight="0.5062631" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -642,13 +641,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/css/job_common.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1976">
-          <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -861,14 +853,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/css/base.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4332">
-          <caret line="228" column="0" lean-forward="false" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/script/job_record.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1121">
@@ -957,14 +941,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/css/list.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1273">
-          <caret line="67" column="26" lean-forward="true" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/script/base.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5035">
@@ -1037,8 +1013,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/res/css/index.css">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="123" column="0" lean-forward="true" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/css/navigation.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/css/list.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="71" column="21" lean-forward="true" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/css/base.css">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="515">
-          <caret line="145" column="1" lean-forward="false" selection-start-line="145" selection-start-column="1" selection-end-line="145" selection-end-column="1" />
+          <caret line="234" column="1" lean-forward="false" selection-start-line="234" selection-start-column="1" selection-end-line="234" selection-end-column="1" />
           <folding />
         </state>
       </provider>

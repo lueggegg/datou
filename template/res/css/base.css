@@ -8,7 +8,7 @@ img {
     margin-right: auto;
 }
 
-.base_container a, a:visited{
+.base_container a, .base_container a:visited{
     color: rgb(0,127,255);
     text-decoration: none;
 }

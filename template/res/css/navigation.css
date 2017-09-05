@@ -16,7 +16,7 @@
     margin-right:40px;
 }
 
-.div-header-navigation-bar a, a:visited{
+.div-header-navigation-bar a, .div-header-navigation-bar a:visited{
     line-height:36px;
     color: white;
     font-size:16px;
