@@ -5,7 +5,7 @@
 }
 
 .index_info {
-    width: 460px;
+    width: 455px;
     margin-left: 15px;
     float: left;
 }
@@ -98,7 +98,11 @@
 
 .recent_info_item li {
     float: left;
-    margin-left: 10px;
+    margin-left: 5px;
+}
+
+.recent_info_item li span {
+    color: black;
 }
 
 .recent_info_item li div {
@@ -108,15 +112,35 @@
 }
 
 .recent_info_type {
-    width: 30%;
-    color: orange;
+    width: 18%;
+    color: rgb(255,0,168);
+}
+
+.recent_info_mark_status {
+    width: 12%;
+    font-family: 楷体;
+    padding-top: 2px;
 }
 
 .recent_info_main {
-    width: 48%;
+    width: 53%;
 }
 
 .recent_info_status {
-    width: 14%;
+    width: 12%;
 }
 
+#empty_job_container {
+    text-align: center;
+}
+
+#empty_job_container img {
+    width: 50%;
+}
+
+#empty_job_container div {
+    text-align: right;
+    color: gray;
+    font-size: 1.15em;
+    font-family: 楷体;
+}

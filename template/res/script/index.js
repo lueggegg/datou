@@ -80,24 +80,26 @@ function showCurrentImgNews() {
 function queryRecentJob() {
     commonPost('/api/query_job_list', {count: 10}, function (data) {
         if (data.length === 0) {
-            $("#recent_job_list").append('<li>暂完工作流</li>');
+
         } else {
+            $("#empty_job_container").hide();
             var job_status = {};
             job_status[STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>';
             job_status[STATUS_JOB_COMPLETED] = '<span style="color: rgb(0,225,32)">已完成</span>';
             job_status[STATUS_JOB_REJECTED] = '<span style="color: red">未通过</span>';
-            job_status[STATUS_JOB_CANCEL] = '<span style="color: gray">已撤回</span>';
+            job_status[STATUS_JOB_CANCEL] = '<span style="color: gray">被撤回</span>';
             var mark_status = {};
-            mark_status[STATUS_JOB_MARK_COMPLETED] = '已完成';
+            mark_status[STATUS_JOB_MARK_COMPLETED] = '已归档';
             mark_status[STATUS_JOB_MARK_WAITING] = '待办';
             mark_status[STATUS_JOB_MARK_PROCESSED] = '已处理';
             var list = '';
             data.forEach(function (p1, p2, p3) {
                 list += '<ul class="recent_info_item">';
-                list += '<li class="recent_info_type">[' + job_type_map[p1.type] + ' ' + mark_status[p1.mark_status] +']</li>';
+                list += '<li class="recent_info_type">[' + job_type_map[p1.type] + ']</li>';
+                list += '<li class="recent_info_mark_status">' + mark_status[p1.mark_status] + '</li>';
+                list += '<li class="recent_info_status">' + job_status[p1.job_status] + '</li>';
                 list += '<li class="recent_info_main"><div><a target="_blank" href="'
                     + getRecentJobUrl(p1.type, p1.job_id) + '" title="' + p1.title + '">' + p1.title + "</a></div></li>";
-                list += '<li class="recent_info_status">' + job_status[p1.job_status] + '</li>';
                 list += '</ul>';
             });
             $("#recent_job_list").append('<li>' + list + '</li>');
