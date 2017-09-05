@@ -1,4 +1,5 @@
 import mysql_executor
+import datetime
 
 class DAOException(Exception):
     def __init__(self, message):
@@ -31,3 +32,6 @@ class BaseDAO:
         if not inst:
             raise DAOException("Get %s mysql instance error, not found" % self.desc)
         return inst
+
+    def now(self):
+        return datetime.datetime.now()

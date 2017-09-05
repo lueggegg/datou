@@ -1,21 +1,8 @@
 var job_container = [];
 var job_types = [];
-var job_type_map = {};
 
 $(document).ready(function () {
     verticalTabs();
-
-    job_type_map[TYPE_JOB_OFFICIAL_DOC] = '公文';
-    job_type_map[TYPE_JOB_CERTIFICATE_SALARY] = '收入证明';
-    job_type_map[TYPE_JOB_CERTIFICATE_LABOR] = '工作证明';
-    job_type_map[TYPE_JOB_CERTIFICATE_MARRIAGE] = '婚育证明';
-    job_type_map[TYPE_JOB_CERTIFICATE_INTERNSHIP] = '实习证明';
-    job_type_map[TYPE_JOB_HR_RESIGN] = '离职申请';
-    job_type_map[TYPE_JOB_HR_RECOMMEND] = '伯乐推荐';
-    job_type_map[TYPE_JOB_HR_ANOTHER_POST] = '调岗申请';
-    job_type_map[TYPE_JOB_HR_ASK_FOR_LEAVE] = '请假流程';
-    job_type_map[TYPE_JOB_FINANCIAL_PURCHASE] = '采购流程';
-    job_type_map[TYPE_JOB_FINANCIAL_REIMBURSEMENT] = '报销流程';
 
     job_container.push(
         $("#job_waiting"),
@@ -64,13 +51,13 @@ function setJobData(index, data) {
             var item = [
                 '<span style="color: orange">[' + job_type_map[p1.type] + ']</span>',
                 "<div class=common_clickable onclick='onClickDocItem(" + p1.type + "," + p1.id + ")'>" + p1.title + "</div>",
-                p1.invoker_name,
+                "<div>" + p1.invoker_name + "</div>",
                 abstractDateFromDatetime(p1.time),
                 commonGetString(p1.last_operator_name),
                 abstractDateFromDatetime(p1.mod_time)
             ];
             if (new_status) {
-                item.push(status[p1.status]);
+                item.push(status[p1.job_status]);
             }
 
             list_data.push(item);

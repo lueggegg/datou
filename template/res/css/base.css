@@ -8,8 +8,9 @@ img {
     margin-right: auto;
 }
 
-.base_container a{
+.base_container a, a:visited{
     color: rgb(0,127,255);
+    text-decoration: none;
 }
 
 .base_header_container {
@@ -107,7 +108,6 @@ img {
 .topic_title {
     color: rgb(0,127,255);
     height: 28px;
-    line-height: 28px;
     font-size: 17px;
 }
 
@@ -225,4 +225,11 @@ img {
     width: 98%;
     height: 240px;
     border-radius: 4px;
+}
+
+.common_btn_container {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
 }

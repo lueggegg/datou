@@ -1,0 +1,28 @@
+.news_img_container {
+    width: 400px;
+    height: 250px;
+    border: 1px solid lightgray;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.news_img_container img {
+    width: 100%;
+}
+
+#news_config_dlg {
+
+}
+
+.news_config_dlg_item {
+    margin-bottom: 15px;
+}
+
+#news_config_dlg input {
+    width: 80%;
+    height: 28px;
+    padding-left: 5px;
+    padding-right: 5px;
+    /*border: 1px solid gray;*/
+    /*border-radius: 4px;*/
+}

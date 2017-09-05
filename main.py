@@ -8,7 +8,7 @@ from tornado.options import define, options
 import handlers
 import config
 
-from db import account_dao, job_dao, mysql_config, mysql_inst_mgr
+from db import account_dao, job_dao, config_dao, mysql_config, mysql_inst_mgr
 
 define("mode", 0, int, "Enable debug mode, 2 is release, 1 is network debug, 0 is local debug")
 define("port", 5505, int, "Listen port")
@@ -18,6 +18,7 @@ _mysql_config = mysql_config.MySQLConfig(mode=options.mode)
 _mysql_inst_mgr = mysql_inst_mgr.MySQLInstMgr(metas=_mysql_config.global_metas)
 _account_dao = account_dao.AccountDAO(_mysql_inst_mgr)
 _job_dao = job_dao.JobDAO(_mysql_inst_mgr)
+_config_dao = config_dao.ConfigDAO(_mysql_inst_mgr)
 
 app = tornado.web.Application([
     (r'/res/(.*)', tornado.web.StaticFileHandler, {'path': "./template/res/"}),
@@ -47,6 +48,7 @@ app = tornado.web.Application([
     (r'/api/query_job_status_mark', handlers.ApiQueryJobStatusMark),
     (r'/api/job_memo', handlers.ApiJobMemo),
     (r'/api/query_account_extend', handlers.ApiQueryAccountExtend),
+    (r'/api/outer_link', handlers.ApiOuterLinkHandler),
     (r'/(.*)', handlers.HtmlHandler),
 ],
     test_mode=config.test_mode,
@@ -55,6 +57,7 @@ app = tornado.web.Application([
     template_path=os.path.join(os.path.dirname(__file__), "template"),
     account_dao=_account_dao,
     job_dao=_job_dao,
+    config_dao=_config_dao,
 )
 
 app.listen(options.port, options.address)

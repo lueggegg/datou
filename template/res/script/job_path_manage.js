@@ -3,6 +3,7 @@ var container_prefix = 'path_container_';
 
 var processor_selector_dlg;
 var processor_selector_controller;
+var leader_selector_controller;
 var insert_node = {pre_path_id: 0, next_path_id: 0};
 var op = 'add';
 var op_path_id;
@@ -11,13 +12,22 @@ var selected_path_type = 0;
 
 $(document).ready(function () {
     var selector_container = $("#processor_selector_container");
+    var leader_container = $("#leader_selector_container");
+    leader_container.hide();
     $("#path_types").buttonset();
     $("[name='path_type_radio']").on('change', function (event) {
         selected_path_type = parseInt($(event.target).val());
         if (selected_path_type === 0) {
             selector_container.hide();
-        } else {
+            leader_container.hide();
+        } else if (selected_path_type === 1){
             selector_container.show();
+            leader_container.hide();
+        } else if (selected_path_type === 2) {
+            selector_container.hide();
+            leader_container.show();
+        } else {
+            redirectError('系统错误');
         }
     });
     selector_container.hide();
@@ -25,7 +35,7 @@ $(document).ready(function () {
     processor_selector_dlg = $("#processor_selector_dlg");
     commonInitDialog(processor_selector_dlg, function () {
        closeSelectorDlgWithOk();
-    });
+    }, {width: 500});
 
     processor_selector_controller = createTagSelectorController(selector_container, {
         type_url: '/api/query_dept_list',
@@ -35,6 +45,15 @@ $(document).ready(function () {
         },
         get_value_label: function (item) {
             return item.name + "（" + (item.is_leader? "主管": item.position) + "）";
+        }
+    });
+
+    commonPost('/api/query_account_list', {type: TYPE_ACCOUNT_LEADER}, function (data) {
+        if (data.length > 0) {
+            data.forEach(function (p1, p2, p3) {
+                p1['label'] = p1.name + "（" + p1.position + "）";
+            });
+            leader_selector_controller = createListSelectorController(leader_container, {data: data, name: 'leader_selector'})
         }
     });
 
@@ -138,7 +157,7 @@ function createJobPathNode(container, node_data) {
             if (p1.dept_id) {
                 dept_list += '<li class="dept_item">' + p1.dept + '（全员）</li>';
             } else if (p1.uid) {
-                uid_list += '<li class="employee_item">' + p1.uid_dept + divider + p1.account + divider + p1.employee + '</li>';
+                uid_list += '<li class="employee_item">' + p1.uid_dept + divider + p1.account + divider + p1.employee + divider + p1.position + '</li>';
             }
         });
         html += dept_list + uid_list;
@@ -212,21 +231,29 @@ function closeSelectorDlgWithOk() {
             return;
         }
 
-        var result = processor_selector_controller.get_result();
-        switch (result.status) {
-            case 0:
-                promptMsg('请选择审批部门或者审批员工');
-                return;
-            case 1:
-                param['dept_list'] = JSON.stringify(result.type_list);
-                break;
-            case 2:
-                param['uid_list'] = JSON.stringify(result.value_list);
-                break;
-            case 3:
-                param['dept_list'] = JSON.stringify(result.type_list);
-                param['uid_list'] = JSON.stringify(result.value_list);
-                break;
+        if (selected_path_type === 1) {
+            var result = processor_selector_controller.get_result();
+            switch (result.status) {
+                case 0:
+                    promptMsg('请选择审批部门或者审批员工');
+                    return;
+                case 1:
+                    param['dept_list'] = JSON.stringify(result.type_list);
+                    break;
+                case 2:
+                    param['uid_list'] = JSON.stringify(result.value_list);
+                    break;
+                case 3:
+                    param['dept_list'] = JSON.stringify(result.type_list);
+                    param['uid_list'] = JSON.stringify(result.value_list);
+                    break;
+            }
+        } else if (selected_path_type === 2) {
+            var result = leader_selector_controller.get_result();
+            param['uid_list'] = JSON.stringify(result);
+        } else {
+            redirectError('系统错误');
+            return;
         }
     }
 

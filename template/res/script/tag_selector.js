@@ -1,5 +1,34 @@
 var __tag_map = {};
 
+function createListSelectorController(container, param) {
+    var controller = {
+        data: param.data,
+        checkbox: null,
+        get_result: function() {
+            var result = [];
+            $("[name='" + this.checkbox + "']").filter(':checked').each(function () {
+                result.push($(this).val());
+            });
+            return result;
+        }
+    };
+
+    var html = '';
+    var checkbox_name = 'checkbox_' + param.name;
+    controller.checkbox = checkbox_name;
+    param.data.forEach(function (p1, p2, p3) {
+        html += '<div class="common_container">';
+        var id = param.name + '_item_' + p1.id;
+        html += '<input type="checkbox" name="' + checkbox_name + '" value="' + p1.id + '" id="' + id + '">';
+        html += '<label for="' + id + '">' + p1.label + '</label>';
+        html += '</div>';
+    });
+    container.append(html);
+    $("[name='" + checkbox_name +"']").checkboxradio({icon: false});
+
+    return controller;
+}
+
 function createTagSelectorController(container, param) {
     var controller = {
         container: container,

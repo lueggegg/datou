@@ -26,6 +26,7 @@ class ApiQueryAccountExtend(ApiHandler):
                 'portrait': account_info['portrait'],
                 'dept': account_info['dept'],
                 'department_id': account_info['department_id'],
+                'operation_mask': account_info['operation_mask']
             }
         }
 

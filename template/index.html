@@ -9,27 +9,11 @@
 
 {% block custom_body %}
 <div class="index_container">
-    <div class="index_left common_border element_left">
-        <div class="index_broadcast">重要通知：********!!!</div>
-        <div class="index_recent_task_container">
-            <div class="topic_title">
-                最近的工作流
-            </div>
-            <ul class="base_ul">
-                <li>item1</li>
-                <li>item2</li>
-                <li>item3</li>
-                <li>item4</li>
-                <li>item5</li>
-            </ul>
-        </div>
-    </div>
-    <div class="index_right common_border element_right">
-        <div class="topic_title">
-            图片要闻
-        </div>
-        <div>
-            <img class="index_news_big_img" src="res/images/a.jpg" id="index_big_img">
+    <div class="index_news">
+        <div class="img_news_item">
+            <a href="/" id="img_news_url" target="_blank"></a>
+            <img src="res/images/a.jpg" id="img_news_img">
+            <div id="img_news_title">未设置</div>
         </div>
         <div class="index_news_divider"></div>
         <div class="topic_title">
@@ -37,12 +21,7 @@
             <div class="element_right"><a href="error.html" style="font-size: 14px">更多》</a></div>
         </div>
         <div>
-            <ul class="base_ul">
-                <li>item1</li>
-                <li>item2</li>
-                <li>item3</li>
-                <li>item4</li>
-                <li>item5</li>
+            <ul class="base_ul" id="company_news_list">
             </ul>
         </div>
         <div class="index_news_divider"></div>
@@ -51,14 +30,23 @@
             <div class="element_right"><a href="error.html" style="font-size: 14px">更多》</a></div>
         </div>
         <div>
-            <ul class="base_ul">
-                <li>item1</li>
-                <li>item2</li>
-                <li>item3</li>
-                <li>item4</li>
-                <li>item5</li>
+            <ul class="base_ul" id="other_news_list">
             </ul>
         </div>
+    </div>
+    <div class="index_info">
+        <!--<div class="index_broadcast">重要通知：********!!!</div>-->
+        <div class="index_recent_task_container">
+            <div class="topic_title">
+                最近的工作流
+            </div>
+            <ul class="recent_info_list" id="recent_job_list">
+            </ul>
+        </div>
+    </div>
+    <div class="index_right">
+        <div id="inline_date"></div>
+        <div id="useful_link_container"></div>
     </div>
 </div>
 {% end %}

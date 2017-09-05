@@ -1,0 +1,41 @@
+{% extends base_admin.html %}
+
+{% block title %}设置主页新闻链接{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/tabs.css">
+<link rel="stylesheet" href="res/css/list.css">
+<link rel="stylesheet" href="res/css/index_page_manage.css">
+<script type="text/javascript" src="res/script/index_page_manage.js"></script>
+{% end %}
+
+{% block custom_body %}
+<div id="tabs">
+    <ul id="tab_item_list">
+    </ul>
+</div>
+
+<div id="news_config_dlg">
+    <div style="color: blue" class="news_config_dlg_item">请输入完整的链接（需要以http://或者https://开头）</div>
+    <div id="dlg_img_container" class="news_config_dlg_item">
+        图片链接：
+        <br/>
+        <input type="text" id="editor_img_url">
+        <span class="common_clickable" onclick="viewImgUrl()">预览</span>
+        <br/>
+        <div class="news_img_container">
+            <img id="dlg_img">
+        </div>
+    </div>
+    <div class="news_config_dlg_item">
+        标题：
+        <br/>
+        <input type="text" id="editor_news_title">
+    </div>
+    <div class="news_config_dlg_item">
+        网页链接：
+        <br/>
+        <input type="text" id="editor_news_url">
+        <span class="common_clickable" onclick="viewLink()">预览</span>
+    </div>
+</div>
+{% end %}

@@ -34,6 +34,7 @@ class BaseHandler(RequestHandler):
         RequestHandler.__init__(self, application, request, **kwargs)
         self.account_dao = self.settings['account_dao']
         self.job_dao = self.settings['job_dao']
+        self.config_dao = self.settings['config_dao']
         self.account_info = None
         self.psd_question = None
         self.cookie_expires_days = 10
@@ -103,8 +104,10 @@ class BaseHandler(RequestHandler):
         self.write_result(err_code, msg)
         raise self.end_notification
 
-    def get_argument_and_check_it(self, arg_name, error_msg='参数错误'):
+    def get_argument_and_check_it(self, arg_name, error_msg=None):
         arg = self.get_argument(arg_name, None)
+        if not error_msg:
+            error_msg = '缺少参数%s' % arg_name
         if arg is None:
             self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, error_msg)
         return arg

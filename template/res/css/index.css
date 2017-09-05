@@ -1,25 +1,25 @@
 .index_container {
-    height: 640px;
     width: 100%;
     margin-top: 10px;
+    display: inline-block;
 }
 
-.index_left {
-    width: 600px;
-    height: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
+.index_info {
+    width: 460px;
+    margin-left: 15px;
+    float: left;
+}
+
+.index_news {
+    width: 320px;
+    float: left;
 }
 
 .index_right {
-    width: 425px;
-    height: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
+    float: right;
 }
 
 .index_broadcast {
-    margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
     color: blue;;
@@ -31,10 +31,42 @@
 .index_recent_task_container {
     /*margin-top: 10px;*/
 }
-.index_news_big_img {
-    width:100%;
-    height: 180px;
-    /*border-radius: 4px;*/
+
+
+.img_news_item {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border: 1px solid lightgray;
+}
+
+.img_news_item img {
+    position: absolute;
+    z-index: 0;
+}
+
+.img_news_item a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.img_news_item div {
+    position: absolute;
+    width: 98%;
+    bottom: 0;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    z-index: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .index_news_divider {
@@ -42,3 +74,49 @@
     margin-bottom: 5px;
     border-bottom: 1px solid lightgray;
 }
+
+#useful_link_container {
+
+}
+
+.recent_info_list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.recent_info_list li {
+    margin-bottom: 10px;
+}
+
+.recent_info_item {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    clear:right;
+}
+
+.recent_info_item li {
+    float: left;
+    margin-left: 10px;
+}
+
+.recent_info_item li div {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.recent_info_type {
+    width: 30%;
+    color: orange;
+}
+
+.recent_info_main {
+    width: 48%;
+}
+
+.recent_info_status {
+    width: 14%;
+}
+

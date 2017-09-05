@@ -214,6 +214,7 @@ function queryJobBaseInfo() {
     commonPost(query_url, {type: 'base', job_id: __job_id}, function (data) {
         main_info = data;
         $("#doc_topic").text(main_info.title);
+        $("#doc_topic").attr('title', main_info.title);
         if (main_info.status === STATUS_JOB_COMPLETED) {
             $("#complete_btn").remove();
             $("#job_status").text("已归档");

@@ -30,11 +30,20 @@
     height: 48px;
     line-height: 48px;
     padding-left: 10px;
-    font-size: 20px;
+    font-size: 1.25em;
     font-weight: bold;
-    /*     background: rgb(193,217,243) */
     background: rgb(69,69,69);
     color: white;
+    letter-spacing: 0.05em;
+}
+
+#doc_topic {
+    float: left;
+    width: 600px;
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 #process_container {

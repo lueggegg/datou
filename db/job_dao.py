@@ -1,6 +1,5 @@
 import db_helper
 import type_define
-import datetime
 from base_dao import BaseDAO
 
 from tornado import gen
@@ -31,7 +30,7 @@ class JobDAO(BaseDAO):
     @gen.coroutine
     def create_new_job(self, **kwargs):
         if 'time' not in kwargs:
-            kwargs['time'] = datetime.datetime.now()
+            kwargs['time'] = self.now()
         ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.record_tab, **kwargs)
         if ret:
             self.update_job_mark(ret, kwargs['invoker'], type_define.STATUS_JOB_INVOKED_BY_MYSELF)
@@ -66,7 +65,7 @@ class JobDAO(BaseDAO):
     @gen.coroutine
     def add_job_node(self, **kwargs):
         if 'time' not in kwargs:
-            kwargs['time'] = datetime.datetime.now()
+            kwargs['time'] = self.now()
         ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.node_tab, **kwargs)
         if ret:
             yield self.update_job(kwargs['job_id'], mod_time=kwargs['time'], last_operator=kwargs['sender_id'])
@@ -109,7 +108,7 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret[0] if ret else None)
 
     @gen.coroutine
-    def query_job_list(self, job_type=None, invoker=None):
+    def query_job_list(self, job_type=None, invoker=None, count=None, offset=0):
         sql = "SELECT r.*, i.name AS invoker_name, o.name AS last_operator_name FROM %s r" \
               " LEFT JOIN %s i ON i.id = r.invoker" \
               " LEFT JOIN %s o ON o.id = r.last_operator" \
@@ -119,6 +118,8 @@ class JobDAO(BaseDAO):
         if invoker:
             sql += ' AND r.invoker=%s' % invoker
         sql += ' ORDER BY r.id DESC'
+        if count:
+            sql += ' LIMIT %s, %s' % (offset, count)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
@@ -147,16 +148,20 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret)
 
     @gen.coroutine
-    def query_employee_job(self, uid, status, job_type=None):
-        sql = 'SELECT m.*, r.*, i.name AS invoker_name, o.name AS last_operator_name FROM %s m' \
+    def query_employee_job(self, uid, status=None, job_type=None, count=None, offset=0):
+        sql = 'SELECT m.*, m.status AS mark_status, r.*, r.status AS job_status, i.name AS invoker_name, o.name AS last_operator_name FROM %s m' \
               ' LEFT JOIN %s r ON m.job_id=r.id' \
               " LEFT JOIN %s i ON i.id = r.invoker" \
               " LEFT JOIN %s o ON o.id = r.last_operator" \
-              ' WHERE m.uid=%s AND m.status=%s' \
-              % (self.mark_tab, self.record_tab, self.account_tab, self.account_tab, uid, status)
+              ' WHERE m.uid=%s' \
+              % (self.mark_tab, self.record_tab, self.account_tab, self.account_tab, uid,)
+        if status is not None:
+            sql += ' AND m.status=%s' % status
         if job_type:
             sql += ' AND r.type=%s' % job_type
-        sql += ' ORDER BY r.id DESC'
+        sql += ' ORDER BY r.mod_time DESC'
+        if count:
+            sql += ' LIMIT %s, %s' % (offset, count)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
@@ -241,7 +246,7 @@ class JobDAO(BaseDAO):
         path_list = yield self._executor.async_select(self._get_inst(True), sql)
         if path_list:
             for path in path_list:
-                sql = 'SELECT p.*, d.name as dept, a.name as employee, a.account, dd.name as uid_dept FROM %s p' \
+                sql = 'SELECT p.*, d.name as dept, a.name as employee, a.account, a.position, dd.name as uid_dept FROM %s p' \
                       ' LEFT JOIN %s d ON d.id=p.dept_id' \
                       ' LEFT JOIN %s a ON a.id=p.uid' \
                       ' LEFT JOIN %s dd ON dd.id=a.department_id' \
@@ -308,7 +313,7 @@ class JobDAO(BaseDAO):
         conditions = []
         if 'begin_type' in kwargs:
             if kwargs['begin_type'] == type_define.STATUS_BROADCAST_WOULD_START:
-                conditions.append("begin_time>'%s'" % datetime.datetime.now())
+                conditions.append("begin_time>'%s'" % self.now())
             elif kwargs['begin_type'] == type_define.STATUS_BROADCAST_STARTED:
                 conditions.append("begin_time<='%s")
 

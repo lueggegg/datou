@@ -347,3 +347,16 @@ function abstractJobContent(content) {
 function wrapWithSpan(item) {
     return '<span>' + item + '</span>';
 }
+
+var job_type_map = {};
+job_type_map[TYPE_JOB_OFFICIAL_DOC] = '公文';
+job_type_map[TYPE_JOB_CERTIFICATE_SALARY] = '收入证明';
+job_type_map[TYPE_JOB_CERTIFICATE_LABOR] = '工作证明';
+job_type_map[TYPE_JOB_CERTIFICATE_MARRIAGE] = '婚育证明';
+job_type_map[TYPE_JOB_CERTIFICATE_INTERNSHIP] = '实习证明';
+job_type_map[TYPE_JOB_HR_RESIGN] = '离职申请';
+job_type_map[TYPE_JOB_HR_RECOMMEND] = '伯乐推荐';
+job_type_map[TYPE_JOB_HR_ANOTHER_POST] = '调岗申请';
+job_type_map[TYPE_JOB_HR_ASK_FOR_LEAVE] = '请假流程';
+job_type_map[TYPE_JOB_FINANCIAL_PURCHASE] = '采购流程';
+job_type_map[TYPE_JOB_FINANCIAL_REIMBURSEMENT] = '报销流程';

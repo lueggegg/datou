@@ -142,8 +142,10 @@
             <td class="not_null_field">部门</td>
             <td id="dept_td" colspan="2"></td>
             <td>现工作岗位</td>
-            <td>
+            <td id="position_container">
                 <select id="position">
+                    <option value="台长">台长</option>
+                    <option value="副台长">副台长</option>
                     <option value="主任">主任</option>
                     <option value="副主作">副主任</option>
                     <option value="一级主管">一级主管</option>
@@ -356,7 +358,8 @@
     var module_data = {
         op: null,
         uid: null,
-        portrait_data: null
+        portrait_data: null,
+        operation_mask: 0
     };
 
     $(function() {
@@ -455,6 +458,8 @@
             param = {uid: module_data.uid}
         }
         commonPost('/api/query_account_extend', param, function (data) {
+            module_data.operation_mask = data.operation_mask;
+
             var extend = data.extend;
             for (var key in extend) {
                 if (extend.hasOwnProperty(key)) {
@@ -533,6 +538,8 @@
             return;
         }
 
+        decideOperationMask(account_info, info['position']);
+
         param['account_info'] = JSON.stringify(account_info);
 
         commonPost('/api/alter_account', param, function (data) {
@@ -582,6 +589,16 @@
             }
         }
         return true;
+    }
+
+    function decideOperationMask(account_info, position) {
+        if (position === '台长') {
+            account_info['operation_mask'] = module_data.operation_mask | AUTHORITY_CHAIR_LEADER & (~AUTHORITY_VIA_LEADER);
+        } else if (position === '副台长') {
+            account_info['operation_mask'] = module_data.operation_mask | AUTHORITY_VIA_LEADER & (~AUTHORITY_CHAIR_LEADER);
+        } else {
+            account_info['operation_mask'] = module_data.operation_mask & (~AUTHORITY_CHAIR_LEADER) & (~AUTHORITY_VIA_LEADER);
+        }
     }
 
 </script>
