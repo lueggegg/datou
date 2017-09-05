@@ -8,8 +8,13 @@ img {
     margin-right: auto;
 }
 
-.base_container a, .base_container a:visited{
-    color: rgb(0,127,255);
+.base_container a{
+    color: rgb(64,64,64);
+    text-decoration: none;
+}
+
+.base_container a:visited {
+    color: gray;
     text-decoration: none;
 }
 
@@ -107,8 +112,8 @@ img {
 
 .topic_title {
     color: rgb(0,127,255);
-    height: 28px;
-    font-size: 17px;
+    height: 30px;
+    font-size: 1.15em;
 }
 
 .common_clickable {

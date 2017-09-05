@@ -89,45 +89,31 @@
     margin-bottom: 10px;
 }
 
-.recent_info_item {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    clear:right;
-}
 
-.recent_info_item li {
+.recent_info_type {
     float: left;
-    margin-left: 5px;
+    width: 18%;
+    color: rgb(255,0,168);
+    padding-left: 10px;
 }
 
-.recent_info_item li span {
-    color: black;
+.recent_info_mark_status {
+    width: 10%;
+    font-family: 楷体;
+    padding-top: 2px;
+    float: left;
+    color: rgb(0,0,225);
 }
 
-.recent_info_item li div {
+.recent_info_main {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-.recent_info_type {
-    width: 18%;
-    color: rgb(255,0,168);
-}
-
-.recent_info_mark_status {
-    width: 12%;
-    font-family: 楷体;
-    padding-top: 2px;
-}
-
-.recent_info_main {
-    width: 53%;
-}
-
 .recent_info_status {
     width: 12%;
+    float: left;
 }
 
 #empty_job_container {
@@ -143,4 +129,25 @@
     color: gray;
     font-size: 1.15em;
     font-family: 楷体;
+}
+
+#waiting_job_container {
+    padding-bottom: 5px;
+}
+
+#waiting_job_list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    padding-bottom: 5px;
+}
+
+#waiting_job_list li {
+    margin-bottom: 10px;
+}
+
+.waiting_job_main {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

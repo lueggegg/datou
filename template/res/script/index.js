@@ -5,6 +5,7 @@ $(document).ready(function () {
     queryImgNews();
     queryTextNews();
     queryUsefulLink();
+    queryWaitingJob();
     queryRecentJob();
 });
 
@@ -77,11 +78,26 @@ function showCurrentImgNews() {
     $("#img_news_url").attr('title', item.title);
 }
 
+function queryWaitingJob() {
+    commonPost('/api/query_job_list', {status: STATUS_JOB_MARK_WAITING}, function (data) {
+        if (data.length === 0) {
+            $("#waiting_job_container").hide();
+        } else {
+            var list = '';
+            data.forEach(function (p1, p2, p3) {
+                list += '<li><div class="element_left recent_info_type" >[' + job_type_map[p1.type] + ']</div>';
+                list += '<div class="waiting_job_main"><a target="_blank" href="'
+                    + getJobUrl(p1.type, p1.job_id) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
+                list += '</li>';
+            });
+            $("#waiting_job_list").append(list);
+        }
+    });
+}
+
 function queryRecentJob() {
     commonPost('/api/query_job_list', {count: 10}, function (data) {
-        if (data.length === 0) {
-
-        } else {
+        if (data.length > 0) {
             $("#empty_job_container").hide();
             var job_status = {};
             job_status[STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>';
@@ -94,20 +110,20 @@ function queryRecentJob() {
             mark_status[STATUS_JOB_MARK_PROCESSED] = '已处理';
             var list = '';
             data.forEach(function (p1, p2, p3) {
-                list += '<ul class="recent_info_item">';
-                list += '<li class="recent_info_type">[' + job_type_map[p1.type] + ']</li>';
-                list += '<li class="recent_info_mark_status">' + mark_status[p1.mark_status] + '</li>';
-                list += '<li class="recent_info_status">' + job_status[p1.job_status] + '</li>';
-                list += '<li class="recent_info_main"><div><a target="_blank" href="'
-                    + getRecentJobUrl(p1.type, p1.job_id) + '" title="' + p1.title + '">' + p1.title + "</a></div></li>";
-                list += '</ul>';
+                list += '<li>';
+                list += '<div class="recent_info_type">[' + job_type_map[p1.type] + ']</div>';
+                list += '<div class="recent_info_mark_status">' + mark_status[p1.mark_status] + '</div>';
+                list += '<div class="recent_info_status">' + job_status[p1.job_status] + '</div>';
+                list += '<div class="recent_info_main"><a target="_blank" href="'
+                    + getJobUrl(p1.type, p1.job_id) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
+                list += '</li>';
             });
-            $("#recent_job_list").append('<li>' + list + '</li>');
+            $("#recent_job_list").append(list);
         }
     });
 }
 
-function getRecentJobUrl(job_type, job_id) {
+function getJobUrl(job_type, job_id) {
     switch (job_type) {
         case TYPE_JOB_OFFICIAL_DOC:
             return 'doc_detail.html?job_id=' + job_id;
