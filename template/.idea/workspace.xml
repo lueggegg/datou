@@ -135,8 +135,8 @@
           <file leaf-file-name="index.css" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/res/css/index.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="173">
-                  <caret line="104" column="24" lean-forward="false" selection-start-line="104" selection-start-column="24" selection-end-line="104" selection-end-column="24" />
+                <state relative-caret-position="458">
+                  <caret line="152" column="1" lean-forward="false" selection-start-line="152" selection-start-column="1" selection-end-line="152" selection-end-column="1" />
                   <folding />
                 </state>
               </provider>
@@ -611,12 +611,12 @@
       <workItem from="1504515666959" duration="825000" />
       <workItem from="1504526334487" duration="6436000" />
       <workItem from="1504579394418" duration="3767000" />
-      <workItem from="1504594199736" duration="4340000" />
+      <workItem from="1504594199736" duration="4891000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="369926000" />
+    <option name="totallyTimeSpent" value="370477000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1899" height="1047" extended-state="0" />
@@ -1046,8 +1046,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/res/css/index.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="104" column="24" lean-forward="false" selection-start-line="104" selection-start-column="24" selection-end-line="104" selection-end-column="24" />
+        <state relative-caret-position="458">
+          <caret line="152" column="1" lean-forward="false" selection-start-line="152" selection-start-column="1" selection-end-line="152" selection-end-column="1" />
           <folding />
         </state>
       </provider>

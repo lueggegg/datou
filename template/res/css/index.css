@@ -98,9 +98,9 @@
 }
 
 .recent_info_mark_status {
-    width: 10%;
-    font-family: 楷体;
-    padding-top: 2px;
+    width: 12%;
+    font-family: cursive;
+    padding-top: 3px;
     float: left;
     color: rgb(0,0,225);
 }
@@ -128,7 +128,7 @@
     text-align: right;
     color: gray;
     font-size: 1.15em;
-    font-family: 楷体;
+    font-family: cursive;
 }
 
 #waiting_job_container {
