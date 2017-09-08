@@ -32,6 +32,7 @@ app = tornado.web.Application([
     (r'/api/update_login_phone', handlers.ApiUpdateLoginPhone),
     (r'/api/alter_account', handlers.ApiAlterAccount),
     (r'/api/query_account_list', handlers.ApiQueryAccountList),
+    (r'/api/query_birthday_employee', handlers.ApiQueryBirthdayEmployee),
     (r'/api/alter_dept', handlers.ApiAlterDept),
     (r'/api/query_dept_list', handlers.ApiQueryDeptList),
     (r'/api/is_account_exist', handlers.ApiIsAccountExist),
@@ -49,6 +50,10 @@ app = tornado.web.Application([
     (r'/api/job_memo', handlers.ApiJobMemo),
     (r'/api/query_account_extend', handlers.ApiQueryAccountExtend),
     (r'/api/outer_link', handlers.ApiOuterLinkHandler),
+    (r'/api/download_type', handlers.ApiDownloadType),
+    (r'/api/download_detail', handlers.ApiDownloadDetail),
+    (r'/api/rule_type', handlers.ApiRuleType),
+    (r'/api/rule_detail', handlers.ApiRuleDetail),
     (r'/(.*)', handlers.HtmlHandler),
 ],
     test_mode=config.test_mode,
@@ -58,6 +63,8 @@ app = tornado.web.Application([
     account_dao=_account_dao,
     job_dao=_job_dao,
     config_dao=_config_dao,
+    birthday_alert=14,
+    retire_alert = 180,
 )
 
 app.listen(options.port, options.address)

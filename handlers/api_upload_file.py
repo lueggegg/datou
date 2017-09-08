@@ -21,11 +21,18 @@ class ApiUploadFile(ApiHandler):
         if file_type == type_define.TYPE_JOB_ATTACHMENT_IMG:
             r = re.match('data:image/(.+);base64,(.+)', file_data)
             parent_dir = 'res/attachment/images'
-        else:
+        elif file_type == type_define.TYPE_JOB_ATTACHMENT_NORMAL:
             r = re.match('data:(.*);base64,(.+)', file_data)
             parent_dir = 'res/attachment'
+        elif file_type == type_define.TYPE_UPLOAD_FILE_TO_DOWNLOAD:
+            r = re.match('data:(.*);base64,(.+)', file_data)
+            parent_dir = 'res/download'
+        else:
+            self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, 'file_type错误')
+
         if not r:
             self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '文件数据格式错误')
+
         postfix = r.group(1)
         base64_data = r.group(2)
         md5 = hashlib.md5()
@@ -42,12 +49,17 @@ class ApiUploadFile(ApiHandler):
                 os.makedirs(dir_path)
             file_path = '%s/%s' % (dir_path, filename)
             net_path = os.path.join('%s/%s' % (parent_dir, data_md5), filename)
+
         if not os.path.isfile(file_path):
             fid = open(file_path, 'wb')
             fid.write(base64.decodestring(base64_data))
             fid.close()
 
-        path_id = yield self.job_dao.add_file_path(filename=filename, path=net_path)
+        if file_type == type_define.TYPE_UPLOAD_FILE_TO_DOWNLOAD:
+            type_id = self.get_argument_and_check_it('type_id')
+            path_id = yield self.config_dao.add_download_detail(title=filename, path=net_path, type_id=type_id)
+        else:
+            path_id = yield self.job_dao.add_file_path(filename=filename, path=net_path)
         if not path_id:
             self.finish_with_error(error_codes.EC_SYS_ERROR, '写入文件路径失败')
         res = {

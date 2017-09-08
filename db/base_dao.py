@@ -35,3 +35,6 @@ class BaseDAO:
 
     def now(self):
         return datetime.datetime.now()
+
+    def today(self):
+        return datetime.date.today()

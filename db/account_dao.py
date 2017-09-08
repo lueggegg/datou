@@ -50,6 +50,9 @@ class AccountDAO(BaseDAO):
         elif type == type_define.TYPE_ACCOUNT_SAMPLE or type == type_define.TYPE_ACCOUNT_LEADER:
             account_fields = ['id', 'account', 'name', 'department_id', 'position']
             account_fields = 'a.' + ', a.'.join(account_fields)
+        elif type == type_define.TYPE_ACCOUNT_BIRTHDAY:
+            account_fields = ['id', 'account', 'name', 'department_id', 'birthday', 'join_date', 'sex', 'position_type']
+            account_fields = 'a.' + ', a.'.join(account_fields)
         else:
             account_fields = 'a.*'
         sql = 'SELECT %s, d.name AS dept, a.id=d.leader AS is_leader FROM %s a ' \

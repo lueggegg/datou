@@ -7,6 +7,7 @@ $(document).ready(function () {
     queryUsefulLink();
     queryWaitingJob();
     queryRecentJob();
+    queryBirthdayEmployee();
 });
 
 var img_news = null;
@@ -130,4 +131,28 @@ function getJobUrl(job_type, job_id) {
         default:
             return 'auto_job_detail.html?job_id=' + job_id + "&title=" + job_type_map[job_type];
     }
+}
+
+function queryBirthdayEmployee() {
+    commonPost('/api/query_birthday_employee', null, function (data) {
+        var title = ['工号', '姓名', '部门', '生日'];
+        ['today', 'will', 'retire'].forEach(function (p1, p2, p3) {
+            var accounts = data[p1];
+            if (accounts.length > 0) {
+                var list_data = [];
+                accounts.forEach(function (account, index, p) {
+                    list_data.push([
+                        '<a target="_blank" href="employee_info_table.html?op=update&uid=' + account.id + '">' + account.account + '</a>',
+                        account.name,
+                        account.dept,
+                        account.birthday
+                    ]);
+                });
+                $("#" + p1 + "_birthday_container").show();
+                updateListView($("#" + p1 + "_birthday_list"), list_data, {without_title: true});
+            } else {
+                $("#" + p1 + "_birthday_container").hide();
+            }
+        });
+    });
 }

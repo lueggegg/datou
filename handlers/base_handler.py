@@ -191,6 +191,9 @@ class BaseHandler(RequestHandler):
     def now(self):
         return datetime.datetime.now()
 
+    def today(self):
+        return datetime.date.today()
+
     def debug_msg(self, msg):
         if config.console_debug:
             print '%s: [ %s ]' % (self.__class__, msg)

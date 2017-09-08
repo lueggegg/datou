@@ -27,5 +27,4 @@ class ApiAlterJob(ApiHandler):
             self.write_result(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
             return
 
-        self.on_dept_info_changed()
         self.process_result(ret, msg)

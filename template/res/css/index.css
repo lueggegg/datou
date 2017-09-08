@@ -151,3 +151,8 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.birthday_container {
+    margin-top: 25px;
+    padding-bottom: 5px;
+}

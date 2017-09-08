@@ -139,7 +139,7 @@
             <td><input type="text" class="date_picker" id="work_begin_date"></td>
         </tr>
         <tr>
-            <td class="not_null_field">部门</td>
+            <td class="not_null_field">部门<span class="not_null_flag">*</span></td>
             <td id="dept_td" colspan="2"></td>
             <td>现工作岗位</td>
             <td id="position_container">
@@ -166,12 +166,21 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2" class="not_null_field">何时何种形式进入本公司工作</td>
+            <td colspan="2">何时何种形式进入本公司工作</td>
             <td colspan="5">
-                <input class="date_picker join_date" type="text" placeholder="何时" id="join_date">
-                <input class="join_condition" type="text" id="condition_of_this_job">
+                <input type="text" id="condition_of_this_job">
             </td>
-
+        </tr>
+        <tr>
+            <td class="not_null_field">入职时间<span class="not_null_flag">*</span></td>
+            <td>
+                <input class="date_picker" type="text" id="join_date">
+            </td>
+            <td class="not_null_field">合同结束时间<span class="not_null_flag">*</span></td>
+            <td>
+                <input type="text" id="contract_end_date">
+            </td>
+            <td colspan="3"></td>
         </tr>
         <tr>
             <td rowspan="2">通讯方式</td>
@@ -374,6 +383,7 @@
         {% end %}
         initFields();
         initDatePicker($(".date_picker"));
+        initDatePicker($("#contract_end_date"), null, false, true);
         $("#mod_date").datepicker('setDate', new Date());
 
         if (module_data.op === 'update') {
@@ -423,7 +433,8 @@
             'foreign_language',
             'foreign_language_level',
             'speciality',
-            'join_date'
+            'join_date',
+            'contract_end_date'
         ];
 
         var education_field = ['begin', 'end', 'college', 'major', 'certificate', 'mark'];
@@ -540,6 +551,18 @@
 
         decideOperationMask(account_info, info['position']);
 
+        if (info['sex'] === '男') {
+            account_info['sex'] = TYPE_SEX_MALE;
+        } else {
+            account_info['sex'] = TYPE_SEX_FEMALE;
+        }
+
+        if (info['leadership'] === '干部') {
+            account_info['position_type'] = TYPE_POSITION_LEADER;
+        } else {
+            account_info['position_type'] = TYPE_POSITION_NORMAL;
+        }
+
         param['account_info'] = JSON.stringify(account_info);
 
         commonPost('/api/alter_account', param, function (data) {
@@ -564,7 +587,8 @@
         var not_null_field = [
             ['name', '姓名'],
             ['id_card', '身份证号'],
-            ['join_date', '进入公司时间(何时)']
+            ['join_date', '入职时间'],
+            ['contract_end_date', '合同结束时间']
         ];
         if (not_null_field.some(function (p1, p2, p3) {
             if (!info.hasOwnProperty(p1[0])) {

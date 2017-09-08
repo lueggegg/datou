@@ -19,6 +19,7 @@ from api_query_accounts import ApiQueryAccountList
 from api_is_account_exist import ApiIsAccountExist
 from api_reset_password import ApiResetPassword
 from api_query_account_extend import ApiQueryAccountExtend
+from api_query_birthday_employee import ApiQueryBirthdayEmployee
 
 from api_create_new_job import ApiCreateNewJob
 from api_upload_file import ApiUploadFile
@@ -33,3 +34,7 @@ from api_query_job_status_mark import ApiQueryJobStatusMark
 from api_job_memo import ApiJobMemo
 
 from api_outer_link_handler import ApiOuterLinkHandler
+from api_download_type import ApiDownloadType
+from api_download_detail import ApiDownloadDetail
+from api_rule_type import ApiRuleType
+from api_rule_detail import ApiRuleDetail

@@ -8,6 +8,10 @@ class ConfigDAO(BaseDAO):
     def __init__(self, *args, **kwargs):
         BaseDAO.__init__(self, *args, **kwargs)
         self.link_tab = 'outer_link'
+        self.download_type_tab = 'download_type'
+        self.download_detail_tab = 'download_detail'
+        self.rule_type_tab = 'rule_type'
+        self.rule_detail_tab = 'rule_detail'
 
 
     @gen.coroutine
@@ -34,3 +38,90 @@ class ConfigDAO(BaseDAO):
         ret = yield self._executor.async_delete(self._get_inst(), sql)
         raise gen.Return(ret)
 
+    @gen.coroutine
+    def add_rule_type(self, **kwargs):
+        ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.rule_type_tab, **kwargs)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def update_rule_type(self, type_id, **kwargs):
+        ret = yield db_helper.update_table_values(self._get_inst(), self._executor, type_id, self.rule_type_tab, **kwargs)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def del_rule_type(self, type_id):
+        ret = yield self.update_rule_type(type_id, status=0)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_rule_type_list(self):
+        sql = 'SELECT * FROM %s WHERE status=1' % (self.rule_type_tab)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def add_rule_detail(self, **kwargs):
+        ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.rule_detail_tab, **kwargs)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def update_rule_detail(self, detail_id, **kwargs):
+        ret = yield db_helper.update_table_values(self._get_inst(), self._executor, detail_id, self.rule_detail_tab, **kwargs)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def del_rule_detail(self, detail_id):
+        ret = yield db_helper.delete_table_by_id(self._get_inst(), self._executor, self.rule_detail_tab, detail_id)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_rule_detail_list(self, type_id=None):
+        sql = "SELECT * FROM %s" % self.rule_detail_tab
+        if type_id:
+            sql += " WHERE type_id=%s" % type_id
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def add_download_type(self, **kwargs):
+        ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.download_type_tab, **kwargs)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def update_download_type(self, type_id, **kwargs):
+        ret = yield db_helper.update_table_values(self._get_inst(), self._executor, type_id, self.download_type_tab, **kwargs)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def del_download_type(self, type_id):
+        ret = yield self.update_download_type(type_id, status=0)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_download_type_list(self, parent_type=None):
+        sql = 'SELECT * FROM %s WHERE status=1' % (self.download_type_tab)
+        if parent_type:
+            sql += ' AND type=%s' % parent_type
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def add_download_detail(self, **kwargs):
+        if 'upload_date' not in kwargs:
+            kwargs['upload_date'] = self.today()
+        ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.download_detail_tab, **kwargs)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def del_download_detail(self, detail_id):
+        ret = yield db_helper.delete_table_by_id(self._get_inst(), self._executor, self.download_detail_tab, detail_id)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_download_detail_list(self, type_id=None):
+        sql = "SELECT * FROM %s" % self.download_detail_tab
+        if type_id:
+            sql += " WHERE type_id=%s" % type_id
+        sql += ' ORDER BY upload_date DESC'
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)

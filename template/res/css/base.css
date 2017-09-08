@@ -40,13 +40,11 @@ img {
 .element_left {
     float: left;
     position: relative;
-    height: 100%;
 }
 
 .element_right {
     float: right;
     position: relative;
-    height: 100%;
 }
 
 .web_header {
@@ -237,4 +235,5 @@ img {
     line-height: 40px;
     padding-left: 10px;
     padding-right: 10px;
+    padding-bottom: 5px;
 }

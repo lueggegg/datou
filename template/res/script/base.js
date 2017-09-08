@@ -78,7 +78,9 @@ function compareParam(default_param, param) {
     }
 }
 function updateListView(container, data, param) {
-    removeChildren(container);
+    if (!param.hasOwnProperty('keep_children')) {
+        removeChildren(container);
+    }
     container.append(getListViewHtml(data, param));
 }
 
@@ -209,14 +211,14 @@ function commonTagMsg(msg) {
     }, 3000);
 }
 
-function initDatePicker(container, onSelectCb, init, noMaxDate) {
+function initDatePicker(container, on_select_cb, init, no_max_date) {
     var param = {
         dateFormat: "yy-mm-dd",
         changeYear: true,
         defaultDate : new Date(),
-        onSelect: onSelectCb
+        onSelect: on_select_cb
     };
-    if (!noMaxDate) {
+    if (!no_max_date) {
         param['maxDate'] = '0d';
     }
     container.datepicker(param);
