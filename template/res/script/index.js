@@ -28,10 +28,11 @@ function queryImgNews() {
 }
 
 function queryTextNews() {
-    [
+    var types =[
         [TYPE_NEWS_LINK_COMPANY, $("#company_news_list")],
         [TYPE_NEWS_LINK_OTHER, $("#other_news_list")]
-    ].forEach(function (p1, p2, p3) {
+    ];
+    types.forEach(function (p1, p2, p3) {
         commonPost('/api/outer_link', {op: 'query', type: p1[0], count: 5}, function (data) {
             if (data.length === 0) {
                 p1[1].append('<li>没有要闻</li>');

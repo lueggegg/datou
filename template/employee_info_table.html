@@ -517,7 +517,7 @@
 
     function commit() {
         var param = {
-            op: module_data.op,
+            op: module_data.op
         };
 
         var info = {};
@@ -542,7 +542,7 @@
             redirectError();
             return;
         }
-        
+
         if (__authority <= __admin_authority) {
             var dept = $("#dept_selector").val();
             if (!dept || dept === '-1') {
