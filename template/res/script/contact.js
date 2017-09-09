@@ -5,7 +5,7 @@ var contact_list_data = {};
 var dept_tree_data = null;
 var selected_dept = null;
 
-var level_tag_map = {0: '一', 1: '二', 2: '三', 3: '四', 4: '五'};
+var level_tag_map = {0: '领导层', 1: '部门', 2: '项目组', 3: '一级小组', 4: '二级小组'};
 var max_level = level_tag_map.length;
 var current_deepest_level = -1;
 
@@ -102,7 +102,7 @@ function responseContactQuery(type, data) {
 
 function addDepartment(parent, level) {
     if (level >= max_level) {
-        promptMsg('部门导数过多，请合理规划部门结构');
+        promptMsg('部门级数过多，请合理规划部门结构');
         return;
     }
 
@@ -116,7 +116,7 @@ function addDepartment(parent, level) {
     var dept_list_id = getDeptListId(level);
     var html = '<div id="' + dept_list_id + '_container">';
     html += (level === 0 ? '' : '<div class="common_divider"></div>');
-    html += '<div class="topic_title">' + level_tag_map[level] + '级部门</div>';
+    html += '<div class="topic_title">' + level_tag_map[level] + '</div>';
     html += '<div class="contact_dept_container">';
     html += '<ul id="' + dept_list_id + '" class="tree_list">';
     data.forEach(function (p1, p2, p3) {

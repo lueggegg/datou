@@ -42,7 +42,7 @@ class ApiAlterAccount(ApiHandler):
 
         extend_field = ['name', 'birthday', 'politics', 'id_card', 'position',
                         'education_level', 'college', 'degree', 'major',
-                        'join_date', 'contract_end_date', 'cellphone', 'address',]
+                        'join_date', 'cellphone', 'address',]
         if op == 'update':
             msg = '更新员工信息'
             uid = self.get_argument('uid', None)

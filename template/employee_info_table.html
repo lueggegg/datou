@@ -58,7 +58,14 @@
         </tr>
         <tr>
             <td>婚姻状况</td>
-            <td><input type="text" id="marriage"></td>
+            <td>
+                <select id="marriage">
+                    <option value="未婚" selected>未婚</option>
+                    <option value="已婚">已婚</option>
+                    <option value="离异">离异</option>
+                    <option value="丧偶">丧偶</option>
+                </select>
+            </td>
             <td class="not_null_field">身份证号<span class="not_null_flag">*</span></td>
             <td colspan="3"><input type="text" id="id_card"></td>
         </tr>
@@ -176,7 +183,7 @@
             <td>
                 <input class="date_picker" type="text" id="join_date">
             </td>
-            <td class="not_null_field">合同结束时间<span class="not_null_flag">*</span></td>
+            <td>合同结束时间</td>
             <td>
                 <input type="text" id="contract_end_date">
             </td>
@@ -590,8 +597,7 @@
         var not_null_field = [
             ['name', '姓名'],
             ['id_card', '身份证号'],
-            ['join_date', '入职时间'],
-            ['contract_end_date', '合同结束时间']
+            ['join_date', '入职时间']
         ];
         if (not_null_field.some(function (p1, p2, p3) {
             if (!info.hasOwnProperty(p1[0])) {
