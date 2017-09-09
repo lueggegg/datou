@@ -1,0 +1,56 @@
+{% extends base.html %}
+
+{% block title %}文件下载{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/tabs.css">
+<link rel="stylesheet" href="res/css/list.css">
+{% end %}
+
+{% block custom_body %}
+<div id="tabs">
+    <ul id="tab_item_list"></ul>
+</div>
+
+<script>
+    var container_prefix = 'file_container_';
+    var type_list_data = [];
+
+    $(document).ready(function () {
+        queryFileType();
+    });
+
+    function queryFileType() {
+        commonPost('/api/download_type', {op: 'query', type: TYPE_DOWNLOAD_FILE}, function (data) {
+            type_list_data = data;
+            if (data.length > 0) {
+                var tab_list_html = '';
+                var tab_container_html = '';
+                data.forEach(function (p1, p2, p3) {
+                    var id = container_prefix + p1.id;
+                    tab_list_html += '<li value="' + p1.id + '"><a href="#' + id + '">' + p1.label + '</a>';
+                    tab_container_html += '<div id="' + id + '"></div>';
+                    queryFileList(p1.id);
+                });
+                $("#tabs ul").append(tab_list_html);
+                $("#tabs").append(tab_container_html);
+                verticalTabs();
+            }
+        });
+    }
+
+    function queryFileList(type_id) {
+        commonPost('/api/download_detail', {op: 'query', type_id: type_id}, function (data) {
+            var title = ['文件名', '上传日期'];
+            var list_data = [title];
+            data.forEach(function (p1, p2, p3) {
+                list_data.push([
+                    '<div><a target="_blank" href="' + p1.path + '">' + p1.title + '</a></div>',
+                    p1.upload_date
+                ])
+            });
+            updateListView($("#" + container_prefix + type_id), list_data, {weight: [5, 1]});
+        });
+    }
+
+</script>
+{% end %}

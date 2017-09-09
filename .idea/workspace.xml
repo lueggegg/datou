@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/download/a38d4245e00c676c1a864ec6282ea34d/hello world.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/download/a38d4245e00c676c1a864ec6282ea34d/喱kdkdjfkdjfkladjfmadifjdiomfjadiofjdoaifkadljfkadlueijfkdajfkaldfheanfdjfdkajfkldajfiejfkaldfjakldfjdakfjkadjfakdfjeiofaldkfjioeafkdafjdkafjakldfjakdlfjdefe.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/download/ad9790787497ebb2467b5f330cff1749/测试.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/download/cc468d3756178ef5ee95b9adca76a6e8/bug_restore.docx" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/company_rule.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/download_file.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/download_file_manage.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/css/company_rule.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/rule_manage.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/employee_info_table.html" afterPath="$PROJECT_DIR$/template/employee_info_table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/base.js" afterPath="$PROJECT_DIR$/template/res/script/base.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -64,8 +71,8 @@
           <file leaf-file-name="api_rule_detail.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/api_rule_detail.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="672">
-                  <caret line="39" column="75" lean-forward="false" selection-start-line="39" selection-start-column="75" selection-end-line="39" selection-end-column="75" />
+                <state relative-caret-position="254">
+                  <caret line="17" column="18" lean-forward="true" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
                   <folding>
                     <element signature="e#25#43#0" expanded="true" />
                   </folding>
@@ -786,7 +793,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504881065694</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="release 5">
+      <created>1504941000080</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1504941000080</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1283,21 +1297,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_rule_detail.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="39" column="75" lean-forward="false" selection-start-line="39" selection-start-column="75" selection-end-line="39" selection-end-column="75" />
-          <folding>
-            <element signature="e#25#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/template/res/script/base.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="79" column="13" lean-forward="false" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_rule_detail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="17" column="18" lean-forward="true" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+          <folding>
+            <element signature="e#25#43#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

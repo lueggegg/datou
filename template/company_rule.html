@@ -1,0 +1,61 @@
+{% extends base.html %}
+
+{% block title %}公司制度{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/tabs.css">
+<link rel="stylesheet" href="res/css/list.css">
+<link rel="stylesheet" href="res/css/company_rule.css">
+{% end %}
+
+{% block custom_body %}
+<div id="tabs">
+    <ul id="tab_item_list"></ul>
+</div>
+
+<script>
+    var container_prefix = 'rule_container_';
+
+    $(document).ready(function () {
+        queryRuleType();
+    });
+
+    function queryRuleType() {
+        commonPost('/api/rule_type', {op: 'query'}, function (data) {
+            type_list_data = data;
+            if (data.length > 0) {
+                var tab_list_html = '';
+                var tab_container_html = '';
+                data.forEach(function (p1, p2, p3) {
+                    var id = container_prefix + p1.id;
+                    tab_list_html += '<li value="' + p1.id + '"><a href="#' + id + '">' + p1.label + '</a>';
+                    tab_container_html += '<div id="' + id + '"></div>';
+                    queryRuleList(p1.id);
+                });
+                $("#tabs ul").append(tab_list_html);
+                $("#tabs").append(tab_container_html);
+                verticalTabs();
+
+                $(".add_new_rule_btn").click(function (event) {
+                    openRuleDetailDlg();
+                });
+            }
+        });
+    }
+
+    function queryRuleList(type_id) {
+        commonPost('/api/rule_detail', {op: 'query', type_id: type_id}, function (data) {
+            var html = '';
+            data.forEach(function (p1, p2, p3) {
+                html += '<div class="rule_item_container">';
+                html += '<div class="rule_title">' + (p2+1) + '. ' + p1.title + '</div>';
+                var detail = abstractJobContent(p1.detail);
+                if (detail) {
+                    html += '<div class="rule_detail">' + html2Text(detail) +'</div>';
+                }
+                html += '</div>'
+            });
+            $("#" + container_prefix + type_id).append(html);
+        });
+    }
+</script>
+{% end %}

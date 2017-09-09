@@ -1,0 +1,179 @@
+{% extends base_admin.html %}
+
+{% block title %}文件下载管理{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/tabs.css">
+<link rel="stylesheet" href="res/css/list.css">
+
+<style>
+    .add_new_file_btn {
+
+    }
+</style>
+{% end %}
+
+{% block custom_body %}
+<div class="common_btn_container" style="text-align: right">
+    <input id="editor_new_type" class="common_editor" placeholder="输入新的类型名称">
+    <button id="add_new_type_btn" class="ui-button ui-corner-all" onclick="addNewType()">添加新类型</button>
+</div>
+
+<div id="tabs">
+    <ul id="tab_item_list"></ul>
+</div>
+
+<div id="add_file_dlg" title="添加文件">
+    <p>
+        <input type="file" id="file_selector" onchange="onFileSelectorChange()">
+    </p>
+</div>
+
+<script>
+    var container_prefix = 'file_container_';
+    var type_list_data = [];
+    var add_file_dlg;
+    var ready_file_data = null;
+    var ready_file_name = null;
+
+    $(document).ready(function () {
+        add_file_dlg = $("#add_file_dlg");
+        commonInitDialog(add_file_dlg, function () {
+            addFile();
+        });
+
+        queryFileType();
+
+        initConfirmDialog();
+    });
+
+    function addNewType() {
+        var label = $("#editor_new_type").val();
+        if (!label) {
+            promptMsg('类型名称不能为空');
+            return;
+        }
+        if (type_list_data.some(function (p1, p2, p3) {
+            if (p1.label === label) {
+                return true;
+            }
+        })) {
+            promptMsg('该类型已经存在');
+            return;
+        }
+
+        commonPost('/api/download_type', {op: 'add', label: label, type: TYPE_DOWNLOAD_FILE}, function (data) {
+            freshCurrent('');
+        });
+    }
+
+    function delFileType(type_id) {
+        showConfirmDialog('删除文件类型后，该类型的所有文件也被删除，确认删除？', function () {
+            commonPost('/api/download_type', {op: 'del', type_id: type_id}, function (data) {
+                refresh();
+            })
+        })
+    }
+
+    function updateFileType(type_id) {
+        var new_name = $("#editor_update_" + type_id).val();
+        if (!new_name) {
+            promptMsg('请输入新的类型名称');
+            return;
+        }
+        commonPost('/api/download_type', {op: 'update', type_id: type_id, label: new_name}, function (data) {
+            freshCurrent('');
+        });
+    }
+
+    function queryFileType() {
+        commonPost('/api/download_type', {op: 'query', type: TYPE_DOWNLOAD_FILE}, function (data) {
+            type_list_data = data;
+            if (data.length > 0) {
+                var tab_list_html = '';
+                var tab_container_html = '';
+                data.forEach(function (p1, p2, p3) {
+                    var id = container_prefix + p1.id;
+                    tab_list_html += '<li value="' + p1.id + '"><a href="#' + id + '">' + p1.label + '</a>';
+                    tab_container_html += '<div id="' + id + '">';
+                    tab_container_html += '<div class="common_btn_container">';
+                    tab_container_html += '<button class="ui-button ui-corner-all add_new_file_btn">添加文件</button>';
+                    tab_container_html += '<button class="ui-button ui-corner-all" onclick="delFileType(' + p1.id + ')">删除该类型</button>';
+                    tab_container_html += '<button class="ui-button ui-corner-all element_right" onclick="updateFileType(' + p1.id + ')">重命名</button>';
+                    tab_container_html += '<input class="common_editor element_right" id="editor_update_'+ p1.id +'" placeholder="输入新的类型名称">';
+                    tab_container_html += '</div>';
+                    tab_container_html += '</div>';
+                    queryFileList(p1.id);
+                });
+                $("#tabs ul").append(tab_list_html);
+                $("#tabs").append(tab_container_html);
+                verticalTabs();
+
+                $(".add_new_file_btn").click(function (event) {
+                    add_file_dlg.dialog('open');
+                });
+            }
+        });
+    }
+
+    function queryFileList(type_id) {
+        commonPost('/api/download_detail', {op: 'query', type_id: type_id}, function (data) {
+           var title = ['文件名', '上传日期', '删除'];
+           var list_data = [title];
+           data.forEach(function (p1, p2, p3) {
+               list_data.push([
+                   '<div><a target="_blank" href="' + p1.path + '">' + p1.title + '</a></div>',
+                   p1.upload_date,
+                   '<span class="common_clickable" onclick="delFile(' + p1.id + ')">删除</span>'
+               ])
+           });
+           updateListView($("#" + container_prefix + type_id), list_data, {weight: [4, 1, 1], keep_children: true});
+        });
+    }
+
+    function onFileSelectorChange() {
+        var files = $("#file_selector")[0].files;
+        if (files.length === 0) {
+            return;
+        }
+        var f = files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            ready_file_data = e.target.result;
+            ready_file_name = f.name;
+        };
+        reader.readAsDataURL(f);
+    }
+
+    function addFile() {
+        if (!ready_file_data) {
+            promptMsg('未选择文件');
+            return;
+        }
+        commonPost('/api/upload_file', {
+            type_id: getSelectedType(),
+            type: TYPE_UPLOAD_FILE_TO_DOWNLOAD,
+            name: ready_file_name,
+            file_data: ready_file_data},
+            function (data) {
+                refresh();
+        });
+    }
+
+    function delFile(file_id) {
+        showConfirmDialog('确认删除该文件？', function () {
+            commonPost('/api/download_detail', {op: 'del', 'file_id': file_id}, function (data) {
+                refresh();
+            });
+        })
+    }
+
+    function getSelectedType() {
+        return $("#tabs ul .ui-state-active").val();
+    }
+
+    function refresh() {
+        freshCurrent(container_prefix + getSelectedType());
+    }
+
+</script>
+{% end %}

@@ -1,0 +1,223 @@
+{% extends base_admin.html %}
+
+{% block title %}公司制度管理{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/tabs.css">
+<link rel="stylesheet" href="res/css/list.css">
+
+<style>
+    .add_new_rule_btn {
+
+    }
+
+    #editor_rule_title {
+        width: 95%;
+        height: 32px;
+        line-height: 32px;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-radius: 4px;
+        border: 1px solid gray;;
+    }
+
+    #text_rule_detail {
+        width: 95%;
+        height: 240px;
+        border-radius: 4px;
+        border: 1px solid gray;;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+</style>
+{% end %}
+
+{% block custom_body %}
+<div class="common_btn_container" style="text-align: right">
+    <input id="editor_new_type" class="common_editor" placeholder="输入新的制度类型名称">
+    <button id="add_new_type_btn" class="ui-button ui-corner-all" onclick="addNewType()">添加新类型</button>
+</div>
+
+<div id="tabs">
+    <ul id="tab_item_list"></ul>
+</div>
+
+<div id="rule_detail_dlg" title="制度条目">
+    <p>
+        <input id="editor_rule_title" placeholder="请输入制度简述（不能为空）">
+    </p>
+    <p>
+        <textarea id="text_rule_detail" placeholder="制度细则（可以为空）"></textarea>
+    </p>
+</div>
+
+<script>
+    var OP_ADD_NRE_RULE = 1;
+    var OP_UPDATE_RULE = 2;
+
+    var container_prefix = 'rule_container_';
+    var type_list_data = [];
+    var rule_map = {};
+    var rule_detail_dlg;
+    var selected_rule;
+
+    $(document).ready(function () {
+        rule_detail_dlg = $("#rule_detail_dlg");
+        commonInitDialog(rule_detail_dlg, dealOperation, {width: 800});
+
+        queryRuleType();
+
+        initConfirmDialog();
+    });
+
+    function dealOperation() {
+        switch (__current_operation) {
+            case OP_ADD_NRE_RULE:
+                commitDlg('add');
+                break;
+            case OP_UPDATE_RULE:
+                commitDlg('update');
+                break;
+        }
+    }
+
+    function addNewType() {
+        var label = $("#editor_new_type").val();
+        if (!label) {
+            promptMsg('类型名称不能为空');
+            return;
+        }
+        if (type_list_data.some(function (p1, p2, p3) {
+                if (p1.label === label) {
+                    return true;
+                }
+            })) {
+            promptMsg('该类型已经存在');
+            return;
+        }
+
+        commonPost('/api/rule_type', {op: 'add', label: label}, function (data) {
+            freshCurrent('');
+        });
+    }
+
+    function delRuleType(type_id) {
+        showConfirmDialog('删除制度类型后，该类型的所有条目也被删除，确认删除？', function () {
+            commonPost('/api/rule_type', {op: 'del', type_id: type_id}, function (data) {
+                refresh();
+            })
+        })
+    }
+
+    function updateRuleType(type_id) {
+        var new_name = $("#editor_update_" + type_id).val();
+        if (!new_name) {
+            promptMsg('请输入新的类型名称');
+            return;
+        }
+        commonPost('/api/rule_type', {op: 'update', type_id: type_id, label: new_name}, function (data) {
+            refresh();
+        });
+    }
+
+    function queryRuleType() {
+        commonPost('/api/rule_type', {op: 'query'}, function (data) {
+            type_list_data = data;
+            if (data.length > 0) {
+                var tab_list_html = '';
+                var tab_container_html = '';
+                data.forEach(function (p1, p2, p3) {
+                    var id = container_prefix + p1.id;
+                    tab_list_html += '<li value="' + p1.id + '"><a href="#' + id + '">' + p1.label + '</a>';
+                    tab_container_html += '<div id="' + id + '">';
+                    tab_container_html += '<div class="common_btn_container">';
+                    tab_container_html += '<button class="ui-button ui-corner-all add_new_rule_btn">添加制度条目</button>';
+                    tab_container_html += '<button class="ui-button ui-corner-all" onclick="delRuleType(' + p1.id + ')">删除该类型</button>';
+                    tab_container_html += '<button class="ui-button ui-corner-all element_right" onclick="updateRuleType(' + p1.id + ')">重命名</button>';
+                    tab_container_html += '<input class="common_editor element_right" id="editor_update_'+ p1.id +'" placeholder="输入新的类型名称">';
+                    tab_container_html += '</div>';
+                    tab_container_html += '</div>';
+                    queryRuleList(p1.id);
+                });
+                $("#tabs ul").append(tab_list_html);
+                $("#tabs").append(tab_container_html);
+                verticalTabs();
+
+                $(".add_new_rule_btn").click(function (event) {
+                    openRuleDetailDlg();
+                });
+            }
+        });
+    }
+
+    function queryRuleList(type_id) {
+        rule_map[type_id] = [];
+        commonPost('/api/rule_detail', {op: 'query', type_id: type_id}, function (data) {
+            rule_map[type_id] = data;
+            var title = ['条目',  '删除'];
+            var list_data = [title];
+            data.forEach(function (p1, p2, p3) {
+                list_data.push([
+                    '<div class="common_clickable" onclick="openRuleDetailDlg(' + type_id + ',' + p2 + ')">' + p1.title + '</div>',
+                    '<span class="common_clickable" onclick="delRule(' + p1.id + ')">删除</span>'
+                ])
+            });
+            updateListView($("#" + container_prefix + type_id), list_data, {weight: [5, 1], keep_children: true});
+        });
+    }
+
+    function openRuleDetailDlg(type_id, index) {
+        if (type_id) {
+            __current_operation = OP_UPDATE_RULE;
+            var data = rule_map[type_id][index];
+            $("#editor_rule_title").val(data.title);
+            $("#text_rule_detail").val(abstractJobContent(data.detail));
+            rule_detail_dlg.dialog('option', 'title', '编辑制度条目');
+            selected_rule = data.id;
+        } else {
+            __current_operation = OP_ADD_NRE_RULE;
+            $("#editor_rule_title").val('');
+            $("#text_rule_detail").val('');
+            rule_detail_dlg.dialog('option', 'title', '添加制度条目');
+        }
+        rule_detail_dlg.dialog('open');
+    }
+
+    function commitDlg(op) {
+        var title = $("#editor_rule_title").val();
+        if (!title) {
+            promptMsg('制度简述不能为空');
+            return;
+        }
+        var detail = wrapJobContent($("#text_rule_detail").val());
+        var rule_info = {type_id: getSelectedType(), title: title, detail: detail};
+        var param = {rule_info: JSON.stringify(rule_info)};
+        if (op === 'update') {
+            param['rule_id'] = selected_rule;
+        } else if (op !== 'add') {
+            redirectError('操作类型错误');
+            return;
+        }
+        param['op'] = op;
+        commonPost('/api/rule_detail', param, function (data) {
+            refresh();
+        });
+    }
+
+    function delRule(rule_id) {
+        showConfirmDialog('删除该制度条目？', function () {
+            commonPost('/api/rule_detail', {op: 'del', rule_id: rule_id}, function (data) {
+                refresh();
+            });
+        });
+    }
+
+    function getSelectedType() {
+        return $("#tabs ul .ui-state-active").val();
+    }
+
+    function refresh() {
+        freshCurrent(container_prefix + getSelectedType());
+    }
+
+</script>
+{% end %}

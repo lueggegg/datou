@@ -1,0 +1,16 @@
+.rule_item_container {
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.rule_title {
+    color: blue;
+    font-size: 1.2em;
+    line-height: 32px;
+
+}
+
+.rule_detail {
+    margin-left: 1em;
+    line-height: 24px;
+}
