@@ -78,7 +78,7 @@ function compareParam(default_param, param) {
     }
 }
 function updateListView(container, data, param) {
-    if (!param.hasOwnProperty('keep_children')) {
+    if (!(param && param.hasOwnProperty('keep_children'))) {
         removeChildren(container);
     }
     container.append(getListViewHtml(data, param));

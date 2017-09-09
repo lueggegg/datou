@@ -536,17 +536,20 @@
                return;
            }
            account_info['portrait'] = module_data.portrait_data;
-           var dept = $("#dept_selector").val();
-           if (!dept || dept === '-1') {
-               promptMsg('请选择部门');
-               return;
-           }
-           account_info['department_id'] = dept;
         } else if (module_data.op === 'update') {
             param['uid'] = module_data.uid;
         } else {
             redirectError();
             return;
+        }
+        
+        if (__authority <= __admin_authority) {
+            var dept = $("#dept_selector").val();
+            if (!dept || dept === '-1') {
+                promptMsg('请选择部门');
+                return;
+            }
+            account_info['department_id'] = dept;
         }
 
         decideOperationMask(account_info, info['position']);
