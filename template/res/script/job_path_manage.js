@@ -65,13 +65,12 @@ function initTabs() {
     job_type_list = [
         [TYPE_JOB_CERTIFICATE_SALARY, '收入证明'],
         [TYPE_JOB_CERTIFICATE_LABOR, '在职证明'],
-        [TYPE_JOB_CERTIFICATE_MARRIAGE, '婚育证明'],
         [TYPE_JOB_CERTIFICATE_INTERNSHIP, '实习证明'],
         [TYPE_JOB_HR_RESIGN, '离职申请'],
-        [TYPE_JOB_HR_RECOMMEND, '伯乐推荐'],
         [TYPE_JOB_HR_ANOTHER_POST, '调岗申请'],
         [TYPE_JOB_HR_ASK_FOR_LEAVE, '请假流程'],
-        [TYPE_JOB_FINANCIAL_PURCHASE, '采购流程'],
+        [TYPE_JOB_HR_LEAVE_FOR_BORN, '产假申请'],
+        [TYPE_JOB_FINANCIAL_PURCHASE, '购物流程'],
         [TYPE_JOB_FINANCIAL_REIMBURSEMENT, '报销流程']
     ];
     var tab_list_html = '';

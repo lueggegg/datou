@@ -172,7 +172,7 @@ function openEmployeeWeightDlg(data) {
 function setEmployeeWeight() {
     var weight = $("#employee_weight").val();
     if (!weight || isNaN(weight)) {
-        promptMsg('请输入正确的权重');
+        promptMsg('请输入正确的权重');j
         return;
     }
     commonPost('/api/alter_account',

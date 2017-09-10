@@ -109,7 +109,7 @@ class JobDAO(BaseDAO):
 
     @gen.coroutine
     def query_job_list(self, job_type=None, invoker=None, count=None, offset=0):
-        sql = "SELECT r.*, i.name AS invoker_name, o.name AS last_operator_name FROM %s r" \
+        sql = "SELECT r.*, r.status AS job_status, i.name AS invoker_name, o.name AS last_operator_name FROM %s r" \
               " LEFT JOIN %s i ON i.id = r.invoker" \
               " LEFT JOIN %s o ON o.id = r.last_operator" \
               " WHERE r.status > 0" % (self.record_tab, self.account_tab, self.account_tab)
