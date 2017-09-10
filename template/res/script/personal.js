@@ -10,10 +10,7 @@ var custom_info_map = [
     ['#major', 'major'],
     ['#phone_number', 'cellphone'],
     ['#telephon', 'telephone'],
-    ['#email', 'email'],
-    ['#wechat', 'wechat'],
-    ['#qq', 'qq'],
-    ['#address', 'address']
+    ['#email', 'email']
 ];
 
 OP_NONE = -1;
@@ -28,8 +25,7 @@ op_current = OP_NONE;
 $(document).ready(function () {
     verticalTabs("#tabs");
 
-    info_editors = [$("#education"), $("#college"), $("#major"), $("#phone_number"), $("#telephone"), $("#email"),
-        $("#wechat"), $("#qq"), $("#address")
+    info_editors = [$("#education"), $("#college"), $("#major"), $("#phone_number"), $("#telephone"), $("#email")
     ];
     $("#alter_info").click(function (event) {
         if (editing_info) {
@@ -94,9 +90,6 @@ function setPersonalCustomInfo() {
     $("#phone_number").val(account_info.phone);
     $("#telephone").val(account_info.telephone);
     $("#email").val(account_info.email);
-    $("#wechat").val(account_info.wechat);
-    $("#qq").val(account_info.qq);
-    $("#address").val(account_info.address);
 
     custom_info_map.forEach(function (p1, p2, p3) {
         $(p1[0]).val(account_info[p1[1]]);
@@ -167,6 +160,16 @@ function initPsdQuestionEditBnt(index) {
             var answer = answer_editor.val();
             if (!(question && answer)) {
                 setPsdProtectResult('问题或答案不能为空');
+                return;
+            }
+            if (psd_questions.some(function (p1, p2, p3) {
+                    if (p2 !== index - 1) {
+                        if (p1.question === question) {
+                            setPsdProtectResult('请设置互不相同的密保问题');
+                            return true;
+                        }
+                    }
+                })) {
                 return;
             }
             editing_psd_question[index - 1] = editing;
@@ -261,6 +264,10 @@ function addPsdQuestions() {
         setPsdProtectResult('请填写完所有密码保护问题与答案');
         return;
     }
+    if (question_1 === question_2 || question_1 === question_3 || question_2 === question_3) {
+        setPsdProtectResult('请设置互不相同的密保问题');
+        return;
+    }
     psd_questions = [[], [], []];
     psd_questions[0].push(question_1);
     psd_questions[0].push(answer_1);
@@ -338,10 +345,11 @@ function operationResult(data) {
         if (op_current === OP_ALTER_PSD) {
             window.location.href = 'logout.html';
         } else if (op_current === OP_ADD_PSD_QUESTION) {
-            setPsdProtectInfo();
-            $("#edit_psd_question_1").show();
-            $("#edit_psd_question_2").show();
-            $("#edit_psd_question_3").show();
+            // setPsdProtectInfo();
+            // $("#edit_psd_question_1").show();
+            // $("#edit_psd_question_2").show();
+            // $("#edit_psd_question_3").show();
+            freshCurrent('password_protect');
         } else if (op_current === OP_BIND_PHONE) {
             setBindPhoneResult('绑定成功');
             $("#cancel_bind_btn").show();

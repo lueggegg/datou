@@ -13,6 +13,11 @@ var fetch_account;
 var fetch_uid;
 
 $(document).ready(function () {
+    document.onkeydown = function (e) {
+        if (e.keyCode === 13) {
+            $("#login_btn").click();
+        }
+    };
     $("#login_btn").click(function (event) {
         var account = $("#account").val();
         if (!account) {

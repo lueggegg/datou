@@ -5,7 +5,7 @@ var contact_list_data = {};
 var dept_tree_data = null;
 var selected_dept = null;
 
-var level_tag_map = {0: '领导层', 1: '部门', 2: '项目组', 3: '一级小组', 4: '二级小组'};
+var level_tag_map = {0: '台领导', 1: '分管领导', 2: '部门', 3: '一级小组', 4: '二级小组'};
 var max_level = level_tag_map.length;
 var current_deepest_level = -1;
 
@@ -170,7 +170,7 @@ function getListItemHead(tag, index, type) {
 }
 
 function displayContactDetail(index, type) {
-    var fields = ['account', 'name', 'dept', 'position', 'cellphone', 'email', 'qq', 'wechat'];
+    var fields = ['account', 'name', 'dept', 'position', 'cellphone', 'email'];
     var containers = $("#contact_" + contact_type[type] + " .contact_detail_items span");
     containers.each(function (i) {
         $(this).text(contact_list_data[type][index][fields[i]]);

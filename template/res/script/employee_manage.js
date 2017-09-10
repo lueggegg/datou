@@ -18,11 +18,12 @@ var ADD_DEPT = 2;
 var EDIT_EMPLOYEE = 10;
 var DEL_EMPLOYEE = 11;
 var ADD_EMPLOYEE = 12;
-var SET_AS_LEADER = 13;
+var SET_EMPLOYEE_WEIGHT = 13;
 var SET_DEPT_LEADER = 20;
 var current_operation = NULL_OPERATION;
 
 var dept_leader_setting_dlg;
+var employee_weight_dlg;
 
 $(document).ready(function () {
 
@@ -31,10 +32,12 @@ $(document).ready(function () {
     dept_dialog = $( "#edit_dept_dialog" );
     employee_dialog = $("#edit_employee_dialog");
     dept_leader_setting_dlg = $("#edit_dept_leader_dlg");
+    employee_weight_dlg = $("#edit_employee_weight_dlg");
 
     initDialog(dept_dialog);
     initDialog(employee_dialog, 450);
     initDialog(dept_leader_setting_dlg);
+    initDialog(employee_weight_dlg);
 
     $( "#add_dept" ).click(function( event ) {
         current_operation = ADD_DEPT;
@@ -154,7 +157,28 @@ function dealOperation() {
             }
             setDeptLeader(selected_dept, uid);
             break;
+        case SET_EMPLOYEE_WEIGHT:
+            setEmployeeWeight();
+            break;
     }
+}
+
+function openEmployeeWeightDlg(data) {
+    $("#employee_weight").val(data.weight);
+    operate_employee = data.id;
+    employee_weight_dlg.dialog('open');
+}
+
+function setEmployeeWeight() {
+    var weight = $("#employee_weight").val();
+    if (!weight || isNaN(weight)) {
+        promptMsg('请输入正确的权重');
+        return;
+    }
+    commonPost('/api/alter_account',
+        {uid: operate_employee, account_info: JSON.stringify({weight: weight}), op: 'update'}, function (data) {
+            freshCurrent('employee_config_container');
+        });
 }
 
 function openLeaderSettingDlg(dept_id) {
@@ -175,13 +199,13 @@ function openLeaderSettingDlg(dept_id) {
 function updateDepartment() {
     var dept_name = $("#dept_name").val();
     if (!dept_name) {
-        commonTagMsg('部门名称不能为空');
+        promptMsg('部门名称不能为空');
         return;
     }
     var leader_dept = $("#leader_dept").val();
     if (leader_dept === 'null') {
         if (__authority > __admin_authority) {
-            commonTagMsg('权限不足（非管理员不能设置上级部门为空）');
+            promptMsg('权限不足（非管理员不能设置上级部门为空）');
             return;
         }
         leader_dept = null;
@@ -189,10 +213,19 @@ function updateDepartment() {
         leader_dept = parseInt(leader_dept);
     }
     if (leader_dept === operate_dept) {
-        commonTagMsg('不能将自身作为上级部门');
+        promptMsg('不能将自身作为上级部门');
         return;
     }
-    var data = {name: dept_name, parent: leader_dept};
+    var weight = $("#dept_weight").val();
+    if (!weight) {
+        promptMsg('请输入权重');
+        return;
+    }
+    if (isNaN(weight)) {
+        promptMsg('权重请输入数字');
+        return;
+    }
+    var data = {name: dept_name, parent: leader_dept, weight: weight};
     data = JSON.stringify(data);
     $.post( '/api/alter_dept', {dept_info: data, dept_id: operate_dept, op: 'update'}, operationResult);
 }
@@ -219,7 +252,16 @@ function addDepartment() {
     }else {
         leader_dept = parseInt(leader_dept);
     }
-    var data = {name: dept_name, parent: leader_dept};
+    var weight = $("#dept_weight").val();
+    if (!weight) {
+        promptMsg('请输入权重');
+        return;
+    }
+    if (isNaN(weight)) {
+        promptMsg('权重请输入数字');
+        return;
+    }
+    var data = {name: dept_name, parent: leader_dept, weight: weight};
     data = JSON.stringify(data);
     $.post('/api/alter_dept', {dept_info: data, op: 'add'}, operationResult);
 }
@@ -235,8 +277,10 @@ function openDeptDialog(data) {
             parent_id = -1;
         }
         $("#leader_dept").val(parent_id).selectmenu('refresh');
+        $("#dept_weight").val(data.weight);
     } else {
         $("#dept_name").val('');
+        $("#dept_weight").val(0);
     }
     dept_dialog.dialog('option', 'title', getOperationString());
     dept_dialog.dialog( "open" );
@@ -473,7 +517,7 @@ function queryDepartmentEmployees(deptId) {
 }
 
 function setDepartmentList(data) {
-    var title = ['名称', '上级部门', '主管', '删除'];
+    var title = ['名称', '上级部门', '主管', '权重', '删除'];
     try {
         if (data.status !== 0) {
             redirectError();
@@ -496,13 +540,14 @@ function setDepartmentList(data) {
                     getOperationHtml(EDIT_DEPT, index),
                     element.parent_name,
                     getDeptLeaderHtml(element),
+                    element.weight,
                     getOperationHtml(DEL_DEPT, index)
                 ]);
                 options += "<option value='" + element.id + "'>" + element.name + "</option>"
             });
             listData.unshift(title);
 
-            updateListView($("#dept_list"), listData);
+            updateListView($("#dept_list"), listData, {weight: [2,2,2,1,1]});
 
             $("#leader_dept").append(options).selectmenu();
             $("#current_department_menu").append(options).selectmenu({
@@ -535,7 +580,7 @@ function getDeptLeaderHtml(dept) {
 }
 
 function setEmployeeList(data) {
-    var title = ['账号', '姓名', '部门', '职位', '操作', '删除'];
+    var title = ['账号', '姓名', '部门', '职位', '权重', '删除'];
     try {
         if (data.status !== 0 ) {
             redirectError();
@@ -549,7 +594,7 @@ function setEmployeeList(data) {
                     element.name,
                     departments_map[element.department_id].name,
                     element.position,
-                    getOperationHtml(SET_AS_LEADER, index),
+                    getOperationHtml(SET_EMPLOYEE_WEIGHT, index),
                     getOperationHtml(DEL_EMPLOYEE, index)
                 ]);
             });
@@ -580,8 +625,8 @@ function getOperationHtml(operation, index) {
         case DEL_EMPLOYEE:
             label = "删除";
             break;
-        case SET_AS_LEADER:
-            label = '设为部门主管';
+        case SET_EMPLOYEE_WEIGHT:
+            label = employee_list_data[index].weight;
             break;
         default:
             break;
@@ -616,21 +661,9 @@ function onItemOperation(operation, index) {
                 dealOperation();
             });
             break;
-        case SET_AS_LEADER: {
-                var employee = employee_list_data[index];
-                var dept = departments_map[employee.department_id];
-                if (dept.leader) {
-                    if (dept.leader === employee.id) {
-                        promptMsg('该员工已经是部门主管');
-                        return;
-                    }
-                    showConfirmDialog('该部门已经存在主管，是否变更主管?', function () {
-                        setDeptLeader(employee.department_id, employee.id);
-                    });
-                } else{
-                    setDeptLeader(employee.department_id, employee.id);
-                }
-            }
+        case SET_EMPLOYEE_WEIGHT:
+            var employee = employee_list_data[index];
+            openEmployeeWeightDlg(employee);
             break;
         default:
             break;
@@ -680,7 +713,7 @@ function getResultLocation() {
         case ADD_EMPLOYEE:
         case DEL_EMPLOYEE:
         case EDIT_EMPLOYEE:
-        case SET_AS_LEADER:
+        case SET_EMPLOYEE_WEIGHT:
             return 'employee_config_container';
     }
     return '';

@@ -110,6 +110,7 @@ function queryRecentJob() {
             mark_status[STATUS_JOB_MARK_COMPLETED] = '已归档';
             mark_status[STATUS_JOB_MARK_WAITING] = '待办';
             mark_status[STATUS_JOB_MARK_PROCESSED] = '已处理';
+            mark_status[STATUS_JOB_INVOKED_BY_MYSELF] = '我发起';
             var list = '';
             data.forEach(function (p1, p2, p3) {
                 list += '<li>';

@@ -45,13 +45,13 @@ class AccountDAO(BaseDAO):
     @gen.coroutine
     def query_account_list(self, dept_id=None, type=type_define.TYPE_ACCOUNT_NORMAL, **kwargs):
         if type == type_define.TYPE_ACCOUNT_CONTACT:
-            account_fields = ['id', 'account', 'name', 'department_id', 'cellphone', 'position', 'email', 'qq', 'wechat', 'address']
+            account_fields = ['id', 'account', 'name', 'department_id', 'cellphone', 'position', 'email', 'qq', 'wechat', 'address', 'weight']
             account_fields = 'a.' + ', a.'.join(account_fields)
         elif type == type_define.TYPE_ACCOUNT_SAMPLE or type == type_define.TYPE_ACCOUNT_LEADER:
-            account_fields = ['id', 'account', 'name', 'department_id', 'position']
+            account_fields = ['id', 'account', 'name', 'department_id', 'position', 'weight']
             account_fields = 'a.' + ', a.'.join(account_fields)
         elif type == type_define.TYPE_ACCOUNT_BIRTHDAY:
-            account_fields = ['id', 'account', 'name', 'department_id', 'birthday', 'join_date', 'sex', 'position_type']
+            account_fields = ['id', 'account', 'name', 'department_id', 'birthday', 'join_date', 'sex', 'position_type', 'weight']
             account_fields = 'a.' + ', a.'.join(account_fields)
         else:
             account_fields = 'a.*'
@@ -67,6 +67,7 @@ class AccountDAO(BaseDAO):
             for condition in conditions:
                 if condition in kwargs and kwargs[condition]:
                     sql += " AND a.%s LIKE '%%%s%%'" % (condition, kwargs[condition])
+        sql += ' ORDER BY weight DESC'
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
@@ -95,7 +96,7 @@ class AccountDAO(BaseDAO):
         sql = 'SELECT a.*, b.name AS parent_name, c.account AS leader_account, c.name AS leader_name FROM %s a ' \
               'LEFT JOIN %s b ON a.parent=b.id ' \
               'LEFT JOIN %s c ON a.leader=c.id ' \
-              'WHERE a.status=1' % (self.dept_tab, self.dept_tab, self.account_tab)
+              'WHERE a.status=1 ORDER BY weight DESC' % (self.dept_tab, self.dept_tab, self.account_tab)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
