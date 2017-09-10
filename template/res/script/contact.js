@@ -5,7 +5,7 @@ var contact_list_data = {};
 var dept_tree_data = null;
 var selected_dept = null;
 
-var level_tag_map = {0: '台领导', 1: '分管领导', 2: '部门', 3: '一级小组', 4: '二级小组'};
+var level_tag_map = {0: '台领导', 1: '部门', 2: '项目组', 3: '一级小组', 4: '二级小组'};
 var max_level = level_tag_map.length;
 var current_deepest_level = -1;
 

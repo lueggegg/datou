@@ -14,7 +14,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4972908">
+    <splitter split-orientation="horizontal" split-proportion="0.45153522">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="contact.html" pinned="false" current-in-tab="false">
@@ -203,20 +203,20 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="contact.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="contact.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/res/script/contact.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="266">
-                  <caret line="14" column="48" lean-forward="true" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
+                <state relative-caret-position="133">
+                  <caret line="7" column="47" lean-forward="false" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="employee_manage.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="employee_manage.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/employee_manage.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="304">
+                <state relative-caret-position="-152">
                   <caret line="16" column="51" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="51" />
                   <folding />
                 </state>
@@ -324,9 +324,9 @@
         <option value="$PROJECT_DIR$/res/css/index.css" />
         <option value="$PROJECT_DIR$/res/script/index.js" />
         <option value="$PROJECT_DIR$/res/script/personal.js" />
-        <option value="$PROJECT_DIR$/res/script/contact.js" />
         <option value="$PROJECT_DIR$/employee_manage.html" />
         <option value="$PROJECT_DIR$/res/script/employee_manage.js" />
+        <option value="$PROJECT_DIR$/res/script/contact.js" />
       </list>
     </option>
   </component>
@@ -597,12 +597,12 @@
       <workItem from="1504868772768" duration="10874000" />
       <workItem from="1504940554287" duration="846000" />
       <workItem from="1504944840463" duration="2923000" />
-      <workItem from="1505039890525" duration="8361000" />
+      <workItem from="1505039890525" duration="8979000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="404488000" />
+    <option name="totallyTimeSpent" value="405106000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1003,14 +1003,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/script/contact.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="48" lean-forward="true" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/script/personal.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="314">
@@ -1029,7 +1021,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/employee_manage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
+        <state relative-caret-position="-152">
           <caret line="16" column="51" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="51" />
           <folding />
         </state>
@@ -1039,6 +1031,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="172" column="44" lean-forward="false" selection-start-line="172" selection-start-column="44" selection-end-line="172" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/script/contact.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="47" lean-forward="false" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
           <folding />
         </state>
       </provider>
