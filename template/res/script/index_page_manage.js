@@ -60,7 +60,7 @@ function queryNewsLink(type) {
         data.forEach(function (p1, p2, p3) {
             list_data.push([
                 getNewsItemOperationHtml(p1.title, type, p2, OP_UPDATE_NEWS_LINK),
-                "<a target='_blank' href='" + p1.url + "'>预览</a>",
+                "<a id='item_view_url_'" + p1.id + "' target='_blank' href='" + p1.url + "'>预览</a>",
                 getNewsItemOperationHtml('删除', type, p2, OP_DEL_NEWS_LINK)
             ]);
         });
@@ -176,6 +176,7 @@ function updateNewsLink() {
     commonPost('/api/outer_link', param, function (data) {
         link_data_map[current_news_type].news_data.some(function (p1, p2, p3) {
             if (p1.id === current_operating_news) {
+                $("#item_view_url_" + current_operating_news).attr('href', url);
                 p1.title = title;
                 p1.url = url;
                 if (current_news_type === TYPE_NEWS_LINK_IMG) {
