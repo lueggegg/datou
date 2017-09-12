@@ -53,6 +53,7 @@ img {
     line-height: 44px;
     color: rgb(0,127,255);
     border-bottom: 1px solid gray;
+    overflow: hidden;
 }
 
 .web_header a:visited {

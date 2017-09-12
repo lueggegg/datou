@@ -161,14 +161,24 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="other_manage.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="other_manage.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/other_manage.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="49">
-                  <caret line="27" column="51" lean-forward="false" selection-start-line="27" selection-start-column="51" selection-end-line="27" selection-end-column="51" />
+                <state relative-caret-position="296">
+                  <caret line="40" column="30" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
                   <folding>
                     <marker date="1505212255109" expanded="true" signature="805:823" ph="..." />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="base.css" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/res/css/base.css">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="475">
+                  <caret line="55" column="21" lean-forward="false" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -307,7 +317,6 @@
         <option value="$PROJECT_DIR$/res/css/module_employee_info_table.css" />
         <option value="$PROJECT_DIR$/res/script/base.js" />
         <option value="$PROJECT_DIR$/download_file.html" />
-        <option value="$PROJECT_DIR$/res/css/base.css" />
         <option value="$PROJECT_DIR$/download_file_manage.html" />
         <option value="$PROJECT_DIR$/rule_manage.html" />
         <option value="$PROJECT_DIR$/base.html" />
@@ -339,6 +348,7 @@
         <option value="$PROJECT_DIR$/res/script/contact.js" />
         <option value="$PROJECT_DIR$/base_admin.html" />
         <option value="$PROJECT_DIR$/other_manage.html" />
+        <option value="$PROJECT_DIR$/res/css/base.css" />
       </list>
     </option>
   </component>
@@ -464,7 +474,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="SearchEverywhereHistoryKey" value="conta&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/contact.js&#10;employee_man&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js&#10;job_p&#9;FILE&#9;file://D:/code/python/tornado/datou/template/job_path_manage.html&#10;t&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/tag_selector.js&#10;job_path&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_path_manage.js&#10;tag&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/tag_selector.js&#10;tagse&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/tag_selector.css&#10;offic&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/official_doc.js&#10;emp&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;att&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/attachment_list.js&#10;index_pa&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index_page_manage.js&#10;base_c&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base_certificate.html&#10;type&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/type_define.js&#10;ask&#9;FILE&#9;file://D:/code/python/tornado/datou/template/ask_for_leave.html&#10;job_record.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;employ&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js&#10;contact.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/contact.js&#10;per&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/personal.js&#10;inde&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;index.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index.css&#10;module_con&#9;FILE&#9;file://D:/code/python/tornado/datou/template/module_contact_list.html&#10;cont&#9;FILE&#9;file://D:/code/python/tornado/datou/template/contact.html&#10;person&#9;FILE&#9;file://D:/code/python/tornado/datou/template/personal.html&#10;login.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/login.js&#10;lo&#9;FILE&#9;file://D:/code/python/tornado/datou/template/login.html&#10;base&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;tes&#9;FILE&#9;file://D:/code/python/tornado/datou/template/test.html&#10;log&#9;FILE&#9;file://D:/code/python/tornado/datou/template/login.html&#10;em&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;index.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;bas&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;admi&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base_admin.html&#10;index.ht&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;base.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;efin&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/type_define.js&#10;info&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;index&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index.css&#10;employee&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;typ&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/type_define.js&#10;emplman&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js&#10;list&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/attachment_list.js&#10;off&#9;FILE&#9;file://D:/code/python/tornado/datou/template/official_doc.html&#10;job&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_path_manage.js&#10;auto_job&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;emplo&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;ba&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;job_recor&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;index.html&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;navig&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/navigation.css&#10;job_pa&#9;FILE&#9;file://D:/code/python/tornado/datou/template/job_path_manage.html" />
+    <property name="SearchEverywhereHistoryKey" value="base.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/base.css&#10;conta&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/contact.js&#10;employee_man&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js&#10;job_p&#9;FILE&#9;file://D:/code/python/tornado/datou/template/job_path_manage.html&#10;t&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/tag_selector.js&#10;job_path&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_path_manage.js&#10;tag&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/tag_selector.js&#10;tagse&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/tag_selector.css&#10;offic&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/official_doc.js&#10;emp&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;att&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/attachment_list.js&#10;index_pa&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index_page_manage.js&#10;base_c&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base_certificate.html&#10;type&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/type_define.js&#10;ask&#9;FILE&#9;file://D:/code/python/tornado/datou/template/ask_for_leave.html&#10;job_record.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;employ&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js&#10;contact.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/contact.js&#10;per&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/personal.js&#10;inde&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;index.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index.css&#10;module_con&#9;FILE&#9;file://D:/code/python/tornado/datou/template/module_contact_list.html&#10;cont&#9;FILE&#9;file://D:/code/python/tornado/datou/template/contact.html&#10;person&#9;FILE&#9;file://D:/code/python/tornado/datou/template/personal.html&#10;login.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/login.js&#10;lo&#9;FILE&#9;file://D:/code/python/tornado/datou/template/login.html&#10;base&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;tes&#9;FILE&#9;file://D:/code/python/tornado/datou/template/test.html&#10;log&#9;FILE&#9;file://D:/code/python/tornado/datou/template/login.html&#10;em&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;index.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;bas&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;admi&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base_admin.html&#10;index.ht&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;base.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;efin&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/type_define.js&#10;info&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;index&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index.css&#10;employee&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;typ&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/type_define.js&#10;emplman&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js&#10;list&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/attachment_list.js&#10;off&#9;FILE&#9;file://D:/code/python/tornado/datou/template/official_doc.html&#10;job&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_path_manage.js&#10;auto_job&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;emplo&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;ba&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;job_recor&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;index.html&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;navig&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/navigation.css" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -612,12 +622,12 @@
       <workItem from="1505039890525" duration="11392000" />
       <workItem from="1505105288968" duration="1193000" />
       <workItem from="1505119404636" duration="12311000" />
-      <workItem from="1505196718516" duration="7661000" />
+      <workItem from="1505196718516" duration="8274000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="428684000" />
+    <option name="totallyTimeSpent" value="429297000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1932" height="1056" extended-state="0" />
@@ -706,13 +716,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2774">
           <caret line="146" column="24" lean-forward="false" selection-start-line="146" selection-start-column="24" selection-end-line="146" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/css/base.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4522">
-          <caret line="238" column="1" lean-forward="false" selection-start-line="238" selection-start-column="1" selection-end-line="238" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -1060,11 +1063,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/other_manage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="49">
-          <caret line="27" column="51" lean-forward="false" selection-start-line="27" selection-start-column="51" selection-end-line="27" selection-end-column="51" />
+        <state relative-caret-position="296">
+          <caret line="40" column="30" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
           <folding>
             <marker date="1505212255109" expanded="true" signature="805:823" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/css/base.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="55" column="21" lean-forward="false" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>

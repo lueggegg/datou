@@ -1,33 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="release 7">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/attachment/images/d4bab80e8411fc9a64b0daf4892a6101.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_common_config.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/other_manage.html" />
+    <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/account_dao.py" afterPath="$PROJECT_DIR$/db/account_dao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/config_dao.py" afterPath="$PROJECT_DIR$/db/config_dao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/job_dao.py" afterPath="$PROJECT_DIR$/db/job_dao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/__init__.py" afterPath="$PROJECT_DIR$/handlers/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/admin_operation.py" afterPath="$PROJECT_DIR$/handlers/admin_operation.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_alter_dept.py" afterPath="$PROJECT_DIR$/handlers/api_alter_dept.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_alter_job_path.py" afterPath="$PROJECT_DIR$/handlers/api_alter_job_path.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_process_auto_job.py" afterPath="$PROJECT_DIR$/handlers/api_process_auto_job.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_query_account_extend.py" afterPath="$PROJECT_DIR$/handlers/api_query_account_extend.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/ask_for_leave.html" afterPath="$PROJECT_DIR$/template/ask_for_leave.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/base_admin.html" afterPath="$PROJECT_DIR$/template/base_admin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/employee_info_table.html" afterPath="$PROJECT_DIR$/template/employee_info_table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/job_path_manage.html" afterPath="$PROJECT_DIR$/template/job_path_manage.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/attachment_list.js" afterPath="$PROJECT_DIR$/template/res/script/attachment_list.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/contact.js" afterPath="$PROJECT_DIR$/template/res/script/contact.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/job_path_manage.js" afterPath="$PROJECT_DIR$/template/res/script/job_path_manage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/tag_selector.js" afterPath="$PROJECT_DIR$/template/res/script/tag_selector.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/type_define.js" afterPath="$PROJECT_DIR$/template/res/script/type_define.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/type_define.py" afterPath="$PROJECT_DIR$/type_define.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/type_define.txt" afterPath="$PROJECT_DIR$/type_define.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/css/base.css" afterPath="$PROJECT_DIR$/template/res/css/base.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,8 +27,8 @@
           <file leaf-file-name="api_rule_type.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/api_rule_type.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="522">
-                  <caret line="37" column="62" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="41" selection-end-column="37" />
+                <state relative-caret-position="484">
+                  <caret line="35" column="26" lean-forward="true" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
                   <folding>
                     <element signature="e#25#43#0" expanded="true" />
                   </folding>
@@ -857,7 +834,14 @@
       <option name="project" value="LOCAL" />
       <updated>1505106257292</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="release 8">
+      <created>1505212597643</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1505212597643</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -865,6 +849,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1932" height="1056" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22286013" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -917,7 +902,8 @@
     <MESSAGE value="release 5" />
     <MESSAGE value="release 6" />
     <MESSAGE value="release 7" />
-    <option name="LAST_COMMIT_MESSAGE" value="release 7" />
+    <MESSAGE value="release 8" />
+    <option name="LAST_COMMIT_MESSAGE" value="release 8" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1312,16 +1298,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_rule_type.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="37" column="62" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="41" selection-end-column="37" />
-          <folding>
-            <element signature="e#25#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_common_config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
@@ -1358,6 +1334,16 @@
           <caret line="141" column="61" lean-forward="false" selection-start-line="141" selection-start-column="61" selection-end-line="141" selection-end-column="61" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_rule_type.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="35" column="26" lean-forward="true" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
+          <folding>
+            <element signature="e#25#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
