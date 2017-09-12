@@ -12,6 +12,7 @@ class ConfigDAO(BaseDAO):
         self.download_detail_tab = 'download_detail'
         self.rule_type_tab = 'rule_type'
         self.rule_detail_tab = 'rule_detail'
+        self.config_tab = 'common_config'
 
 
     @gen.coroutine
@@ -123,5 +124,21 @@ class ConfigDAO(BaseDAO):
         if type_id:
             sql += " WHERE type_id=%s" % type_id
         sql += ' ORDER BY upload_date DESC'
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def set_common_config(self, config_type, key, label):
+        sql = 'SELECT * FROM %s WHERE type=%s AND key_id=%s' % (self.config_tab, config_type, key)
+        exist = yield self._executor.async_select(self._get_inst(True), sql)
+        if exist:
+            yield db_helper.update_table_values(self._get_inst(), self._executor, exist[0]['id'], self.config_tab, label=label)
+        else:
+            yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.config_tab, type=config_type, key_id=key, label=label)
+        raise gen.Return(True)
+
+    @gen.coroutine
+    def query_common_config(self, config_type):
+        sql = 'SELECT * FROM %s WHERE type=%s ORDER BY key_id' % (self.config_tab, config_type)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)

@@ -42,7 +42,7 @@ class ApiAlterJobPath(JobHandler):
                 path_id = self.get_argument_and_check_it('path_id')
                 yield self.job_dao.del_job_auto_path_details(path_id)
                 if path_node['to_leader']:
-                    ret = yield self.job_dao.update_job_auto_path(path_id, to_leader=1)
+                    ret = yield self.job_dao.update_job_auto_path(path_id, to_leader=path_node['to_leader'])
                 else:
                     ret = yield self.job_dao.update_job_auto_path_details(path_id, dept_list, uid_list)
                 msg = '更新处理节点'

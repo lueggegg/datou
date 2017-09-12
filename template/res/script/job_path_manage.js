@@ -2,6 +2,7 @@ var job_type_list;
 var container_prefix = 'path_container_';
 
 var processor_selector_dlg;
+var report_selector_controller;
 var processor_selector_controller;
 var leader_selector_controller;
 var insert_node = {pre_path_id: 0, next_path_id: 0};
@@ -11,6 +12,7 @@ var op_path_id;
 var selected_path_type = 0;
 
 $(document).ready(function () {
+    var report_container = $("#report_selector_container");
     var selector_container = $("#processor_selector_container");
     var leader_container = $("#leader_selector_container");
     leader_container.hide();
@@ -18,12 +20,15 @@ $(document).ready(function () {
     $("[name='path_type_radio']").on('change', function (event) {
         selected_path_type = parseInt($(event.target).val());
         if (selected_path_type === 0) {
+            report_container.show();
             selector_container.hide();
             leader_container.hide();
         } else if (selected_path_type === 1){
+            report_container.hide();
             selector_container.show();
             leader_container.hide();
         } else if (selected_path_type === 2) {
+            report_container.hide();
             selector_container.hide();
             leader_container.show();
         } else {
@@ -53,9 +58,21 @@ $(document).ready(function () {
             data.forEach(function (p1, p2, p3) {
                 p1['label'] = p1.name + "（" + p1.position + "）";
             });
-            leader_selector_controller = createListSelectorController(leader_container, {data: data, name: 'leader_selector'})
+            leader_selector_controller = createListSelectorController(leader_container, {data: data, name: 'leader_selector', is_radio: false})
         }
     });
+
+    report_selector_controller = createListSelectorController(report_container,
+        {
+            data: [
+                {id: TYPE_REPORT_TO_LEADER_TILL_DEPT, label: '汇报到部门主管为止'},
+                {id: TYPE_REPORT_TO_LEADER_TILL_VIA, label: '汇报到分管领导为止'},
+                {id: TYPE_REPORT_TO_LEADER_TILL_CHAIR, label: '汇报到最高领导为止'}
+            ],
+            name: 'report_selector',
+            is_radio: true
+        }
+    );
 
     initTabs();
     initConfirmDialog();
@@ -68,7 +85,10 @@ function initTabs() {
         [TYPE_JOB_CERTIFICATE_INTERNSHIP, '实习证明'],
         [TYPE_JOB_HR_RESIGN, '离职申请'],
         [TYPE_JOB_HR_ANOTHER_POST, '调岗申请'],
-        [TYPE_JOB_HR_ASK_FOR_LEAVE, '请假流程'],
+        [TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY, '干部请假:：超一天'],
+        [TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY, '干部请假：一天内'],
+        [TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY, '员工请假：超一天'],
+        [TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY, '员工请假：一天内'],
         [TYPE_JOB_HR_LEAVE_FOR_BORN, '产假申请'],
         [TYPE_JOB_FINANCIAL_PURCHASE, '购物流程'],
         [TYPE_JOB_FINANCIAL_REIMBURSEMENT, '报销流程']
@@ -146,8 +166,13 @@ function createJobPathNode(container, node_data) {
     var html = '<div class="job_path_node_container" id="job_path_node_container_' + node_data.id + '">';
 
     html += '<div class="job_path_node_list_container"><ul>';
-    if (node_data.to_leader) {
-        html += '<li class="leader_item">直属主管</li>';
+    if (node_data.to_leader > 0) {
+        var label = {};
+        label[TYPE_REPORT_TO_LEADER_TILL_CHAIR] = '汇报到最高领导为止';
+        label[TYPE_REPORT_TO_LEADER_TILL_VIA] = '汇报到分管领导为止';
+        label[TYPE_REPORT_TO_LEADER_TILL_DEPT] = '汇报到部门主管为止';
+        label[1] = '汇报到部门主管为止';
+        html += '<li class="leader_item">' + label[node_data.to_leader] + '</li>';
     } else {
         var dept_list = '';
         var uid_list = '';
@@ -213,7 +238,12 @@ function closeSelectorDlgWithOk() {
         job_type: getSelectedJob()
     };
     if (selected_path_type === 0) {
-        param['to_leader'] = 1;
+        var to_leader = report_selector_controller.get_result();
+        if (to_leader.length === 0) {
+            promptMsg('请选择类型');
+            return;
+        }
+        param['to_leader'] = to_leader[0];
         param['path_id'] = op_path_id;
     } else {
         if (op === 'add') {

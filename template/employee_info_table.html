@@ -33,7 +33,7 @@
                     <div class="portrait_container">
                         <a href="javascript:" title="选择照片">
                             <img src="res/images/default_portrait.png" class="portrait" id="personal_portrait">
-                            <input type="file" accept="image/*" id="portrait_file" onchange="onPortraitChange()">
+                            <input type="file" accept="image/jpeg,image/jpg,image/png,image/bmp" id="portrait_file" onchange="onPortraitChange()">
                         </a>
                     </div>
                     <div class="portrait_upload_btn_container">
@@ -187,7 +187,10 @@
             <td>
                 <input type="text" id="contract_end_date">
             </td>
-            <td colspan="3"></td>
+            <td>汇报关系</td>
+            <td colspan="2">
+                <div id="report_uid_container" class="common_clickable"></div>
+            </td>
         </tr>
         <tr>
             <td rowspan="2">通讯方式</td>
@@ -367,6 +370,26 @@
     </table>
 
 </div>
+
+<div id="report_uid_dlg" title="选择汇报人">
+    <div>
+        <input type="radio" checked name="report_uid_type" id="report_uid_type_default" value="0">
+        <label for="report_uid_type_default">无</label>
+        <input type="radio" name="report_uid_type" id="report_uid_type_custom" value="1">
+        <label for="report_uid_type_custom">自定义</label>
+    </div>
+    <div id="report_uid_selector_container">
+        <p>
+            <select id="report_uid_dept_selector"></select>
+        </p>
+        <p>
+            <select id="report_uid_selector">
+                <option selected value='-1' disabled>请选择员工</option>
+            </select>
+        </p>
+    </div>
+</div>
+
 {% end %}
 
 {% block custom_foot %}
@@ -375,10 +398,17 @@
         op: null,
         uid: null,
         portrait_data: null,
-        operation_mask: 0
+        operation_mask: 0,
+        dept_list: null,
+        report_dept: null,
+        report_uid: null,
+        report_name: null,
+        report_uid_dlg: null,
+        report_uid_default: true,
+        authority: 1024
     };
 
-    $(function() {
+    $(document).ready(function() {
         {% if 'op' not in arg %}
         redirectError('参数错误');
         return;
@@ -393,6 +423,38 @@
         initDatePicker($("#contract_end_date"), null, false, true);
         $("#mod_date").datepicker('setDate', new Date());
 
+        $("#report_uid_selector_container").hide();
+        $("[name='report_uid_type']").checkboxradio();
+        $("[name='report_uid_type']").on('change', function (event) {
+            var value = parseInt($(event.target).val());
+            onReportUidType(value);
+        });
+
+        module_data.report_uid_dlg = $("#report_uid_dlg");
+        commonInitDialog(module_data.report_uid_dlg, function () {
+            module_data.report_uid_dlg.dialog('close');
+        });
+        selectMenu($("#report_uid_dept_selector"), function (event, ui) {
+            var value = parseInt($(event.target).val());
+            if (value !== module_data.report_dept) {
+                module_data.report_dept = value;
+                module_data.report_uid = null;
+                module_data.report_name = null;
+                setReportUidContainer();
+                queryReportAccountList();
+            }
+        });
+        selectMenu($("#report_uid_selector"), function (event, ui) {
+            module_data.report_uid = parseInt($(event.target).val());
+            module_data.report_name = $(event.target).children(':selected').text();
+            setReportUidContainer(module_data.report_name);
+        });
+        $("#report_uid_container").click(function () {
+            module_data.report_uid_dlg.dialog('open');
+        });
+
+        queryDeptList();
+
         if (module_data.op === 'update') {
             if (!module_data.uid) {
                 redirectError('参数错误');
@@ -401,11 +463,28 @@
             }
         } else if (module_data.op === 'add') {
             $("#portrait_btn").hide();
-            queryDeptList();
+            $("#report_uid_container").html();
+            setDeptSelector();
         } else {
             redirectError('参数错误');
         }
     });
+
+    function onReportUidType(value) {
+        if (value === 0) {
+            module_data.report_uid_default = true;
+            $("#report_uid_selector_container").hide();
+            setReportUidContainer();
+        } else {
+            module_data.report_uid_default = false;
+            $("#report_uid_selector_container").show();
+            setReportUidContainer(module_data.report_name);
+        }
+    }
+
+    function setReportUidContainer(report_name) {
+        $("#report_uid_container").text(report_name? '向　' + report_name + '　汇报' : '无');
+    }
 
     function initFields() {
         var field = [
@@ -456,18 +535,49 @@
         module_data['fields'] = field;
     }
 
-    function queryDeptList(dept_id) {
+    function queryDeptList() {
         commonPost('/api/query_dept_list', null, function (data) {
-            var html = "<select id='dept_selector'><option selected value='-1' disabled>请选择部门</option> ";
-            data.forEach(function (p1, p2, p3) {
-                html += "<option value='" + p1.id + "'>" + p1.name + "</option>";
-            });
-            html += "</select>";
-            $("#dept_td").append(html);
-            if (dept_id) {
-                $("#dept_selector").val(dept_id);
-            }
+            module_data.dept_list = data;
+            setReportDeltList();
         });
+    }
+
+    function setReportDeltList() {
+        var options = "<option selected value='-1' disabled>请选择部门</option>";
+        module_data.dept_list.forEach(function (p1, p2, p3) {
+            options += "<option value='" + p1.id + "'>" + p1.name + "</option>";
+        });
+        $("#report_uid_dept_selector").append(options).selectmenu('refresh');
+    }
+
+    function queryReportAccountList() {
+        commonPost('/api/query_account_list', {type: TYPE_ACCOUNT_SAMPLE, dept_id: module_data.report_dept}, function (data) {
+            var options = "<option selected value='-1' disabled>请选择员工</option>";
+            data.forEach(function (p1, p2, p3) {
+                options += "<option value='" + p1.id + "'>" + p1.name + "</option>";
+            });
+            var container = $("#report_uid_selector");
+            removeChildren(container);
+            container.append(options).selectmenu('refresh');
+        })
+    }
+
+    function setDeptSelector(dept_id) {
+        if (!module_data.dept_list) {
+            setTimeout(function () {
+                setDeptSelector(dept_id);
+            }, 500);
+            return;
+        }
+        var html = "<select id='dept_selector'><option selected value='-1' disabled>请选择部门</option> ";
+        module_data.dept_list.forEach(function (p1, p2, p3) {
+            html += "<option value='" + p1.id + "'>" + p1.name + "</option>";
+        });
+        html += "</select>";
+        $("#dept_td").append(html);
+        if (dept_id) {
+            $("#dept_selector").val(dept_id);
+        }
     }
 
     function queryAccountExtend() {
@@ -477,6 +587,7 @@
         }
         commonPost('/api/query_account_extend', param, function (data) {
             module_data.operation_mask = data.operation_mask;
+            module_data.authority = data.authority;
 
             var extend = data.extend;
             for (var key in extend) {
@@ -484,9 +595,17 @@
                     $("#" + key).val(extend[key]);
                 }
             }
+            setReportUidContainer(data.report_name);
+            if (data.report_name) {
+                module_data.report_uid = data.report_uid;
+                module_data.report_name = data.report_name;
+                $("#report_uid_type_custom").attr('checked', true);
+                $("[name='report_uid_type']").checkboxradio('refresh');
+                onReportUidType(1);
+            }
             $("#personal_portrait").attr('src', data.portrait);
             if (__authority <= __admin_authority) {
-                queryDeptList(data.department_id);
+                setDeptSelector(data.department_id);
             } else {
                 $("#dept_td").append(data.dept);
                 $("#portrait_btn").hide();
@@ -559,6 +678,10 @@
             account_info['department_id'] = dept;
         }
 
+        if (__admin_authority > __admin_authority && (info['position'] === '台长' || info['posiion'] === '副台长') ) {
+            promptMsg('没有权限设置领导岗位');
+            return;
+        }
         decideOperationMask(account_info, info['position']);
 
         if (info['sex'] === '男') {
@@ -573,6 +696,11 @@
             account_info['position_type'] = TYPE_POSITION_NORMAL;
         }
 
+        if (module_data.report_uid_default) {
+            account_info['report_uid'] = null;
+        } else {
+            account_info['report_uid'] = module_data.report_uid;
+        }
         param['account_info'] = JSON.stringify(account_info);
 
         commonPost('/api/alter_account', param, function (data) {
@@ -626,10 +754,19 @@
 
     function decideOperationMask(account_info, position) {
         if (position === '台长') {
+            if (module_data.authority > __admin_authority) {
+                account_info['authority'] = AUTHORITY_CHAIR_LEADER;
+            }
             account_info['operation_mask'] = module_data.operation_mask | AUTHORITY_CHAIR_LEADER & (~AUTHORITY_VIA_LEADER);
         } else if (position === '副台长') {
+            if (module_data.authority > __admin_authority) {
+                account_info['authority'] = AUTHORITY_VIA_LEADER;
+            }
             account_info['operation_mask'] = module_data.operation_mask | AUTHORITY_VIA_LEADER & (~AUTHORITY_CHAIR_LEADER);
         } else {
+            if (module_data.authority > __admin_authority && module_data.authority <= AUTHORITY_DEPT_LEADER) {
+                account_info['authority'] = AUTHORITY_DEPT_LEADER;
+            }
             account_info['operation_mask'] = module_data.operation_mask & (~AUTHORITY_CHAIR_LEADER) & (~AUTHORITY_VIA_LEADER);
         }
     }

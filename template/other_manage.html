@@ -1,0 +1,55 @@
+{% extends base_admin.html %}
+
+{% block title %}其他配置{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/tabs.css">
+{% end %}
+
+{% block custom_body %}
+<div id="tabs">
+    <ul>
+        <li><a href="#dept_level_name_container">部门层级名称</a></li>
+    </ul>
+
+    <div id="dept_level_name_container"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        verticalTabs();
+        var html = '';
+        for (var i = TYPE_CONFIG_KEY_DEPT_LEVEL_FIRST; i <= TYPE_CONFIG_KEY_DEPT_LEVEL_MAX; ++i) {
+            html += '<div class="common_container">';
+            html += '第' + i + '层名称：';
+            html += '<input type="text" class="common_editor" id="config_dept_level_name_' + i + '">';
+            html += '</div>';
+        }
+        html += '<div class="common_container" style="padding-left: 50px">';
+        html += '<button onclick="commitDeptLevel()" class="ui-button ui-corner-all">提交</button>';
+        html += '<div>';
+        $("#dept_level_name_container").append(html);
+
+        queryDeptLevel();
+    });
+
+    function commitDeptLevel() {
+        var configs = [];
+        for (var i = TYPE_CONFIG_KEY_DEPT_LEVEL_FIRST; i <= TYPE_CONFIG_KEY_DEPT_LEVEL_MAX; ++i) {
+            configs.push({key: i, label: $("#config_dept_level_name_" + i).val()});
+        }
+        commonPost('/api/common_config', {op: 'update', config_data: JSON.stringify(configs), config_type: TYPE_CONFIG_DEPT_LEVEL_NAME}, function (data) {
+            promptMsg('修改成功');
+        })
+    }
+
+    function queryDeptLevel() {
+        commonPost('/api/common_config', {op: 'query', config_type: TYPE_CONFIG_DEPT_LEVEL_NAME}, function (data) {
+            data.forEach(function (p1, p2, p3) {
+                if (p1.key_id >= TYPE_CONFIG_KEY_DEPT_LEVEL_FIRST && p1.key_id <= TYPE_CONFIG_KEY_DEPT_LEVEL_MAX) {
+                    $("#config_dept_level_name_" + p1.key_id).val(p1.label);
+                }
+            });
+        });
+    }
+</script>
+{% end %}

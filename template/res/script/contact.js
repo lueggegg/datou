@@ -10,6 +10,8 @@ var max_level = level_tag_map.length;
 var current_deepest_level = -1;
 
 $(document).ready(function () {
+    queryDeptLevel();
+
     verticalTabs();
 
     $("#search_button").click(function (event) {
@@ -23,6 +25,17 @@ $(document).ready(function () {
 
     initDept();
 });
+
+function queryDeptLevel() {
+    commonPost('/api/common_config', {op: 'query', config_type: TYPE_CONFIG_DEPT_LEVEL_NAME}, function (data) {
+        if (data.length === 0) {
+            return;
+        }
+        data.forEach(function (p1, p2, p3) {
+            level_tag_map[p2] = p1.label;
+        });
+    });
+}
 
 function initDept() {
     $.post('/api/query_dept_list?tree=1', null, function (data) {

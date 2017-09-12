@@ -4,6 +4,7 @@ from tornado import gen
 
 import error_codes
 from api_handler import ApiHandler
+import type_define
 
 
 class ApiAlterDept(ApiHandler):
@@ -22,6 +23,17 @@ class ApiAlterDept(ApiHandler):
             dept_id = self.get_argument('dept_id', None)
             if not dept_id:
                 self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '部门id错误')
+            if 'leader' in info:
+                dept_map = yield self.get_department_map()
+                dept = dept_map[int(dept_id)]
+                if dept['leader'] == int(info['leader']):
+                    self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '设置失败，部门主管未变化')
+                ori_leader = yield self.account_dao.query_account_by_id(dept['leader'])
+                if ori_leader and ori_leader['authority'] == type_define.AUTHORITY_DEPT_LEADER:
+                    yield self.account_dao.update_account(ori_leader['id'], authority=1024)
+                new_leader = yield self.account_dao.query_account_by_id(info['leader'])
+                if new_leader['authority'] > type_define.AUTHORITY_DEPT_LEADER:
+                    yield self.account_dao.update_account(new_leader['id'], authority=type_define.AUTHORITY_DEPT_LEADER)
             ret = self.account_dao.update_dept(dept_id, **info)
         elif op == 'add':
             msg = '添加部门'

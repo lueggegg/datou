@@ -10,16 +10,18 @@ function createListSelectorController(container, param) {
                 result.push($(this).val());
             });
             return result;
-        }
+        },
+        is_radio: param.is_radio
     };
 
     var html = '';
     var checkbox_name = 'checkbox_' + param.name;
     controller.checkbox = checkbox_name;
+    var input_type = param.is_radio? 'radio' : 'checkbox';
     param.data.forEach(function (p1, p2, p3) {
         html += '<div class="common_container">';
         var id = param.name + '_item_' + p1.id;
-        html += '<input type="checkbox" name="' + checkbox_name + '" value="' + p1.id + '" id="' + id + '">';
+        html += '<input type="' + input_type + '" name="' + checkbox_name + '" value="' + p1.id + '" id="' + id + '">';
         html += '<label for="' + id + '">' + p1.label + '</label>';
         html += '</div>';
     });

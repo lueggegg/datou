@@ -42,6 +42,7 @@
 {% block js_script %}
 <script>
     var attachment_controller = initAttachmentController($("#attachment_container"));
+    var position_type = {{ account_info['position_type'] }};
 
     $(function () {
         $.datetimepicker.setLocale('ch');
@@ -64,6 +65,28 @@
             promptMsg('请选择结束时间');
             return''
         }
+        var begin = new Date(begin_time);
+        var end = new Date(end_time);
+        var ms = end.getTime() - begin.getTime();
+        if (ms < 0) {
+            promptMsg('结束时间应该晚于开始时间');
+            return;
+        }
+        var beyond_ond_day = ms > 86400 * 1000;
+        var job_type = null;
+        if (beyond_ond_day) {
+            if (position_type === TYPE_POSITION_NORMAL) {
+                job_type = TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY;
+            } else {
+                job_type = TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY;
+            }
+        } else {
+            if (position_type === TYPE_POSITION_NORMAL) {
+                job_type = TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY;
+            } else {
+                job_type = TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY;
+            }
+        }
 
         var type = $("#leave_type").val();
 
@@ -79,9 +102,10 @@
         content += "<div>请假原因：</div>";
         content += "<div style='margin-left:2em'>" + reason + "</div>";
 
+
         var param = {
             op: 'add',
-            job_type: getType(),
+            job_type: job_type,
             title: '请假流程',
             content: wrapJobContent(content)
         };

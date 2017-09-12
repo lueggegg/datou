@@ -35,10 +35,16 @@ class AccountDAO(BaseDAO):
         raise gen.Return(ret[0] if ret else False)
 
     @gen.coroutine
-    def query_account_by_id(self, uid):
-        sql = "SELECT a.*, d.name AS dept FROM %s a " \
-              "LEFT JOIN %s d ON a.department_id = d.id " \
-              "WHERE a.id=%s AND a.status=1" % (self.account_tab, self.dept_tab, uid)
+    def query_account_by_id(self, uid, with_report_uid=False):
+        if with_report_uid:
+            sql = "SELECT a.*, aa.name AS report_name, d.name AS dept FROM %s a " \
+                  "LEFT JOIN %s d ON a.department_id = d.id " \
+                  "LEFT JOIN %s aa ON a.report_uid = aa.id " \
+                  "WHERE a.id=%s AND a.status=1" % (self.account_tab, self.dept_tab, self.account_tab, uid)
+        else:
+            sql = "SELECT a.*, d.name AS dept FROM %s a " \
+                  "LEFT JOIN %s d ON a.department_id = d.id " \
+                  "WHERE a.id=%s AND a.status=1" % (self.account_tab, self.dept_tab, uid)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret[0] if ret else False)
 

@@ -139,7 +139,7 @@ class JobDAO(BaseDAO):
     def query_job_mark(self, job_id, uid):
         sql = 'SELECT * FROM %s WHERE uid=%s AND job_id=%s' % (self.mark_tab, uid, job_id)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
-        raise gen.Return(ret[0] if ret else False)
+        raise gen.Return(ret[0] if ret else None)
 
     @gen.coroutine
     def update_job_all_mark(self, job_id, status):

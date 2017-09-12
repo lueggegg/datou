@@ -7,7 +7,7 @@ class AdminOperation(ApiNoVerifyHandler):
     @gen.coroutine
     def _real_deal_request(self):
         op = self.get_argument('op', None)
-        ret = True
+        ret = False
         msg = '未定义操作'
         if op == 'init':
             account = yield self.account_dao.query_account('admin')
@@ -45,12 +45,35 @@ class AdminOperation(ApiNoVerifyHandler):
             msg = '清除工作流自动路径'
 
         elif op == 'init_account':
+            msg = '初始化员工信息'
             yield self.init_accounts()
             ret = True
-            msg = '初始化员工信息'
+
+        elif op == 'init_report_uid':
+            msg = '初始化汇报关系'
+            yield self.init_report_uid()
+            ret = True
 
         self.process_result(ret, msg)
 
+
+    @gen.coroutine
+    def init_report_uid(self):
+        account_list = yield self.account_dao.query_account_list()
+        dept_map = yield self.get_department_map()
+        for account in account_list:
+            dept = dept_map[account['department_id']]
+            while True:
+                leader = dept['leader']
+                if not leader:
+                    break
+                if leader != account['id']:
+                    yield self.account_dao.update_account(account['id'], report_uid=leader)
+                    break
+                elif dept['parent']:
+                    dept = dept_map[dept['parent']]
+                else:
+                    break
 
     @gen.coroutine
     def init_accounts(self):
