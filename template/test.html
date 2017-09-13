@@ -1,8 +1,9 @@
-<html>
 
+<!DOCTYPE html>
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>{% block title %}Default title{% end %}</title>
+    <title>主页</title>
     <script type="text/javascript" src="res/jquery/external/jquery/jquery.js"></script>
     <script type="text/javascript" src="res/jquery/jquery-ui.js"></script>
     <link href="res/jquery/jquery-ui.css" rel="stylesheet">
@@ -11,22 +12,171 @@
     <script type="text/javascript" src="res/script/base.js"></script>
     <link href="res/css/navigation.css" rel="stylesheet">
     <script type="text/javascript" src="res/script/datepicker-zh-CN.js"></script>
+
+    <link href="res/css/index.css" rel="stylesheet">
+    <link href="res/css/list.css" rel="stylesheet">
+    <script src="res/script/index.js"></script>
+
 </head>
-
 <body>
-<input type="text">
-<button id="btn">ok</button>
+<div class="base_container">
 
-<script>
-    document.onkeydown = function (e) {
-        if (e.keyCode === 13) {
-            $("#btn").click();
-        }
-    };
+    <!-- 头部 -->
+    <div class="base_header_container">
+        <div class="web_header">
+            <div class="element_left" style="margin-left: 20px">
+                <img src="res/images/logo.png" style="width: 20px; height: 22px; margin-top: 13px">
+            </div>
+            <div class="element_left" style="margin-left: 10px; font-size: 20px">
+                欢迎使用OA系统
+            </div>
+            <div class="element_right" style="margin-right: 20px">
+                <a href="personal.html">超级管理员</a>&nbsp;|&nbsp;<a href="logout.html">退出</a>
+            </div>
+            <div class="element_right" style="margin-right: 10px">
+                <a href="personal.html" class="web_header_portrait_container">
+                    <img id='header_user_portrait' src="res/images/portrait/default_portrait.png">
+                </a>
+            </div>
 
-    $("#btn").click(function () {
-        alert('click');
-    });
-</script>
+            <div class="element_right" style="margin-right: 20px"><a href="admin.html">管理员后台</a></div>
+
+        </div>
+        <div class="div-header-navigation-bar base_container">
+            <ul id="guild_bar">
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="base_body_container">
+        <div id="__common_tag_area" class="common_tag_area"></div>
+        <div class="content_body_container">
+
+            <div class="index_container">
+                <div class="index_news">
+                    <div class="img_news_item">
+                        <a href="/" id="img_news_url" target="_blank"></a>
+                        <img src="res/images/a.jpg" id="img_news_img">
+                        <div id="img_news_title">未设置</div>
+                    </div>
+                    <div class="index_news_divider"></div>
+                    <div class="topic_title">
+                        <div class="element_left">公司要闻</div>
+                        <div class="element_right"><a href="error.html" style="font-size: 14px">更多》</a></div>
+                    </div>
+                    <div>
+                        <ul class="base_ul" id="company_news_list">
+                        </ul>
+                    </div>
+                    <div class="index_news_divider"></div>
+                    <div class="topic_title">
+                        <div class="element_left">其他资讯</div>
+                        <div class="element_right"><a href="error.html" style="font-size: 14px">更多》</a></div>
+                    </div>
+                    <div>
+                        <ul class="base_ul" id="other_news_list">
+                        </ul>
+                    </div>
+                </div>
+                <div class="index_info">
+                    <!--<div class="index_broadcast">重要通知：********!!!</div>-->
+                    <div class="index_recent_task_container">
+                        <div id="waiting_job_container">
+                            <div class="topic_title">待办的工作流</div>
+                            <ul id="waiting_job_list"></ul>
+                            <div class="common_divider"></div>
+                        </div>
+                        <div class="topic_title">
+                            最近的工作流
+                        </div>
+                        <ul class="recent_info_list" id="recent_job_list">
+                        </ul>
+                        <div class="common_border common_container" id="empty_job_container">
+                            <img src="res/images/icon/empty_gray.png">
+                            <div>暂无工作流</div>
+                        </div>
+                        <div id="today_birthday_container" class="birthday_container">
+                            <div class="topic_title">今日生日员工</div>
+                            <div id="today_birthday_list"></div>
+                        </div>
+                        <div id="will_birthday_container" class="birthday_container">
+                            <div class="topic_title">将要生日员工</div>
+                            <div id="will_birthday_list"></div>
+                        </div>
+                        <div id="retire_birthday_container" class="birthday_container">
+                            <div class="topic_title">将要退休员工</div>
+                            <div id="retire_birthday_list"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="index_right">
+                    <div id="inline_date"></div>
+                    <div id="useful_link_container"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="web_footer">版权所有 my-oa.com</div>
+
+    </div>
+</div>
 </body>
+<script>
+    $("#__common_tag_area").hide();
+    var __authority = 1;
+    var __my_uid = 14;
+    function getGuildItemHtml(item) {
+        return '<li><a style="color: white;" href="' + item.href + '">' + item.label + '</a></li>'
+    }
+    function showGuildBar() {
+
+        var guild = [
+            {href: 'index.html', label: '首页', authority: __common_authority},
+            {href: 'personal.html', label: '个人信息', authority: __common_authority},
+            {href: 'contact.html', label: '通讯录', authority: __common_authority},
+            {href: 'job_record.html', label: '工作流', authority: __common_authority},
+            {href: 'official_doc.html', label: '公文交互', authority: __common_authority},
+            {href: 'auto_job.html', label: '自动化流程', authority: __common_authority},
+            {href: 'company_rule.html', label: '公司制度', authority: __common_authority},
+            {href: 'download_file.html', label: '文件下载', authority: __common_authority}
+        ];
+
+        var html = '';
+        guild.forEach(function (item, p2, p3) {
+            if (item.authority >= __authority) {
+                html += getGuildItemHtml(item);
+            }
+        });
+        $("#guild_bar").append(html);
+    }
+
+
+    var __base_init_times = 10;
+    function baseInit() {
+        try {
+            __base_init_times--;
+            showGuildBar();
+            initPromptDialog();
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function reInitIfFailed() {
+        if (!baseInit()) {
+            if (__base_init_times > 0) {
+                setTimeout(reInitIfFailed, 1000);
+            }
+        }
+    }
+
+    $(function () {
+        reInitIfFailed();
+    });
+
+</script>
+
 </html>
