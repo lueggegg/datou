@@ -2,6 +2,12 @@ var main_info;
 var node_list_data;
 
 $(document).ready(function () {
+    commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id}, function (data) {
+        if (!data) {
+            redirectError('没有权限');
+        }
+    });
+
     $("#process_container").hide();
 
     queryJobBaseInfo();

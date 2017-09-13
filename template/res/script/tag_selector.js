@@ -188,6 +188,9 @@ function initTagValueSelector(list_data, tag_id, param) {
     var item_name = '__tag_value_selector_item_in_' + tag_id;
     var html = "";
     list_data.forEach(function (p1, p2, p3) {
+        if (param.filter_list && param.filter_list.hasOwnProperty(p1.id)) {
+            return;
+        }
         var item_id = '__tag_value_selector_item_' + p1.id;
         html += "<input type='checkbox' value='" + p1.id + "' name='" + item_name + "' id='" + item_id + "'>";
         html += "<label for='" + item_id + "'>" + param.get_value_label(p1) + "</label>";

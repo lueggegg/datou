@@ -17,6 +17,8 @@
         </div>
         {% if account_info['authority'] <= 8 %}
         <div class="element_right" style="margin-right: 20px"><a href="admin.html">管理员后台</a></div>
+        {% elif account_info['operation_mask'] != 0 %}
+        <div class="element_right" style="margin-right: 20px"><a href="admin.html">我的后台权限</a></div>
         {% end %}
     </div>
 

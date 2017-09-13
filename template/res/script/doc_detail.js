@@ -18,6 +18,12 @@ var main_info = null;
 var node_list_data = null;
 
 $(document).ready(function (event) {
+    commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id}, function (data) {
+        if (!data) {
+            redirectError('没有权限');
+        }
+    });
+    
     queryJobBaseInfo();
 
     select_doc_rec_dlg = $("#select_rec_dlg");

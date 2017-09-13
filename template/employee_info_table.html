@@ -764,17 +764,14 @@
             if (module_data.authority > __admin_authority) {
                 account_info['authority'] = AUTHORITY_CHAIR_LEADER;
             }
-            account_info['operation_mask'] = module_data.operation_mask | AUTHORITY_CHAIR_LEADER & (~AUTHORITY_VIA_LEADER);
         } else if (position === '副台长') {
             if (module_data.authority > __admin_authority) {
                 account_info['authority'] = AUTHORITY_VIA_LEADER;
             }
-            account_info['operation_mask'] = module_data.operation_mask | AUTHORITY_VIA_LEADER & (~AUTHORITY_CHAIR_LEADER);
         } else {
             if (module_data.authority > __admin_authority && module_data.authority <= AUTHORITY_DEPT_LEADER) {
                 account_info['authority'] = AUTHORITY_DEPT_LEADER;
             }
-            account_info['operation_mask'] = module_data.operation_mask & (~AUTHORITY_CHAIR_LEADER) & (~AUTHORITY_VIA_LEADER);
         }
     }
 

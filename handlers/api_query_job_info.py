@@ -38,6 +38,9 @@ class ApiQueryJobInfo(ApiHandler):
                 last_node['rec_dept'] = rec_account['dept']
         elif info_type == 'base':
             ret = yield self.job_dao.query_job_base_info(job_id)
+        elif info_type == 'authority':
+            ret = yield self.job_dao.query_job_mark(job_id, self.account_info['id'])
+            ret= ret is not None
         else:
             ret = None
 

@@ -20,6 +20,7 @@ from api_is_account_exist import ApiIsAccountExist
 from api_reset_password import ApiResetPassword
 from api_query_account_extend import ApiQueryAccountExtend
 from api_query_birthday_employee import ApiQueryBirthdayEmployee
+from api_operation_mask import ApiOperationMask
 
 from api_create_new_job import ApiCreateNewJob
 from api_upload_file import ApiUploadFile

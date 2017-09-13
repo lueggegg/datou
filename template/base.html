@@ -39,8 +39,9 @@
 
 <script>
     $("#__common_tag_area").hide();
-    var __authority = {{ account_info['authority'] }};
-    var __my_uid = {{ account_info['id'] }};
+    __authority = {{ account_info['authority'] }};
+    __my_uid = {{ account_info['id'] }};
+    __my_operation_mask = {{ account_info['operation_mask'] }};
 
     function getGuildItemHtml(item) {
         return '<li><a style="color: white;" href="' + item.href + '">' + item.label + '</a></li>'
@@ -62,6 +63,8 @@
         var html = '';
         guild.forEach(function (item, p2, p3) {
             if (item.authority >= __authority) {
+                html += getGuildItemHtml(item);
+            } else if (item.hasOwnProperty('operation_mask') && (item.operation_mask & __my_operation_mask)) {
                 html += getGuildItemHtml(item);
             }
         });

@@ -26,6 +26,7 @@ var dept_leader_setting_dlg;
 var employee_weight_dlg;
 
 $(document).ready(function () {
+    needAuthority(OPERATION_MASK_EMPLOYEE);
 
     verticalTabs("#tabs");
 

@@ -36,6 +36,8 @@
     var ready_file_name = null;
 
     $(document).ready(function () {
+        needAuthority(OPERATION_MASK_DOWNLOAD_FILE);
+
         add_file_dlg = $("#add_file_dlg");
         commonInitDialog(add_file_dlg, function () {
             addFile();

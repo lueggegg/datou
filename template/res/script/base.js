@@ -1,4 +1,6 @@
 var __my_uid = null;
+var __authority = null;
+var __my_operation_mask = null;
 
 var __super_authority = 1;
 var __admin_authority = 8;
@@ -12,8 +14,13 @@ function redirectError(e) {
     if (e) {
         console.debug('exception: ' + e);
     }
-    alert('error: ' + e);
-    // window.location.href = 'error.html';
+    window.location.href = 'error.html?message=' + e;
+}
+
+function needAuthority(operation_mask) {
+    if (__authority > __admin_authority && (__my_operation_mask & operation_mask) === 0 ) {
+        redirectError('没有权限');
+    }
 }
 
 function freshCurrent(location, args) {

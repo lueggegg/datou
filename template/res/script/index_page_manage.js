@@ -8,6 +8,7 @@ var link_data_map = {};
 var current_operating_news;
 
 $(document).ready(function () {
+    needAuthority(OPERATION_MASK_INDEX_PAGE);
 
     news_config_dlg = $("#news_config_dlg");
     commonInitDialog(news_config_dlg, dealOperation, {width: 600});

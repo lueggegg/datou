@@ -1,0 +1,237 @@
+{% extends base_admin.html %}
+
+{% block title %}权限管理{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/tabs.css">
+<link rel="stylesheet" href="res/css/list.css">
+<script type="text/javascript" src="res/script/tag_selector.js"></script>
+<link rel="stylesheet" href="res/css/tag_selector.css">
+
+<style>
+    .select_employee_btn {
+        float: right;
+    }
+</style>
+{% end %}
+
+{% block custom_body %}
+<div id="tabs">
+    <ul id="tab_item_list">
+        <li value="0"><a href="#super_admin_container">移交超级管理员权限</a> </li>
+        <li value="1"><a href="#index_page_container">主页配置权限</a> </li>
+        <li value="2"><a href="#construct_container">公司架构配置权限</a> </li>
+        <li value="3"><a href="#company_rule_container">公司制度配置权限</a> </li>
+        <li value="4"><a href="#download_file_container">文件下载配置权限</a> </li>
+    </ul>
+
+    <div id="super_admin_container">
+        <div class="common_container">
+            <select id="dept_selector">
+                <option selected disabled value="-1">请选择部门</option>
+            </select>
+        </div>
+        <div class="common_container">
+            <select id="employee_selector"></select>
+        </div>
+        <div class="common_container">
+            <button class="ui-button ui-corner-all" style="margin-left: 150px;" id="change_admin_btn">确定</button>
+        </div>
+    </div>
+
+    <div id="index_page_container">
+        <div class="common_btn_container">
+            <button class="ui-button ui-corner-all select_employee_btn">添加员工</button>
+        </div>
+        <div class="common_container">
+            <ul id="index_page_employee_list"></ul>
+        </div>
+    </div>
+
+    <div id="construct_container">
+        <div class="common_btn_container">
+            <button class="ui-button ui-corner-all select_employee_btn">添加员工</button>
+        </div>
+        <div class="common_container">
+            <ul id="construct_employee_list"></ul>
+        </div>
+    </div>
+
+    <div id="company_rule_container">
+        <div class="common_btn_container">
+            <button class="ui-button ui-corner-all select_employee_btn">添加员工</button>
+        </div>
+        <div class="common_container">
+            <ul id="company_rule_employee_list"></ul>
+        </div>
+    </div>
+
+    <div id="download_file_container">
+        <div class="common_btn_container">
+            <button class="ui-button ui-corner-all select_employee_btn">添加员工</button>
+        </div>
+        <div class="common_container">
+            <ul id="download_file_employee_list"></ul>
+        </div>
+    </div>
+</div>
+
+<div id="employee_selector_dlg" title="选择员工">
+    <div id="employee_selector_container" class="common_container"></div>
+</div>
+
+
+<script>
+    var employee_selector_dlg;
+    var employee_selector_controller;
+    var mask_map = {
+        1: [OPERATION_MASK_INDEX_PAGE, 'index_page_container'],
+        2: [OPERATION_MASK_EMPLOYEE, 'construct_container'],
+        3: [OPERATION_MASK_RULE, 'company_rule_container'],
+        4: [OPERATION_MASK_DOWNLOAD_FILE, 'download_file_container']
+    };
+    var selected_dept;
+
+    $(document).ready(function () {
+        needAuthority(0);
+
+        verticalTabs();
+
+
+        selectMenu($("#dept_selector"), function (event, ui) {
+            var value = parseInt($(event.target).val());
+            if (selected_dept !== value) {
+                selected_dept = value;
+                queryAccountList();
+            }
+        });
+        selectMenu($("#employee_selector"));
+        queryDeptList();
+
+        employee_selector_dlg = $("#employee_selector_dlg");
+        commonInitDialog(employee_selector_dlg, function () {
+            addEmployee();
+        }, {width: 500});
+
+        employee_selector_controller = createTagSelectorController($("#employee_selector_container"), {
+            type_url: '/api/query_dept_list',
+            value_url: '/api/query_account_list',
+            get_value_url_arg: function (tag_id) {
+                return {dept_id: tag_id, type: TYPE_ACCOUNT_SAMPLE};
+            },
+            get_value_label: function (item) {
+                return item.name + "（" + (item.is_leader? "主管": item.position) + "）";
+            }
+        });
+
+        $('.select_employee_btn').click(function () {
+            openSelectorDlg();
+        });
+
+        $("#change_admin_btn").click(function () {
+            var uid = parseInt($("#employee_selector").val());
+            if (!uid) {
+                promptMsg('请选择员工');
+                return;
+            }
+            if (uid === __my_uid) {
+                promptMsg('不能转移给自己');
+                return;
+            }
+            showConfirmDialog('转移后，将不再具有管理员权限，请谨慎操作！！确认继续？', function () {
+                commonPost('/api/operation_mask', {op: 'change_admin', uid: uid}, function (data) {
+                    window.location.href = '/';
+                });
+            });
+        });
+
+        queryAuthorizedList();
+
+        initConfirmDialog();
+    });
+
+    function queryDeptList() {
+        commonPost('/api/query_dept_list', null, function (data) {
+            var options = '';
+            data.forEach(function (p1, p2, p3) {
+                options += '<option value="' + p1.id + '">' + p1.name + '</option>';
+            });
+            $("#dept_selector").append(options).selectmenu('refresh');
+        });
+    }
+
+    function queryAccountList() {
+        commonPost('/api/query_account_list', {type: TYPE_ACCOUNT_SAMPLE, dept_id: selected_dept}, function (data) {
+            var options =  '<option selected disabled value="-1">请选择员工</option>';
+            data.forEach(function (p1, p2, p3) {
+                options += '<option value="' + p1.id + '">' + p1.name + '</option>';
+            });
+            $("#employee_selector").append(options).selectmenu('refresh');
+        })
+    }
+
+    function addEmployee() {
+        var result = employee_selector_controller.get_result();
+        var param = {op: 'add', operation_mask: mask_map[getSelectedTab()][0]};
+        switch (result.status) {
+            case 0:
+                promptMsg('请选择员工');
+                return;
+            case 1:
+                param['dept_list'] = JSON.stringify(result.type_list);
+                break;
+            case 2:
+                param['uid_list'] = JSON.stringify(result.value_list);
+                break;
+            case 3:
+                param['dept_list'] = JSON.stringify(result.type_list);
+                param['uid_list'] = JSON.stringify(result.value_list);
+                break;
+        }
+        employee_selector_dlg.dialog('close');
+        commonPost('/api/operation_mask', param, function (data) {
+            freshCurrent(mask_map[getSelectedTab()][1]);
+        });
+    }
+
+    function queryAuthorizedList() {
+        [
+            [OPERATION_MASK_INDEX_PAGE, $("#index_page_employee_list")],
+            [OPERATION_MASK_EMPLOYEE, $("#construct_employee_list")],
+            [OPERATION_MASK_RULE, $("#company_rule_employee_list")],
+            [OPERATION_MASK_DOWNLOAD_FILE, $("#download_file_employee_list")]
+        ].forEach(function (p1, p2, p3) {
+            commonPost('/api/query_account_list', {type: TYPE_ACCOUNT_OPERATION_MASK, operation_mask: p1[0]}, function (data) {
+                var list_data = [['账号', '部门', '姓名', '删除']];
+                data.forEach(function (account, index, p) {
+                    list_data.push([
+                        account.account,
+                        account.dept,
+                        account.name,
+                        '<div class="common_clickable" onclick="cancelEmployee(' + account.id + ',' +  account.operation_mask + ',' + p1[0] + ')">删除</div>'
+                    ])});
+                updateListView(p1[1], list_data);
+            });
+        })
+    }
+
+    function openSelectorDlg() {
+        employee_selector_dlg.dialog('open');
+    }
+
+    function cancelEmployee(uid, ori_mask, cancel_mask) {
+        showConfirmDialog('确认删除该员工的权限', function () {
+            commonPost('/api/alter_account', {
+                op: 'update',
+                uid: uid,
+                account_info: JSON.stringify({operation_mask: ori_mask & (~cancel_mask)})
+            }, function (data) {
+                freshCurrent(mask_map[getSelectedTab()][1]);
+            });
+        });
+    }
+
+    function getSelectedTab() {
+        return parseInt($("#tab_item_list .ui-state-active").val());
+    }
+</script>
+{% end %}

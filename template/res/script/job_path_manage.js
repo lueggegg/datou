@@ -12,6 +12,8 @@ var op_path_id;
 var selected_path_type = 0;
 
 $(document).ready(function () {
+    needAuthority(0);
+
     var report_container = $("#report_selector_container");
     var selector_container = $("#processor_selector_container");
     var leader_container = $("#leader_selector_container");
@@ -85,8 +87,8 @@ function initTabs() {
         [TYPE_JOB_CERTIFICATE_INTERNSHIP, '实习证明'],
         [TYPE_JOB_HR_RESIGN, '离职申请'],
         [TYPE_JOB_HR_ANOTHER_POST, '调岗申请'],
-        [TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY, '干部请假:：超一天'],
-        [TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY, '干部请假：一天内'],
+        [TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY, '中层请假:：超一天'],
+        [TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY, '中层请假：一天内'],
         [TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY, '员工请假：超一天'],
         [TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY, '员工请假：一天内'],
         [TYPE_JOB_HR_LEAVE_FOR_BORN, '产假申请'],
@@ -259,9 +261,9 @@ function closeSelectorDlgWithOk() {
             promptMsg('系统错误: wrong op type while close dlg');
             return;
         }
-
+        var result;
         if (selected_path_type === 1) {
-            var result = processor_selector_controller.get_result();
+            result = processor_selector_controller.get_result();
             switch (result.status) {
                 case 0:
                     promptMsg('请选择审批部门或者审批员工');
@@ -278,7 +280,7 @@ function closeSelectorDlgWithOk() {
                     break;
             }
         } else if (selected_path_type === 2) {
-            var result = leader_selector_controller.get_result();
+            result = leader_selector_controller.get_result();
             param['uid_list'] = JSON.stringify(result);
         } else {
             redirectError('系统错误');

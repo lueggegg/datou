@@ -57,7 +57,7 @@ class BaseHandler(RequestHandler):
         except Exception, e:
             if e is not self.end_notification:
                 self.debug_msg('exception %s' % e)
-                self.write_result(error_codes.EC_UNKNOW_ERROR, '程序异常')
+                self.write_result(error_codes.EC_UNKNOWN_ERROR, '程序异常')
             return
 
     @gen.coroutine
