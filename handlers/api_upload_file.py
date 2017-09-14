@@ -24,7 +24,7 @@ class ApiUploadFile(ApiHandler):
         elif file_type == type_define.TYPE_JOB_ATTACHMENT_NORMAL:
             r = re.match('data:(.*);base64,(.+)', file_data)
             parent_dir = 'res/attachment'
-        elif file_type == type_define.TYPE_UPLOAD_FILE_TO_DOWNLOAD:
+        elif file_type in [type_define.TYPE_UPLOAD_FILE_TO_DOWNLOAD, type_define.TYPE_UPLOAD_RULE_FILE]:
             r = re.match('data:(.*);base64,(.+)', file_data)
             parent_dir = 'res/download'
         else:
@@ -58,6 +58,8 @@ class ApiUploadFile(ApiHandler):
         if file_type == type_define.TYPE_UPLOAD_FILE_TO_DOWNLOAD:
             type_id = self.get_argument_and_check_it('type_id')
             path_id = yield self.config_dao.add_download_detail(title=filename, path=net_path, type_id=type_id)
+        elif file_type == type_define.TYPE_UPLOAD_RULE_FILE:
+            path_id = 'useless'
         else:
             path_id = yield self.job_dao.add_file_path(filename=filename, path=net_path)
         if not path_id:
@@ -67,5 +69,6 @@ class ApiUploadFile(ApiHandler):
             'path_id': path_id,
             'path': net_path,
             'type': file_type,
+            'data': {'path': net_path},
         }
         self.write_json(res)

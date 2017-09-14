@@ -54,6 +54,11 @@
                 if (detail) {
                     html += '<div class="rule_detail">' + html2Text(detail) +'</div>';
                 }
+                if (p1.attachment_title) {
+                    html += '<div class="rule_detail" style="margin-top: 5px">';
+                    html += '附件：<a style="color: #00dd1c" href="' + p1.attachment_path + '">' + p1.attachment_title + '</a>';
+                    html += '</div>';
+                }
                 html += '</div>'
             });
             $("#" + container_prefix + type_id).append(html);

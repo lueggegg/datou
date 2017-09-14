@@ -42,12 +42,21 @@
 </div>
 
 <div id="rule_detail_dlg" title="制度条目">
-    <p>
+    <div class="common_container">
         <input id="editor_rule_title" placeholder="请输入制度简述（不能为空）">
-    </p>
-    <p>
+    </div>
+    <div class="common_container">
         <textarea id="text_rule_detail" placeholder="制度细则（可以为空）"></textarea>
-    </p>
+    </div>
+    <div class="common_container">
+        <a href="javascript:;" class="common_file_input">上传附件（可以为空）
+            <input type="file" id="file_selector" onchange="onFileSelectorChange()">
+        </a>
+        <div style="margin-left: 2em;">
+            <span id="attachment_name" style="color: blue"></span>
+            <img src="res/images/icon/gray_del.png" id="del_attachment_btn" class="common_small_del_btn">
+        </div>
+    </div>
 </div>
 
 <script>
@@ -59,10 +68,17 @@
     var rule_map = {};
     var rule_detail_dlg;
     var selected_rule;
+    var attachment_changed = false;
+    var ready_file_data = null;
+    var ready_file_name = null;
 
     $(document).ready(function () {
         rule_detail_dlg = $("#rule_detail_dlg");
         commonInitDialog(rule_detail_dlg, dealOperation, {width: 800});
+        $("#del_attachment_btn").hide();
+        $("#del_attachment_btn").click(function () {
+            delAttachment();
+        });
 
         queryRuleType();
 
@@ -166,6 +182,10 @@
     }
 
     function openRuleDetailDlg(type_id, index) {
+        attachment_changed = false;
+        ready_file_data = null;
+        ready_file_name = null;
+        $("#file_selector").val('');
         if (type_id) {
             __current_operation = OP_UPDATE_RULE;
             var data = rule_map[type_id][index];
@@ -173,16 +193,43 @@
             $("#text_rule_detail").val(abstractJobContent(data.detail));
             rule_detail_dlg.dialog('option', 'title', '编辑制度条目');
             selected_rule = data.id;
+            if (data.attachment_title) {
+                $("#attachment_name").html('<a href="' + data.attachment_path + '">' + data.attachment_title + '</a>');
+                $("#del_attachment_btn").show();
+            } else {
+                $("#attachment_name").html('');
+                $("#del_attachment_btn").hide();
+            }
         } else {
             __current_operation = OP_ADD_NRE_RULE;
             $("#editor_rule_title").val('');
             $("#text_rule_detail").val('');
             rule_detail_dlg.dialog('option', 'title', '添加制度条目');
+            $("#attachment_name").html('');
+            $("#del_attachment_btn").hide();
         }
         rule_detail_dlg.dialog('open');
     }
 
     function commitDlg(op) {
+        if (attachment_changed) {
+            if (ready_file_name) {
+                commonPost('/api/upload_file', {
+                    type: TYPE_UPLOAD_RULE_FILE,
+                    name: ready_file_name,
+                    file_data: ready_file_data
+                }, function (data) {
+                    alterRule(op, {title: ready_file_name, path: data.path});
+                });
+            } else {
+                alterRule(op, {title: null, path: null});
+            }
+        } else {
+            alterRule(op);
+        }
+    }
+
+    function alterRule(op, attachment) {
         var title = $("#editor_rule_title").val();
         if (!title) {
             promptMsg('制度简述不能为空');
@@ -190,6 +237,10 @@
         }
         var detail = wrapJobContent($("#text_rule_detail").val());
         var rule_info = {type_id: getSelectedType(), title: title, detail: detail};
+        if (attachment) {
+            rule_info['attachment_title'] = attachment.title;
+            rule_info['attachment_path'] = attachment.path;
+        }
         var param = {rule_info: JSON.stringify(rule_info)};
         if (op === 'update') {
             param['rule_id'] = selected_rule;
@@ -217,6 +268,32 @@
 
     function refresh() {
         freshCurrent(container_prefix + getSelectedType());
+    }
+
+    function onFileSelectorChange() {
+        var files = $("#file_selector")[0].files;
+        if (files.length === 0) {
+            return;
+        }
+        var f = files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            ready_file_data = e.target.result;
+            ready_file_name = f.name;
+            attachment_changed = true;
+            $("#attachment_name").text(ready_file_name);
+            $("#del_attachment_btn").show();
+        };
+        reader.readAsDataURL(f);
+    }
+
+    function delAttachment() {
+        attachment_changed = true;
+        $("#attachment_name").text('');
+        $("#del_attachment_btn").hide();
+        $("#file_selector").val('');
+        ready_file_name = null;
+        ready_file_data = null;
     }
 
 </script>

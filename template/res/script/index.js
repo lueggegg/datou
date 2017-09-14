@@ -136,6 +136,12 @@ function getJobUrl(job_type, job_id) {
 }
 
 function queryBirthdayEmployee() {
+    ['today', 'will', 'retire'].forEach(function (p1, p2, p3) {
+        $("#" + p1 + "_birthday_container").hide();
+    });
+    if (__authority > __admin_authority && (__my_operation_mask & OPERATION_MASK_EMPLOYEE) === 0) {
+        return;
+    }
     commonPost('/api/query_birthday_employee', null, function (data) {
         var title = ['工号', '姓名', '部门', '生日'];
         ['today', 'will', 'retire'].forEach(function (p1, p2, p3) {
@@ -152,8 +158,6 @@ function queryBirthdayEmployee() {
                 });
                 $("#" + p1 + "_birthday_container").show();
                 updateListView($("#" + p1 + "_birthday_list"), list_data, {without_title: true});
-            } else {
-                $("#" + p1 + "_birthday_container").hide();
             }
         });
     });

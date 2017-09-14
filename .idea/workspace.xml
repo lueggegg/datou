@@ -3,8 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_upload_file.py" afterPath="$PROJECT_DIR$/handlers/api_upload_file.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/contact.js" afterPath="$PROJECT_DIR$/template/res/script/contact.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/company_rule.html" afterPath="$PROJECT_DIR$/template/company_rule.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/employee_info_table.html" afterPath="$PROJECT_DIR$/template/employee_info_table.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/index.js" afterPath="$PROJECT_DIR$/template/res/script/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/type_define.js" afterPath="$PROJECT_DIR$/template/res/script/type_define.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/rule_manage.html" afterPath="$PROJECT_DIR$/template/rule_manage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/type_define.py" afterPath="$PROJECT_DIR$/type_define.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/type_define.txt" afterPath="$PROJECT_DIR$/type_define.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,7 +28,7 @@
     <favorites_list name="datou" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5319006">
+    <splitter split-orientation="horizontal" split-proportion="0.39086634">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="api_rule_type.py" pinned="false" current-in-tab="false">
@@ -39,11 +46,9 @@
           <file leaf-file-name="api_rule_detail.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/api_rule_detail.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="551">
-                  <caret line="34" column="28" lean-forward="false" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
-                  <folding>
-                    <element signature="e#25#43#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="437">
+                  <caret line="37" column="59" lean-forward="false" selection-start-line="37" selection-start-column="59" selection-end-line="37" selection-end-column="59" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -61,8 +66,8 @@
           <file leaf-file-name="job_dao.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/db/job_dao.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2546">
-                  <caret line="138" column="8" lean-forward="false" selection-start-line="138" selection-start-column="8" selection-end-line="138" selection-end-column="8" />
+                <state relative-caret-position="186">
+                  <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
                   <folding />
                 </state>
               </provider>
@@ -80,11 +85,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="type_define.txt" pinned="false" current-in-tab="false">
+          <file leaf-file-name="type_define.txt" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/type_define.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="171">
-                  <caret line="9" column="26" lean-forward="false" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+                <state relative-caret-position="-285">
+                  <caret line="39" column="25" lean-forward="false" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
                   <folding />
                 </state>
               </provider>
@@ -110,11 +115,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="admin_operation.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="admin_operation.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="408">
-                  <caret line="87" column="18" lean-forward="true" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
+                <state relative-caret-position="1387">
+                  <caret line="74" column="21" lean-forward="false" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
                   <folding />
                 </state>
               </provider>
@@ -124,7 +129,7 @@
             <entry file="file://$PROJECT_DIR$/handlers/api_query_accounts.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="418">
-                  <caret line="28" column="31" lean-forward="true" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
+                  <caret line="28" column="31" lean-forward="false" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
                   <folding>
                     <element signature="e#25#39#0" expanded="true" />
                   </folding>
@@ -140,7 +145,7 @@
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="969">
-                  <caret line="61" column="21" lean-forward="true" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
+                  <caret line="61" column="21" lean-forward="false" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                   </folding>
@@ -152,7 +157,7 @@
             <entry file="file://$PROJECT_DIR$/handlers/__init__.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="589">
-                  <caret line="31" column="55" lean-forward="true" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+                  <caret line="31" column="55" lean-forward="false" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
                   <folding />
                 </state>
               </provider>
@@ -182,7 +187,7 @@
             <entry file="file://$PROJECT_DIR$/handlers/api_query_job_info.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="684">
-                  <caret line="42" column="32" lean-forward="true" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+                  <caret line="42" column="32" lean-forward="false" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
                   <folding />
                 </state>
               </provider>
@@ -191,22 +196,10 @@
           <file leaf-file-name="config_dao.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/db/config_dao.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2451">
-                  <caret line="133" column="17" lean-forward="true" selection-start-line="133" selection-start-column="17" selection-end-line="133" selection-end-column="17" />
+                <state relative-caret-position="196">
+                  <caret line="109" column="8" lean-forward="false" selection-start-line="109" selection-start-column="8" selection-end-line="109" selection-end-column="8" />
                   <folding>
                     <element signature="e#0#16#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="api_common_config.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/handlers/api_common_config.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="304">
-                  <caret line="21" column="44" lean-forward="true" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
-                  <folding>
-                    <element signature="e#25#43#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -222,24 +215,34 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="api_alter_account.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/handlers/api_alter_account.py">
+          <file leaf-file-name="api_operation_mask.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/handlers/api_operation_mask.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="722">
-                  <caret line="46" column="26" lean-forward="true" selection-start-line="46" selection-start-column="26" selection-end-line="46" selection-end-column="26" />
+                <state relative-caret-position="145">
+                  <caret line="14" column="16" lean-forward="false" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+                  <folding>
+                    <element signature="e#25#59#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api_upload_file.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/handlers/api_upload_file.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="437">
+                  <caret line="71" column="39" lean-forward="false" selection-start-line="71" selection-start-column="39" selection-end-line="71" selection-end-column="39" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="api_operation_mask.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/handlers/api_operation_mask.py">
+          <file leaf-file-name="type_define.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/type_define.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="563">
-                  <caret line="36" column="34" lean-forward="true" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
-                  <folding>
-                    <element signature="e#25#59#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="186">
+                  <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -334,7 +337,6 @@
         <option value="$PROJECT_DIR$/handlers/api_query_job_list.py" />
         <option value="$PROJECT_DIR$/handlers/api_download_type.py" />
         <option value="$PROJECT_DIR$/handlers/api_download_detail.py" />
-        <option value="$PROJECT_DIR$/handlers/api_upload_file.py" />
         <option value="$PROJECT_DIR$/handlers/base_handler.py" />
         <option value="$PROJECT_DIR$/handlers/api_query_birthday_employee.py" />
         <option value="$PROJECT_DIR$/handlers/api_alter_job.py" />
@@ -342,7 +344,6 @@
         <option value="$PROJECT_DIR$/handlers/api_rule_type.py" />
         <option value="$PROJECT_DIR$/handlers/api_rule_detail.py" />
         <option value="$PROJECT_DIR$/template/res/script/base.js" />
-        <option value="$PROJECT_DIR$/handlers/admin_operation.py" />
         <option value="$PROJECT_DIR$/handlers/api_handler.py" />
         <option value="$PROJECT_DIR$/handlers/api_alter_account.py" />
         <option value="$PROJECT_DIR$/handlers/api_alter_job_path.py" />
@@ -355,12 +356,14 @@
         <option value="$PROJECT_DIR$/db/config_dao.py" />
         <option value="$PROJECT_DIR$/handlers/error_codes.py" />
         <option value="$PROJECT_DIR$/handlers/api_query_job_info.py" />
-        <option value="$PROJECT_DIR$/type_define.txt" />
         <option value="$PROJECT_DIR$/db/account_dao.py" />
         <option value="$PROJECT_DIR$/handlers/api_query_accounts.py" />
         <option value="$PROJECT_DIR$/handlers/__init__.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/handlers/api_operation_mask.py" />
+        <option value="$PROJECT_DIR$/handlers/admin_operation.py" />
+        <option value="$PROJECT_DIR$/type_define.txt" />
+        <option value="$PROJECT_DIR$/handlers/api_upload_file.py" />
       </list>
     </option>
   </component>
@@ -461,7 +464,7 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Other File Types" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="main&#9;FILE&#9;file://D:/code/python/tornado/datou/main.py&#10;query&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_query_account_extend.py&#10;acc&#9;FILE&#9;file://D:/code/python/tornado/datou/db/account_dao.py&#10;alter_ac&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_alter_account.py&#10;base.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;mai&#9;FILE&#9;file://D:/code/python/tornado/datou/main.py&#10;confi&#9;FILE&#9;file://D:/code/python/tornado/datou/db/config_dao.py&#10;ma&#9;FILE&#9;file://D:/code/python/tornado/datou/main.py&#10;mys&#9;null&#9;null&#10;base&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/base_handler.py&#10;employee_i&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;mysql&#9;FILE&#9;file://D:/code/python/tornado/datou/db/mysql_config.py" />
+    <property name="SearchEverywhereHistoryKey" value="api_up&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_upload_file.py&#10;employee_info&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;main&#9;FILE&#9;file://D:/code/python/tornado/datou/main.py&#10;query&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_query_account_extend.py&#10;acc&#9;FILE&#9;file://D:/code/python/tornado/datou/db/account_dao.py&#10;alter_ac&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_alter_account.py&#10;base.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;mai&#9;FILE&#9;file://D:/code/python/tornado/datou/main.py&#10;confi&#9;FILE&#9;file://D:/code/python/tornado/datou/db/config_dao.py&#10;ma&#9;FILE&#9;file://D:/code/python/tornado/datou/main.py&#10;mys&#9;null&#9;null&#10;base&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/base_handler.py&#10;employee_i&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;mysql&#9;FILE&#9;file://D:/code/python/tornado/datou/db/mysql_config.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -930,7 +933,14 @@
       <option name="project" value="LOCAL" />
       <updated>1505324710273</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="release 9">
+      <created>1505373465450</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1505373465450</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1019,13 +1029,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/handlers/api_query_account_extend.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="27" column="63" lean-forward="false" selection-start-line="27" selection-start-column="63" selection-end-line="27" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/template/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1026">
@@ -1151,13 +1154,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_upload_file.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1178">
-          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/base_handler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="661">
@@ -1222,16 +1218,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_rule_detail.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="34" column="28" lean-forward="false" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
-          <folding>
-            <element signature="e#25#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_handler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1216">
@@ -1244,13 +1230,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
           <caret line="261" column="0" lean-forward="false" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/type_define.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1520">
-          <caret line="82" column="25" lean-forward="true" selection-start-line="82" selection-start-column="25" selection-end-line="82" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -1291,28 +1270,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/config_dao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2451">
-          <caret line="133" column="17" lean-forward="true" selection-start-line="133" selection-start-column="17" selection-end-line="133" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="23" column="46" lean-forward="false" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/job_dao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2546">
-          <caret line="138" column="8" lean-forward="false" selection-start-line="138" selection-start-column="8" selection-end-line="138" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -1344,7 +1305,7 @@
     <entry file="file://$PROJECT_DIR$/handlers/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="589">
-          <caret line="31" column="55" lean-forward="true" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+          <caret line="31" column="55" lean-forward="false" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
           <folding />
         </state>
       </provider>
@@ -1352,7 +1313,7 @@
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="969">
-          <caret line="61" column="21" lean-forward="true" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
+          <caret line="61" column="21" lean-forward="false" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -1367,18 +1328,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/type_define.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="26" lean-forward="false" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_query_job_info.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="684">
-          <caret line="42" column="32" lean-forward="true" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+          <caret line="42" column="32" lean-forward="false" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -1399,30 +1352,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_operation_mask.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="36" column="34" lean-forward="true" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
-          <folding>
-            <element signature="e#25#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_query_accounts.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
-          <caret line="28" column="31" lean-forward="true" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
+          <caret line="28" column="31" lean-forward="false" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
           <folding>
             <element signature="e#25#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/template/employee_info_table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="416" column="30" lean-forward="true" selection-start-line="416" selection-start-column="30" selection-end-line="416" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="87" column="18" lean-forward="true" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
+        <state relative-caret-position="1387">
+          <caret line="74" column="21" lean-forward="false" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_operation_mask.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="14" column="16" lean-forward="false" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+          <folding>
+            <element signature="e#25#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/config_dao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="109" column="8" lean-forward="false" selection-start-line="109" selection-start-column="8" selection-end-line="109" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/job_dao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_rule_detail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="37" column="59" lean-forward="false" selection-start-line="37" selection-start-column="59" selection-end-line="37" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/type_define.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-285">
+          <caret line="39" column="25" lean-forward="false" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/type_define.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_upload_file.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="71" column="39" lean-forward="false" selection-start-line="71" selection-start-column="39" selection-end-line="71" selection-end-column="39" />
           <folding />
         </state>
       </provider>
