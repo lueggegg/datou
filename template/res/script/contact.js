@@ -38,26 +38,18 @@ function queryDeptLevel() {
 }
 
 function initDept() {
-    $.post('/api/query_dept_list?tree=1', null, function (data) {
-        try {
-            if (data.status !== 0) {
-                promptMsg(data.msg);
-                return;
-            }
-            dept_tree_data = data.data;
-            var options = '';
-            for (var key in dept_tree_data) {
-                if (dept_tree_data.hasOwnProperty(key) && parseInt(key) > 0) {
-                    var dept = dept_tree_data[key][0];
-                    options += '<option value="' + dept.id + ' ">' + dept.name + '</option>';
-                }
-            }
-            $("#condition_dept").append(options).selectmenu('refresh');
-            addDepartment(0, 0);
-        } catch (e) {
-            redirectError(e);
-        }
+    commonPost('/api/query_dept_list?tree=1', null, function (data) {
+        dept_tree_data = data;
+        addDepartment(0, 0);
     });
+
+    commonPost('/api/query_dept_list', null, function (data) {
+        var options = '';
+        data.forEach(function (p1, p2, p3) {
+            options += '<option value="' + p1.id + ' ">' + p1.name + '</option>';
+        });
+        $("#condition_dept").append(options).selectmenu('refresh');
+    })
 }
 
 function queryDeptContact() {
