@@ -28,6 +28,7 @@
 {% block js_script %}
 <script>
     var attachment_controller = initAttachmentController($("#attachment_container"));
+    var position_type = {{ account_info['position_type'] }};
 
     $(function () {
         $('#begin_time').datepicker();
@@ -57,9 +58,16 @@
         content += "<div>详情：</div>";
         content += "<div style='margin-left:2em'>" + reason + "</div>";
 
+        var job_type = null;
+        if (position_type === TYPE_POSITION_NORMAL) {
+            job_type = TYPE_JOB_LEAVE_FOR_BORN_LEADER;
+        } else {
+            job_type = TYPE_JOB_LEAVE_FOR_BORN_NORMAL;
+        }
+
         var param = {
             op: 'add',
-            job_type: getType(),
+            job_type: job_type,
             title: '产假申请',
             content: wrapJobContent(content)
         };

@@ -55,21 +55,24 @@ $(document).ready(function () {
         }
     });
 
-    commonPost('/api/query_account_list', {type: TYPE_ACCOUNT_LEADER}, function (data) {
-        if (data.length > 0) {
-            data.forEach(function (p1, p2, p3) {
-                p1['label'] = p1.name + "（" + p1.position + "）";
-            });
-            leader_selector_controller = createListSelectorController(leader_container, {data: data, name: 'leader_selector', is_radio: false})
+
+    leader_selector_controller = createListSelectorController(leader_container,
+        {
+            data: [
+            {id: TYPE_REPORT_CONTINUE_TILL_VIA, label: '继续汇报到分管领导'},
+            {id: TYPE_REPORT_TO_LEADER_TILL_CHAIR, label: '继续汇报到最高领导'}
+            ],
+            name: 'leader_selector',
+            is_radio: true
         }
-    });
+    );
 
     report_selector_controller = createListSelectorController(report_container,
         {
             data: [
-                {id: TYPE_REPORT_TO_LEADER_TILL_DEPT, label: '汇报到部门主管为止'},
-                {id: TYPE_REPORT_TO_LEADER_TILL_VIA, label: '汇报到分管领导为止'},
-                {id: TYPE_REPORT_TO_LEADER_TILL_CHAIR, label: '汇报到最高领导为止'}
+                {id: TYPE_REPORT_TO_LEADER_TILL_DEPT, label: '汇报到部门主管'},
+                {id: TYPE_REPORT_TO_LEADER_TILL_VIA, label: '汇报到分管领导'},
+                {id: TYPE_REPORT_TO_LEADER_TILL_CHAIR, label: '汇报到最高领导'}
             ],
             name: 'report_selector',
             is_radio: true
@@ -86,14 +89,13 @@ function initTabs() {
         [TYPE_JOB_CERTIFICATE_LABOR, '在职证明'],
         [TYPE_JOB_CERTIFICATE_INTERNSHIP, '实习证明'],
         [TYPE_JOB_HR_RESIGN, '离职申请'],
-        [TYPE_JOB_HR_ANOTHER_POST, '调岗申请'],
         [TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY, '中层请假:：超一天'],
         [TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY, '中层请假：一天内'],
         [TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY, '员工请假：超一天'],
         [TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY, '员工请假：一天内'],
-        [TYPE_JOB_HR_LEAVE_FOR_BORN, '产假申请'],
-        [TYPE_JOB_FINANCIAL_PURCHASE, '购物流程'],
-        [TYPE_JOB_FINANCIAL_REIMBURSEMENT, '报销流程']
+        [TYPE_JOB_LEAVE_FOR_BORN_LEADER, '中层产假申请'],
+        [TYPE_JOB_LEAVE_FOR_BORN_NORMAL, '员工产假申请'],
+        [TYPE_JOB_FINANCIAL_PURCHASE, '购物流程']
     ];
     var tab_list_html = '';
     var tab_container_html = '';
@@ -170,10 +172,12 @@ function createJobPathNode(container, node_data) {
     html += '<div class="job_path_node_list_container"><ul>';
     if (node_data.to_leader > 0) {
         var label = {};
-        label[TYPE_REPORT_TO_LEADER_TILL_CHAIR] = '汇报到最高领导为止';
-        label[TYPE_REPORT_TO_LEADER_TILL_VIA] = '汇报到分管领导为止';
-        label[TYPE_REPORT_TO_LEADER_TILL_DEPT] = '汇报到部门主管为止';
-        label[1] = '汇报到部门主管为止';
+        label[TYPE_REPORT_TO_LEADER_TILL_CHAIR] = '汇报到最高领导';
+        label[TYPE_REPORT_TO_LEADER_TILL_VIA] = '汇报到分管领导';
+        label[TYPE_REPORT_TO_LEADER_TILL_DEPT] = '汇报到部门主管';
+        label[TYPE_REPORT_CONTINUE_TILL_VIA] = '继续汇报到分管领导'
+        label[TYPE_REPORT_CONTINUE_TILL_CHAIR] = '继续汇报到最高领导'
+        label[1] = '汇报到部门主管';
         html += '<li class="leader_item">' + label[node_data.to_leader] + '</li>';
     } else {
         var dept_list = '';
@@ -280,8 +284,12 @@ function closeSelectorDlgWithOk() {
                     break;
             }
         } else if (selected_path_type === 2) {
-            result = leader_selector_controller.get_result();
-            param['uid_list'] = JSON.stringify(result);
+            var to_leader = leader_selector_controller.get_result();
+            if (to_leader.length === 0) {
+                promptMsg('请选择类型');
+                return;
+            }
+            param['to_leader'] = to_leader[0];
         } else {
             redirectError('系统错误');
             return;

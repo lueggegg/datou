@@ -35,6 +35,7 @@ class ApiProcessAutoJob(JobHandler):
             self.check_result_and_finish_while_failed(job_id, '创建工作流失败')
         elif op == 'reply':
             job_id = self.get_argument_and_check_it('job_id')
+            yield self.check_job_mark(job_id)
             job_record = yield self.job_dao.query_job_base_info(job_id)
             if job_record['report_status']:
                 path = yield self.job_dao.query_job_auto_path(job_type, pre_path_id=job_record['cur_path_id'])
@@ -42,12 +43,14 @@ class ApiProcessAutoJob(JobHandler):
                 path = yield self.job_dao.query_first_job_auto_path(job_type)
         elif op == 'cancel':
             job_id = self.get_argument_and_check_it('job_id')
+            yield self.check_job_mark(job_id)
             yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_CANCEL)
             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
             self.process_result(True, '撤消自动化工作流')
             return
         elif op == 'reject':
             job_id = self.get_argument_and_check_it('job_id')
+            yield self.check_job_mark(job_id)
             yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_REJECTED)
             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
         else:
@@ -66,9 +69,6 @@ class ApiProcessAutoJob(JobHandler):
         node_type = self.get_argument('node_type', None)
         if node_type:
             job_node['type'] = node_type
-        job_mark = yield self.job_dao.query_job_mark(job_id, self.account_info['id'])
-        if job_mark and job_mark['status'] != type_define.STATUS_JOB_INVOKED_BY_MYSELF and job_mark['status'] != type_define.STATUS_JOB_MARK_WAITING:
-            self.finish_with_error(error_codes.EC_SYS_ERROR, '该工作流已经被审阅或撤回')
         node_id = yield self.job_dao.add_job_node(**job_node)
         if not node_id:
             if op == 'add':
@@ -104,15 +104,34 @@ class ApiProcessAutoJob(JobHandler):
             mark_done = False
             to_leader = path['to_leader']
             report_complete = False
+            next_rec = None
             if to_leader:
                 if to_leader == type_define.TYPE_REPORT_TO_LEADER_TILL_CHAIR:
-                    report_complete = self.account_info['authority'] <= type_define.AUTHORITY_CHAIR_LEADER
+                    report_complete = self.account_info['authority'] == type_define.AUTHORITY_CHAIR_LEADER
                 elif to_leader == type_define.TYPE_REPORT_TO_LEADER_TILL_VIA:
-                    report_complete = self.account_info['authority'] <= type_define.AUTHORITY_VIA_LEADER
+                    report_complete = self.account_info['authority'] in [type_define.AUTHORITY_VIA_LEADER,
+                                                                         type_define.AUTHORITY_CHAIR_LEADER]
                 elif to_leader == type_define.TYPE_REPORT_TO_LEADER_TILL_DEPT:
-                    report_complete = self.account_info['authority'] <= type_define.AUTHORITY_DEPT_LEADER
+                    report_complete = self.account_info['authority'] <= type_define.AUTHORITY_DEPT_LEADER \
+                                      and self.account_info['authority'] >= type_define.AUTHORITY_CHAIR_LEADER
+                elif to_leader == type_define.TYPE_REPORT_CONTINUE_TILL_VIA:
+                    report_complete = self.account_info['authority'] in [type_define.AUTHORITY_VIA_LEADER,
+                                                                         type_define.AUTHORITY_CHAIR_LEADER]
+                    if not report_complete:
+                        leader = yield self.get_via_and_chair_leader(job_record['invoker'])
+                        next_rec = leader['via' if 'via' in leader else 'chair']['id']
+                elif to_leader == type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR:
+                    report_complete = self.account_info['authority'] <= type_define.AUTHORITY_CHAIR_LEADER
+                    if not report_complete:
+                        if self.account_info['authority'] == type_define.AUTHORITY_VIA_LEADER:
+                            next_rec = self.account_info['report_uid']
+                        else:
+                            leader = yield self.get_via_and_chair_leader(job_record['invoker'])
+                            next_rec = leader['via' if 'via' in leader else 'chair']['id']
+
                 if not report_complete:
-                    next_rec = self.account_info['report_uid']
+                    if not next_rec:
+                        next_rec = self.account_info['report_uid']
                     if not next_rec:
                         self.finish_with_error(error_codes.EC_SYS_ERROR, '未设置汇报关系，发送失败')
                     else:
@@ -136,3 +155,9 @@ class ApiProcessAutoJob(JobHandler):
             yield self.job_dao.update_job(job_id, cur_path_id=path['id'])
 
         self.process_result(True, '自动化工作流')
+
+    @gen.coroutine
+    def check_job_mark(self, job_id):
+        job_mark = yield self.job_dao.query_job_mark(job_id, self.account_info['id'])
+        if job_mark and job_mark['status'] != type_define.STATUS_JOB_INVOKED_BY_MYSELF and job_mark['status'] != type_define.STATUS_JOB_MARK_WAITING:
+            self.finish_with_error(error_codes.EC_SYS_ERROR, '该工作流已经被审阅或撤回')

@@ -699,7 +699,7 @@
             account_info['sex'] = TYPE_SEX_FEMALE;
         }
 
-        if (info['leadership'] === '干部') {
+        if (info['position'] === '主任' || info['position'] === '副主任' || info['position'] === '编委') {
             account_info['position_type'] = TYPE_POSITION_LEADER;
         } else {
             account_info['position_type'] = TYPE_POSITION_NORMAL;

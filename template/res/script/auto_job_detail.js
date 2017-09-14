@@ -21,7 +21,9 @@ function initProcessContainer() {
     });
     $("#doc_reject_btn").click(function (event) {
         showConfirmDialog('拒绝该申请并归档该工作流？', function () {
-            commonPost('/api/process_auto_job', {job_id: __job_id, job_type: main_info.type, op: 'reject'}, function (data) {
+            commonPost('/api/process_auto_job',
+                {job_id: __job_id, job_type: main_info.type, op: 'reject', content: wrapJobContent($("#doc_content").val())},
+                function (data) {
                 promptMsg('操作成功，2s后自动刷新...');
                 setTimeout(function () {
                     refresh();

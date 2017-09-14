@@ -73,6 +73,8 @@
     var ready_file_name = null;
 
     $(document).ready(function () {
+        needAuthority(OPERATION_MASK_RULE);
+
         rule_detail_dlg = $("#rule_detail_dlg");
         commonInitDialog(rule_detail_dlg, dealOperation, {width: 800});
         $("#del_attachment_btn").hide();
