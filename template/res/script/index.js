@@ -131,7 +131,7 @@ function getJobUrl(job_type, job_id) {
         case TYPE_JOB_OFFICIAL_DOC:
             return 'doc_detail.html?job_id=' + job_id;
         default:
-            return 'auto_job_detail.html?job_id=' + job_id + "&title=" + job_type_map[job_type];
+            return 'auto_job_detail.html?job_id=' + job_id + "&title=" + encodeURI(job_type_map[job_type]);
     }
 }
 

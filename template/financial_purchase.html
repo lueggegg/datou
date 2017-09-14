@@ -1,11 +1,11 @@
 {% extends base_certificate.html %}
 
-{% block title %}采购流程{% end %}
+{% block title %}购物流程{% end %}
 {% block more_head %}
 <script type="text/javascript" src="res/script/attachment_list.js"></script>
 <link rel="stylesheet" href="res/css/list.css">
 {% end %}
-{% block certificate_title %}采购流程{% end %}
+{% block certificate_title %}购物流程{% end %}
 
 {% block certificate_content %}
 <div>
@@ -64,7 +64,7 @@
         var param =  {
             op: 'add',
             job_type: getType(),
-            title: '采购流程',
+            title: '购物流程',
             content: wrapJobContent(content)
         };
         var attachment = attachment_controller.get_upload_files();

@@ -257,7 +257,7 @@ function closeSelectorDlgWithOk() {
         promptMsg('系统错误: wrong op type while close dlg');
         return;
     }
-    
+
     var result;
     if (selected_path_type === 0) {
         var report_queue = report_selector_controller.get_result();

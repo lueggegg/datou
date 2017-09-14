@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
+
 from base_handler import BaseHandler
-from tornado import gen
+from tornado import gen, escape
 
 class HtmlHandler(BaseHandler):
 
@@ -13,6 +15,7 @@ class HtmlHandler(BaseHandler):
             return
         path = self.request.path
         try:
-            self.render(path[1:], account_info=self.account_info, arg=self.request.arguments)
+            arg = self.request.arguments
+            self.render(path[1:], account_info=self.account_info, arg=arg)
         except IOError:
             self.send_error(404)

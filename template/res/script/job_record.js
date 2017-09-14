@@ -72,7 +72,7 @@ function onClickDocItem(job_type, job_id) {
             window.open('/doc_detail.html?job_id=' + job_id, '公文详情');
             break;
         default:
-            window.open('/auto_job_detail.html?job_id=' + job_id + "&title=" + job_type_map[job_type], '自动化流程');
+            window.open('/auto_job_detail.html?job_id=' + job_id + "&title=" + encodeURI(job_type_map[job_type]), '自动化流程');
             break;
     }
 }
