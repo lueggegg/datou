@@ -41,7 +41,7 @@ $(document).ready(function () {
 
     processor_selector_dlg = $("#processor_selector_dlg");
     commonInitDialog(processor_selector_dlg, function () {
-       closeSelectorDlgWithOk();
+        closeSelectorDlgWithOk();
     }, {width: 500});
 
     processor_selector_controller = createTagSelectorController(selector_container, {
@@ -59,8 +59,8 @@ $(document).ready(function () {
     leader_selector_controller = createListSelectorController(leader_container,
         {
             data: [
-            {id: TYPE_REPORT_CONTINUE_TILL_VIA, label: '继续汇报到分管领导'},
-            {id: TYPE_REPORT_TO_LEADER_TILL_CHAIR, label: '继续汇报到最高领导'}
+                {id: TYPE_REPORT_CONTINUE_TILL_VIA, label: '继续汇报到分管领导'},
+                {id: TYPE_REPORT_TO_LEADER_TILL_CHAIR, label: '继续汇报到最高领导'}
             ],
             name: 'leader_selector',
             is_radio: true
@@ -243,62 +243,61 @@ function closeSelectorDlgWithOk() {
         op: op,
         job_type: getSelectedJob()
     };
+
+    if (op === 'add') {
+        if (insert_node.pre_path_id) {
+            param['pre_path_id'] = insert_node.pre_path_id;
+        }
+        if (insert_node.next_path_id) {
+            param['next_path_id'] = insert_node.next_path_id;
+        }
+    } else if (op === 'update') {
+        param['path_id'] = op_path_id;
+    } else {
+        promptMsg('系统错误: wrong op type while close dlg');
+        return;
+    }
+    
+    var result;
     if (selected_path_type === 0) {
-        var to_leader = report_selector_controller.get_result();
+        var report_queue = report_selector_controller.get_result();
+        if (report_queue.length === 0) {
+            promptMsg('请选择类型');
+            return;
+        }
+        param['to_leader'] = report_queue[0];
+    } else if (selected_path_type === 1) {
+        result = processor_selector_controller.get_result();
+        switch (result.status) {
+            case 0:
+                promptMsg('请选择审批部门或者审批员工');
+                return;
+            case 1:
+                param['dept_list'] = JSON.stringify(result.type_list);
+                break;
+            case 2:
+                param['uid_list'] = JSON.stringify(result.value_list);
+                break;
+            case 3:
+                param['dept_list'] = JSON.stringify(result.type_list);
+                param['uid_list'] = JSON.stringify(result.value_list);
+                break;
+        }
+    } else if (selected_path_type === 2) {
+        var to_leader = leader_selector_controller.get_result();
         if (to_leader.length === 0) {
             promptMsg('请选择类型');
             return;
         }
         param['to_leader'] = to_leader[0];
-        param['path_id'] = op_path_id;
     } else {
-        if (op === 'add') {
-            if (insert_node.pre_path_id) {
-                param['pre_path_id'] = insert_node.pre_path_id;
-            }
-            if (insert_node.next_path_id) {
-                param['next_path_id'] = insert_node.next_path_id;
-            }
-        } else if (op === 'update') {
-            param['path_id'] = op_path_id;
-        } else {
-            promptMsg('系统错误: wrong op type while close dlg');
-            return;
-        }
-        var result;
-        if (selected_path_type === 1) {
-            result = processor_selector_controller.get_result();
-            switch (result.status) {
-                case 0:
-                    promptMsg('请选择审批部门或者审批员工');
-                    return;
-                case 1:
-                    param['dept_list'] = JSON.stringify(result.type_list);
-                    break;
-                case 2:
-                    param['uid_list'] = JSON.stringify(result.value_list);
-                    break;
-                case 3:
-                    param['dept_list'] = JSON.stringify(result.type_list);
-                    param['uid_list'] = JSON.stringify(result.value_list);
-                    break;
-            }
-        } else if (selected_path_type === 2) {
-            var to_leader = leader_selector_controller.get_result();
-            if (to_leader.length === 0) {
-                promptMsg('请选择类型');
-                return;
-            }
-            param['to_leader'] = to_leader[0];
-        } else {
-            redirectError('系统错误');
-            return;
-        }
+        redirectError('系统错误');
+        return;
     }
 
     commonPost('/api/alter_job_path', param, function (data) {
-       processor_selector_dlg.dialog('close');
-       refresh();
+        processor_selector_dlg.dialog('close');
+        refresh();
     });
 }
 

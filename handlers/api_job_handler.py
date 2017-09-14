@@ -14,25 +14,30 @@ class JobHandler(ApiHandler):
             self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '工作流类型错误')
 
     @gen.coroutine
-    def get_via_and_chair_leader(self, uid):
+    def get_account_leader(self, uid, level):
+        if level not in ['dept', 'via', 'chair']:
+            self.finish_with_error(error_codes.EC_SYS_ERROR, '系统错误')
+
         current_account = yield self.account_dao.query_account_by_id(uid)
         if current_account['authority'] in [type_define.AUTHORITY_CHAIR_LEADER, type_define.AUTHORITY_VIA_LEADER]:
             self.finish_with_error(error_codes.EC_SYS_ERROR, '领导不适用此接口')
 
-        ret = {'via': None, 'chair': None}
+        need_authority = None
+        if level == 'dept':
+            need_authority = type_define.AUTHORITY_DEPT_LEADER
+        elif level == 'via':
+            need_authority = type_define.AUTHORITY_VIA_LEADER
+        elif level == 'chair':
+            need_authority = type_define.AUTHORITY_CHAIR_LEADER
         count = 5
         while True:
+            if current_account['authority'] > type_define.AUTHORITY_ADMIN and current_account['authority'] <= need_authority:
+                break
             if not current_account['report_uid']:
                 self.finish_with_error(error_codes.EC_SYS_ERROR, '未设置汇报关系')
             current_account = yield self.account_dao.query_account_by_id(current_account['report_uid'])
-            if current_account['authority'] == type_define.AUTHORITY_VIA_LEADER:
-                ret['via'] = current_account
-                continue
-            if current_account['authority'] == type_define.AUTHORITY_CHAIR_LEADER:
-                ret['chair'] = current_account
-                break
             count -= 1
             if count == 0:
                 self.finish_with_error(error_codes.EC_SYS_ERROR, '遍历汇报关系出错：层次过多')
-        raise gen.Return(ret)
+        raise gen.Return(current_account)
 
