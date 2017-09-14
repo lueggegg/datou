@@ -15,6 +15,13 @@
     结束时间：<input type="text" id="end_time" class="job_process_content_date_picker">
 </div>
 <div>
+    产假类型：
+    <select id="type_selector">
+        <option value="产假" selected>产假</option>
+        <option value="陪产假">陪产假</option>
+    </select>
+</div>
+<div>
     详情：
     <div>
         <textarea id="reason" class="common_text_area"></textarea>
@@ -55,6 +62,7 @@
 
         var content =  "<div>开始时间：" + wrapWithSpan(begin_time) + "</div>";
         content += "<div>开始时间：" + wrapWithSpan(end_time) + "</div>";
+        content += "<div>产假类型：" + wrapWithSpan($("#type_selector").val()) + "</div>";
         content += "<div>详情：</div>";
         content += "<div style='margin-left:2em'>" + reason + "</div>";
 
