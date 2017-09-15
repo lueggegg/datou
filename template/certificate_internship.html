@@ -2,13 +2,16 @@
 
 {% block title %}实习证明{% end %}
 {% block certificate_title %}实习证明{% end %}
+{% block more_head %}
+{% module Template("module_date_time_picker.html") %}
+{% end %}
 
 {% block certificate_content %}
 　　兹证明，<span>{{ account_info['name'] }}</span>（身份证：<span>{{ account_info['id_card'] }}</span>）
 于<input class="job_process_content_date_picker" type="text" id="begin_date">
 至<input class="job_process_content_date_picker" type="text" id="end_date"> 在我司实习，
 实习职位为<span>{{ account_info['position'] }}</span>，
-此证明仅作<input class="job_process_content_editor" type="text">之用。
+此证明仅作<input class="job_process_content_editor" type="text" id="usage">之用。
 {% end %}
 
 

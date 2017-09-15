@@ -45,7 +45,6 @@ class ApiProcessAutoJob(JobHandler):
                 path = yield self.job_dao.query_job_auto_path(job_type, id=job_record['cur_path_id'])
         elif op == 'cancel':
             job_id = self.get_argument_and_check_it('job_id')
-            yield self.check_job_mark(job_id)
             yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_CANCEL)
             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
             self.process_result(True, '撤消自动化工作流')

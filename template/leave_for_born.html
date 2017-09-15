@@ -4,6 +4,7 @@
 {% block more_head %}
 <script type="text/javascript" src="res/script/attachment_list.js"></script>
 <link rel="stylesheet" href="res/css/list.css">
+{% module Template("module_date_time_picker.html") %}
 {% end %}
 {% block certificate_title %}产假申请{% end %}
 
@@ -38,8 +39,8 @@
     var position_type = {{ account_info['position_type'] }};
 
     $(function () {
-        $('#begin_time').datepicker();
-        $('#end_time').datepicker();
+        initDatePicker($('#begin_time'));
+        initDatePicker($('#end_time'));
 
         selectMenu($("#leave_type"));
     });
@@ -68,9 +69,9 @@
 
         var job_type = null;
         if (position_type === TYPE_POSITION_NORMAL) {
-            job_type = TYPE_JOB_LEAVE_FOR_BORN_LEADER;
-        } else {
             job_type = TYPE_JOB_LEAVE_FOR_BORN_NORMAL;
+        } else {
+            job_type = TYPE_JOB_LEAVE_FOR_BORN_LEADER;
         }
 
         var param = {

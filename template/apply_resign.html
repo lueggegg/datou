@@ -2,6 +2,9 @@
 
 {% block title %}离职申请{% end %}
 {% block certificate_title %}离职申请{% end %}
+{% block more_head %}
+{% module Template("module_date_time_picker.html") %}
+{% end %}
 
 {% block certificate_content %}
 <div>
@@ -23,7 +26,7 @@
 
 {% block js_script %}
 <script>
-    initDatePicker($("#resign_date"), null, false, true);
+    initDatePicker($("#resign_date"));
 
     function getParam(check) {
         if (check) return null;

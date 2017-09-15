@@ -2,9 +2,7 @@
 
 {% block title %}请假流程{% end %}
 {% block more_head %}
-<link rel="stylesheet" type="text/css" href="res/jquery/jquery.datetimepicker.css">
-<script type="text/javascript" src="res/jquery/jquery.datetimepicker.js"></script>
-<script type="text/javascript" src="res/jquery/jquery.datetimepicker.full.js"></script>
+{% module Template("module_date_time_picker.html") %}
 <script type="text/javascript" src="res/script/attachment_list.js"></script>
 <link rel="stylesheet" href="res/css/list.css">
 {% end %}
@@ -45,7 +43,6 @@
     var position_type = {{ account_info['position_type'] }};
 
     $(function () {
-        $.datetimepicker.setLocale('ch');
         $('#begin_time').datetimepicker();
         $('#end_time').datetimepicker();
 

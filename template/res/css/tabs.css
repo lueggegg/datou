@@ -2,6 +2,6 @@
 .ui-tabs-vertical { width: 99%; }
 .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 20%; }
 .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 82%;border-bottom-width: 1px !important; border-right-width: 0 !important; margin: .2em 1px .2em 0; }
-.ui-tabs-vertical .ui-tabs-nav li a { display:block; width:9em;}
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; width:9em; color: inherit;}
 .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; background: rgb(0,127,255);}
 .ui-tabs-vertical .ui-tabs-panel { border-left: 1px solid rgb(204,204,204); padding: .5em; float: right; width: 77%}

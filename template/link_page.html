@@ -1,0 +1,53 @@
+{% extends base.html %}
+<title>{% block title %}新闻资讯{% end %}</title>
+
+{% block custom_head %}
+<link href="res/css/list.css" rel="stylesheet">
+<link href="res/css/tabs.css" rel="stylesheet">
+<style>
+    .item_date {
+        color: blue;
+    }
+</style>
+{% end %}
+
+{% block custom_body %}
+<div id="tabs">
+    <ul>
+        <li><a href="#company_link_container">公司新闻</a></li>
+        <li><a href="#other_link_container">其他资讯</a></li>
+    </ul>
+
+    <div id="company_link_container" class="common_container">
+        <ul class="base_ul" id="company_news_list"></ul>
+    </div>
+    <div id="other_link_container" class="common_container">
+        <ul class="base_ul" id="other_news_list"></ul>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        verticalTabs();
+
+        queryLink(TYPE_NEWS_LINK_COMPANY, $("#company_news_list"), 0);
+        queryLink(TYPE_NEWS_LINK_OTHER, $("#other_news_list"), 0);
+    });
+
+    function queryLink(type, container, offset, count) {
+        var param = {op: 'query', type: type, offset: offset};
+        if (count) {
+            param['count'] = count;
+        }
+        commonPost('/api/outer_link', param, function (data) {
+            var list = '';
+            data.forEach(function (p1, p2, p3) {
+                list += "<li><span class='item_date'>[" + p1.mod_time + "]&nbsp;</span>";
+                list += "<a target='_blank' title='" + p1.title + "' href='" + p1.url +"'>" + p1.title + "</a>";
+                list += "</li>";
+            });
+            container.append(list);
+        });
+    }
+</script>
+{% end %}

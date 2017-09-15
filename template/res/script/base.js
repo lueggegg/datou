@@ -78,8 +78,8 @@ function isValidIdCard(id_card) {
 
 function compareParam(default_param, param) {
     if (!param) return;
-    for (var key in default_param) {
-        if (default_param.hasOwnProperty(key) && param.hasOwnProperty(key)) {
+    for (var key in param) {
+        if (param.hasOwnProperty(key)) {
             default_param[key] = param[key];
         }
     }
@@ -218,21 +218,19 @@ function commonTagMsg(msg) {
     }, 3000);
 }
 
-function initDatePicker(container, on_select_cb, init, no_max_date) {
-    var param = {
-        dateFormat: "yy-mm-dd",
-        changeYear: true,
-        defaultDate : new Date(),
-        onSelect: on_select_cb
+function initDatePicker(container, param) {
+    // var param = {
+    //     dateFormat: "yy-mm-dd",
+    //     changeYear: true,
+    //     defaultDate : new Date(),
+    //     onSelect: on_select_cb
+    // };
+    var default_param = {
+        timepicker: false,
+        format: 'Y-m-d'
     };
-    if (!no_max_date) {
-        param['maxDate'] = '0d';
-    }
-    container.datepicker(param);
-    init = !!init;
-    if (init) {
-        container.datepicker("setDate", new Date());
-    }
+    compareParam(default_param, param);
+    container.datetimepicker(default_param);
 }
 
 function consoleDebug(msg) {
