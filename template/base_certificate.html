@@ -57,7 +57,7 @@
 
     $(function () {
         if (__authority === AUTHORITY_CHAIR_LEADER || __authority === AUTHORITY_VIA_LEADER) {
-            redirectError('您的职位，不适用于本流程');
+            redirectError(encodeURI('您的职位，不适用于本流程'));
         }
         try {
             getType();
