@@ -154,7 +154,7 @@ function setMyDocTabData(index, data) {
     var list_data = [title];
     job_data.forEach(function (p1, p2, p3) {
         list_data.push([
-            "<div class=common_clickable onclick='onClickDocItem(" + p1.id + ")'>" + p1.title + "</div>",
+            "<div class=common_clickable onclick='onClickDocItem(" + p1.id + "," + p1.branch_id + ")'>" + p1.title + "</div>",
             p1.invoker_name,
             abstractDateFromDatetime(p1.time),
             commonGetString(p1.last_operator_name),
@@ -164,6 +164,10 @@ function setMyDocTabData(index, data) {
     updateListView(my_doc_tabs[index], list_data, {weight: [2,1,1,1,1]});
 }
 
-function onClickDocItem(job_id) {
-    window.open('/doc_detail.html?job_id=' + job_id, '公文详情');
+function onClickDocItem(job_id, branch_id) {
+    var url = '/doc_detail.html?job_id=' + job_id;
+    if (branch_id) {
+        url += '&branch_id=' + branch_id;
+    }
+    window.open(url, '公文详情');
 }

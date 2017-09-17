@@ -282,6 +282,9 @@ function queryFirstJobNode() {
     commonPost(query_url, {type: 'node', job_id: __job_id}, function (data) {
         var node_data = data[0];
         first_node = node_data;
+        if (!first_node.rec_id) {
+            first_node.rec_id = __branch_id;
+        }
         addJobNodeItem($("#first_node_container"), node_data, 0, false);
         var container = $("#branch_tag_container");
         if (node_data.sender_id === __my_uid ) {

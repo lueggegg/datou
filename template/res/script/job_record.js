@@ -50,7 +50,7 @@ function setJobData(index, data) {
         data.forEach(function (p1, p2, p3) {
             var item = [
                 '<span style="color: orange">[' + job_type_map[p1.type] + ']</span>',
-                "<div class=common_clickable onclick='onClickDocItem(" + p1.type + "," + p1.id + ")'>" + p1.title + "</div>",
+                "<div class=common_clickable onclick='onClickDocItem(" + p1.type + "," + p1.id + "," + p1.branch_id + ")'>" + p1.title + "</div>",
                 "<div>" + p1.invoker_name + "</div>",
                 abstractDateFromDatetime(p1.time),
                 commonGetString(p1.last_operator_name),
@@ -66,10 +66,14 @@ function setJobData(index, data) {
     }
 }
 
-function onClickDocItem(job_type, job_id) {
+function onClickDocItem(job_type, job_id, branch_id) {
     switch (job_type) {
         case TYPE_JOB_OFFICIAL_DOC:
-            window.open('/doc_detail.html?job_id=' + job_id, '公文详情');
+            var url = '/doc_detail.html?job_id=' + job_id;
+            if (branch_id) {
+                url += '&branch_id=' + branch_id;
+            }
+            window.open(url, '公文详情');
             break;
         default:
             window.open('/auto_job_detail.html?job_id=' + job_id + "&title=" + encodeURI(job_type_map[job_type]), '自动化流程');
