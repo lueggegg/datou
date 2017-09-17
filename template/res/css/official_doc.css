@@ -9,7 +9,7 @@
 .node_info_item {
     width: 100%;
     margin-left: 10px;
-    line-height: 40px;
+    line-height: 36px;
     display: inline-block;
 }
 
@@ -20,6 +20,7 @@
 .rec_container {
     margin-left: 4px;
     width: 87.5%;
+    min-height: 36px;
     padding-left: 5px;
     padding-right: 5px;
     background: white;
