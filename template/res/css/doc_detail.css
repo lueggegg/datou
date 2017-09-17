@@ -160,3 +160,43 @@
     line-height: 36px;
     background: yellow;
 }
+
+#branch_tag_container {
+    display: inline-block;
+    width: 100%;
+    border: 1px solid lightgray;
+    margin-top: 10px;
+    border-radius: 4px;
+    background: rgb(252,252,253);
+}
+
+#branch_tag_container ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+#branch_tag_container ul li {
+    float: left;
+    text-align: center;
+    min-width: 64px;
+    padding: 5px;
+    margin: 5px;
+    background: orange;
+    color: white;
+    border-radius: 4px;
+}
+
+#branch_tag_container ul li:hover {
+    cursor: pointer;
+    background: rgb(0,192,255)
+}
+
+#branch_tag_container ul li:active {
+    cursor: pointer;
+    background: rgb(0,225,255);
+}
+
+#branch_tag_container ul .branch_tag_active {
+    background: rgb(0,192,255);
+}

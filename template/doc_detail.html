@@ -23,9 +23,10 @@
         <div id="doc_topic"></div>
         <div class="element_right" style="margin-right: 20px" id="job_status"></div>
     </div>
-    <div id="doc_node_list">
+    <div id="first_node_container">
     </div>
-    <!--<div class="common_bold_divider"></div>-->
+    <div id="branch_tag_container"></div>
+    <div id="doc_branch_node_container"></div>
     <div id="process_container">
         <div class="node_info_item">
             <div class="element_left node_info_item_label">发送到：</div>
@@ -78,5 +79,9 @@
 {% block custom_foot %}
 <script>
     var __job_id = {{ arg['job_id'][0] }};
+    var __branch_id = null;
+    {% if 'branch_id' in arg %}
+    __branch_id = {{ arg['branch_id'][0] }};
+    {% end %}
 </script>
 {% end %}

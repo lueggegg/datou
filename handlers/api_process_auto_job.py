@@ -103,69 +103,83 @@ class ApiProcessAutoJob(JobHandler):
         else:
             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_PROCESSED)
             mark_done = False
-            to_leader = path['to_leader']
-            report_complete = False
-            next_rec = None
-            if to_leader:
-                if change_to_next:
-                    if to_leader in [
-                        type_define.TYPE_REPORT_TO_LEADER_TILL_DEPT,
-                        type_define.TYPE_REPORT_TO_LEADER_TILL_VIA,
-                        type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR
-                    ]:
-                        leader = yield self.get_account_leader(job_record['invoker'], 'dept')
-                        if leader['id'] == job_record['invoker']:
-                            if to_leader == type_define.TYPE_REPORT_TO_LEADER_TILL_DEPT:
-                                report_complete = True
+            while not mark_done:
+                to_leader = path['to_leader']
+                report_complete = False
+                next_rec = None
+                if to_leader:
+                    if change_to_next:
+                        if to_leader in [
+                            type_define.TYPE_REPORT_TO_LEADER_TILL_DEPT,
+                            type_define.TYPE_REPORT_TO_LEADER_TILL_VIA,
+                            type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR
+                        ]:
+                            leader = yield self.get_account_leader(job_record['invoker'], 'dept')
+                            if leader['id'] == job_record['invoker']:
+                                if to_leader == type_define.TYPE_REPORT_TO_LEADER_TILL_DEPT:
+                                    report_complete = True
+                                else:
+                                    next_rec = leader['report_uid']
                             else:
-                                next_rec = leader['report_uid']
+                                next_rec = leader['id']
                         else:
+                            leader = yield self.get_account_leader(job_record['invoker'], 'via')
                             next_rec = leader['id']
+                        next_leader =  next_rec and next_rec == self.account_info['id']
                     else:
-                        leader = yield self.get_account_leader(job_record['invoker'], 'via')
-                        next_rec = leader['id']
-                else:
-                    if to_leader == type_define.TYPE_REPORT_TO_LEADER_TILL_CHAIR:
-                        report_complete = self.account_info['authority'] == type_define.AUTHORITY_CHAIR_LEADER
-                    elif to_leader == type_define.TYPE_REPORT_TO_LEADER_TILL_VIA:
-                        report_complete = self.account_info['authority'] in [type_define.AUTHORITY_VIA_LEADER,
-                                                                             type_define.AUTHORITY_CHAIR_LEADER]
-                    elif to_leader == type_define.TYPE_REPORT_TO_LEADER_TILL_DEPT:
-                        report_complete = self.account_info['authority'] <= type_define.AUTHORITY_DEPT_LEADER \
-                                          and self.account_info['authority'] >= type_define.AUTHORITY_CHAIR_LEADER
-                    elif to_leader == type_define.TYPE_REPORT_CONTINUE_TILL_VIA:
-                        report_complete = self.account_info['authority'] in [type_define.AUTHORITY_VIA_LEADER,
-                                                                             type_define.AUTHORITY_CHAIR_LEADER]
-                    elif to_leader == type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR:
-                        report_complete = self.account_info['authority'] <= type_define.AUTHORITY_CHAIR_LEADER
+                        next_leader = True
+                    if next_leader:
+                        if to_leader == type_define.TYPE_REPORT_TO_LEADER_TILL_CHAIR:
+                            report_complete = self.account_info['authority'] == type_define.AUTHORITY_CHAIR_LEADER
+                        elif to_leader == type_define.TYPE_REPORT_TO_LEADER_TILL_VIA:
+                            report_complete = self.account_info['authority'] in [type_define.AUTHORITY_VIA_LEADER,
+                                                                                 type_define.AUTHORITY_CHAIR_LEADER]
+                        elif to_leader == type_define.TYPE_REPORT_TO_LEADER_TILL_DEPT:
+                            report_complete = self.account_info['authority'] <= type_define.AUTHORITY_DEPT_LEADER \
+                                              and self.account_info['authority'] >= type_define.AUTHORITY_CHAIR_LEADER
+                        elif to_leader == type_define.TYPE_REPORT_CONTINUE_TILL_VIA:
+                            report_complete = self.account_info['authority'] in [type_define.AUTHORITY_VIA_LEADER,
+                                                                                 type_define.AUTHORITY_CHAIR_LEADER]
+                        elif to_leader == type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR:
+                            report_complete = self.account_info['authority'] <= type_define.AUTHORITY_CHAIR_LEADER
 
-                if not report_complete:
-                    if not next_rec:
-                        next_rec = self.account_info['report_uid']
-                    if not next_rec:
-                        self.finish_with_error(error_codes.EC_SYS_ERROR, '未设置汇报关系，发送失败')
+                    if not report_complete:
+                        if not next_rec:
+                            next_rec = self.account_info['report_uid']
+                        if not next_rec:
+                            self.finish_with_error(error_codes.EC_SYS_ERROR, '未设置汇报关系，发送失败')
+                        else:
+                            yield self.job_dao.update_job(job_id, report_status=0)
+                            yield self.job_dao.update_job_mark(job_id, next_rec, type_define.STATUS_JOB_MARK_WAITING)
+                            mark_done = True
                     else:
-                        yield self.job_dao.update_job(job_id, report_status=0)
-                        yield self.job_dao.update_job_mark(job_id, next_rec, type_define.STATUS_JOB_MARK_WAITING)
-                        mark_done = True
+                        yield self.job_dao.update_job(job_id, report_status=1)
+                        if path['next_path_id']:
+                            path = yield self.job_dao.query_job_auto_path(job_type, id=path['next_path_id'])
+                        else:
+                            yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)
+                            yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
+                            mark_done = True
                 else:
                     yield self.job_dao.update_job(job_id, report_status=1)
-                    if path['next_path_id']:
-                        path = yield self.job_dao.query_job_auto_path(job_type, id=path['next_path_id'])
+                if not mark_done:
+                    if len(path['detail']) == 1 and path['detail'][0]['uid'] == self.account_info['id']:
+                        if path['next_path_id']:
+                            path = yield self.job_dao.query_job_auto_path(job_type, id=path['next_path_id'])
+                            change_to_next = True
+                        else:
+                            yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)
+                            yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
+                            mark_done = True
                     else:
-                        yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)
-                        yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
+                        for detail in path['detail']:
+                            if detail['uid']:
+                                yield self.job_dao.update_job_mark(job_id, detail['uid'], type_define.STATUS_JOB_MARK_WAITING)
+                            elif detail['dept_id']:
+                                account_list = yield self.account_dao.query_account_list(dept_id=detail['dept_id'])
+                                for account in account_list:
+                                    yield self.job_dao.update_job_mark(job_id, account['id'], type_define.STATUS_JOB_MARK_WAITING)
                         mark_done = True
-            else:
-                yield self.job_dao.update_job(job_id, report_status=1)
-            if not mark_done:
-                for detail in path['detail']:
-                    if detail['uid']:
-                        yield self.job_dao.update_job_mark(job_id, detail['uid'], type_define.STATUS_JOB_MARK_WAITING)
-                    elif detail['dept_id']:
-                        account_list = yield self.account_dao.query_account_list(dept_id=detail['dept_id'])
-                        for account in account_list:
-                            yield self.job_dao.update_job_mark(job_id, account['id'], type_define.STATUS_JOB_MARK_WAITING)
             yield self.job_dao.update_job(job_id, cur_path_id=path['id'])
 
         self.process_result(True, '自动化工作流')

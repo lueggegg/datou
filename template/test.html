@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>脌毛脰掳脡锚脟毛</title>
+    <title>dd</title>
     <script type="text/javascript" src="res/jquery/external/jquery/jquery.js"></script>
     <script type="text/javascript" src="res/jquery/jquery-ui.js"></script>
     <link href="res/jquery/jquery-ui.css" rel="stylesheet">
@@ -13,11 +13,8 @@
     <link href="res/css/navigation.css" rel="stylesheet">
     <script type="text/javascript" src="res/script/datepicker-zh-CN.js"></script>
 
-    <link href="res/css/doc_detail.css" rel="stylesheet">
-    <link href="res/css/official_doc.css" rel="stylesheet">
-    <link href="res/css/list.css" rel="stylesheet">
-    <script type="text/javascript" src="res/script/auto_job_detail.js"></script>
-
+    <script type="text/javascript" src="res/script/employee_multi_selector.js"></script>
+    <link rel="stylesheet" href="res/css/employee_multi_selector.css">
 </head>
 <body>
 <div class="base_container">
@@ -53,33 +50,8 @@
     <div class="base_body_container">
         <div id="__common_tag_area" class="common_tag_area"></div>
         <div class="content_body_container">
+            <button onclick="openDlg()" class="ui-corner-all ui-button">test</button>
 
-            <div class="doc_detail_anchor common_border">
-                <ul id="doc_node_list_anchor">
-                    <li><a href="#main_info_container">跳到顶部</a></li>
-                    <li><a href="#bottom_anchor">跳到底部</a></li>
-                    <li id="cancel_btn" class="common_clickable">撤消</li>
-                </ul>
-            </div>
-            <div class="doc_detail_container">
-                <div id="main_info_container">
-                    <div class="element_left"> 主题：</div>
-                    <div id="doc_topic"></div>
-                    <div class="element_right" style="margin-right: 20px" id="job_status"></div>
-                </div>
-                <div id="doc_node_list">
-                </div>
-                <div id="process_container">
-                    <div class="doc_text_area_container">
-                        <textarea id='doc_content' class="doc_text_area"></textarea>
-                    </div>
-                    <div style="height: 32px;">
-                        <button id='doc_send_btn' class="doc_send_btn">同意</button>
-                        <button id='doc_reject_btn' class="doc_reject_btn">不同意</button>
-                    </div>
-                </div>
-                <div id="bottom_anchor"></div>
-            </div>
 
         </div>
 
@@ -87,6 +59,11 @@
 
     </div>
 </div>
+
+<div id="test_dlg" title="dlg">
+    <div id="dlg_container"></div>
+</div>
+
 </body>
 <script>
     $("#__common_tag_area").hide();
@@ -119,15 +96,24 @@
         });
         $("#guild_bar").append(html);
     }
+    var test_dlg;
+    var controller;
     $(function () {
         showGuildBar();
         initPromptDialog();
+        test_dlg = $("#test_dlg");
+        commonInitDialog(test_dlg, function () {
+        }, {width: 720});
+        controller = createEmployeeMultiSelectorController($("#dlg_container"));
     });
+    
+    function openDlg() {
+        test_dlg.dialog('open');
+    }
 </script>
 
 <script>
     var __job_id = 99;
-    var __title = "ÀëÖ°ÉêÇë";
 </script>
 
 </html>

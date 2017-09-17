@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="res/css/official_doc.css">
 <script type="text/javascript" src="res/script/official_doc.js"></script>
 <script type="text/javascript" src="res/script/attachment_list.js"></script>
+<script type="text/javascript" src="res/script/employee_multi_selector.js"></script>
+<link rel="stylesheet" href="res/css/employee_multi_selector.css">
 {% end %}
 
 {% block custom_body %}
@@ -23,9 +25,10 @@
         </div>
         <div class="node_info_item">
             <div class="element_left node_info_item_label">发送到：</div>
-            <div class="common_editor node_info_item_input element_left">
+            <div class="rec_container">
+                <ul id="rec_list">
+                </ul>
                 <button id="add_rec_btn" class="node_info_item_add_btn">+</button>
-                <span id="doc_rec" class="node_info_item_rec">joe</span><img src="res/images/icon/red_del.png" id="del_rec_btn" class="common_small_del_btn">
             </div>
         </div>
         <div class="attachment_container" id="attachment_container"></div>
@@ -56,19 +59,7 @@
 </div>
 
 <div id="select_rec_dlg" title="发送到">
-    <div class="common_container">
-        <select id="rec_dept_selector">
-            <option selected disabled value="-1">请选择部门</option>
-            <option value="0">全部</option>
-        </select>
-    </div>
-    <div id="rec_type_set" class="common_container">
-        <input type="radio" name="radio" value="0" id="leader_type" checked><label for="leader_type">部门主管</label>
-        <input type="radio" name="radio" value="1" id="sp_type"><label for="sp_type">指定员工</label>
-    </div>
-    <div class="common_container rec_selector_container">
-        <ul class="employee_selector" id="rec_selector"></ul>
-        <div class="single_dept_leader_rec_item" id="rec_single_item"></div>
+    <div id="employee_selectable_container">
     </div>
 </div>
 {% end %}

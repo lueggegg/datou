@@ -17,6 +17,8 @@ class JobDAO(BaseDAO):
         self.auto_path_tab = 'job_auto_path'
         self.auto_path_detail_tab = 'job_auto_path_detail'
         self.broadcast_tab = 'note_broadcast'
+        self.uid_set_tab = 'uid_set'
+        self.uid_set_detail_tab = 'uid_set_detail'
 
     @gen.coroutine
     def clear_all_job_data(self):
@@ -57,8 +59,7 @@ class JobDAO(BaseDAO):
 
     @gen.coroutine
     def complete_job(self, job_id, complete_status=type_define.STATUS_JOB_COMPLETED):
-        sql = 'UPDATE %s SET status=%s WHERE job_id=%s' % (self.mark_tab, complete_status, job_id)
-        yield self._executor.async_update(self._get_inst(), sql)
+        yield db_helper.update_table_values(self._get_inst(), self._executor, job_id, self.record_tab, status=complete_status)
         yield self.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
         raise gen.Return(True)
 
@@ -69,19 +70,23 @@ class JobDAO(BaseDAO):
         ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.node_tab, **kwargs)
         if ret:
             yield self.update_job(kwargs['job_id'], mod_time=kwargs['time'], last_operator=kwargs['sender_id'])
-            if 'rec_id' in kwargs and kwargs['rec_id']:
-                yield self.update_job_mark(job_id=kwargs['job_id'], uid=kwargs['rec_id'],
-                                           status=type_define.STATUS_JOB_MARK_WAITING)
-            if 'parent' in kwargs and kwargs['parent']:
-                yield self.update_job_mark(job_id=kwargs['job_id'], uid=kwargs['sender_id'],
-                                           status=type_define.STATUS_JOB_MARK_PROCESSED)
+            # if 'rec_id' in kwargs and kwargs['rec_id']:
+            #     yield self.update_job_mark(job_id=kwargs['job_id'], uid=kwargs['rec_id'],
+            #                                status=type_define.STATUS_JOB_MARK_WAITING)
+            # if 'parent' in kwargs and kwargs['parent']:
+            #     yield self.update_job_mark(job_id=kwargs['job_id'], uid=kwargs['sender_id'],
+            #                                status=type_define.STATUS_JOB_MARK_PROCESSED)
         raise gen.Return(ret)
 
     @gen.coroutine
-    def query_job_node_list(self, job_id):
+    def query_job_node_list(self, job_id, branch_id=None):
         sql = "SELECT n.*, a.account, a.name as sender, a.department_id FROM %s n" \
               " LEFT JOIN %s a ON n.sender_id=a.id" \
               " WHERE job_id=%s" % (self.node_tab, self.account_tab, job_id)
+        if branch_id:
+            sql += " AND branch_id=%s" % branch_id
+        else:
+            sql += " AND branch_id is NULL"
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
@@ -124,20 +129,26 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret)
 
     @gen.coroutine
-    def update_job_mark(self, job_id, uid, status):
+    def update_job_mark(self, job_id, uid, status, branch_id=None):
         sql = 'SELECT * FROM %s WHERE uid=%s AND job_id=%s' % (self.mark_tab, uid, job_id)
+        if branch_id:
+            sql += ' AND branch_id=%s' % branch_id
         exist = yield self._executor.async_select(self._get_inst(True), sql)
         if exist:
             ret = yield db_helper.update_table_values(self._get_inst(), self._executor, exist[0]['id'], self.mark_tab,
                                                       status=status)
         else:
-            ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.mark_tab,
-                                                              job_id=job_id, uid=uid, status=status)
+            info = {'job_id': job_id, 'uid': uid, 'status': status}
+            if branch_id:
+                info['branch_id'] = branch_id
+            ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.mark_tab, **info)
         raise gen.Return(ret)
 
     @gen.coroutine
-    def query_job_mark(self, job_id, uid):
+    def query_job_mark(self, job_id, uid, branch_id=None):
         sql = 'SELECT * FROM %s WHERE uid=%s AND job_id=%s' % (self.mark_tab, uid, job_id)
+        if branch_id:
+            sql += ' AND branch_id=%s' % branch_id
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret[0] if ret else None)
 
@@ -316,5 +327,28 @@ class JobDAO(BaseDAO):
                 conditions.append("begin_time>'%s'" % self.now())
             elif kwargs['begin_type'] == type_define.STATUS_BROADCAST_STARTED:
                 conditions.append("begin_time<='%s")
+
+    @gen.coroutine
+    def create_uid_set(self, uid_set):
+        set_id = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.uid_set_tab)
+        if set_id:
+            for uid in uid_set:
+                ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor,
+                                                                  self.uid_set_detail_tab, uid=uid, set_id=set_id)
+                if not ret:
+                    raise gen.Return(False)
+            raise gen.Return(set_id)
+        else:
+            raise gen.Return(False)
+
+    @gen.coroutine
+    def query_uid_set(self, set_id):
+        sql = 'SELECT s.uid, a.account, a.name, d.name AS dept FROM %s s' \
+              ' LEFT JOIN %s a ON s.uid=a.id' \
+              ' LEFT JOIN department d ON a.department_id=d.id' \
+              ' WHERE s.set_id=%s' % (self.uid_set_detail_tab, self.account_tab, set_id)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
+
 
 

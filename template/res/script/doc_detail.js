@@ -5,6 +5,8 @@ var query_url = '/api/query_job_info';
 var attachment_controller = null;
 var img_attachment_controller = null;
 
+var process_container_init = false;
+
 var select_doc_rec_dlg;
 var dept_list_data;
 var employee_list_data;
@@ -15,14 +17,20 @@ var selected_rec_employee = null;
 var employee_map = {};
 
 var main_info = null;
-var node_list_data = null;
+var first_node = null;
+var node_list_data_map = {};
+var current_branch;
+var current_branch_container;
+var active_branch_tag;
 
 $(document).ready(function (event) {
-    commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id}, function (data) {
+    commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id, branch_id: __branch_id}, function (data) {
         if (!data) {
             redirectError('没有权限');
         }
     });
+
+    $("#process_container").hide();
     
     queryJobBaseInfo();
 
@@ -30,9 +38,13 @@ $(document).ready(function (event) {
     initDialog(select_doc_rec_dlg);
 
     initConfirmDialog();
+    current_branch = __branch_id;
 });
 
 function initProcessContainer() {
+    if (process_container_init) return;
+
+    // $("#process_container").show();
     changeReceiverBtnState(false);
 
     $("#add_rec_btn").click(function (event) {
@@ -60,7 +72,7 @@ function initProcessContainer() {
         selected_rec_employee = selected_value;
     });
     $('#reply_last_btn').click(function (event) {
-        var last_node = node_list_data[node_list_data.length - 1];
+        var last_node = getLastNode();
         selected_rec_employee = last_node.sender_id;
         changeReceiverBtnState(true, last_node.sender);
     });
@@ -238,32 +250,92 @@ function queryJobBaseInfo() {
                 });
             }
         }
-        queryJobNodeList();
+        queryFirstJobNode();
     });
 }
 
-function queryJobNodeList() {
-    commonPost(query_url, {type: 'node', job_id: __job_id}, function(data) {
-        node_list_data = data;
-        var last_node;
+function onBranchChange(branch_id) {
+    var branch_container = $("#branch_container_" + branch_id);
+    current_branch = branch_id;
+    if (current_branch_container !== branch_container) {
+        if (current_branch_container) {
+            current_branch_container.hide();
+            active_branch_tag.removeClass('branch_tag_active');
+        }
+        current_branch_container = branch_container;
+        current_branch_container.show();
+        active_branch_tag = $("#branch_tag_container ul [value='" + branch_id + "']");
+        if (active_branch_tag) {
+            active_branch_tag.addClass('branch_tag_active');
+        }
+
+        var last_node = getLastNode();
+        if (last_node.rec_id === __my_uid) {
+            $("#process_container").show();
+        } else {
+            $("#process_container").hide();
+        }
+    }
+}
+
+function queryFirstJobNode() {
+    commonPost(query_url, {type: 'node', job_id: __job_id}, function (data) {
+        var node_data = data[0];
+        first_node = node_data;
+        addJobNodeItem($("#first_node_container"), node_data, 0, false);
+        var container = $("#branch_tag_container");
+        if (node_data.sender_id === __my_uid ) {
+            commonPost(query_url, {type: 'rec_set', set_id: node_data.rec_set, job_id: __job_id}, function (data) {
+                var html = '<ul>';
+                data.forEach(function (p1, p2, p3) {
+                    html += '<li value="' + p1.uid + '" onclick="onBranchChange(' + p1.uid + ')">' + p1.name + '</li>';
+                    queryJobNodeList(p1);
+                });
+                html += '</ul>';
+                container.append(html);
+            });
+        } else {
+            container.hide();
+            queryJobNodeList({uid: __branch_id, account:'', name: '', dept: ''});
+        }
+    });
+}
+
+function queryJobNodeList(branch) {
+    var branch_id = branch.uid;
+    commonPost(query_url, {type: 'node', job_id: __job_id, branch_id: branch_id}, function(data) {
+        node_list_data_map[branch_id] = data;
+        var last_node = null;
+        $("#doc_branch_node_container").append('<div id="branch_container_' + branch_id + '"></div>');
+        var branch_container = $("#branch_container_" + branch_id);
+        if (current_branch === branch_id) {
+            onBranchChange(branch_id);
+        } else {
+            branch_container.hide();
+        }
         data.forEach(function (p1, p2, p3) {
-            addJobNodeItem(p1, p2);
+            addJobNodeItem(branch_container, p1, p2 + 1);
             last_node = p1;
         });
         if (main_info.status === STATUS_JOB_COMPLETED) {
             $("#process_container").hide();
         } else {
+            if (!last_node) {
+                last_node = {rec_account: branch.account, rec_name: branch.name, rec_dept: branch.dept, rec_id: branch.uid};
+            }
             if (last_node.rec_id !== __my_uid) {
-                $("#process_container").hide();
+                // $("#process_container").hide();
 
                 var fake_node = {
                     account: last_node.rec_account,
                     sender: last_node.rec_name,
                     dept: last_node.rec_dept,
                     time: '',
-                    content: '【处理中...】'
+                    content: '{【处理中...】}',
+                    type: 'fake',
+                    id: 'fake_' + (new Date()).getTime()
                 };
-                addJobNodeItem(fake_node, -1, true);
+                addJobNodeItem(branch_container, fake_node, -1, true);
             } else {
                 initProcessContainer();
             }
@@ -271,7 +343,20 @@ function queryJobNodeList() {
     });
 }
 
-function addJobNodeItem(node_data, index, fake) {
+function getLastNode() {
+    if (!current_branch) {
+        return first_node;
+    } else {
+        var list_data = node_list_data_map[current_branch];
+        if (list_data.length === 0) {
+            return first_node;
+        } else {
+            return list_data[list_data.length - 1];
+        }
+    }
+}
+
+function addJobNodeItem(container, node_data, index, fake) {
     fake = !!fake;
     var html = "<div class='node_item_container'>";
     if (fake) {
@@ -304,7 +389,7 @@ function addJobNodeItem(node_data, index, fake) {
     }
     html += "<div class='node_item_content' id='node_item_content_" + node_data.id + "'></div>";
     html += "</div>";
-    $("#doc_node_list").append(html);
+    container.append(html);
     var img_list_html = '';
     if (node_data.has_img) {
         img_list_html += "<ul>";
@@ -329,7 +414,8 @@ function replyDoc() {
         has_attachment: 0,
         has_img: 0,
         op_type: 'reply',
-        job_id: __job_id
+        job_id: __job_id,
+        branch_id: current_branch,
     };
 
     if ($("#request_to_complete").is(":checked")) {
@@ -366,5 +452,5 @@ function dealOperation() {
 }
 
 function refresh() {
-    window.location.href = '/doc_detail.html?job_id=' + __job_id;
+    window.location.reload();
 }

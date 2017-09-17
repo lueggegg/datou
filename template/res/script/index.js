@@ -89,7 +89,7 @@ function queryWaitingJob() {
             data.forEach(function (p1, p2, p3) {
                 list += '<li><div class="element_left recent_info_type" >[' + job_type_map[p1.type] + ']</div>';
                 list += '<div class="waiting_job_main"><a target="_blank" href="'
-                    + getJobUrl(p1.type, p1.job_id) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
+                    + getJobUrl(p1.type, p1.job_id, p1.branch_id) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
                 list += '</li>';
             });
             $("#waiting_job_list").append(list);
@@ -118,7 +118,7 @@ function queryRecentJob() {
                 list += '<div class="recent_info_mark_status">' + mark_status[p1.mark_status] + '</div>';
                 list += '<div class="recent_info_status">' + job_status[p1.job_status] + '</div>';
                 list += '<div class="recent_info_main"><a target="_blank" href="'
-                    + getJobUrl(p1.type, p1.job_id) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
+                    + getJobUrl(p1.type, p1.job_id, p1.branch_id) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
                 list += '</li>';
             });
             $("#recent_job_list").append(list);
@@ -126,10 +126,14 @@ function queryRecentJob() {
     });
 }
 
-function getJobUrl(job_type, job_id) {
+function getJobUrl(job_type, job_id, branch_id) {
     switch (job_type) {
         case TYPE_JOB_OFFICIAL_DOC:
-            return 'doc_detail.html?job_id=' + job_id;
+            var url =  'doc_detail.html?job_id=' + job_id;
+            if (branch_id) {
+                url += '&branch_id=' + branch_id;
+            }
+            return url;
         default:
             return 'auto_job_detail.html?job_id=' + job_id + "&title=" + encodeURI(job_type_map[job_type]);
     }

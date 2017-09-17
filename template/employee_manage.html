@@ -71,55 +71,6 @@
     <select id="dept_leader_selector">
     </select>
 </div>
-
-<div id="edit_employee_dialog" title="增加员工">
-    <div>
-        <input type="file" id="portrait_file" onchange="onPortraitChange()" accept="image/*" class="ui-button ui-corner-all"/>
-        <span class="sp_text">*</span>
-        <div style="width: 150px; margin-left: auto; margin-right: auto; margin-top: 10px;">
-            <img id="personal_portrait" src="res/images/default_portrait.png" style="width: 150px; height: 200px;">
-        </div>
-    </div>
-    <p>
-        　　账号：<input id="employee_account" type="text" class="common_editor"/><span class="sp_text">*</span>
-    </p>
-    <p>
-        　　密码：<input id="employee_password" type="password" class="common_editor" placeholder="默认为：oa123456"/>
-        <button id="reset_employee_password" class="common_editor">重置</button>
-        &nbsp;&nbsp;
-        <span class="common_clickable" id="cancel_reset_employee_password">取消</span>
-    </p>
-    <p>
-        　　姓名：<input id="employee_name" type="text" class="common_editor"/><span class="sp_text">*</span>
-    </p>
-    <p>
-        　身份证：<input id="id_card" type="text" class="common_editor"/><span class="sp_text">*</span>
-    </p>
-    <p class="department_selector" id="edit_employee_dept">
-        　　部门：
-        <select id="belong_dept">
-            <option selected disabled value="-1">请选择部门</option>
-        </select>
-        <span class="sp_text">*</span>
-    </p>
-    <p>
-        　　职位：
-        <select id="position_selector">
-            <option selected value="-1">请选择职位</option>
-        </select>
-        <span class="sp_text">*</span>
-    </p>
-    <p>
-        入职日期：<input id="join_date" type="text" class="common_editor"/><span class="sp_text">*</span>
-    </p>
-    <p>
-        手机号码：<input id="cellphone" type="text" class="common_editor"/>
-    </p>
-    <p>
-        出生日期：<input id="birthday" type="text" class="common_editor" placeholder="不填写则使用身份证的出生日期"/>
-    </p>
-    <p>&nbsp;</p>
-</div>
 {% end %}
 
 

@@ -31,12 +31,10 @@ $(document).ready(function () {
     verticalTabs("#tabs");
 
     dept_dialog = $( "#edit_dept_dialog" );
-    employee_dialog = $("#edit_employee_dialog");
     dept_leader_setting_dlg = $("#edit_dept_leader_dlg");
     employee_weight_dlg = $("#edit_employee_weight_dlg");
 
     initDialog(dept_dialog);
-    initDialog(employee_dialog, 450);
     initDialog(dept_leader_setting_dlg);
     initDialog(employee_weight_dlg);
 
@@ -46,41 +44,16 @@ $(document).ready(function () {
     });
 
     $( "#add_employee" ).click(function( event ) {
-        // current_operation = ADD_EMPLOYEE;
-        // openEmployeeDialog();
         window.open('employee_info_table.html?op=add');
     });
 
-    $("#reset_employee_password").click(function (event) {
-        if (__authority > __admin_authority) {
-            promptMsg('没有权限');
-            return;
-        }
-        enableResetEmployeePassword(true);
-        event.preventDefault();
-    });
-    $("#cancel_reset_employee_password").click(function (event) {
-        enableResetEmployeePassword(false);
-        event.preventDefault();
-    });
 
     selectMenu($("#current_department_menu"));
     selectMenu($("#leader_dept"));
-    selectMenu($("#belong_dept"));
     selectMenu($("#dept_leader_selector"));
-    selectMenu($("#position_selector"));
-    initPositionSelector();
-
-    initDatePicker($("#join_date"), function (dateText, inst) {
-        join_date = dateText;
-    }, true);
-    initDatePicker($("#birthday"), function (dateText, inst) {
-        birthday = dateText;
-    });
 
     $.post('/api/query_dept_list', null, setDepartmentList) ;
 
-    initPromptDialog();
     initConfirmDialog();
 });
 
@@ -89,15 +62,6 @@ function initPageWhileHasCondition() {
         $("#current_department_menu").val(__dept_id).selectmenu('refresh');
         queryDepartmentEmployees(__dept_id);
     }
-}
-
-function initPositionSelector() {
-    var positions = ['主任', '副主任', '一级主管', '二级主管', '一级员工', '临聘员工'];
-    var options = '';
-    positions.forEach(function (p1, p2, p3) {
-        options += '<option value="' + p1 + '">' + p1 + '</option>';
-    });
-    $("#position_selector").append(options).selectmenu('refresh');
 }
 
 function initDialog(dialog, width) {
@@ -140,12 +104,6 @@ function dealOperation() {
             break;
         case DEL_DEPT:
             deleteDepartment();
-            break;
-        case EDIT_EMPLOYEE:
-            updateEmployee();
-            break;
-        case ADD_EMPLOYEE:
-            addEmployee();
             break;
         case DEL_EMPLOYEE:
             deleteEmployee();
@@ -285,223 +243,6 @@ function openDeptDialog(data) {
     }
     dept_dialog.dialog('option', 'title', getOperationString());
     dept_dialog.dialog( "open" );
-}
-
-function enableResetEmployeePassword(enable, hide_cancel_btn) {
-    operate_reset_employee_password = enable;
-    var password_editor = $("#employee_password");
-    var password_reset_btn = $("#reset_employee_password");
-    var cancel_btn = $("#cancel_reset_employee_password");
-    if (enable) {
-        password_editor.show();
-        password_reset_btn.hide();
-        if (hide_cancel_btn) {
-            cancel_btn.hide();
-        } else {
-            cancel_btn.show();
-        }
-    } else {
-        password_editor.hide();
-        password_reset_btn.show();
-        cancel_btn.hide();
-    }
-}
-
-function openEmployeeDialog(data) {
-    var account_item = $("#employee_account");
-    var password_editor = $("#employee_password");
-    var password_reset_btn = $("#reset_employee_password");
-    password_editor.val("");
-    portrait_data = null;
-    $("#portrait_file").val('');
-    if (!data) {
-        account_item[0].disabled = false;
-        account_item.val("");
-        $("#personal_portrait").attr('src', 'res/images/default_portrait.png');
-        $("#employee_name").val("");
-        $("#id_card").val('');
-        $("#belong_dept").val(-1).selectmenu('refresh');
-        $("#position_selector").val(-1).selectmenu('refresh');
-        $("#join_date").datepicker('setDate', new Date());
-        join_date = $("#join_date").val();
-        $("#cellphone").val('');
-        $("#birthday").val('');
-        birthday = null;
-        enableResetEmployeePassword(true, true);
-    } else {
-        operate_employee = data.id;
-        operate_employee_authority = data.authority;
-        account_item[0].disabled = true;
-        account_item.val(data.account);
-        $("#personal_portrait").attr('src', data.portrait);
-        $("#employee_name").val(data.name);
-        $("#id_card").val(data.id_card);
-        $("#belong_dept").val(data.department_id).selectmenu('refresh');
-        $("#position_selector").val(data.position).selectmenu('refresh');
-        $("#join_date").val(data.join_date);
-        join_date = null;
-        if (data.cellphone) {
-            $("#cellphone").val(data.cellphone);
-        }
-        $("#birthday").val(data.birthday? data.birthday : '');
-        enableResetEmployeePassword(false);
-    }
-    employee_dialog.dialog('option', 'title', getOperationString());
-    employee_dialog.dialog('open');
-}
-
-var portrait_data = null;
-function onPortraitChange() {
-    var files = $("#portrait_file")[0].files;
-    if (files.length === 0) {
-        return;
-    }
-    var f = files[0];
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        portrait_data = e.target.result;
-        $("#personal_portrait").attr('src', portrait_data);
-
-    };
-    reader.readAsDataURL(f);
-}
-
-function addEmployee() {
-    if (!portrait_data) {
-        promptMsg('请选择证件照');
-        return;
-    }
-    var account = $("#employee_account").val();
-    if (!account) {
-        promptMsg("账号不能为空");
-        return;
-    }
-    var name = $("#employee_name").val();
-    if (!name) {
-        promptMsg('姓名不能为空');
-        return;
-    }
-    var id_card = $("#id_card").val();
-    if (!id_card) {
-        promptMsg('身份证不能为空');
-        return;
-    }
-    if (!isValidIdCard(id_card)) {
-        promptMsg('无效的身份证');
-        return;
-    }
-    var dept_id = $("#belong_dept").val();
-    if (!dept_id || dept_id === -1) {
-        promptMsg('请选择部门');
-        return;
-    }
-    var position = $("#position_selector").val();
-    if (!position || position === '-1') {
-        promptMsg('请选择职位');
-        return;
-    }
-    var password = $("#employee_password").val();
-    if (!password) {
-        password = 'oa123456';
-    }
-    password = getHash(password);
-
-    var data = {
-        portrait: portrait_data,
-        account: account,
-        password: password,
-        name:name,
-        id_card: id_card,
-        department_id: dept_id,
-        position: position,
-        join_date: join_date
-    };
-
-    var phone = $("#cellphone").val();
-    if (phone) {
-        if (!isValidPhoneNumber(phone)) {
-            promptMsg('不合法的手机号');
-            return;
-        }
-        data['cellphone'] = phone;
-    }
-    if (birthday) {
-        data['birthday'] = birthday;
-    }
-    data = JSON.stringify(data);
-    $.post('/api/alter_account', {account_info: data, op: 'add'}, operationResult);
-}
-
-function updateEmployee() {
-    // if (operate_employee_authority <= __authority) {
-    //     promptMsg(getOperationString() + '失败：权限不足');
-    //     return;
-    // }
-    var account = $("#employee_account").val();
-    if (!account) {
-        promptMsg("账号不能为空");
-        return;
-    }
-    var name = $("#employee_name").val();
-    if (!name) {
-        promptMsg('姓名不能为空');
-        return;
-    }
-    var id_card = $("#id_card").val();
-    if (!id_card) {
-        promptMsg('身份证不能为空');
-        return;
-    }
-    if (!isValidIdCard(id_card)) {
-        promptMsg('无效的身份证');
-        return;
-    }
-    var dept_id = $("#belong_dept").val();
-    if (!dept_id || dept_id === -1) {
-        promptMsg('请选择部门');
-        return;
-    }
-    var position = $("#position_selector").val();
-    if (!position || position === '-1') {
-        promptMsg('请选择职位');
-        return;
-    }
-
-    var phone = $("#cellphone").val();
-    if (phone && !isValidPhoneNumber(phone)) {
-        promptMsg('不合法的手机号');
-        return;
-    }
-
-    var data = {
-        name:name,
-        id_card: id_card,
-        department_id: dept_id,
-        position: position,
-        cellphone: phone
-    };
-    if (join_date) {
-        data['join_date'] = join_date;
-    }
-
-    if (operate_reset_employee_password) {
-        var password = $("#employee_password").val();
-        if (!password) {
-            password = 'oa123456';
-        }
-        password = getHash(password);
-        data['password'] = password;
-    }
-
-    if (portrait_data) {
-        data['portrait'] = portrait_data;
-    }
-    if (birthday) {
-        data['birthday'] = birthday;
-    }
-
-    data = JSON.stringify(data);
-    $.post('/api/alter_account', {account_info: data, uid: operate_employee, op: 'update'}, operationResult);
 }
 
 function deleteEmployee() {

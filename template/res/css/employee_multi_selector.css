@@ -1,0 +1,36 @@
+.employee_list_container {
+    width: 275px;
+    height: 500px;
+    border: 1px solid gray;
+    padding: 5px;
+    float: left;
+    overflow-y:auto;
+}
+
+.operation_btn_container {
+    float: left;
+    padding: 10px;
+
+}
+
+.operation_btn {
+    margin-top: 50px;
+
+}
+
+.employee_selectable_list {
+    list-style-type: none; margin: 0; padding: 0; width: 100%;
+}
+
+.employee_selectable_list .ui-selecting { background: rgb(0,156,255); }
+.employee_selectable_list .ui-selected { background: rgb(0,127,255); color: white; }
+.employee_selectable_list li {
+    margin: 3px;
+    padding: 0.4em;
+    font-size: 1em;
+    height: 24px;
+    border: 1px solid rgb(0,127,255);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

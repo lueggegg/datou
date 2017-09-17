@@ -17,7 +17,8 @@ class ApiQueryJobInfo(ApiHandler):
 
         if info_type == 'node':
             dept_map = yield self.get_department_map()
-            ret = yield self.job_dao.query_job_node_list(job_id)
+            branch_id = self.get_argument('branch_id', None)
+            ret = yield self.job_dao.query_job_node_list(job_id, branch_id)
             last_node = None
             for item in ret:
                 attachment_type = [
@@ -36,11 +37,19 @@ class ApiQueryJobInfo(ApiHandler):
                 last_node['rec_account'] = rec_account['account']
                 last_node['rec_name'] = rec_account['name']
                 last_node['rec_dept'] = rec_account['dept']
+        elif info_type == 'rec_set':
+            set_id = self.get_argument_and_check_it('set_id')
+            ret = yield self.job_dao.query_uid_set(set_id)
         elif info_type == 'base':
             ret = yield self.job_dao.query_job_base_info(job_id)
         elif info_type == 'authority':
-            ret = yield self.job_dao.query_job_mark(job_id, self.account_info['id'])
-            ret= ret is not None
+            base_info = yield self.job_dao.query_job_base_info(job_id)
+            if base_info['invoker'] == self.account_info['id']:
+                ret = True
+            else:
+                branch_id = self.get_argument('branch_id', None)
+                ret = yield self.job_dao.query_job_mark(job_id, self.account_info['id'], branch_id)
+                ret= ret is not None
         else:
             ret = None
 
