@@ -159,7 +159,7 @@ function showWaitingDlg(param) {
     if (!__common_waiting_dlg) return;
 
     var default_param = {
-        timeout: 5000,
+        timeout: 10000,
         timeout_cb: null
     };
     compareParam(default_param, param);
