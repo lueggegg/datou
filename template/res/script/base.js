@@ -135,6 +135,52 @@ function getListViewHtml(data, param){
     return content;
 }
 
+var __common_waiting_dlg;
+var __common_waiting_timeout;
+function initCommonWaitingDialog(timeout_cb) {
+    if (__common_waiting_dlg) return;
+
+    var html = "<div id='__common_waiting_dlg' title='请等待'>";
+    html += "<div id='__common_waiting_bar' class='common_border'><div class='progress_label'>processing ...</div></div>";
+    html += "</div>";
+    $("body").append(html);
+    __common_waiting_dlg = $("#__common_waiting_dlg");
+    __common_waiting_dlg.dialog({
+        width: 240,
+        modal: true,
+        autoOpen: false
+    });
+    $("#__common_waiting_bar").progressbar({
+        value: false
+    });
+}
+
+function showWaitingDlg(param) {
+    if (!__common_waiting_dlg) return;
+
+    var default_param = {
+        timeout: 5000,
+        timeout_cb: null
+    };
+    compareParam(default_param, param);
+
+    __common_waiting_dlg.dialog('open');
+    __common_waiting_timeout = setTimeout(function () {
+        closeWaitingDlg();
+        if (default_param.timeout_cb) {
+            default_param.timeout_cb();
+        }
+    }, default_param.timeout);
+}
+
+function closeWaitingDlg() {
+    if (!__common_waiting_dlg) return;
+
+    clearTimeout(__common_waiting_timeout);
+    __common_waiting_timeout = null;
+    __common_waiting_dlg.dialog('close');
+}
+
 var __common_confirm_dlg;
 var __common_confirm_dlg_callback;
 function initConfirmDialog() {
@@ -300,8 +346,11 @@ function abstractDateFromDatetime(datetime) {
     return datetime.slice(0, 10);
 }
 
-function commonPost(url, param, successCallback) {
+function commonPost(url, param, successCallback, block) {
     $.post(url, param, function (data) {
+        if (block) {
+            closeWaitingDlg();
+        }
         try {
             if (data.status !== 0) {
                 if (data.hasOwnProperty('msg')) {
@@ -316,6 +365,14 @@ function commonPost(url, param, successCallback) {
             redirectError(e);
         }
     });
+    if (block) {
+        showWaitingDlg({timeout_cb: function () {
+            promptMsg('响应超时，即将刷新页面');
+            setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+        }});
+    }
 }
 
 function html2Text(sHtml) {

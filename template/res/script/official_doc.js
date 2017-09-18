@@ -40,6 +40,7 @@ $(document).ready(function () {
         sendOfficialDoc();
     });
 
+    initCommonWaitingDialog();
     initConfirmDialog();
 
     initMyDoc();
@@ -125,7 +126,7 @@ function sendOfficialDoc() {
         setTimeout(function () {
             freshCurrent('');
         }, 2000);
-    });
+    }, true);
 }
 
 function showMyDocTab(index) {

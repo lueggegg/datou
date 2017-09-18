@@ -70,6 +70,9 @@
     __authority = 128;
     __my_uid = 36;
     __my_operation_mask = 64;
+
+    initCommonWaitingDialog();
+
     function getGuildItemHtml(item) {
         return '<li><a style="color: white;" href="' + item.href + '">' + item.label + '</a></li>'
     }
@@ -108,7 +111,10 @@
     });
     
     function openDlg() {
-        test_dlg.dialog('open');
+        showWaitingDlg({timeout_cb: function () {
+            alert('timeout');
+        }});
+        setTimeout(closeWaitingDlg, 2000);
     }
 </script>
 
