@@ -46,20 +46,19 @@ class ApiSendOfficialDoc(ApiHandler):
         if node_type:
             job_node['type'] = node_type
         rec_id = self.get_argument('rec_id', None)
-        waiting_set = set()
+        set_id = None
+        rec_set = None
         if rec_id is not None:
             job_node['rec_id'] = rec_id
-            waiting_set.add(rec_id)
         else:
             rec_set = self.get_argument('rec_set', None)
             if rec_set is None:
                 self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '接收者参数不合法')
             rec_set = set(self.loads_json(rec_set))
-            set_id = yield self.job_dao.create_uid_set(rec_set)
+            set_id = yield self.job_dao.create_uid_set()
             if not set_id:
                 self.finish_with_error(error_codes.EC_SYS_ERROR, '创建uid set失败')
             job_node['rec_set'] = set_id
-            waiting_set = rec_set
         branch_id = self.get_argument('branch_id', None)
         if branch_id:
             job_node['branch_id'] = branch_id
@@ -89,11 +88,12 @@ class ApiSendOfficialDoc(ApiHandler):
                     yield self.job_dao.add_node_attachment(**job_attachment)
 
         self.process_result(True, '发送公文')
-        if len(waiting_set) > 1:
-            for uid in waiting_set:
+        if set_id:
+            yield self.job_dao.create_uid_set_detail(set_id, rec_set)
+            for uid in rec_set:
                 yield self.job_dao.update_job_mark(job_id, uid, type_define.STATUS_JOB_MARK_WAITING, uid)
         else:
-            yield self.job_dao.update_job_mark(job_id, waiting_set.pop(), type_define.STATUS_JOB_MARK_WAITING, branch_id)
+            yield self.job_dao.update_job_mark(job_id, rec_id, type_define.STATUS_JOB_MARK_WAITING, branch_id)
 
 
 

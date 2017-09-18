@@ -329,17 +329,18 @@ class JobDAO(BaseDAO):
                 conditions.append("begin_time<='%s")
 
     @gen.coroutine
-    def create_uid_set(self, uid_set):
+    def create_uid_set(self):
         set_id = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.uid_set_tab)
-        if set_id:
-            for uid in uid_set:
-                ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor,
-                                                                  self.uid_set_detail_tab, uid=uid, set_id=set_id)
-                if not ret:
-                    raise gen.Return(False)
-            raise gen.Return(set_id)
-        else:
-            raise gen.Return(False)
+        raise gen.Return(set_id)
+
+    @gen.coroutine
+    def create_uid_set_detail(self, set_id, uid_set):
+        for uid in uid_set:
+            ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor,
+                                                              self.uid_set_detail_tab, uid=uid, set_id=set_id)
+            if not ret:
+                raise gen.Return(False)
+        raise gen.Return(True)
 
     @gen.coroutine
     def query_uid_set(self, set_id):
