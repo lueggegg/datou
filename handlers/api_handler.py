@@ -19,6 +19,7 @@ class ApiHandler(BaseHandler):
             self.finish_with_error(error_codes.EC_SYS_ERROR, msg + '失败')
         else:
             self.write_result(error_codes.EC_SUCCESS, msg + '成功')
+        self.finish()
 
     @gen.coroutine
     def on_dept_info_changed(self):
