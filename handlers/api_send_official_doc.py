@@ -71,12 +71,6 @@ class ApiSendOfficialDoc(ApiHandler):
 
         if job_record['invoker'] != self.account_info['id']:
             yield self.job_dao.update_job_mark(job_id, self.account_info['id'], type_define.STATUS_JOB_MARK_PROCESSED,branch_id)
-        if len(waiting_set) > 1:
-            for uid in waiting_set:
-                yield self.job_dao.update_job_mark(job_id, uid, type_define.STATUS_JOB_MARK_WAITING, uid)
-        else:
-            yield self.job_dao.update_job_mark(job_id, waiting_set.pop(), type_define.STATUS_JOB_MARK_WAITING, branch_id)
-
 
         attachment_fields = [
             ['has_attachment', 'file_list', type_define.TYPE_JOB_ATTACHMENT_NORMAL],
@@ -95,5 +89,12 @@ class ApiSendOfficialDoc(ApiHandler):
                     yield self.job_dao.add_node_attachment(**job_attachment)
 
         self.process_result(True, '发送公文')
+        if len(waiting_set) > 1:
+            for uid in waiting_set:
+                yield self.job_dao.update_job_mark(job_id, uid, type_define.STATUS_JOB_MARK_WAITING, uid)
+        else:
+            yield self.job_dao.update_job_mark(job_id, waiting_set.pop(), type_define.STATUS_JOB_MARK_WAITING, branch_id)
+
+
 
 
