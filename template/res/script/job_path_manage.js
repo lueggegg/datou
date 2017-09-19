@@ -85,9 +85,6 @@ $(document).ready(function () {
 
 function initTabs() {
     job_type_list = [
-        [TYPE_JOB_CERTIFICATE_SALARY, '收入证明'],
-        [TYPE_JOB_CERTIFICATE_LABOR, '在职证明'],
-        [TYPE_JOB_CERTIFICATE_INTERNSHIP, '实习证明'],
         [TYPE_JOB_HR_RESIGN, '离职申请'],
         [TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY, '中层请假:：超一天'],
         [TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY, '中层请假：一天内'],

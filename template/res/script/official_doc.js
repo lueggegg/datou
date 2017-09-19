@@ -100,12 +100,16 @@ function sendOfficialDoc() {
     }
     var content = $("#doc_content").val();
 
+    var rec_list = [];
+    rec_set.forEach(function (p1, p2, p3) {
+       rec_list.push(p1);
+    });
     var param = {
         title: title,
         content: wrapJobContent(content),
         has_attachment: 0,
         has_img: 0,
-        rec_set: JSON.stringify(Array.from(rec_set))
+        rec_set: JSON.stringify(rec_list)
     };
 
     var attachment = attachment_controller.get_upload_files();

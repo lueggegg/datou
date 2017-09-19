@@ -52,6 +52,10 @@
     border: 1px solid green;
     border-radius: 2px;
     float: left;
+    width: 22px;
+    height: 22px;
+    background: url('../images/icon/add.png');
+    background-size: 100% 100%;
 }
 
 .node_info_item_add_btn:hover {
@@ -59,6 +63,10 @@
     background: rgb(235,235,235);
     border: 1px solid yellowgreen;
     color: yellowgreen;
+    background: url('../images/icon/add_light.png');
+    width: 24px;
+    height: 24px;
+    background-size: 100% 100%;
 }
 
 .node_info_item_del_btn {
