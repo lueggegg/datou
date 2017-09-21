@@ -54,6 +54,20 @@ class AdminOperation(ApiNoVerifyHandler):
             yield self.init_report_uid()
             ret = True
 
+        elif op == 'exec_dao':
+            msg = '测试dao:'
+            dao = self.get_argument_and_check_it('dao')
+            func = self.get_argument_and_check_it('func')
+            args = self.get_argument('args', '')
+            if args:
+                args = self.loads_json(args)
+                args = ','.join(args)
+            todo = 'ret = self.%s.%s(%s)' % (dao, func, args)
+            exec todo
+            ret = yield ret
+            self.write_json({'data': ret})
+            return
+
         self.process_result(ret, msg)
 
 

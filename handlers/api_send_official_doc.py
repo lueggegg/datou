@@ -11,21 +11,22 @@ class ApiSendOfficialDoc(ApiHandler):
     @gen.coroutine
     def _real_deal_request(self):
         time = self.now()
-        op_type = self.get_argument('op_type', None)
-        if op_type is None:
+        op = self.get_argument_and_check_it('op')
+        if op == 'add':
             job_record = {
                 'type': type_define.TYPE_JOB_OFFICIAL_DOC,
                 'invoker': self.account_info['id'],
                 'time': time,
                 'mod_time': time,
                 'status': type_define.STATUS_JOB_PROCESSING,
+                'sub_type': self.get_argument('sub_type', type_define.TYPE_JOB_OFFICIAL_DOC_GROUP),
             }
             fields = ['title']
             for field in fields:
                 job_record[field] = self.get_argument_and_check_it(field)
             job_id = yield self.job_dao.create_new_job(**job_record)
             self.check_result_and_finish_while_failed(job_id, '创建工作流失败')
-        elif op_type == 'reply':
+        elif op == 'reply':
             job_id = self.get_argument_and_check_it('job_id')
             job_record = yield self.job_dao.query_job_base_info(job_id)
             self.check_result_and_finish_while_failed(job_record, '工作流不存在')
@@ -55,16 +56,23 @@ class ApiSendOfficialDoc(ApiHandler):
             if rec_set is None:
                 self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '接收者参数不合法')
             rec_set = set(self.loads_json(rec_set))
-            set_id = yield self.job_dao.create_uid_set()
-            if not set_id:
-                self.finish_with_error(error_codes.EC_SYS_ERROR, '创建uid set失败')
+            rec_set -= set([job_record['invoker']])
+            if op == 'add':
+                set_id = yield self.job_dao.create_uid_set()
+                if not set_id:
+                    self.finish_with_error(error_codes.EC_SYS_ERROR, '创建uid set失败')
+            elif job_record['sub_type'] == type_define.TYPE_JOB_OFFICIAL_DOC_GROUP:
+                first_node = yield self.job_dao.query_first_job_node(job_id)
+                set_id = first_node['rec_set']
+                if not set_id:
+                    self.finish_with_error(error_codes.EC_SYS_ERROR, '系统错误：rec_set不合法')
             job_node['rec_set'] = set_id
         branch_id = self.get_argument('branch_id', None)
         if branch_id:
             job_node['branch_id'] = branch_id
         node_id = yield self.job_dao.add_job_node(**job_node)
         if not node_id:
-            if op_type == 'add':
+            if op == 'add':
                 yield self.job_dao.delete_job(job_id)
             self.finish_with_error(error_codes.EC_SYS_ERROR, '创建工作流节点失败')
 
@@ -89,11 +97,17 @@ class ApiSendOfficialDoc(ApiHandler):
 
         self.process_result(True, '发送公文')
         if set_id:
-            yield self.job_dao.create_uid_set_detail(set_id, rec_set)
+            yield self.job_dao.insert_into_uid_set(set_id, rec_set)
+            rec_set = yield self.job_dao.query_uid_set(set_id)
+            rec_set = set([item['uid'] for item in rec_set])
+            rec_set.add(job_record['invoker'])
+            rec_set.remove(self.account_info['id'])
             for uid in rec_set:
                 yield self.job_dao.update_job_mark(job_id, uid, type_define.STATUS_JOB_MARK_WAITING, uid)
         else:
             yield self.job_dao.update_job_mark(job_id, rec_id, type_define.STATUS_JOB_MARK_WAITING, branch_id)
+            if rec_id != self.account_info['id']:
+                yield self.job_dao.update_job_mark(job_id, self.account_info['id'], type_define.STATUS_JOB_MARK_WAITING, branch_id)
 
 
 

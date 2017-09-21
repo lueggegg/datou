@@ -73,6 +73,8 @@
     margin: 5px;
     padding-left: 2em;
     color: gray;
+    max-width: 95%;
+    word-break:break-all;
 }
 
 .attachment_list a, .attachment_list a:visited {

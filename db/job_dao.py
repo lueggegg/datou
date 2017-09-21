@@ -79,7 +79,7 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret)
 
     @gen.coroutine
-    def query_job_node_list(self, job_id, branch_id=None):
+    def query_job_node_list(self, job_id, branch_id=None, count=None):
         sql = "SELECT n.*, a.account, a.name as sender, a.department_id FROM %s n" \
               " LEFT JOIN %s a ON n.sender_id=a.id" \
               " WHERE job_id=%s" % (self.node_tab, self.account_tab, job_id)
@@ -87,8 +87,16 @@ class JobDAO(BaseDAO):
             sql += " AND branch_id=%s" % branch_id
         else:
             sql += " AND branch_id is NULL"
+        if count:
+            sql += ' LIMIT 1'
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_first_job_node(self, job_id):
+        sql = 'SELECT * FROM %s WHERE job_id=%s ORDER BY id LIMIT 1' % (self.node_tab, job_id)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret[0] if ret else None)
 
     @gen.coroutine
     def add_node_attachment(self, **kwargs):
@@ -341,6 +349,28 @@ class JobDAO(BaseDAO):
             if not ret:
                 raise gen.Return(False)
         raise gen.Return(True)
+
+    @gen.coroutine
+    def insert_into_uid_set(self, set_id, uid_set):
+        size = len(uid_set)
+        if size == 0:
+            raise gen.Return(True)
+        if size == 1:
+            uid = uid_set.pop()
+            sql = 'SELECT uid FROM %s WHERE set_id=%s AND uid=%s' % (self.uid_set_detail_tab, set_id, uid)
+            ret = yield self._executor.async_select(self._get_inst(True), sql)
+            if not ret:
+                ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor,
+                                                                  self.uid_set_detail_tab, uid=uid, set_id=set_id)
+        else:
+            uids = tuple(uid_set)
+            sql = 'SELECT uid FROM %s WHERE set_id=%s AND uid in %s' % (self.uid_set_detail_tab, set_id, uids)
+            ret = yield self._executor.async_select(self._get_inst(True), sql)
+            for item in ret:
+                uid_set.remove(item['uid'])
+            ret = yield self.create_uid_set_detail(set_id, uid_set)
+        raise gen.Return(ret)
+
 
     @gen.coroutine
     def query_uid_set(self, set_id):

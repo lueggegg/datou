@@ -23,6 +23,8 @@ var current_branch;
 var current_branch_container;
 var active_branch_tag;
 
+var rec_selectable_controller;
+
 $(document).ready(function (event) {
     commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id, branch_id: __branch_id}, function (data) {
         if (!data) {
@@ -35,21 +37,15 @@ $(document).ready(function (event) {
     queryJobBaseInfo();
 
     select_doc_rec_dlg = $("#select_rec_dlg");
-    initDialog(select_doc_rec_dlg);
 
     initConfirmDialog();
     current_branch = __branch_id;
 });
 
-function initProcessContainer() {
+function initBranchProcessContainer() {
     if (process_container_init) return;
 
-    // $("#process_container").show();
     changeReceiverBtnState(false);
-
-    $("#add_rec_btn").click(function (event) {
-        openSelectRecDlg();
-    });
 
     $("#del_rec_btn").click(function (event) {
         changeReceiverBtnState(false);
@@ -82,6 +78,15 @@ function initProcessContainer() {
         changeReceiverBtnState(true, main_info.invoker_name);
     });
 
+    initCommonProcessContainer();
+
+    initDepartment();
+}
+
+function initCommonProcessContainer() {
+    $("#add_rec_btn").click(function (event) {
+        openSelectRecDlg();
+    });
     attachment_controller = initAttachmentController($("#attachment_container"));
     img_attachment_controller = initAttachmentController($("#img_attachment_container"), {
         type: TYPE_JOB_ATTACHMENT_IMG,
@@ -91,8 +96,6 @@ function initProcessContainer() {
     $("#doc_send_btn").click(function (event) {
         replyDoc();
     });
-
-    initDepartment();
 }
 
 function initDialog(dialog) {
@@ -102,7 +105,7 @@ function initDialog(dialog) {
             return;
         }
         dealOperation();
-    });
+    }, {width: 720});
 }
 
 function initDepartment() {
@@ -146,6 +149,9 @@ function changeReceiverBtnState(exist_rec, receiver) {
 function openSelectRecDlg() {
     select_doc_rec_dlg.dialog('open');
     __current_operation = OP_SELECT_REC;
+    if (rec_selectable_controller) {
+        rec_selectable_controller.fresh();
+    }
 }
 
 function closeSelectRecDlgWithOk() {
@@ -279,28 +285,99 @@ function onBranchChange(branch_id) {
 }
 
 function queryFirstJobNode() {
-    commonPost(query_url, {type: 'node', job_id: __job_id}, function (data) {
+    commonPost(query_url, {type: 'node', job_id: __job_id, count: 1}, function (data) {
         var node_data = data[0];
         first_node = node_data;
-        if (!first_node.rec_id) {
-            first_node.rec_id = __branch_id;
-        }
         addJobNodeItem($("#first_node_container"), node_data, 0, false);
-        var container = $("#branch_tag_container");
-        if (node_data.sender_id === __my_uid ) {
-            commonPost(query_url, {type: 'rec_set', set_id: node_data.rec_set, job_id: __job_id}, function (data) {
-                var html = '<ul>';
-                data.forEach(function (p1, p2, p3) {
-                    html += '<li value="' + p1.uid + '" onclick="onBranchChange(' + p1.uid + ')">' + p1.name + '</li>';
-                    queryJobNodeList(p1);
-                });
-                html += '</ul>';
-                container.append(html);
-            });
+        if (main_info.sub_type === TYPE_JOB_OFFICIAL_DOC_GROUP) {
+            initGroupDoc();
         } else {
-            container.hide();
-            queryJobNodeList({uid: __branch_id, account:'', name: '', dept: ''});
+            initBranchDoc();
         }
+    });
+}
+
+function initGroupDoc() {
+    $("#rec_container").remove();
+    $("#sp_rec_picker_container").remove();
+    var rec_container = '<div class="rec_container"><ul id="rec_list"></ul>';
+    rec_container += '<button id="add_rec_btn" class="node_info_item_add_btn" title="添加新的员工（可不添加）"></button></div>';
+    $("#node_info_item").append(rec_container);
+
+    var container = $("#branch_tag_container");
+    commonPost(query_url, {type: 'rec_set', set_id: first_node.rec_set, job_id: __job_id}, function (data) {
+        var html = '<ul>';
+        var filter_list = [main_info.invoker];
+        data.forEach(function (p1, p2, p3) {
+            html += '<li>' + p1.name + '</li>';
+            filter_list.push(p1.uid);
+        });
+        html += '</ul>';
+        container.append(html);
+
+        commonInitDialog(select_doc_rec_dlg, onSelectedMultiRec, {width: 720});
+        removeChildren(select_doc_rec_dlg);
+        select_doc_rec_dlg.append('<div id="employee_selectable_container"></div>');
+        rec_selectable_controller = createEmployeeMultiSelectorController($("#employee_selectable_container"), {filter_list: filter_list});
+
+        initCommonProcessContainer();
+
+        $("#process_container").show();
+    });
+    queryAllJobNode();
+}
+
+function onSelectedMultiRec() {
+    var container = $("#rec_list");
+    removeChildren(container);
+    var rec_set = rec_selectable_controller.get_result();
+    var list_data = '';
+    var employee_map = rec_selectable_controller.employee_map;
+    rec_set.forEach(function (p1, p2, p3) {
+        var employee = employee_map[p1];
+        list_data += '<li value="' + p1 + '">' + employee.name + ';';
+        list_data += '<img class="common_small_del_btn" src="res/images/icon/gray_del.png" onclick="delRecFromMulti(' + p1 + ')">';
+        list_data += '</li>';
+    });
+    container.append(list_data);
+    select_doc_rec_dlg.dialog('close');
+}
+
+function delRecFromMulti(uid) {
+    $("#rec_list [value='" + uid + "']").remove();
+    rec_selectable_controller.remove_item(uid);
+}
+
+function initBranchDoc() {
+    initDialog(select_doc_rec_dlg);
+
+    if (!first_node.rec_id) {
+        first_node.rec_id = __branch_id;
+    }
+    var container = $("#branch_tag_container");
+    if (first_node.sender_id === __my_uid ) {
+        commonPost(query_url, {type: 'rec_set', set_id: first_node.rec_set, job_id: __job_id}, function (data) {
+            var html = '<ul>';
+            data.forEach(function (p1, p2, p3) {
+                html += '<li value="' + p1.uid + '" onclick="onBranchChange(' + p1.uid + ')">' + p1.name + '</li>';
+                queryJobNodeList(p1);
+            });
+            html += '</ul>';
+            container.append(html);
+        });
+    } else {
+        container.hide();
+        queryJobNodeList({uid: __branch_id, account:'', name: '', dept: ''});
+    }
+}
+
+function queryAllJobNode() {
+    commonPost(query_url, {type: 'node', job_id: __job_id}, function (data) {
+        data.shift();
+        var container = $("#doc_branch_node_container");
+        data.forEach(function (p1, p2, p3) {
+           addJobNodeItem(container, p1, p2+1);
+        });
     });
 }
 
@@ -340,7 +417,7 @@ function queryJobNodeList(branch) {
                 };
                 addJobNodeItem(branch_container, fake_node, -1, true);
             } else {
-                initProcessContainer();
+                initBranchProcessContainer();
             }
         }
     });
@@ -405,25 +482,35 @@ function addJobNodeItem(container, node_data, index, fake) {
 }
 
 function replyDoc() {
-    if (!selected_rec_employee) {
-        promptMsg('请选择接收人');
-        return;
-    }
-    var content = $("#doc_content").val();
-
     var param = {
-        rec_id: selected_rec_employee,
-        content: wrapJobContent(content),
         has_attachment: 0,
         has_img: 0,
-        op_type: 'reply',
-        job_id: __job_id,
-        branch_id: current_branch,
+        op: 'reply',
+        job_id: __job_id
     };
 
-    if ($("#request_to_complete").is(":checked")) {
-        param['node_type'] = TYPE_JOB_NODE_REMIND_COMPLETE;
+    if (rec_selectable_controller) {
+        var rec_set = rec_selectable_controller.get_result();
+        var rec_list = [];
+        rec_set.forEach(function (p1, p2, p3) {
+            rec_list.push(p1);
+        });
+        param['rec_set'] = JSON.stringify(rec_list);
+    } else {
+        if (!selected_rec_employee) {
+            promptMsg('请选择接收人');
+            return;
+        }
+        param['rec_id'] = selected_rec_employee;
+        param['branch_id'] = current_branch;
+
+        if ($("#request_to_complete").is(":checked")) {
+            param['node_type'] = TYPE_JOB_NODE_REMIND_COMPLETE;
+        }
     }
+
+    var content = $("#doc_content").val();
+    param['content'] = wrapJobContent(content);
 
     var attachment = attachment_controller.get_upload_files();
     if (attachment) {

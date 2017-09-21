@@ -113,6 +113,11 @@
     margin: 0;
 }
 
+.node_item_attachment ul li {
+    max-width: 95%;
+    word-break:break-all;
+}
+
 .node_item_attachment a, a:visited {
     text-decoration: none;
     color: rgb(219,114,0);
@@ -142,6 +147,13 @@
 
 .node_item_content ul li{
     margin: 10px;
+}
+
+.node_item_content ul li img{
+    max-width: 95%;
+    width: auto;
+    height: auto;
+    display: block;
 }
 
 .quick_rec_selector {

@@ -175,5 +175,8 @@
 }
 
 .job_img_attachment {
-
+    max-width: 95%;
+    width: auto;
+    height: auto;
+    display: block;
 }

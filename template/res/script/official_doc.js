@@ -2,13 +2,6 @@ var OP_SELECT_REC = 0;
 var OP_SEND_DOC = 1;
 
 var select_doc_rec_dlg;
-var dept_list_data;
-var employee_list_data;
-var dept_map;
-var selected_rec_dept = -1;
-var selected_rec_dept_changed = false;
-var selected_rec_employee = null;
-var employee_map = {};
 
 var attachment_controller = null;
 var img_attachment_controller = null;
@@ -25,6 +18,8 @@ $(document).ready(function () {
     $("#add_rec_btn").click(function (event) {
         openSelectRecDlg();
     });
+
+    // $("#branch_type").checkboxradio();
 
     select_doc_rec_dlg = $("#select_rec_dlg");
     commonInitDialog(select_doc_rec_dlg, onSelectedRec, {width: 720});
@@ -105,11 +100,13 @@ function sendOfficialDoc() {
        rec_list.push(p1);
     });
     var param = {
+        op: 'add',
         title: title,
         content: wrapJobContent(content),
         has_attachment: 0,
         has_img: 0,
-        rec_set: JSON.stringify(rec_list)
+        rec_set: JSON.stringify(rec_list),
+        sub_type: $("#branch_type").is(':checked')? TYPE_JOB_OFFICIAL_DOC_BRANCH : TYPE_JOB_OFFICIAL_DOC_GROUP
     };
 
     var attachment = attachment_controller.get_upload_files();

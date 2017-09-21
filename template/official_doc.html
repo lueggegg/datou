@@ -22,6 +22,9 @@
         <div class="node_info_item">
             <div class="element_left node_info_item_label">主题：　</div>
             <input type="text" id="doc_topic" class="common_editor node_info_item_input element_left">
+            <div  style="float: right; margin-right: 40px;" title="选中后，每个接收者将生成相互独立的处理路径；不选中，则所有接收者共享公文">
+                <input type="checkbox" id="branch_type"><label for="branch_type">链式公文</label>
+            </div>
         </div>
         <div class="node_info_item">
             <div class="element_left node_info_item_label">发送到：</div>
@@ -33,7 +36,6 @@
         </div>
         <div class="attachment_container" id="attachment_container"></div>
         <div class="attachment_container" id="img_attachment_container"></div>
-        <!--<div class="common_bold_divider"></div>-->
         <div class="doc_text_area_container">
             <textarea id='doc_content' class="doc_text_area"></textarea>
         </div>

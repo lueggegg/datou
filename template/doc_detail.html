@@ -7,6 +7,8 @@
 <link href="res/css/list.css" rel="stylesheet">
 <script type="text/javascript" src="res/script/doc_detail.js"></script>
 <script type="text/javascript" src="res/script/attachment_list.js"></script>
+<script type="text/javascript" src="res/script/employee_multi_selector.js"></script>
+<link rel="stylesheet" href="res/css/employee_multi_selector.css">
 {% end %}
 
 {% block custom_body %}
@@ -28,14 +30,14 @@
     <div id="branch_tag_container"></div>
     <div id="doc_branch_node_container"></div>
     <div id="process_container">
-        <div class="node_info_item">
+        <div class="node_info_item" id="node_info_item">
             <div class="element_left node_info_item_label">发送到：</div>
-            <div class="common_editor node_info_item_input element_left">
-                <button id="add_rec_btn" class="node_info_item_add_btn">+</button>
+            <div class="common_editor node_info_item_input element_left" id="rec_container">
+                <button id="add_rec_btn" class="node_info_item_add_btn"></button>
                 <span id="doc_rec" class="node_info_item_rec">joe</span>
                 <img src="res/images/icon/red_del.png" id="del_rec_btn" class="common_small_del_btn">
             </div>
-            <div class="element_left" style="margin-left: 40px;">
+            <div class="element_left" style="margin-left: 40px;" id="sp_rec_picker_container">
                 <div class="quick_rec_selector">
                     <button id="reply_last_btn" class="ui-corner-all ui-button">发送到上一审阅人</button>
                     <button id="reply_invoker_btn" class="ui-button ui-corner-all">发送到公文发件人</button>
@@ -47,12 +49,12 @@
         </div>
         <div class="attachment_container" id="attachment_container"></div>
         <div class="attachment_container" id="img_attachment_container"></div>
-        <!--<div class="common_divider"></div>-->
+
         <div class="doc_text_area_container">
             <textarea id='doc_content' class="doc_text_area"></textarea>
         </div>
         <div style="height: 32px;">
-            <button id='doc_send_btn' class="doc_send_btn">发 送</button>
+            <button id='doc_send_btn' class="doc_send_btn">回 复</button>
         </div>
     </div>
     <div id="bottom_anchor"></div>
