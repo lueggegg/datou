@@ -68,6 +68,11 @@ class ApiHandler(BaseHandler):
         for child in dept_tree[dept_id][1:]:
             self.travel_assign_department_level(dept_tree, child['id'], level+1)
 
+    def travel_argument(self, info, fields):
+        for field in fields:
+            arg = self.get_argument(field, None)
+            if arg is not None:
+                info[field] = arg
 
 
 class ApiNoVerifyHandler(ApiHandler):

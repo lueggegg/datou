@@ -137,6 +137,14 @@
         });
     }
 
+    function updateRuleMemo(type_id) {
+        var memo = $("#editor_update_memo_" + type_id).val();
+        commonPost('/api/rule_type', {op: 'update', type_id: type_id, memo: memo}, function (data) {
+            promptMsg('更新成功');
+        });
+
+    }
+
     function queryRuleType() {
         commonPost('/api/rule_type', {op: 'query'}, function (data) {
             type_list_data = data;
@@ -152,6 +160,10 @@
                     tab_container_html += '<button class="ui-button ui-corner-all" onclick="delRuleType(' + p1.id + ')">删除该类型</button>';
                     tab_container_html += '<button class="ui-button ui-corner-all element_right" onclick="updateRuleType(' + p1.id + ')">重命名</button>';
                     tab_container_html += '<input class="common_editor element_right" id="editor_update_'+ p1.id +'" placeholder="输入新的类型名称">';
+                    tab_container_html += '</div>';
+                    tab_container_html += '<div class="common_btn_container">';
+                    tab_container_html += '<button class="ui-button ui-corner-all element_right" onclick="updateRuleMemo(' + p1.id + ')">更新标题</button>';
+                    tab_container_html += '<input class="common_editor element_right" style="width: 50%;text-align: center;" value="' + (p1.memo? p1.memo:'')+ '" id="editor_update_memo_'+ p1.id +'" placeholder="输入该章节的标题">';
                     tab_container_html += '</div>';
                     tab_container_html += '</div>';
                     queryRuleList(p1.id);

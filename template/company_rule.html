@@ -28,7 +28,11 @@
                 data.forEach(function (p1, p2, p3) {
                     var id = container_prefix + p1.id;
                     tab_list_html += '<li value="' + p1.id + '"><a href="#' + id + '">' + p1.label + '</a>';
-                    tab_container_html += '<div id="' + id + '"></div>';
+                    tab_container_html += '<div id="' + id + '">';
+                    if (p1.memo) {
+                        tab_container_html += '<div class="common_container rule_memo" >' + p1.memo + '</div>';
+                    }
+                    tab_container_html += '</div>';
                     queryRuleList(p1.id);
                 });
                 $("#tabs ul").append(tab_list_html);

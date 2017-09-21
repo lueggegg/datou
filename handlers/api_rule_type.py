@@ -24,14 +24,16 @@ class ApiRuleType(ApiHandler):
             return
         elif op == 'add' or op == 'update':
             info = {}
-            info['label'] = self.get_argument_and_check_it('label')
             if op == 'add':
                 msg = '添加制度类型'
+                info['label'] = self.get_argument_and_check_it('label')
                 ret = yield self.config_dao.add_rule_type(**info)
             else:
                 msg = '更新制度类型'
                 type_id = self.get_argument_and_check_it('type_id')
-                ret = yield self.config_dao.update_rule_type(type_id, **info)
+                self.travel_argument(info, ['label', 'memo'])
+                if info:
+                    ret = yield self.config_dao.update_rule_type(type_id, **info)
         elif op == 'del':
             msg = '删除制度类型'
             type_id = self.get_argument_and_check_it('type_id')
