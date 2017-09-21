@@ -20,6 +20,7 @@ class ApiProcessAutoJob(JobHandler):
         now = self.now()
         path = None
         change_to_next = False
+        need_notify = False
         if op == 'add':
             path = yield  self.job_dao.query_first_job_auto_path(job_type)
             if not path:
@@ -54,6 +55,7 @@ class ApiProcessAutoJob(JobHandler):
             yield self.check_job_mark(job_id)
             yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_REJECTED)
             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
+            need_notify = True
         else:
             self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
 
@@ -100,6 +102,7 @@ class ApiProcessAutoJob(JobHandler):
         if not path:
             yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)
             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
+            need_notify = True
         else:
             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_PROCESSED)
             mark_done = False
@@ -160,6 +163,7 @@ class ApiProcessAutoJob(JobHandler):
                             yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)
                             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
                             mark_done = True
+                            need_notify = True
                 else:
                     yield self.job_dao.update_job(job_id, report_status=1)
                 if not mark_done:
@@ -171,6 +175,7 @@ class ApiProcessAutoJob(JobHandler):
                             yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)
                             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
                             mark_done = True
+                            need_notify = True
                     else:
                         for detail in path['detail']:
                             if detail['uid']:
@@ -183,6 +188,9 @@ class ApiProcessAutoJob(JobHandler):
             yield self.job_dao.update_job(job_id, cur_path_id=path['id'])
 
         self.process_result(True, '自动化工作流')
+        if need_notify:
+            yield self.job_dao.notify_job_mark(job_id, type_define.OPERATION_MASK_QUERY_AUTO_JOB)
+
 
     @gen.coroutine
     def check_job_mark(self, job_id):

@@ -1,0 +1,50 @@
+.job_query_label {
+    float: left;
+    width: 90px;
+}
+
+.job_query_content {
+}
+
+.query_invoker_container {
+    margin-left: 10px;
+    line-height: 36px;
+    display: inline-block;
+    width: 100%;
+}
+
+.job_query_invoker_list_container {
+    width: 80%;
+    min-height: 36px;
+    line-height: 36px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: white;
+    border: 1px solid rgb(169,169,169);
+    border-radius: 4px;
+    float: left;
+}
+
+.job_query_invoker_list_container button {
+    margin-top: 6px;
+}
+
+#invoker_list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+#invoker_list li{
+    float: left;
+    margin-right: 0.8em;
+}
+
+.invoke_date_picker {
+    width: 128px;
+    height: 24px;
+    padding: 4px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid rgb(169,169,169);
+}

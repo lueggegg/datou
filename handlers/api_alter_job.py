@@ -13,12 +13,17 @@ class ApiAlterJob(ApiHandler):
     def _real_deal_request(self):
         op = self.get_argument('op', 'complete')
         job_id = self.get_argument_and_check_it('job_id', None)
+        ret = True
         if op == 'cancel':
             msg = '撤回工作流'
             ret = yield self.job_dao.complete_job(job_id, type_define.STATUS_JOB_CANCEL)
         elif op == 'complete':
             msg = '归档工作流'
             ret = yield self.job_dao.complete_job(job_id, type_define.STATUS_JOB_COMPLETED)
+        elif op == 'read':
+            msg = '更新工作流状态'
+            status = self.get_argument('status', type_define.STATUS_JOB_MARK_COMPLETED)
+            yield self.job_dao.update_job_mark(job_id, self.account_info['id'], status)
         else:
             self.write_result(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
             return

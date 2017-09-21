@@ -2,12 +2,20 @@ var main_info;
 var node_list_data;
 
 $(document).ready(function () {
-    commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id}, function (data) {
-        if (!data) {
-            redirectError('没有权限');
-        }
-    });
+    if (__authority > __admin_authority && (__my_operation_mask & OPERATION_MASK_QUERY_AUTO_JOB) === 0) {
+        commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id}, function (data) {
+            if (!data) {
+                redirectError('没有权限');
+            }
+        });
+    }
 
+    if (__notify) {
+        commonPost('/api/alter_job', {job_id: __job_id, op: 'read'}, function (data) {
+
+        });
+    }
+    
     $("#process_container").hide();
 
     queryJobBaseInfo();

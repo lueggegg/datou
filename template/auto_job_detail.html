@@ -42,5 +42,9 @@
 <script>
     var __job_id = {{ arg['job_id'][0] }};
     var __title = decodeURI("{{ arg['title'][0] }}");
+    var __notify = null;
+    {% if 'notify' in arg %}
+    __notify = 1;
+    {% end %}
 //    $('title').html(__title);
 </script>{% end %}

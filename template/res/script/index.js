@@ -8,6 +8,7 @@ $(document).ready(function () {
     queryWaitingJob();
     queryRecentJob();
     queryBirthdayEmployee();
+    queryCompletedJob();
 });
 
 var img_news = null;
@@ -126,17 +127,52 @@ function queryRecentJob() {
     });
 }
 
-function getJobUrl(job_type, job_id, branch_id) {
+function queryCompletedJob() {
+    var container = $("#completed_job_container");
+    if (__authority > __admin_authority && (__my_operation_mask & OPERATION_MASK_QUERY_AUTO_JOB) === 0) {
+        container.hide();
+    } else {
+        commonPost('/api/query_job_list', {status: STATUS_JOB_MARK_NOTIFY}, function (data) {
+            if (data.length > 0) {
+                var job_status = {};
+                job_status[STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>';
+                job_status[STATUS_JOB_COMPLETED] = '<span style="color: rgb(0,225,32)">已完成</span>';
+                job_status[STATUS_JOB_REJECTED] = '<span style="color: red">未通过</span>';
+                job_status[STATUS_JOB_CANCEL] = '<span style="color: gray">被撤回</span>';
+                var list = '';
+                data.forEach(function (p1, p2, p3) {
+                    list += '<li>';
+                    list += '<div class="recent_info_type">[' + job_type_map[p1.type] + ']</div>';
+                    list += '<div class="recent_info_status">' + job_status[p1.job_status] + '</div>';
+                    list += '<div class="recent_info_main"><a target="_blank" href="'
+                        + getJobUrl(p1.type, p1.job_id, p1.branch_id, 1) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
+                    list += '</li>';
+                });
+                $("#completed_job_list").append(list);
+            } else {
+                $("#completed_job_list").append('<li>　暂无工作流</li>');
+            }
+        });
+    }
+}
+
+function getJobUrl(job_type, job_id, branch_id, notify) {
+    var url;
     switch (job_type) {
         case TYPE_JOB_OFFICIAL_DOC:
-            var url =  'doc_detail.html?job_id=' + job_id;
+            url =  'doc_detail.html?job_id=' + job_id;
             if (branch_id) {
                 url += '&branch_id=' + branch_id;
             }
-            return url;
+            break;
         default:
-            return 'auto_job_detail.html?job_id=' + job_id + "&title=" + encodeURI(job_type_map[job_type]);
+            url = 'auto_job_detail.html?job_id=' + job_id + "&title=" + encodeURI(job_type_map[job_type]);
+            break;
     }
+    if (notify) {
+        url += '&notify=1';
+    }
+    return url;
 }
 
 function queryBirthdayEmployee() {

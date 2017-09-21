@@ -1,5 +1,6 @@
 import db_helper
 import type_define
+import datetime
 from base_dao import BaseDAO
 
 from tornado import gen
@@ -121,16 +122,44 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret[0] if ret else None)
 
     @gen.coroutine
-    def query_job_list(self, job_type=None, invoker=None, count=None, offset=0):
+    def query_job_list(self, job_type=None, invoker=None, count=None, offset=0, **kwargs):
         sql = "SELECT r.*, r.status AS job_status, i.name AS invoker_name, o.name AS last_operator_name FROM %s r" \
               " LEFT JOIN %s i ON i.id = r.invoker" \
               " LEFT JOIN %s o ON o.id = r.last_operator" \
               " WHERE r.status > 0" % (self.record_tab, self.account_tab, self.account_tab)
         if job_type:
             sql += ' AND r.type=%s' % job_type
+        elif 'type_list' in kwargs:
+            type_list = kwargs['type_list']
+            if len(type_list) == 1:
+                sql += ' AND r.type=%s' % type_list[0]
+            else:
+                sql += ' AND r.type IN %s' % (tuple(type_list), )
+        elif 'exclude_type' in kwargs:
+            exclude_type = kwargs['exclude_type']
+            if len(exclude_type) == 1:
+                sql += ' AND r.type != %s' % exclude_type[0]
+            else:
+                sql += ' AND r.type NOT IN %s' % (tuple(exclude_type),)
         if invoker:
             sql += ' AND r.invoker=%s' % invoker
-        sql += ' ORDER BY r.id DESC'
+        if 'status_list' in kwargs:
+            status_list = kwargs['status_list']
+            if len(status_list) == 1:
+                sql += ' AND r.status=%s' % status_list[0]
+            else:
+                sql += ' AND r.status IN %s' % (tuple(status_list),)
+        if 'begin_time' in kwargs:
+            sql += " AND r.time >= '%s'" % kwargs['begin_time']
+        if 'end_time' in kwargs:
+            sql += " AND r.time < '%s'" % (datetime.datetime.strptime(kwargs['end_time'], '%Y-%m-%d') + datetime.timedelta(days=1))
+        if 'invoker_set' in kwargs:
+            invoker_set = kwargs['invoker_set']
+            if len(invoker_set) == 1:
+                sql += ' AND invoker=%s' % invoker_set[0]
+            else:
+                sql += ' AND invoker IN %s' % (tuple(invoker_set),)
+        sql += ' ORDER BY r.mod_time DESC'
         if count:
             sql += ' LIMIT %s, %s' % (offset, count)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
@@ -167,6 +196,14 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret)
 
     @gen.coroutine
+    def notify_job_mark(self, job_id, operation_mask):
+        sql = 'SELECT id FROM %s WHERE status AND (operation_mask & %s)' % (self.account_tab, operation_mask)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        for item in ret:
+            yield self.update_job_mark(job_id, item['id'], type_define.STATUS_JOB_MARK_NOTIFY)
+        raise gen.Return(True)
+
+    @gen.coroutine
     def query_employee_job(self, uid, status=None, job_type=None, count=None, offset=0):
         sql = 'SELECT m.*, m.status AS mark_status, r.*, r.status AS job_status, i.name AS invoker_name, o.name AS last_operator_name FROM %s m' \
               ' LEFT JOIN %s r ON m.job_id=r.id' \
@@ -176,6 +213,8 @@ class JobDAO(BaseDAO):
               % (self.mark_tab, self.record_tab, self.account_tab, self.account_tab, uid,)
         if status is not None:
             sql += ' AND m.status=%s' % status
+        else:
+            sql += ' AND m.status!=%s' % type_define.STATUS_JOB_MARK_NOTIFY
         if job_type:
             sql += ' AND r.type=%s' % job_type
         sql += ' ORDER BY r.mod_time DESC'

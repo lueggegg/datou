@@ -633,9 +633,11 @@
 				monthsShort: $.map(locale.months, function(n){ return n.substring(0, 3) }),
 			};
 
-	 	dateHelper = new DateFormatter({
-			dateSettings: $.extend({}, dateFormatterOptionsDefault, opts)
-		});
+		try {
+            dateHelper = new DateFormatter({
+                dateSettings: $.extend({}, dateFormatterOptionsDefault, opts)
+            });
+        } catch (e) {}
 	};
 
 	// for locale settings
