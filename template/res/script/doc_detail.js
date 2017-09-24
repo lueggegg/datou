@@ -33,6 +33,12 @@ $(document).ready(function (event) {
         }
     });
 
+    if (__notify) {
+        commonPost('/api/alter_job', {job_id: __job_id, op: 'read'}, function (data) {
+
+        });
+    }
+
     $("#process_container").hide();
     
     queryJobBaseInfo();

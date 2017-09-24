@@ -85,5 +85,9 @@
     {% if 'branch_id' in arg %}
     __branch_id = {{ arg['branch_id'][0] }};
     {% end %}
+    var __notify = null;
+    {% if 'notify' in arg %}
+    __notify = 1;
+    {% end %}
 </script>
 {% end %}
