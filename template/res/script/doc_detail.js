@@ -4,6 +4,7 @@ var OP_SEND_DOC = 1;
 var query_url = '/api/query_job_info';
 var attachment_controller = null;
 var img_attachment_controller = null;
+var doc_type_name = '公文';
 
 var process_container_init = false;
 
@@ -237,6 +238,10 @@ function getRecItem(data) {
 function queryJobBaseInfo() {
     commonPost(query_url, {type: 'base', job_id: __job_id}, function (data) {
         main_info = data;
+        if (main_info.type === TYPE_JOB_DOC_REPORT) {
+            doc_type_name = '呈报表';
+            $('title').text(doc_type_name + '详情');
+        }
         $("#doc_topic").text(main_info.title);
         $("#doc_topic").attr('title', main_info.title);
         if (main_info.status === STATUS_JOB_COMPLETED) {
@@ -248,8 +253,12 @@ function queryJobBaseInfo() {
                 $("#complete_btn").remove();
             } else {
                 $("#complete_btn").click(function (event) {
-                    showConfirmDialog('归档后，不能再操作该公文。确认归档？', function () {
-                        commonPost('/api/alter_job', {job_id: main_info.id}, function (data) {
+                    showConfirmDialog('归档后，不能再操作该' + doc_type_name + '。确认归档？', function () {
+                        var param = {job_id: main_info.id};
+                        if (main_info.type = TYPE_JOB_DOC_REPORT) {
+                            param['notify'] = 1;
+                        }
+                        commonPost('/api/alter_job', param, function (data) {
                             refresh();
                         });
                     });
@@ -289,7 +298,7 @@ function queryFirstJobNode() {
         var node_data = data[0];
         first_node = node_data;
         addJobNodeItem($("#first_node_container"), node_data, 0, false);
-        if (main_info.sub_type === TYPE_JOB_OFFICIAL_DOC_GROUP) {
+        if (main_info.sub_type === TYPE_JOB_SUB_TYPE_GROUP) {
             initGroupDoc();
         } else {
             initBranchDoc();
@@ -316,13 +325,15 @@ function initGroupDoc() {
         container.append(html);
 
         commonInitDialog(select_doc_rec_dlg, onSelectedMultiRec, {width: 720});
-        removeChildren(select_doc_rec_dlg);
-        select_doc_rec_dlg.append('<div id="employee_selectable_container"></div>');
-        rec_selectable_controller = createEmployeeMultiSelectorController($("#employee_selectable_container"), {filter_list: filter_list});
+        if (main_info.status !== STATUS_JOB_COMPLETED) {
+            removeChildren(select_doc_rec_dlg);
+            select_doc_rec_dlg.append('<div id="employee_selectable_container"></div>');
+            rec_selectable_controller = createEmployeeMultiSelectorController($("#employee_selectable_container"), {filter_list: filter_list});
 
-        initCommonProcessContainer();
+            initCommonProcessContainer();
 
-        $("#process_container").show();
+            $("#process_container").show();
+        }
     });
     queryAllJobNode();
 }
@@ -465,7 +476,7 @@ function addJobNodeItem(container, node_data, index, fake) {
         html += "</ul></div>";
     }
     if (node_data.type === TYPE_JOB_NODE_REMIND_COMPLETE) {
-        html += "<div class='sp_type_info'>【审阅者提醒：归档该公文】</div>";
+        html += "<div class='sp_type_info'>【审阅者提醒：归档该" + doc_type_name + "】</div>";
     }
     html += "<div class='node_item_content' id='node_item_content_" + node_data.id + "'></div>";
     html += "</div>";

@@ -23,6 +23,7 @@
         <li value="3"><a href="#company_rule_container">公司制度配置权限</a> </li>
         <li value="4"><a href="#download_file_container">文件下载配置权限</a> </li>
         <li value="5"><a href="#auto_job_notify_container">归档工作流查阅</a> </li>
+        <li value="6"><a href="#doc_report_notify_container">归档呈报表查阅</a> </li>
     </ul>
 
     <div id="super_admin_container">
@@ -83,6 +84,15 @@
             <ul id="auto_job_notify_employee_list"></ul>
         </div>
     </div>
+
+    <div id="doc_report_notify_container">
+        <div class="common_btn_container">
+            <button class="ui-button ui-corner-all select_employee_btn">添加员工</button>
+        </div>
+        <div class="common_container">
+            <ul id="doc_report_notify_employee_list"></ul>
+        </div>
+    </div>
 </div>
 
 <div id="employee_selector_dlg" title="选择员工">
@@ -98,7 +108,8 @@
         2: [OPERATION_MASK_EMPLOYEE, 'construct_container'],
         3: [OPERATION_MASK_RULE, 'company_rule_container'],
         4: [OPERATION_MASK_DOWNLOAD_FILE, 'download_file_container'],
-        5: [OPERATION_MASK_QUERY_AUTO_JOB, 'auto_job_notify_container']
+        5: [OPERATION_MASK_QUERY_AUTO_JOB, 'auto_job_notify_container'],
+        6: [OPERATION_MASK_QUERY_REPORT, 'doc_report_notify_container']
     };
     var selected_dept;
 
@@ -210,7 +221,8 @@
             [OPERATION_MASK_EMPLOYEE, $("#construct_employee_list")],
             [OPERATION_MASK_RULE, $("#company_rule_employee_list")],
             [OPERATION_MASK_DOWNLOAD_FILE, $("#download_file_employee_list")],
-            [OPERATION_MASK_QUERY_AUTO_JOB, $("#auto_job_notify_employee_list")]
+            [OPERATION_MASK_QUERY_AUTO_JOB, $("#auto_job_notify_employee_list")],
+            [OPERATION_MASK_QUERY_REPORT, $("#doc_report_notify_employee_list")]
         ].forEach(function (p1, p2, p3) {
             commonPost('/api/query_account_list', {type: TYPE_ACCOUNT_OPERATION_MASK, operation_mask: p1[0]}, function (data) {
                 var list_data = [['账号', '部门', '姓名', '删除']];

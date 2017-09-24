@@ -29,13 +29,13 @@
     margin-top: 6px;
 }
 
-#invoker_list {
+.invoker_list {
     padding: 0;
     margin: 0;
     list-style-type: none;
 }
 
-#invoker_list li{
+.invoker_list li{
     float: left;
     margin-right: 0.8em;
 }

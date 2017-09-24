@@ -4,6 +4,9 @@ var job_types = [];
 var invoker_select_dlg;
 var invoker_select_controller;
 
+var report_invoker_select_dlg;
+var report_invoker_select_controller;
+
 $(document).ready(function () {
     verticalTabs();
 
@@ -12,7 +15,8 @@ $(document).ready(function () {
         $("#job_processed"),
         $("#job_completed"),
         $("#job_sent_by_myself"),
-        $("#job_list_container")
+        $("#job_list_container"),
+        $("#doc_report_list_container")
     );
     job_types.push(
         STATUS_JOB_MARK_WAITING,
@@ -25,10 +29,17 @@ $(document).ready(function () {
         queryJobList(i);
     }
 
-    decideQueryOperation();
+    document.onkeydown = function (e) {
+        if (e.keyCode === 13) {
+            onQueryBtnClick();
+        }
+    };
+
+    decideAutoJobQueryOperation();
+    decideDocReportQueryOperation();
 });
 
-function decideQueryOperation() {
+function decideAutoJobQueryOperation() {
     invoker_select_dlg = $("#select_invoker_dlg");
     if (__authority <= __admin_authority || (__my_operation_mask & OPERATION_MASK_QUERY_AUTO_JOB)) {
         var type_options = '';
@@ -56,13 +67,6 @@ function decideQueryOperation() {
 
         initDatePicker($("#invoke_begin"));
         initDatePicker($("#invoker_end"));
-        document.onkeydown = function (e) {
-            if ($("#tabs ul .ui-state-active").val() === 4) {
-                if (e.keyCode === 13) {
-                    $("#query_btn").click();
-                }
-            }
-        };
 
     } else {
         $("#query_job_tab").hide();
@@ -97,6 +101,50 @@ function delInvoner(uid) {
     invoker_select_controller.remove_item(uid);
 }
 
+function decideDocReportQueryOperation() {
+    report_invoker_select_dlg = $("#select_report_invoker_dlg");
+    if (__authority <= __admin_authority || (__my_operation_mask & OPERATION_MASK_QUERY_REPORT)) {
+
+        commonInitDialog(report_invoker_select_dlg, onReportInvokerSelected, {width: 720});
+        report_invoker_select_controller = createEmployeeMultiSelectorController($("#report_employee_selectable_container"));
+        $("#add_report_invoker_btn").click(openReportInvokerSelectDlg);
+
+        initDatePicker($("#report_invoke_begin"));
+        initDatePicker($("#report_invoker_end"));
+
+    } else {
+        $("#query_report_tab").hide();
+        $("#query_doc_report_container").hide();
+        report_invoker_select_dlg.hide();
+    }
+}
+
+function openReportInvokerSelectDlg() {
+    report_invoker_select_dlg.dialog('open');
+    report_invoker_select_controller.fresh();
+}
+
+function onReportInvokerSelected() {
+    var container = $("#report_invoker_list");
+    removeChildren(container);
+    var rec_set = report_invoker_select_controller.get_result();
+    var list_data = '';
+    var employee_map = report_invoker_select_controller.employee_map;
+    rec_set.forEach(function (p1, p2, p3) {
+        var employee = employee_map[p1];
+        list_data += '<li value="' + p1 + '">' + employee.name + ';';
+        list_data += '<img class="common_small_del_btn" src="res/images/icon/gray_del.png" onclick="delReportInvoner(' + p1 + ')">';
+        list_data += '</li>';
+    });
+    container.append(list_data);
+    report_invoker_select_dlg.dialog('close');
+}
+
+function delReportInvoner(uid) {
+    $("#delReportInvoner [value='" + uid + "']").remove();
+    report_invoker_select_controller.remove_item(uid);
+}
+
 function queryJobList(index) {
     var param = {
         status: job_types[index]
@@ -107,11 +155,11 @@ function queryJobList(index) {
 }
 
 function setJobData(index, data) {
-    if (index < 5) {
+    if (index < 6) {
         var weight =[1.2, 2, 1, 1.5, 1.5, 1.5];
         var title = ['类型', '主题', '发送人', '发送时间', '上一个审阅人', '最后操作时间'];
         var new_status = (index < 4 && (job_types[index] === STATUS_JOB_MARK_COMPLETED
-            || job_types[index] === STATUS_JOB_INVOKED_BY_MYSELF)) || index === 4;
+            || job_types[index] === STATUS_JOB_INVOKED_BY_MYSELF)) || (index > 3);
         var status = {};
         if (new_status) {
             title.push('状态');
@@ -144,6 +192,7 @@ function setJobData(index, data) {
 function onClickDocItem(job_type, job_id, branch_id) {
     switch (job_type) {
         case TYPE_JOB_OFFICIAL_DOC:
+        case TYPE_JOB_DOC_REPORT:
             var url = '/doc_detail.html?job_id=' + job_id;
             if (branch_id) {
                 url += '&branch_id=' + branch_id;
@@ -156,7 +205,16 @@ function onClickDocItem(job_type, job_id, branch_id) {
     }
 }
 
-function queryAutoJob() {
+function onQueryBtnClick() {
+    var value = $("#tabs ul .ui-state-active").val();
+    if (value === 4) {
+        queryCompletedAutoJob();
+    } else if (value === 5) {
+        queryDocReport();
+    }
+}
+
+function queryCompletedAutoJob() {
     var param = {query_type: TYPE_JOB_QUERY_AUTO_JOB};
     var job_type = parseInt($("#auto_job_type").val());
     if (job_type > 0) {
@@ -189,4 +247,36 @@ function queryAutoJob() {
     commonPost('/api/query_job_list', param, function (data) {
         setJobData(4, data);
     });
+}
+
+function queryDocReport() {
+    var param = {query_type: TYPE_JOB_QUERY_DOC_REPORT};
+    var query_content = {};
+    var begin_time = $("#invoke_begin").val();
+    if (begin_time) {
+        query_content['begin_time'] = begin_time;
+    }
+    var end_time = $("#invoker_end").val();
+    if (end_time) {
+        query_content['end_time'] = end_time;
+    }
+    if (begin_time && end_time) {
+        if ((new Date(end_time)).getTime() < (new Date(begin_time)).getTime()) {
+            promptMsg('结束时间不能早于开始时间');
+            return;
+        }
+    }
+    var invoker_set = report_invoker_select_controller.get_result();
+    if (invoker_set.size > 0) {
+        query_content['invoker_set'] = [];
+        invoker_set.forEach(function (p1, p2, p3) {
+            query_content.invoker_set.push(p1);
+        });
+    }
+    param['query_content'] = JSON.stringify(query_content);
+
+    commonPost('/api/query_job_list', param, function (data) {
+        setJobData(5, data);
+    });
+
 }

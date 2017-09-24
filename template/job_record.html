@@ -18,7 +18,8 @@
         <li><a href="#job_processed">已办的工作流</a> </li>
         <li><a href="#job_completed">已归档的工作流</a> </li>
         <li><a href="#job_sent_by_myself">我发起的工作流</a> </li>
-        <li id="query_job_tab" value="4"><a href="#query_job_container">查询工作流</a></li>
+        <li id="query_job_tab" value="4"><a href="#query_job_container">查询自动化工作流</a></li>
+        <li id="query_report_tab" value="5"><a href="#query_doc_report_container">查询呈报表</a></li>
     </ul>
     <div id="job_waiting"></div>
     <div id="job_processed"></div>
@@ -31,7 +32,7 @@
                 <select id="auto_job_type">
                     <option selected value="0">全部</option>
                 </select>
-                <button id="query_btn" title="按Enter直接查询" class="ui-button ui-corner-all element_right" style="margin-right:60px; width: 80px; letter-spacing: 2px;" onclick="queryAutoJob()">查询</button>
+                <button id="query_btn" title="按Enter直接查询" class="ui-button ui-corner-all element_right" style="margin-right:60px; width: 80px; letter-spacing: 2px;" onclick="onQueryBtnClick()">查询</button>
             </div>
         </div>
         <div class="common_btn_container">
@@ -45,17 +46,44 @@
         <div class="query_invoker_container">
             <div class="job_query_label">发起人：</div>
             <div class="job_query_invoker_list_container">
-                <ul id="invoker_list"></ul>
+                <ul id="invoker_list" class="invoker_list"></ul>
                 <button id="add_invoker_btn" class="common_add_btn"></button>
             </div>
         </div>
         <div class="common_container" id="job_list_container">
         </div>
     </div>
+    <div id="query_doc_report_container">
+        <div class="common_btn_container">
+            <button id="query_doc_report_btn" title="按Enter直接查询" class="ui-button ui-corner-all" style="margin-right:60px; width: 80px; letter-spacing: 2px;" onclick="onQueryBtnClick()">查询</button>
+        </div>
+        <div class="common_btn_container">
+            <div class="job_query_label">发起时间：</div>
+            <div class="job_query_content">
+                <input type="text" id="report_invoke_begin" placeholder="开始" class="invoke_date_picker">
+                》
+                <input type="text" id="report_invoker_end" placeholder="至今" class="invoke_date_picker">
+            </div>
+        </div>
+        <div class="query_invoker_container">
+            <div class="job_query_label">发起人：</div>
+            <div class="job_query_invoker_list_container">
+                <ul id="report_invoker_list" class="invoker_list"></ul>
+                <button id="add_report_invoker_btn" class="common_add_btn"></button>
+            </div>
+        </div>
+        <div class="common_container" id="doc_report_list_container">
+        </div>
+    </div>
 </div>
 
 <div id="select_invoker_dlg" title="发送者">
     <div id="employee_selectable_container">
+    </div>
+</div>
+
+<div id="select_report_invoker_dlg" title="发送者">
+    <div id="report_employee_selectable_container">
     </div>
 </div>
 {% end %}

@@ -1,0 +1,68 @@
+{% extends base.html %}
+
+{% block title %}呈报表{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/tabs.css">
+<link rel="stylesheet" href="res/css/list.css">
+<link rel="stylesheet" href="res/css/official_doc.css">
+<script type="text/javascript" src="res/script/doc_report.js"></script>
+<script type="text/javascript" src="res/script/attachment_list.js"></script>
+<script type="text/javascript" src="res/script/employee_multi_selector.js"></script>
+<link rel="stylesheet" href="res/css/employee_multi_selector.css">
+{% end %}
+
+{% block custom_body %}
+<div id="tabs">
+    <ul>
+        <li><a href="#invoke_doc_container">发送呈报表</a></li>
+        <li><a href="#my_doc_container">我的呈报表</a></li>
+    </ul>
+
+    <div class="tab_config_container" id="invoke_doc_container">
+        <div class="node_info_item">
+            <div class="element_left node_info_item_label">主题：　</div>
+            <input type="text" id="doc_topic" class="common_editor node_info_item_input element_left">
+            <div  style="float: right; margin-right: 40px;" title="选中后，每个接收者将生成相互独立的处理路径；不选中，则所有接收者共享呈报表">
+                <input type="checkbox" id="branch_type"><label for="branch_type">链式呈报</label>
+            </div>
+        </div>
+        <div class="node_info_item">
+            <div class="element_left node_info_item_label">发送到：</div>
+            <div class="rec_container">
+                <ul id="rec_list">
+                </ul>
+                <button id="add_rec_btn" class="node_info_item_add_btn"></button>
+            </div>
+        </div>
+        <div class="attachment_container" id="attachment_container"></div>
+        <div class="attachment_container" id="img_attachment_container"></div>
+        <div class="doc_text_area_container">
+            <textarea id='doc_content' class="doc_text_area"></textarea>
+        </div>
+        <div>
+            <button id='doc_send_btn' class="doc_send_btn">发 送</button>
+        </div>
+        <div class="common_btn_container" style="font-size: 0.8em;color: rgb(144,144,144); font-family: Arial;">备注：所有呈报表将归档到办公室</div>
+    </div>
+
+    <div class="tab_config_container" id="my_doc_container">
+        <div id="my_doc_tab">
+            <input type="radio" name="my_doc_radio" value="0" id="waiting" checked><label for="waiting">待办的呈报表</label>
+            <input type="radio" name="my_doc_radio" value="1" id="processed"><label for="processed">已处理的呈报表</label>
+            <input type="radio" name="my_doc_radio" value="2" id="completed"><label for="completed">已归档的呈报表</label>
+            <input type="radio" name="my_doc_radio" value="3" id="sent_by_myself"><label for="sent_by_myself">我发送的呈报表</label>
+        </div>
+        <div class="common_border common_container">
+            <div id="doc_waiting"></div>
+            <div id="doc_processed"></div>
+            <div id="doc_completed"></div>
+            <div id="doc_sent_by_myself"></div>
+        </div>
+    </div>
+</div>
+
+<div id="select_rec_dlg" title="发送到">
+    <div id="employee_selectable_container">
+    </div>
+</div>
+{% end %}

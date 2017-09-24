@@ -28,7 +28,7 @@ class ApiQueryJobList(ApiHandler):
             else:
                 kwargs = {}
             kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED, type_define.STATUS_JOB_REJECTED]
-            kwargs['exclude_type'] = [type_define.TYPE_JOB_OFFICIAL_DOC]
+            kwargs['exclude_type'] = [type_define.TYPE_JOB_OFFICIAL_DOC, type_define.TYPE_JOB_DOC_REPORT]
             if job_type == type_define.TYPE_JOB_HR_ASK_FOR_LEAVE:
                 kwargs['type_list'] = [
                     type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY,
@@ -41,6 +41,15 @@ class ApiQueryJobList(ApiHandler):
                     type_define.TYPE_JOB_LEAVE_FOR_BORN_LEADER,
                     type_define.TYPE_JOB_LEAVE_FOR_BORN_NORMAL,
                 ]
+            ret = yield self.job_dao.query_job_list(job_type=job_type, count=count, offset=offset, **kwargs)
+        elif query_type == type_define.TYPE_JOB_QUERY_DOC_REPORT:
+            query_content = self.get_argument('query_content', None)
+            if query_content:
+                kwargs = self.loads_json(query_content)
+            else:
+                kwargs = {}
+            kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED, type_define.STATUS_JOB_REJECTED]
+            job_type = type_define.TYPE_JOB_DOC_REPORT
             ret = yield self.job_dao.query_job_list(job_type=job_type, count=count, offset=offset, **kwargs)
         else:
             if status == type_define.STATUS_JOB_INVOKED_BY_MYSELF:

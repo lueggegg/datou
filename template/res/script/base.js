@@ -431,3 +431,4 @@ job_type_map[TYPE_JOB_LEAVE_FOR_BORN_LEADER] = '中层产假';
 job_type_map[TYPE_JOB_LEAVE_FOR_BORN_NORMAL] = '员工产假';
 job_type_map[TYPE_JOB_FINANCIAL_PURCHASE] = '购物流程';
 job_type_map[TYPE_JOB_FINANCIAL_REIMBURSEMENT] = '报销流程';
+job_type_map[TYPE_JOB_DOC_REPORT] = '呈报表';

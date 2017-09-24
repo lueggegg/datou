@@ -67,6 +67,7 @@ app = tornado.web.Application([
     config_dao=_config_dao,
     birthday_alert=14,
     retire_alert = 180,
+    auto_next_timeout = 72,
 )
 
 app.listen(options.port, options.address)

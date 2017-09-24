@@ -15,7 +15,7 @@ $(document).ready(function () {
 
         });
     }
-    
+
     $("#process_container").hide();
 
     queryJobBaseInfo();

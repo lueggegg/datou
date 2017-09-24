@@ -20,6 +20,9 @@ class ApiAlterJob(ApiHandler):
         elif op == 'complete':
             msg = '归档工作流'
             ret = yield self.job_dao.complete_job(job_id, type_define.STATUS_JOB_COMPLETED)
+            notify = self.get_argument('notify', None)
+            if notify:
+                yield self.job_dao.notify_doc_report_mark(job_id, type_define.OPERATION_MASK_QUERY_REPORT)
         elif op == 'read':
             msg = '更新工作流状态'
             status = self.get_argument('status', type_define.STATUS_JOB_MARK_COMPLETED)

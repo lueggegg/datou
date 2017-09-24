@@ -204,6 +204,14 @@ class JobDAO(BaseDAO):
         raise gen.Return(True)
 
     @gen.coroutine
+    def notify_doc_report_mark(self, job_id, operation_mask):
+        sql = 'SELECT id FROM %s WHERE status AND (operation_mask & %s)' % (self.account_tab, operation_mask)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        for item in ret:
+            yield self.update_job_mark(job_id, item['id'], type_define.STATUS_JOB_MARK_REPORT_NOTIFY)
+        raise gen.Return(True)
+
+    @gen.coroutine
     def query_employee_job(self, uid, status=None, job_type=None, count=None, offset=0):
         sql = 'SELECT m.*, m.status AS mark_status, r.*, r.status AS job_status, i.name AS invoker_name, o.name AS last_operator_name FROM %s m' \
               ' LEFT JOIN %s r ON m.job_id=r.id' \

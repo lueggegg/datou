@@ -12,9 +12,10 @@ class ApiSendOfficialDoc(ApiHandler):
     def _real_deal_request(self):
         time = self.now()
         op = self.get_argument_and_check_it('op')
+        job_type = self.get_argument('type', type_define.TYPE_JOB_OFFICIAL_DOC)
         if op == 'add':
             job_record = {
-                'type': type_define.TYPE_JOB_OFFICIAL_DOC,
+                'type': job_type,
                 'invoker': self.account_info['id'],
                 'time': time,
                 'mod_time': time,
@@ -76,7 +77,7 @@ class ApiSendOfficialDoc(ApiHandler):
                 yield self.job_dao.delete_job(job_id)
             self.finish_with_error(error_codes.EC_SYS_ERROR, '创建工作流节点失败')
 
-        if job_record['invoker'] != self.account_info['id']:
+        if op == 'reply':
             yield self.job_dao.update_job_mark(job_id, self.account_info['id'], type_define.STATUS_JOB_MARK_PROCESSED,branch_id)
 
         attachment_fields = [
