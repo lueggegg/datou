@@ -141,7 +141,7 @@ function onReportInvokerSelected() {
 }
 
 function delReportInvoner(uid) {
-    $("#delReportInvoner [value='" + uid + "']").remove();
+    $("#report_invoker_list [value='" + uid + "']").remove();
     report_invoker_select_controller.remove_item(uid);
 }
 

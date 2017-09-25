@@ -189,7 +189,9 @@ class ApiProcessAutoJob(JobHandler):
 
         self.process_result(True, '自动化工作流')
         if need_notify:
-            yield self.job_dao.notify_job_mark(job_id, type_define.OPERATION_MASK_QUERY_AUTO_JOB)
+            notify_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_JUST_ID, operation_mask=type_define.OPERATION_MASK_QUERY_AUTO_JOB)
+            notify_list = [item['id'] for item in notify_list]
+            yield self.job_dao.job_notify(job_id, notify_list, type_define.TYPE_JOB_NOTIFY_AUTO_JOB)
 
 
     @gen.coroutine

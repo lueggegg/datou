@@ -11,7 +11,7 @@ $(document).ready(function () {
     }
 
     if (__notify) {
-        commonPost('/api/alter_job', {job_id: __job_id, op: 'read'}, function (data) {
+        commonPost('/api/alter_job', {job_id: __job_id, op: 'notify_read'}, function (data) {
 
         });
     }

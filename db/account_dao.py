@@ -49,33 +49,38 @@ class AccountDAO(BaseDAO):
         raise gen.Return(ret[0] if ret else False)
 
     @gen.coroutine
-    def query_account_list(self, dept_id=None, type=type_define.TYPE_ACCOUNT_NORMAL, **kwargs):
-        if type == type_define.TYPE_ACCOUNT_CONTACT:
-            account_fields = ['id', 'account', 'name', 'department_id', 'cellphone', 'position', 'email', 'qq', 'wechat', 'address', 'weight']
-            account_fields = 'a.' + ', a.'.join(account_fields)
-        elif type == type_define.TYPE_ACCOUNT_SAMPLE or type == type_define.TYPE_ACCOUNT_LEADER:
-            account_fields = ['id', 'account', 'name', 'department_id', 'position', 'weight']
-            account_fields = 'a.' + ', a.'.join(account_fields)
-        elif type == type_define.TYPE_ACCOUNT_BIRTHDAY:
-            account_fields = ['id', 'account', 'name', 'department_id', 'birthday', 'join_date', 'sex', 'position_type', 'weight']
-            account_fields = 'a.' + ', a.'.join(account_fields)
-        elif type == type_define.TYPE_ACCOUNT_OPERATION_MASK:
-            account_fields = ['id', 'account', 'name', 'operation_mask']
-            account_fields = 'a.' + ', a.'.join(account_fields)
+    def query_account_list(self, dept_id=None, field_type=type_define.TYPE_ACCOUNT_NORMAL, **kwargs):
+        if field_type == type_define.TYPE_ACCOUNT_JUST_ID:
+            sql = 'SELECT a.id FROM %s a WHERE a.status=1' % (self.account_tab,)
         else:
-            account_fields = 'a.*'
-        sql = 'SELECT %s, d.name AS dept, a.id=d.leader AS is_leader FROM %s a ' \
-              'LEFT JOIN %s d ON a.department_id = d.id ' \
-              'WHERE a.status=1 and d.status=1' % (account_fields, self.account_tab, self.dept_tab)
+            if field_type == type_define.TYPE_ACCOUNT_CONTACT:
+                account_fields = ['id', 'account', 'name', 'department_id', 'cellphone', 'position', 'email', 'qq', 'wechat', 'address', 'weight']
+                account_fields = 'a.' + ', a.'.join(account_fields)
+            elif field_type == type_define.TYPE_ACCOUNT_SAMPLE or field_type == type_define.TYPE_ACCOUNT_LEADER:
+                account_fields = ['id', 'account', 'name', 'department_id', 'position', 'weight']
+                account_fields = 'a.' + ', a.'.join(account_fields)
+            elif field_type == type_define.TYPE_ACCOUNT_BIRTHDAY:
+                account_fields = ['id', 'account', 'name', 'department_id', 'birthday', 'join_date', 'sex', 'position_type', 'weight']
+                account_fields = 'a.' + ', a.'.join(account_fields)
+            elif field_type == type_define.TYPE_ACCOUNT_OPERATION_MASK:
+                account_fields = ['id', 'account', 'name', 'operation_mask']
+                account_fields = 'a.' + ', a.'.join(account_fields)
+            else:
+                account_fields = 'a.*'
+            sql = 'SELECT %s, d.name AS dept, a.id=d.leader AS is_leader FROM %s a ' \
+                  'LEFT JOIN %s d ON a.department_id = d.id ' \
+                  'WHERE a.status=1 and d.status=1' % (account_fields, self.account_tab, self.dept_tab)
         if dept_id:
             sql += ' AND a.department_id=%s' % dept_id
-        if type == type_define.TYPE_ACCOUNT_LEADER:
+        if field_type == type_define.TYPE_ACCOUNT_LEADER:
             sql += ' AND (a.operation_mask & %s OR a.operation_mask & %s)' % (type_define.AUTHORITY_CHAIR_LEADER, type_define.AUTHORITY_VIA_LEADER)
         if kwargs:
             conditions = ['account', 'name']
             for condition in conditions:
                 if condition in kwargs and kwargs[condition]:
                     sql += " AND a.%s LIKE '%%%s%%'" % (condition, kwargs[condition])
+            if 'operation_mask' in kwargs and kwargs['operation_mask']:
+                sql += ' AND a.operation_mask & %s' % kwargs['operation_mask']
         sql += ' ORDER BY a.weight DESC'
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)

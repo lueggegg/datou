@@ -27,15 +27,13 @@ var active_branch_tag;
 var rec_selectable_controller;
 
 $(document).ready(function (event) {
-    commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id, branch_id: __branch_id}, function (data) {
-        if (!data) {
-            redirectError('没有权限');
-        }
-    });
+
+    if (__authority > __admin_authority && (__my_operation_mask & OPERATION_MASK_QUERY_REPORT) === 0) {
+        checkAuthority();
+    }
 
     if (__notify) {
-        commonPost('/api/alter_job', {job_id: __job_id, op: 'read'}, function (data) {
-
+        commonPost('/api/alter_job', {job_id: __job_id, op: 'notify_read'}, function (data) {
         });
     }
 
@@ -48,6 +46,14 @@ $(document).ready(function (event) {
     initConfirmDialog();
     current_branch = __branch_id;
 });
+
+function checkAuthority() {
+    commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id, branch_id: __branch_id}, function (data) {
+        if (!data) {
+            redirectError('没有权限');
+        }
+    });
+}
 
 function initBranchProcessContainer() {
     if (process_container_init) return;
@@ -269,6 +275,9 @@ function queryJobBaseInfo() {
                         });
                     });
                 });
+            }
+            if (main_info.sub_type === TYPE_JOB_SUB_TYPE_GROUP) {
+                commonPost('/api/alter_job', {op: 'group_doc_read', job_id: __job_id}, null);
             }
         }
         queryFirstJobNode();

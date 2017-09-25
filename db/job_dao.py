@@ -20,6 +20,8 @@ class JobDAO(BaseDAO):
         self.broadcast_tab = 'note_broadcast'
         self.uid_set_tab = 'uid_set'
         self.uid_set_detail_tab = 'uid_set_detail'
+        self.notify_tab = 'job_notify'
+        self.uid_path_detail_table = 'job_uid_path_detail'
 
     @gen.coroutine
     def clear_all_job_data(self):
@@ -190,26 +192,17 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret[0] if ret else None)
 
     @gen.coroutine
-    def update_job_all_mark(self, job_id, status):
+    def update_job_all_mark(self, job_id, status, filter_list=None):
         sql = 'UPDATE %s SET status=%s WHERE job_id=%s' % (self.mark_tab, status, job_id)
+        if isinstance(filter_list, int):
+            sql += ' AND uid != %s' % filter_list
+        elif isinstance(filter_list, list):
+            if len(filter_list) == 1:
+                sql += ' AND uid != %s' % filter_list[0]
+            else:
+                sql += ' AND uid IN %s' % (tuple(filter_list),)
         ret = yield self._executor.async_update(self._get_inst(), sql)
         raise gen.Return(ret)
-
-    @gen.coroutine
-    def notify_job_mark(self, job_id, operation_mask):
-        sql = 'SELECT id FROM %s WHERE status AND (operation_mask & %s)' % (self.account_tab, operation_mask)
-        ret = yield self._executor.async_select(self._get_inst(True), sql)
-        for item in ret:
-            yield self.update_job_mark(job_id, item['id'], type_define.STATUS_JOB_MARK_NOTIFY)
-        raise gen.Return(True)
-
-    @gen.coroutine
-    def notify_doc_report_mark(self, job_id, operation_mask):
-        sql = 'SELECT id FROM %s WHERE status AND (operation_mask & %s)' % (self.account_tab, operation_mask)
-        ret = yield self._executor.async_select(self._get_inst(True), sql)
-        for item in ret:
-            yield self.update_job_mark(job_id, item['id'], type_define.STATUS_JOB_MARK_REPORT_NOTIFY)
-        raise gen.Return(True)
 
     @gen.coroutine
     def query_employee_job(self, uid, status=None, job_type=None, count=None, offset=0):
@@ -221,8 +214,6 @@ class JobDAO(BaseDAO):
               % (self.mark_tab, self.record_tab, self.account_tab, self.account_tab, uid,)
         if status is not None:
             sql += ' AND m.status=%s' % status
-        else:
-            sql += ' AND m.status!=%s' % type_define.STATUS_JOB_MARK_NOTIFY
         if job_type:
             sql += ' AND r.type=%s' % job_type
         sql += ' ORDER BY r.mod_time DESC'
@@ -420,13 +411,63 @@ class JobDAO(BaseDAO):
 
 
     @gen.coroutine
-    def query_uid_set(self, set_id):
-        sql = 'SELECT s.uid, a.account, a.name, d.name AS dept FROM %s s' \
-              ' LEFT JOIN %s a ON s.uid=a.id' \
-              ' LEFT JOIN department d ON a.department_id=d.id' \
-              ' WHERE s.set_id=%s' % (self.uid_set_detail_tab, self.account_tab, set_id)
+    def query_uid_set(self, set_id, sample=False):
+        if sample:
+            sql = 'SELECT * FROM %s WHERE set_id=%s' % (self.uid_set_detail_tab, set_id)
+        else:
+            sql = 'SELECT s.uid, a.account, a.name, d.name AS dept FROM %s s' \
+                  ' LEFT JOIN %s a ON s.uid=a.id' \
+                  ' LEFT JOIN department d ON a.department_id=d.id' \
+                  ' WHERE s.set_id=%s' % (self.uid_set_detail_tab, self.account_tab, set_id)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
+
+    @gen.coroutine
+    def job_notify(self, job_id, uid_list, notify_type):
+        for uid in uid_list:
+            yield self.add_notify_item(job_id, uid, notify_type)
+        raise gen.Return(True)
+
+    @gen.coroutine
+    def add_notify_item(self, job_id, uid, notify_type):
+        ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.notify_tab,
+                            job_id=job_id, uid=uid, type=notify_type)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def del_notify_item(self, job_id, uid):
+        sql = 'DELETE FROM %s WHERE job_id=%s AND uid=%s' % (self.notify_tab, job_id, uid)
+        ret = yield self._executor.async_delete(self._get_inst(), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_notify_job_list(self, uid, notify_type):
+        sql = "SELECT r.*, r.status AS job_status, i.name AS invoker_name FROM %s r" \
+              " LEFT JOIN %s i ON i.id=r.invoker" \
+              " LEFT JOIN %s n ON n.job_id=r.id" \
+              " WHERE r.status > 0 AND n.uid=%s AND n.type=%s ORDER BY r.mod_time DESC" \
+              % (self.record_tab, self.account_tab, self.notify_tab, uid, notify_type)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def add_job_uid_path_detail(self, job_id, index, uid=None, set_id=None):
+        ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.uid_path_detail_table,
+                                                          job_id=job_id, uid=uid, set_id=set_id, order_index=index)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def del_job_uid_path_detail(self, job_id, index):
+        sql = 'DELETE FROM %s WHERE job_id=%s AND order_index=%s' % (self.uid_path_detail_table, job_id, index)
+        ret = yield self._executor.async_delete(self._get_inst(), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def get_next_job_uid_path_detail(self, job_id):
+        sql = 'SELECT * FROM %s WHERE job_id=%s ORDER BY order_index LIMIT 1' % (self.uid_path_detail_table, job_id)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret[0] if ret else None)
+
 
 
 

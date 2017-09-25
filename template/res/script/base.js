@@ -360,7 +360,9 @@ function commonPost(url, param, successCallback, block) {
                 }
                 return;
             }
-            successCallback(data.data);
+            if (successCallback) {
+                successCallback(data.data);
+            }
         } catch (e) {
             redirectError(e);
         }

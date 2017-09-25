@@ -103,8 +103,12 @@ class ApiSendOfficialDoc(ApiHandler):
             rec_set = set([item['uid'] for item in rec_set])
             rec_set.add(job_record['invoker'])
             rec_set.remove(self.account_info['id'])
-            for uid in rec_set:
-                yield self.job_dao.update_job_mark(job_id, uid, type_define.STATUS_JOB_MARK_WAITING, uid)
+            if job_record['sub_type'] == type_define.TYPE_JOB_SUB_TYPE_BRANCH:
+                for uid in rec_set:
+                    yield self.job_dao.update_job_mark(job_id, uid, type_define.STATUS_JOB_MARK_WAITING, uid)
+            else:
+                for uid in rec_set:
+                    yield self.job_dao.update_job_mark(job_id, uid, type_define.STATUS_JOB_MARK_WAITING)
         else:
             yield self.job_dao.update_job_mark(job_id, rec_id, type_define.STATUS_JOB_MARK_WAITING, branch_id)
             if rec_id != self.account_info['id']:

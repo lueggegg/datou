@@ -16,6 +16,12 @@ var img_news = null;
 var current_img_index = 0;
 var img_size = 0;
 
+var mark_status_map = {};
+mark_status_map[STATUS_JOB_MARK_COMPLETED] = '已归档';
+mark_status_map[STATUS_JOB_MARK_WAITING] = '待办';
+mark_status_map[STATUS_JOB_MARK_PROCESSED] = '已处理';
+mark_status_map[STATUS_JOB_INVOKED_BY_MYSELF] = '我发起';
+
 function queryImgNews() {
     commonPost('/api/outer_link', {op: 'query', type: TYPE_NEWS_LINK_IMG}, function (data) {
         img_news = data;
@@ -90,6 +96,7 @@ function queryWaitingJob() {
             var list = '';
             data.forEach(function (p1, p2, p3) {
                 list += '<li><div class="element_left recent_info_type" >[' + job_type_map[p1.type] + ']</div>';
+                list += '<div class="recent_info_mark_status">' + getMarkStatusLabel(p1.mark_status, p1.sub_type) + '</div>';
                 list += '<div class="waiting_job_main"><a target="_blank" href="'
                     + getJobUrl(p1.type, p1.job_id, p1.branch_id) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
                 list += '</li>';
@@ -108,18 +115,11 @@ function queryRecentJob() {
             job_status[STATUS_JOB_COMPLETED] = '<span style="color: rgb(0,225,32)">已完成</span>';
             job_status[STATUS_JOB_REJECTED] = '<span style="color: red">未通过</span>';
             job_status[STATUS_JOB_CANCEL] = '<span style="color: gray">被撤回</span>';
-            var mark_status = {};
-            mark_status[STATUS_JOB_MARK_COMPLETED] = '已归档';
-            mark_status[STATUS_JOB_MARK_WAITING] = '待办';
-            mark_status[STATUS_JOB_MARK_PROCESSED] = '已处理';
-            mark_status[STATUS_JOB_INVOKED_BY_MYSELF] = '我发起';
-            mark_status[STATUS_JOB_MARK_NOTIFY] = '已归档';
-            mark_status[STATUS_JOB_MARK_REPORT_NOTIFY] = '已归档';
             var list = '';
             data.forEach(function (p1, p2, p3) {
                 list += '<li>';
                 list += '<div class="recent_info_type">[' + job_type_map[p1.type] + ']</div>';
-                list += '<div class="recent_info_mark_status">' + mark_status[p1.mark_status] + '</div>';
+                list += '<div class="recent_info_mark_status">' + getMarkStatusLabel(p1.mark_status, p1.sub_type) + '</div>';
                 list += '<div class="recent_info_status">' + job_status[p1.job_status] + '</div>';
                 list += '<div class="recent_info_main"><a target="_blank" href="'
                     + getJobUrl(p1.type, p1.job_id, p1.branch_id) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
@@ -135,7 +135,7 @@ function queryCompletedJob() {
     if (__authority > __admin_authority && (__my_operation_mask & OPERATION_MASK_QUERY_AUTO_JOB) === 0) {
         container.hide();
     } else {
-        commonPost('/api/query_job_list', {status: STATUS_JOB_MARK_NOTIFY}, function (data) {
+        commonPost('/api/query_job_list', {query_type: TYPE_JOB_QUERY_NOTIFY_AUTO_JOB}, function (data) {
             if (data.length > 0) {
                 var job_status = {};
                 job_status[STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>';
@@ -148,7 +148,7 @@ function queryCompletedJob() {
                     list += '<div class="recent_info_type">[' + job_type_map[p1.type] + ']</div>';
                     list += '<div class="recent_info_status">' + job_status[p1.job_status] + '</div>';
                     list += '<div class="recent_info_main"><a target="_blank" href="'
-                        + getJobUrl(p1.type, p1.job_id, p1.branch_id, 1) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
+                        + getJobUrl(p1.type, p1.id, null, 1) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
                     list += '</li>';
                 });
                 $("#completed_job_list").append(list);
@@ -164,7 +164,7 @@ function queryCompletedDocReport() {
     if (__authority > __admin_authority && (__my_operation_mask & OPERATION_MASK_QUERY_REPORT) === 0) {
         container.hide();
     } else {
-        commonPost('/api/query_job_list', {status: STATUS_JOB_MARK_REPORT_NOTIFY}, function (data) {
+        commonPost('/api/query_job_list', {query_type: TYPE_JOB_QUERY_NOTIFY_DOC_REPORT}, function (data) {
             if (data.length > 0) {
                 var job_status = {};
                 job_status[STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>';
@@ -177,7 +177,7 @@ function queryCompletedDocReport() {
                     list += '<div class="recent_info_type">[' + job_type_map[p1.type] + ']</div>';
                     list += '<div class="recent_info_status">' + job_status[p1.job_status] + '</div>';
                     list += '<div class="recent_info_main"><a target="_blank" href="'
-                        + getJobUrl(p1.type, p1.job_id, p1.branch_id, 1) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
+                        + getJobUrl(p1.type, p1.id, null, 1) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
                     list += '</li>';
                 });
                 $("#completed_doc_report_list").append(list);
@@ -186,6 +186,13 @@ function queryCompletedDocReport() {
             }
         });
     }
+}
+
+function getMarkStatusLabel(mark_status, job_sub_type) {
+    if (job_sub_type === TYPE_JOB_SUB_TYPE_GROUP && mark_status === STATUS_JOB_MARK_WAITING) {
+        return '新消息';
+    }
+    return mark_status_map[mark_status];
 }
 
 function getJobUrl(job_type, job_id, branch_id, notify) {

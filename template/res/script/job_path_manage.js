@@ -60,7 +60,7 @@ $(document).ready(function () {
         {
             data: [
                 {id: TYPE_REPORT_CONTINUE_TILL_VIA, label: '继续汇报到分管领导'},
-                {id: TYPE_REPORT_TO_LEADER_TILL_CHAIR, label: '继续汇报到最高领导'}
+                {id: TYPE_REPORT_CONTINUE_TILL_CHAIR, label: '继续汇报到最高领导'}
             ],
             name: 'leader_selector',
             is_radio: true
