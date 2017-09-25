@@ -181,7 +181,8 @@ class ApiProcessAutoJob(JobHandler):
             else:
                 path = None
         self.del_duplicate(uid_list)
-        uid_list.remove(uid)
+        if uid in uid_list:
+            uid_list.remove(uid)
         raise gen.Return(uid_list)
 
     def del_duplicate(self, uid_list):
