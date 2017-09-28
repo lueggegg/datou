@@ -26,7 +26,7 @@ class JobDAO(BaseDAO):
 
     @gen.coroutine
     def clear_all_job_data(self):
-        tabs = [self.attach_tab, self.mark_tab, self.node_tab, self.record_tab]
+        tabs = [self.notify_tab, self.uid_path_detail_table, self.attach_tab, self.mark_tab, self.node_tab, self.record_tab]
         ret = True
         for tab in tabs:
             sql = "DELETE FROM %s" % tab
