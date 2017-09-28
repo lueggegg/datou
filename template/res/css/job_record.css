@@ -48,3 +48,12 @@
     border-radius: 4px;
     border: 1px solid rgb(169,169,169);
 }
+
+#edit_employee_psd_dlg table {
+    width: 100%;
+    text-align: center;
+}
+
+#edit_employee_psd_dlg table td {
+    height: 32px;
+}

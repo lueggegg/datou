@@ -155,3 +155,12 @@
     margin-top: 25px;
     padding-bottom: 5px;
 }
+
+#edit_employee_psd_dlg table {
+    width: 100%;
+    text-align: center;
+}
+
+#edit_employee_psd_dlg table td {
+    height: 32px;
+}

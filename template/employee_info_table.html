@@ -190,7 +190,7 @@
             </td>
             <td>合同结束时间</td>
             <td>
-                <input type="text" id="contract_end_date">
+                <input class="date_picker" type="text" id="contract_end_date">
             </td>
             <td>汇报关系</td>
             <td colspan="2">
@@ -426,8 +426,6 @@
 
         initFields();
         initDatePicker($(".date_picker"));
-        initDatePicker($("#contract_end_date"));
-        $("#mod_date").datepicker('setDate', new Date());
 
         $("#report_uid_selector_container").hide();
         $("[name='report_uid_type']").checkboxradio();
@@ -715,8 +713,8 @@
 
         commonPost('/api/alter_account', param, function (data) {
             if (module_data.op === 'add') {
-                window.location.href = 'error.html?message=添加员工成功，账号为{*' + data.account +
-                        "*}，初始密码为{*oa123456*}";
+                window.location.href = 'error.html?message=' +
+                    encodeURI('添加员工成功，账号为{*' + data.account + "*}，初始密码为{*oa123456*}");
             } else {
                 promptMsg('修改成功');
             }

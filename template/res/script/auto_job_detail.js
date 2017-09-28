@@ -151,5 +151,5 @@ function reply() {
 }
 
 function refresh() {
-    window.location.href = '/auto_job_detail.html?job_id=' + __job_id + '&title=' + __title;
+    window.location.reload();
 }

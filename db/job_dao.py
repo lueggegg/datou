@@ -22,6 +22,7 @@ class JobDAO(BaseDAO):
         self.uid_set_detail_tab = 'uid_set_detail'
         self.notify_tab = 'job_notify'
         self.uid_path_detail_table = 'job_uid_path_detail'
+        self.admin_job_tab = 'admin_job'
 
     @gen.coroutine
     def clear_all_job_data(self):
@@ -468,6 +469,35 @@ class JobDAO(BaseDAO):
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret[0] if ret else None)
 
+    @gen.coroutine
+    def create_admin_job(self, **kwargs):
+        kwargs['mod_time'] = self.now()
+        ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.admin_job_tab, **kwargs)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def update_admin_job(self, job_id, **kwargs):
+        ret = yield db_helper.update_table_values(self._get_inst(), self._executor, job_id, self.admin_job_tab, **kwargs)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_admin_job(self, job_id):
+        sql = 'SELECT * FROM %s WHERE id=%s' % (self.admin_job_tab, job_id)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret[0] if ret else None)
+
+    @gen.coroutine
+    def query_admin_job_list(self, **kwargs):
+        sql = 'SELECT j.*, a.name, a.account, a.cellphone, a.id_card FROM %s j' \
+              ' LEFT JOIN %s a ON j.invoker=a.id' % (self.admin_job_tab, self.account_tab)
+        if kwargs:
+            condition = []
+            for key in kwargs:
+                condition.append('j.%s=%s' % (key, kwargs[key]))
+            sql += ' WHERE %s' % ' AND '.join(condition)
+        sql += ' ORDER BY j.id DESC'
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
 
 
 

@@ -42,6 +42,11 @@
                 <ul id="waiting_job_list"></ul>
                 <div class="common_divider"></div>
             </div>
+            <div id="admin_job_container">
+                <div class="topic_title">管理员待办工作流</div>
+                <ul class="recent_info_list" id="admin_job_list"></ul>
+                <div class="common_divider"></div>
+            </div>
             <div class="topic_title">
                 最近的工作流
             </div>
@@ -57,7 +62,7 @@
                 <div class="common_divider"></div>
             </div>
             <div id="completed_doc_report_container">
-                <div class="topic_title">已归档的呈报表</div>
+                <div class="topic_title">已归档的呈报表/公文</div>
                 <ul class="recent_info_list" id="completed_doc_report_list"></ul>
                 <div class="common_divider"></div>
             </div>
@@ -79,6 +84,37 @@
     <div class="index_right">
         <div id="inline_date"></div>
         <div id="useful_link_container"></div>
+    </div>
+</div>
+
+<div id="edit_employee_psd_dlg" title="密码重置信息">
+    <div>
+        <table cellspacing="0" cellpadding="0">
+            <tr>
+                <td style="border-bottom: 1px solid; border-right: 1px solid"></td>
+                <td style="border-bottom: 1px solid;">申请人填写</td>
+                <td style="border-bottom: 1px solid;">系统信息</td>
+                <td style="border-bottom: 1px solid;">对比结果</td>
+            </tr>
+            <tr>
+                <td style="border-right: 1px solid;">姓名</td>
+                <td id="name_from_invoker" style="color: blue"></td>
+                <td id="name_from_sys" style="color: blue"></td>
+                <td id="name_compare_result"></td>
+            </tr>
+            <tr>
+                <td style="border-right: 1px solid;">身份证</td>
+                <td id="id_card_from_invoker" style="color: blue"></td>
+                <td id="id_card_from_sys" style="color: blue"></td>
+                <td id="id_card_compare_result"></td>
+            </tr>
+            <tr>
+                <td style="border-right: 1px solid;">手机</td>
+                <td id="cellphone_from_invoker" style="color: blue"></td>
+                <td id="cellphone_from_sys" style="color: blue"></td>
+                <td id="cellphone_compare_result"></td>
+            </tr>
+        </table>
     </div>
 </div>
 {% end %}

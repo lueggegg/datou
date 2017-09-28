@@ -1,6 +1,4 @@
 var dept_dialog = null;
-var import_employees_dlg = null;
-var import_employees_result_dlg = null;
 var operate_dept = null;
 var selected_dept_for_employee = null;
 var operate_employee = null;
@@ -19,11 +17,13 @@ var EDIT_EMPLOYEE = 10;
 var DEL_EMPLOYEE = 11;
 var ADD_EMPLOYEE = 12;
 var SET_EMPLOYEE_WEIGHT = 13;
+var RESET_EMPLOYEE_PSD = 14;
 var SET_DEPT_LEADER = 20;
 var current_operation = NULL_OPERATION;
 
 var dept_leader_setting_dlg;
 var employee_weight_dlg;
+var employee_psd_dlg;
 
 $(document).ready(function () {
     needAuthority(OPERATION_MASK_EMPLOYEE);
@@ -33,10 +33,12 @@ $(document).ready(function () {
     dept_dialog = $( "#edit_dept_dialog" );
     dept_leader_setting_dlg = $("#edit_dept_leader_dlg");
     employee_weight_dlg = $("#edit_employee_weight_dlg");
+    employee_psd_dlg = $("#edit_employee_psd_dlg");
 
     initDialog(dept_dialog);
     initDialog(dept_leader_setting_dlg);
     initDialog(employee_weight_dlg);
+    initDialog(employee_psd_dlg);
 
     $( "#add_dept" ).click(function( event ) {
         current_operation = ADD_DEPT;
@@ -119,6 +121,9 @@ function dealOperation() {
         case SET_EMPLOYEE_WEIGHT:
             setEmployeeWeight();
             break;
+        case RESET_EMPLOYEE_PSD:
+            resetEmployeePsd();
+            break;
     }
 }
 
@@ -128,14 +133,41 @@ function openEmployeeWeightDlg(data) {
     employee_weight_dlg.dialog('open');
 }
 
+function openEmployeePsdDlg() {
+    $("#new_psd").val('');
+    $("#confirm_psd").val('');
+    employee_psd_dlg.dialog('open');
+}
+
 function setEmployeeWeight() {
     var weight = $("#employee_weight").val();
     if (!weight || isNaN(weight)) {
-        promptMsg('请输入正确的权重');j
+        promptMsg('请输入正确的权重');
         return;
     }
     commonPost('/api/alter_account',
         {uid: operate_employee, account_info: JSON.stringify({weight: weight}), op: 'update'}, function (data) {
+            freshCurrent('employee_config_container');
+        });
+}
+
+function resetEmployeePsd() {
+    var new_psd = $("#new_psd").val();
+    if (!new_psd) {
+        promptMsg('请输入新密码');
+        return;
+    }
+    var confirm_psd = $("#confirm_psd").val();
+    if (!confirm_psd) {
+        promptMsg('请确认密码');
+        return;
+    }
+    if (new_psd !== confirm_psd) {
+        promptMsg('请输入相同的密码');
+        return;
+    }
+    commonPost('/api/alter_account',
+        {uid: operate_employee, account_info: JSON.stringify({password: getHash(new_psd)}), op: 'update'}, function (data) {
             freshCurrent('employee_config_container');
         });
 }
@@ -370,6 +402,9 @@ function getOperationHtml(operation, index) {
         case SET_EMPLOYEE_WEIGHT:
             label = employee_list_data[index].weight;
             break;
+        case RESET_EMPLOYEE_PSD:
+            label = '重置密码';
+            break;
         default:
             break;
     }
@@ -406,6 +441,10 @@ function onItemOperation(operation, index) {
         case SET_EMPLOYEE_WEIGHT:
             var employee = employee_list_data[index];
             openEmployeeWeightDlg(employee);
+            break;
+        case RESET_EMPLOYEE_PSD:
+            operate_employee = employee_list_data[index].id;
+            openEmployeePsdDlg();
             break;
         default:
             break;

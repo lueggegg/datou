@@ -1,7 +1,6 @@
-var NULL_OPERATION = -1;
 var OP_FETCH_PSD_BY_QUESTION = 1;
 var OP_RESET_PSD = 2;
-var current_operation = NULL_OPERATION;
+var OP_RESET_PSD_FROM_ADMIN = 11;
 
 var question_data;
 
@@ -11,6 +10,8 @@ var reset_psd_dlg;
 
 var fetch_account;
 var fetch_uid;
+
+var account_info_dlg;
 
 $(document).ready(function () {
     document.onkeydown = function (e) {
@@ -36,13 +37,19 @@ $(document).ready(function () {
      forget_psd_dlg = $("#forget_psd_dialog");
      fetch_psd_by_question_dlg = $("#fetch_psd_by_quetion_dialog");
      reset_psd_dlg = $("#reset_psd_dialog");
+     account_info_dlg = $("#account_info_confirm_dlg");
     initDialog(forget_psd_dlg);
     initDialog(fetch_psd_by_question_dlg);
     initDialog(reset_psd_dlg);
+    initDialog(account_info_dlg);
 
     $("#forget_psd").click(function (e) {
-        current_operation = NULL_OPERATION;
+        __current_operation = NULL_OPERATION;
         forget_psd_dlg.dialog('open');
+    });
+
+    $("#fetch_psd_from_admin").click(function(e) {
+        checkFetchAccount(openAccountInfoConfirmDlg);
     });
     
     $("#fetch_psd_by_protect_question").click(function (e) {
@@ -75,29 +82,7 @@ function initDialog(dialog, width) {
     if (!width) {
         width = 400;
     }
-    dialog.dialog({
-        autoOpen: false,
-        modal: true,
-        width: width,
-        buttons: [
-            {
-                text: "确定",
-                click: function() {
-                    if (current_operation === NULL_OPERATION) {
-                        $( this ).dialog( "close" );
-                        return;
-                    }
-                    dealOperation();
-                }
-            },
-            {
-                text: "返回",
-                click: function() {
-                    $( this ).dialog( "close" );
-                }
-            }
-        ]
-    });
+    commonInitDialog(dialog, dealOperation, {width: width});
 }
 
 function checkFetchAccount(callback) {
@@ -106,40 +91,60 @@ function checkFetchAccount(callback) {
         promptMsg('请填写账号');
         return;
     }
-    $.post('/api/is_account_exist', {account: fetch_account}, function (data) {
-        try {
-            if (data.status !== 0) {
-                promptMsg(data.msg);
-            } else {
-                forget_psd_dlg.dialog('close');
-                fetch_uid = data.data;
-                callback();
-            }
-        } catch (e) {
-            redirectError(e);
+    commonPost('/api/is_account_exist', {account: fetch_account}, function (data) {
+        forget_psd_dlg.dialog('close');
+        fetch_uid = data;
+        callback();
+    });
+}
+
+function openAccountInfoConfirmDlg() {
+    account_info_dlg.dialog('open');
+    __current_operation = OP_RESET_PSD_FROM_ADMIN;
+}
+
+function applyResetPsd() {
+    var fields = ['name', 'id_card', 'cellphone'];
+    var info = {uid: fetch_uid};
+    if (fields.some(function (p1, p2, p3) {
+        var value = $("#account_info_" + p1).val();
+        if (!value) {
+            return true;
         }
+        info[p1] = value;
+        return false;
+    })) {
+        promptMsg('请完整填写信息');
+        return;
+    }
+    if (!isValidIdCard(info['id_card'])) {
+        promptMsg('无效的身份证');
+        return;
+    }
+    if (!isValidPhoneNumber(info['cellphone'])) {
+        promptMsg('无效的手机号');
+        return;
+    }
+    commonPost('/api/admin_reset_psd', {op: 'apply', extend: JSON.stringify(info)}, function (data) {
+        promptMsg('申请成功，请保持联系方式畅通，管理员审阅后将联系您');
+        account_info_dlg.dialog('close');
+        fields.forEach(function (p1, p2, p3) {
+            $("#account_info_" + p1).val('')
+        });
     });
 }
 
 function openQuestionDlg() {
-    $.post('/api/get_password_protect_question', {uid: fetch_uid}, function (data) {
-        try {
-            if (data.status !== 0) {
-                promptMsg(data.msg);
-                return;
-            }
-            if (!data.data || data.data.length === 0) {
-                promptMsg('未设置密保问题');
-            } else {
-                question_data = data.data;
-                question_data.forEach(function (p1, p2, p3) {
-                    $("#question_" + p2).val(p1.question);
-                });
-                fetch_psd_by_question_dlg.dialog('open');
-                current_operation = OP_FETCH_PSD_BY_QUESTION;
-            }
-        } catch (e) {
-            redirectError(e);
+    commonPost('/api/get_password_protect_question', {uid: fetch_uid}, function (data) {
+        if (!data || data.length === 0) {
+            promptMsg('未设置密保问题');
+        } else {
+            question_data = data;
+            question_data.forEach(function (p1, p2, p3) {
+                $("#question_" + p2).val(p1.question);
+            });
+            fetch_psd_by_question_dlg.dialog('open');
+            __current_operation = OP_FETCH_PSD_BY_QUESTION;
         }
     });
 }
@@ -160,7 +165,7 @@ function checkQuestionAnswer() {
 }
 
 function openResetPsdDlg() {
-    current_operation = OP_RESET_PSD;
+    __current_operation = OP_RESET_PSD;
     reset_psd_dlg.dialog('open');
 }
 
@@ -176,26 +181,21 @@ function resetPassword() {
         return;
     }
     var password = getHash(new_psd);
-    $.post("/api/reset_password", {uid: fetch_uid, password: password}, function (data) {
-        try {
-            if (data.status !== 0) {
-                promptMsg(data.msg);
-            } else {
-                login(fetch_account, password);
-            }
-        } catch (e) {
-            redirectError(e);
-        }
-    })
+    commonPost("/api/reset_password", {uid: fetch_uid, password: password}, function (data) {
+        login(fetch_account, password);
+    });
 }
 
 function dealOperation() {
-    switch (current_operation) {
+    switch (__current_operation) {
         case OP_FETCH_PSD_BY_QUESTION:
             checkQuestionAnswer();
             break;
         case OP_RESET_PSD:
             resetPassword();
+            break;
+        case OP_RESET_PSD_FROM_ADMIN:
+            applyResetPsd();
             break;
     }
 }

@@ -19,7 +19,8 @@
         <li><a href="#job_completed">已归档的工作流</a> </li>
         <li><a href="#job_sent_by_myself">我发起的工作流</a> </li>
         <li id="query_job_tab" value="4"><a href="#query_job_container">查询自动化工作流</a></li>
-        <li id="query_report_tab" value="5"><a href="#query_doc_report_container">查询呈报表</a></li>
+        <li id="query_report_tab" value="5"><a href="#query_doc_report_container">查询呈报表/公文</a></li>
+        <li id="query_admin_job" value="5"><a href="#admin_job_container">管理员工作流</a></li>
     </ul>
     <div id="job_waiting"></div>
     <div id="job_processed"></div>
@@ -55,7 +56,13 @@
     </div>
     <div id="query_doc_report_container">
         <div class="common_btn_container">
-            <button id="query_doc_report_btn" title="按Enter直接查询" class="ui-button ui-corner-all" style="margin-right:60px; width: 80px; letter-spacing: 2px;" onclick="onQueryBtnClick()">查询</button>
+            <div class="job_query_label">类型：</div>
+            <div class="job_query_content">
+                <select id="doc_type">
+                    <option selected value="0">全部</option>
+                </select>
+                <button id="query_doc_report_btn" title="按Enter直接查询" class="ui-button ui-corner-all element_right" style="margin-right:60px; width: 80px; letter-spacing: 2px;" onclick="onQueryBtnClick()">查询</button>
+            </div>
         </div>
         <div class="common_btn_container">
             <div class="job_query_label">发起时间：</div>
@@ -75,6 +82,7 @@
         <div class="common_container" id="doc_report_list_container">
         </div>
     </div>
+    <div id="admin_job_container"></div>
 </div>
 
 <div id="select_invoker_dlg" title="发送者">
@@ -84,6 +92,36 @@
 
 <div id="select_report_invoker_dlg" title="发送者">
     <div id="report_employee_selectable_container">
+    </div>
+</div>
+<div id="edit_employee_psd_dlg" title="密码重置信息">
+    <div>
+        <table cellspacing="0" cellpadding="0">
+            <tr>
+                <td style="border-bottom: 1px solid; border-right: 1px solid"></td>
+                <td style="border-bottom: 1px solid;">申请人填写</td>
+                <td style="border-bottom: 1px solid;">系统信息</td>
+                <td style="border-bottom: 1px solid;">对比结果</td>
+            </tr>
+            <tr>
+                <td style="border-right: 1px solid;">姓名</td>
+                <td id="name_from_invoker" style="color: blue"></td>
+                <td id="name_from_sys" style="color: blue"></td>
+                <td id="name_compare_result"></td>
+            </tr>
+            <tr>
+                <td style="border-right: 1px solid;">身份证</td>
+                <td id="id_card_from_invoker" style="color: blue"></td>
+                <td id="id_card_from_sys" style="color: blue"></td>
+                <td id="id_card_compare_result"></td>
+            </tr>
+            <tr>
+                <td style="border-right: 1px solid;">手机</td>
+                <td id="cellphone_from_invoker" style="color: blue"></td>
+                <td id="cellphone_from_sys" style="color: blue"></td>
+                <td id="cellphone_compare_result"></td>
+            </tr>
+        </table>
     </div>
 </div>
 {% end %}

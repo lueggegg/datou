@@ -14,7 +14,7 @@ function redirectError(e) {
     if (e) {
         console.debug('exception: ' + e);
     }
-    window.location.href = 'error.html?message=' + e;
+    window.location.href = 'error.html?message=' + encodeURI('exception: ' + e);
 }
 
 function needAuthority(operation_mask) {
@@ -58,7 +58,7 @@ function verticalTabs(target_id) {
 }
 
 function isValidPhoneNumber(number) {
-    return number.length === 11 && parseInt(number)>= 10000000000;
+    return number.length === 11 && parseInt(number) > 10000000000;
 }
 
 function isValidIdCard(id_card) {
@@ -319,26 +319,29 @@ function commonSelectable(container, onSelected, filter) {
 function commonInitDialog(dialog, onOK, param) {
     var default_param = {
         width: 400,
-        modal: true
+        modal: true,
+        with_ok_btn: true,
     };
     compareParam(default_param, param);
 
+    var buttons = [];
+    if (default_param.with_ok_btn) {
+        buttons.push({
+            text: "确定",
+            click: onOK
+        });
+    }
+    buttons.push({
+        text: "取消",
+        click: function() {
+            dialog.dialog( "close" );
+        }
+    });
     dialog.dialog({
         autoOpen: false,
         modal: default_param.modal,
         width: default_param.width,
-        buttons: [
-            {
-                text: "确定",
-                click: onOK
-            },
-            {
-                text: "取消",
-                click: function() {
-                    $( this ).dialog( "close" );
-                }
-            }
-        ]
+        buttons: buttons
     });
 }
 
@@ -434,3 +437,4 @@ job_type_map[TYPE_JOB_LEAVE_FOR_BORN_NORMAL] = '员工产假';
 job_type_map[TYPE_JOB_FINANCIAL_PURCHASE] = '购物流程';
 job_type_map[TYPE_JOB_FINANCIAL_REIMBURSEMENT] = '报销流程';
 job_type_map[TYPE_JOB_DOC_REPORT] = '呈报表';
+job_type_map[TYPE_JOB_APPLY_RESET_PSD] = '重置密码';

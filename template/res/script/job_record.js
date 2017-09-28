@@ -1,4 +1,4 @@
-var job_container = [];
+var job_list_container = [];
 var job_types = [];
 
 var invoker_select_dlg;
@@ -10,7 +10,7 @@ var report_invoker_select_controller;
 $(document).ready(function () {
     verticalTabs();
 
-    job_container.push(
+    job_list_container.push(
         $("#job_waiting"),
         $("#job_processed"),
         $("#job_completed"),
@@ -37,6 +37,7 @@ $(document).ready(function () {
 
     decideAutoJobQueryOperation();
     decideDocReportQueryOperation();
+    decideAdminJobOperation();
 });
 
 function decideAutoJobQueryOperation() {
@@ -104,6 +105,16 @@ function delInvoner(uid) {
 function decideDocReportQueryOperation() {
     report_invoker_select_dlg = $("#select_report_invoker_dlg");
     if (__authority <= __admin_authority || (__my_operation_mask & OPERATION_MASK_QUERY_REPORT)) {
+        var type_options = '';
+        [
+            TYPE_JOB_OFFICIAL_DOC,
+            TYPE_JOB_DOC_REPORT
+        ].forEach(function (p1, p2, p3) {
+            type_options += '<option value="' + p1 + '">' + job_type_map[p1] + '</option>';
+        });
+        var container = $("#doc_type");
+        container.append(type_options);
+        selectMenu(container);
 
         commonInitDialog(report_invoker_select_dlg, onReportInvokerSelected, {width: 720});
         report_invoker_select_controller = createEmployeeMultiSelectorController($("#report_employee_selectable_container"));
@@ -185,7 +196,7 @@ function setJobData(index, data) {
 
             list_data.push(item);
         });
-        updateListView(job_container[index], list_data, {weight: weight});
+        updateListView(job_list_container[index], list_data, {weight: weight});
     }
 }
 
@@ -251,12 +262,16 @@ function queryCompletedAutoJob() {
 
 function queryDocReport() {
     var param = {query_type: TYPE_JOB_QUERY_DOC_REPORT};
+    var job_type = parseInt($("#doc_type").val());
+    if (job_type > 0) {
+        param['job_type'] = job_type;
+    }
     var query_content = {};
-    var begin_time = $("#invoke_begin").val();
+    var begin_time = $("#report_invoke_begin").val();
     if (begin_time) {
         query_content['begin_time'] = begin_time;
     }
-    var end_time = $("#invoker_end").val();
+    var end_time = $("#report_invoker_end").val();
     if (end_time) {
         query_content['end_time'] = end_time;
     }
@@ -279,4 +294,67 @@ function queryDocReport() {
         setJobData(5, data);
     });
 
+}
+
+var edit_psd_dlg;
+var reset_psd_list;
+function decideAdminJobOperation() {
+    edit_psd_dlg = $("#edit_employee_psd_dlg");
+    if (__authority > __admin_authority) {
+        $("#query_admin_job").hide();
+        $("#admin_job_container").hide();
+        edit_psd_dlg.hide();
+    } else {
+        commonInitDialog(edit_psd_dlg, null, {width: 680, with_ok_btn:false});
+        queryAdminJob();
+    }
+}
+
+function queryAdminJob() {
+    var title = ['类型', '账号', '姓名', '操作'];
+    var list_data = [title];
+    commonPost('/api/admin_reset_psd', {op: 'query'}, function (data) {
+        reset_psd_list = data;
+        data.forEach(function (p1, p2, p3) {
+            var id = 'div_psd_op_' + p1.id;
+            list_data.push([
+                '密码重置',
+                '<div title="查看详细信息" class="common_clickable" onclick="openEditPsdDlg(' + p2 + ')">' + p1.account + '</div>',
+                p1.name,
+                '<div id="'+ id + '" style="color: green">' + getPsdOpHtml(p1, p2) + '</div>'
+            ]);
+        });
+        updateListView($("#admin_job_container"), list_data);
+    });
+}
+
+function getPsdOpHtml(data, index) {
+    return data.status === STATUS_JOB_MARK_WAITING?
+        '<span title="重置为初始密码：oa123456" class="common_clickable" onclick="resetToOriginalPsd(' + index + ')">重置</span>'
+        : '已操作';
+}
+
+function openEditPsdDlg(index) {
+    var data = reset_psd_list[index];
+    var fields = ['name', 'id_card', 'cellphone'];
+    fields.forEach(function (p1, p2, p3) {
+        $("#" + p1 + '_from_invoker').text(data.extend[p1]);
+        $("#" + p1 + '_from_sys').text(data[p1]);
+        $("#" + p1 + '_compare_result').html(getCompareResult(data.extend[p1], data[p1]));
+    });
+    edit_psd_dlg.dialog('open');
+}
+
+function getCompareResult(a, b) {
+    return a === b?
+        ('<div style="color: green">相同</div>') :
+        ('<div style="color: red">不相同</div>');
+}
+
+function resetToOriginalPsd(index) {
+    var item = reset_psd_list[index];
+    commonPost('/api/admin_reset_psd', {op: 'reset', job_id: item.id}, function (data) {
+        promptMsg('重置成功');
+        $("#admin_job_list").remove("[value='" + item.id + "']");
+    });
 }

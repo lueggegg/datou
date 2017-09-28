@@ -10,6 +10,7 @@ $(document).ready(function () {
     queryBirthdayEmployee();
     queryCompletedJob();
     queryCompletedDocReport();
+    queryAdminJob();
 });
 
 var img_news = null;
@@ -182,7 +183,7 @@ function queryCompletedDocReport() {
                 });
                 $("#completed_doc_report_list").append(list);
             } else {
-                $("#completed_doc_report_list").append('<li>　暂无新归档的呈报表</li>');
+                $("#completed_doc_report_list").append('<li>　暂无新归档的呈报表/公文</li>');
             }
         });
     }
@@ -240,5 +241,68 @@ function queryBirthdayEmployee() {
                 updateListView($("#" + p1 + "_birthday_list"), list_data, {without_title: true});
             }
         });
+    });
+}
+
+var edit_psd_dlg;
+var reset_psd_list;
+function queryAdminJob() {
+    edit_psd_dlg = $("#edit_employee_psd_dlg");
+    $("#admin_job_container").hide();
+    edit_psd_dlg.hide();
+
+    if (__authority > __admin_authority) {
+        return;
+    }
+    commonPost('/api/admin_reset_psd', {op: 'query', status: STATUS_JOB_MARK_WAITING}, function (data) {
+        if (data.length > 0) {
+            reset_psd_list = data;
+            var list = '';
+            data.forEach(function (p1, p2, p3) {
+                list += '<li value="' + p1.id + '">';
+                list += '<div class="recent_info_type">[密码重置]</div>';
+                list += '<div title="查看详细信息" style="float: left; width: 20%" class="common_clickable" onclick="openEditPsdDlg(' + p2 + ')">' + p1.account + '</div>';
+                list += '<div style="float: left; width: 20%;">' + p1.name + '</div>';
+                list += '<div title="重置为初始密码：oa123456" style="float: left; width: 20%"  class="common_clickable" onclick="resetToOriginalPsd(' + p2 + ')">重置</div>';
+                list += '<div class="common_clickable recent_info_main" onclick="readAdminJob(' + p2 + ')">不再提示</div>';
+                list += '</li>';
+            });
+            $("#admin_job_list").append(list);
+            $("#admin_job_container").show();
+            commonInitDialog(edit_psd_dlg, null, {width: 680, with_ok_btn:false});
+            edit_psd_dlg.show();
+        }
+    });
+}
+
+function openEditPsdDlg(index) {
+    var data = reset_psd_list[index];
+    var fields = ['name', 'id_card', 'cellphone'];
+    fields.forEach(function (p1, p2, p3) {
+        $("#" + p1 + '_from_invoker').text(data.extend[p1]);
+        $("#" + p1 + '_from_sys').text(data[p1]);
+        $("#" + p1 + '_compare_result').html(getCompareResult(data.extend[p1], data[p1]));
+    });
+    edit_psd_dlg.dialog('open');
+}
+
+function getCompareResult(a, b) {
+    return a === b?
+        ('<div style="color: green">相同</div>') :
+        ('<div style="color: red">不相同</div>');
+}
+
+function resetToOriginalPsd(index) {
+    var item = reset_psd_list[index];
+    commonPost('/api/admin_reset_psd', {op: 'reset', job_id: item.id}, function (data) {
+        promptMsg('重置成功');
+        $("#admin_job_list").children("[value='" + item.id + "']").remove();
+    });
+}
+
+function readAdminJob(index) {
+    var item = reset_psd_list[index];
+    commonPost('/api/admin_reset_psd', {op: 'read', job_id: item.id}, function (data) {
+        $("#admin_job_list").children("[value='" + item.id + "']").remove();
     });
 }
