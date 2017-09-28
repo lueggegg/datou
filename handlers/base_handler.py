@@ -155,6 +155,10 @@ class BaseHandler(RequestHandler):
         raise gen.Return(True)
 
     @gen.coroutine
+    def write_data(self, data):
+        self.write_json({'status': error_codes.EC_SUCCESS, 'data': data})
+
+    @gen.coroutine
     def write_json(self, res):
         self.set_header("Content-Type", "application/json; charset=utf-8")
         self.write(json.dumps(res, encoding='utf8', cls=MyEncoder, ensure_ascii=False))
