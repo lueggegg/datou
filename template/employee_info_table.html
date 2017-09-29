@@ -612,12 +612,13 @@
                 onReportUidType(1);
             }
             $("#personal_portrait").attr('src', data.portrait);
-            if (__authority <= __admin_authority) {
-                setDeptSelector(data.department_id);
-            } else {
-                $("#dept_td").append(data.dept);
-                $("#portrait_btn").hide();
-            }
+            setDeptSelector(data.department_id);
+//            if (__authority <= __admin_authority) {
+//                setDeptSelector(data.department_id);
+//            } else {
+//                $("#dept_td").append(data.dept);
+//                $("#portrait_btn").hide();
+//            }
         });
     }
 
@@ -665,11 +666,9 @@
             extend: info
         };
         if (module_data.op === 'add') {
-           if (!module_data.portrait_data) {
-               promptMsg('请选择照片');
-               return;
+           if (module_data.portrait_data) {
+               account_info['portrait'] = module_data.portrait_data;
            }
-           account_info['portrait'] = module_data.portrait_data;
         } else if (module_data.op === 'update') {
             param['uid'] = module_data.uid;
         } else {
@@ -677,18 +676,20 @@
             return;
         }
 
-        if (__authority <= __admin_authority) {
+//        if (__authority <= __admin_authority) {
             var dept = $("#dept_selector").val();
             if (!dept || dept === '-1') {
                 promptMsg('请选择部门');
                 return;
             }
             account_info['department_id'] = dept;
-        }
+//        }
 
-        if (__admin_authority > __admin_authority && (info['position'] === '台长' || info['posiion'] === '副台长') ) {
-            promptMsg('没有权限设置领导岗位');
-            return;
+        if ((info['position'] === '台长' || info['position'] === '副台长') ) {
+            if (__authority > __admin_authority && (__my_operation_mask & OPERATION_MASK_EMPLOYEE) === 0) {
+                promptMsg('没有权限设置领导岗位');
+                return;
+            }
         }
         decideOperationMask(account_info, info['position']);
 

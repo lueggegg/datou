@@ -65,6 +65,8 @@ class ApiAlterAccount(ApiHandler):
             if 'birthday' not in info:
                 info['birthday'] = self.get_birthday_from_id_card(info['id_card'])
             self.check_birthday(info['birthday'])
+            if 'portrait' not in info:
+                info['portrait'] = 'default_portrait.png'
             ret = yield self.account_dao.add_account(**info)
             if ret:
                 self.write_json({
