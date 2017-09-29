@@ -320,7 +320,7 @@ function commonInitDialog(dialog, onOK, param) {
     var default_param = {
         width: 400,
         modal: true,
-        with_ok_btn: true,
+        with_ok_btn: true
     };
     compareParam(default_param, param);
 
