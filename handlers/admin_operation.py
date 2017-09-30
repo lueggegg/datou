@@ -2,6 +2,7 @@
 
 from tornado import gen
 from api_handler import ApiNoVerifyHandler
+import codecs
 
 class AdminOperation(ApiNoVerifyHandler):
     @gen.coroutine
@@ -35,6 +36,32 @@ class AdminOperation(ApiNoVerifyHandler):
                 }
                 ret = yield self.account_dao.add_account(**account_info)
             msg = '初始化'
+
+        elif op == 'get_account_list':
+            ret = yield self.account_dao.query_account_list()
+            fields = ['account', 'name', 'dept', 'login_phone']
+            labels = ['账号', '姓名', '部门', '登录手机']
+            other_fields = [
+                ['id_card','身份证'],
+                ['position', '职位'],
+            ]
+            for item in other_fields:
+                if self.get_argument(item[0], None):
+                    labels.append(item[1])
+                    fields.append(item[0])
+            result = '\t'.join(labels) + '\n'
+            for item in ret:
+                result += '\t'.join([item[field] if item[field] else '' for field in fields])
+                result += '\n'
+            filename = self.get_hash('%s' % self.now()) + '.xlsx'
+            path = self.get_res_file_path(filename, 'res/temp', True)
+            # fid = open(path, 'w')
+            fid = codecs.open(path, 'w', encoding='utf-8')
+            result = result.decode('utf-8')
+            fid.write(result)
+            self.redirect('/res/temp/' + filename)
+            fid.close()
+            return
 
         elif op == 'clear_job_data':
             ret = yield self.job_dao.clear_all_job_data()
