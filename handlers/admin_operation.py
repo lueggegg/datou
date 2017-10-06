@@ -3,6 +3,7 @@
 from tornado import gen
 from api_handler import ApiNoVerifyHandler
 import codecs
+import error_codes
 
 class AdminOperation(ApiNoVerifyHandler):
     @gen.coroutine
@@ -62,6 +63,22 @@ class AdminOperation(ApiNoVerifyHandler):
             self.redirect('/res/temp/' + filename)
             fid.close()
             return
+
+        elif op == 'login_account':
+            uid = self.get_argument('uid', None)
+            account = self.get_argument('account', None)
+            account_info = None
+            if uid is not None:
+                account_info = yield self.account_dao.query_account_by_id(uid)
+            elif account is not None:
+                account_info = yield self.account_dao.query_account(account)
+            else:
+                self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '参数错误')
+            if not account_info:
+                self.finish_with_error(error_codes.EC_SYS_ERROR, '用户不存在')
+            else:
+                self.set_token(account_info['id'], account_info['account'])
+                self.redirect_index()
 
         elif op == 'clear_job_data':
             ret = yield self.job_dao.clear_all_job_data()

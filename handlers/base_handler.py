@@ -96,6 +96,9 @@ class BaseHandler(RequestHandler):
     def redirect_login(self):
         self.redirect('login.html')
 
+    def redirect_index(self):
+        self.redirect('/index.html')
+
     def write_result(self, result, msg=''):
         self.write_json({'status': result, 'msg': msg})
 
