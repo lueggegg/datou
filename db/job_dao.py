@@ -23,6 +23,7 @@ class JobDAO(BaseDAO):
         self.notify_tab = 'job_notify'
         self.uid_path_detail_table = 'job_uid_path_detail'
         self.admin_job_tab = 'admin_job'
+        self.timer_task_tab = 'job_timer_task'
 
     @gen.coroutine
     def clear_all_job_data(self):
@@ -464,8 +465,8 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret)
 
     @gen.coroutine
-    def get_next_job_uid_path_detail(self, job_id):
-        sql = 'SELECT * FROM %s WHERE job_id=%s ORDER BY order_index LIMIT 1' % (self.uid_path_detail_table, job_id)
+    def get_job_uid_path_detail(self, job_id, index):
+        sql = 'SELECT * FROM %s WHERE job_id=%s and order_index=%s' % (self.uid_path_detail_table, job_id, index)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret[0] if ret else None)
 
@@ -499,5 +500,31 @@ class JobDAO(BaseDAO):
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
+    @gen.coroutine
+    def add_job_timer_task(self, **kwargs):
+        ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.timer_task_tab, **kwargs)
+        raise gen.Return(ret)
 
+    @gen.coroutine
+    def update_job_timer_task(self, task_id, **kwargs):
+        ret = yield db_helper.update_table_values(self._get_inst(), self._executor, task_id, self.timer_task_tab, **kwargs)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def del_job_timer_task(self, job_id):
+        sql = 'DELETE FROM %s WHERE job_id=%s' % (self.timer_task_tab, job_id)
+        ret = yield self._executor.async_delete(self._get_inst(), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_job_timer_task(self, job_id):
+        sql = 'SELECT * FROM %s WHERE job_id=%s' % (self.timer_task_tab, job_id)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret[0] if ret else None)
+
+    @gen.coroutine
+    def query_job_timer_task_list(self):
+        sql = 'SELECT * FROM %s' % self.timer_task_tab
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
 

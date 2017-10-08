@@ -33,6 +33,7 @@ class ApiProcessAutoJob(JobHandler):
                 'time': now,
                 'mod_time': now,
                 'last_operator': self.account_info['id'],
+                'cur_path_index': None,
             }
             job_id = yield self.job_dao.create_new_job(**job_record)
             self.check_result_and_finish_while_failed(job_id, '创建工作流失败')
@@ -100,7 +101,8 @@ class ApiProcessAutoJob(JobHandler):
             yield self.generate_job_path_detail(job_id, uid_list)
 
         if not need_notify:
-            next_path = yield self.job_dao.get_next_job_uid_path_detail(job_id)
+            index = job_record['cur_path_index'] + 1 if job_record['cur_path_index'] else 1
+            next_path = yield self.job_dao.get_job_uid_path_detail(job_id, index)
             if not next_path:
                 yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)
                 yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
@@ -114,7 +116,8 @@ class ApiProcessAutoJob(JobHandler):
                     uid_set = yield self.job_dao.query_uid_set(next_path['set_id'], True)
                     for item in uid_set:
                         yield self.job_dao.update_job_mark(job_id, item['uid'], type_define.STATUS_JOB_MARK_WAITING)
-                yield self.job_dao.del_job_uid_path_detail(job_id, next_path['order_index'])
+                yield self.job_dao.update_job(job_id, cur_path_index=next_path['order_index'])
+                self.job_timer.auto_job_timer_start(next_path)
 
         if need_notify:
             notify_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_JUST_ID,

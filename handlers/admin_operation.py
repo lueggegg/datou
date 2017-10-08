@@ -80,6 +80,17 @@ class AdminOperation(ApiNoVerifyHandler):
                 self.set_token(account_info['id'], account_info['account'])
                 self.redirect_index()
 
+        elif op == 'copy_account':
+            src = self.get_argument_and_check_it('src')
+            des = self.get_argument_and_check_it('des')
+            account_info = yield self.account_dao.query_pure_account(src)
+            account_info.pop('id')
+            account_info['account'] = des
+            account_info['name'] = des
+            account_info['login_phone'] = None
+            ret = yield self.account_dao.add_account(**account_info)
+            msg = '复制员工'
+
         elif op == 'clear_job_data':
             ret = yield self.job_dao.clear_all_job_data()
             msg = '清除工作流所有数据'

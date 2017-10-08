@@ -18,7 +18,7 @@ class LoginHandler(BaseHandler):
 
         st, account_info = yield self.check_account(account=account, password=password)
         if st != error_codes.EC_SUCCESS:
-            self.write_result(st, '用户不存在')
+            self.write_result(st, account_info)
             return
 
         self.set_token(account_info['id'], account_info['account'])

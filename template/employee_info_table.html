@@ -194,7 +194,7 @@
             </td>
             <td>汇报关系</td>
             <td colspan="2">
-                <div id="report_uid_container" class="common_clickable"></div>
+                <div id="report_uid_container"></div>
             </td>
         </tr>
         <tr>
@@ -453,9 +453,13 @@
             module_data.report_name = $(event.target).children(':selected').text();
             setReportUidContainer(module_data.report_name);
         });
-        $("#report_uid_container").click(function () {
-            module_data.report_uid_dlg.dialog('open');
-        });
+        if (isAuthorized(OPERATION_MASK_EMPLOYEE)) {
+            var container = $("#report_uid_container");
+            container.click(function () {
+                module_data.report_uid_dlg.dialog('open');
+            });
+            container.addClass('common_clickable');
+        }
 
         queryDeptList();
 

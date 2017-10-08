@@ -28,7 +28,7 @@ var rec_selectable_controller;
 
 $(document).ready(function (event) {
 
-    if (__authority > __admin_authority && (__my_operation_mask & OPERATION_MASK_QUERY_REPORT) === 0) {
+    if (!isAuthorized(OPERATION_MASK_QUERY_REPORT)) {
         checkAuthority();
     }
 

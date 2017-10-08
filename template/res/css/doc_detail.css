@@ -81,6 +81,11 @@
     border-bottom: 1px solid white;
 }
 
+.timeout_node_item_header {
+    padding: 10px;
+    background: rgb(255,32,0);
+}
+
 .node_item_header_ul {
     list-style-type: none;
     padding: 0;

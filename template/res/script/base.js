@@ -18,9 +18,13 @@ function redirectError(e) {
 }
 
 function needAuthority(operation_mask) {
-    if (__authority > __admin_authority && (__my_operation_mask & operation_mask) === 0 ) {
+    if (!isAuthorized(operation_mask)) {
         redirectError('没有权限');
     }
+}
+
+function isAuthorized(operation_mask) {
+    return __authority <= __admin_authority || (__my_operation_mask & operation_mask) !== 0;
 }
 
 function freshCurrent(location, args) {

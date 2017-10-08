@@ -15,12 +15,13 @@ class AccountDAO(BaseDAO):
 
     @gen.coroutine
     def add_account(self, **kwargs):
-        sql = 'SELECT MAX(id) AS max_id FROM %s' % self.account_tab
-        max_id = yield self._executor.async_select(self._get_inst(True), sql)
-        if max_id:
-            kwargs['account'] = '%s%s' % (self.account_prefix, 10000 + max_id[0]['max_id'])
-        else:
-            kwargs['account'] = '%s%s' % (self.account_prefix, 10001)
+        if 'account' not in kwargs:
+            sql = 'SELECT MAX(id) AS max_id FROM %s' % self.account_tab
+            max_id = yield self._executor.async_select(self._get_inst(True), sql)
+            if max_id:
+                kwargs['account'] = '%s%s' % (self.account_prefix, 10000 + max_id[0]['max_id'])
+            else:
+                kwargs['account'] = '%s%s' % (self.account_prefix, 10001)
         ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.account_tab, **kwargs)
         raise gen.Return({'id': ret, 'account': kwargs['account']} if ret else None)
 
@@ -33,6 +34,14 @@ class AccountDAO(BaseDAO):
             sql += " AND a.password='%s'" % password
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret[0] if ret else False)
+
+    @gen.coroutine
+    def query_pure_account(self, account):
+        sql = "SELECT * FROM %s WHERE account='%s'" % (self.account_tab, account)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret[0] if ret else False)
+
+
 
     @gen.coroutine
     def query_account_by_id(self, uid, with_report_uid=False):
@@ -81,6 +90,12 @@ class AccountDAO(BaseDAO):
                     sql += " AND a.%s LIKE '%%%s%%'" % (condition, kwargs[condition])
             if 'operation_mask' in kwargs and kwargs['operation_mask']:
                 sql += ' AND a.operation_mask & %s' % kwargs['operation_mask']
+            if 'uid_list' in kwargs:
+                uid_list = kwargs['uid_list']
+                if len(uid_list) == 1:
+                    sql += ' AND a.id=%s' % uid_list[0]
+                else:
+                    sql += ' AND a.id IN %s' % (tuple(uid_list),)
         sql += ' ORDER BY a.weight DESC'
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)

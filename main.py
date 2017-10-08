@@ -19,6 +19,12 @@ _mysql_inst_mgr = mysql_inst_mgr.MySQLInstMgr(metas=_mysql_config.global_metas)
 _account_dao = account_dao.AccountDAO(_mysql_inst_mgr)
 _job_dao = job_dao.JobDAO(_mysql_inst_mgr)
 _config_dao = config_dao.ConfigDAO(_mysql_inst_mgr)
+_job_timer = handlers.JobTimer(
+    job_dao=_job_dao,
+    account_dao=_account_dao,
+    auto_job_timeout=3,
+    doc_timeout=5
+)
 
 app = tornado.web.Application([
     (r'/res/(.*)', tornado.web.StaticFileHandler, {'path': "./template/res/"}),
@@ -69,6 +75,7 @@ app = tornado.web.Application([
     birthday_alert=14,
     retire_alert = 180,
     auto_next_timeout = 72,
+    job_timer=_job_timer,
 )
 
 app.listen(options.port, options.address)

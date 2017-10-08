@@ -190,8 +190,13 @@ function queryCompletedDocReport() {
 }
 
 function getMarkStatusLabel(mark_status, job_sub_type) {
-    if (job_sub_type === TYPE_JOB_SUB_TYPE_GROUP && mark_status === STATUS_JOB_MARK_WAITING) {
-        return '新消息';
+    if (job_sub_type === TYPE_JOB_SUB_TYPE_GROUP) {
+        if (mark_status === STATUS_JOB_MARK_WAITING) {
+            return '新消息';
+        }
+        if (mark_status === STATUS_JOB_MARK_PROCESSED) {
+            return '已读';
+        }
     }
     return mark_status_map[mark_status];
 }

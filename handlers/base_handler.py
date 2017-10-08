@@ -35,6 +35,7 @@ class BaseHandler(RequestHandler):
         self.account_dao = self.settings['account_dao']
         self.job_dao = self.settings['job_dao']
         self.config_dao = self.settings['config_dao']
+        self.job_timer = self.settings['job_timer']
         self.account_info = None
         self.psd_question = None
         self.cookie_expires_days = 10
@@ -69,10 +70,13 @@ class BaseHandler(RequestHandler):
         if 'uid' in kwargs:
             self.account_info = yield self.account_dao.query_account_by_id(kwargs['uid'])
         elif 'password' in kwargs and 'account' in kwargs:
-            self.account_info = yield self.account_dao.query_account(kwargs['account'], kwargs['password'])
+            self.account_info = yield self.account_dao.query_account(kwargs['account'])
+            if self.account_info and self.account_info['password'] != kwargs['password']:
+                raise gen.Return((error_codes.EC_PASSWORD_ERROR, '密码错误'))
+
 
         if not self.account_info:
-            raise gen.Return((error_codes.EC_USER_NOT_EXIST, None))
+            raise gen.Return((error_codes.EC_USER_NOT_EXIST, '账号不存在或已经失效'))
 
         self.account_info['portrait'] = self.get_portrait_path(self.account_info['portrait'])
         raise gen.Return((error_codes.EC_SUCCESS, self.account_info))

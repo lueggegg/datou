@@ -2,7 +2,7 @@ var main_info;
 var node_list_data;
 
 $(document).ready(function () {
-    if (__authority > __admin_authority && (__my_operation_mask & OPERATION_MASK_QUERY_AUTO_JOB) === 0) {
+    if (!isAuthorized(OPERATION_MASK_QUERY_AUTO_JOB)) {
         commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id}, function (data) {
             if (!data) {
                 redirectError('没有权限');
@@ -94,10 +94,14 @@ function queryJobNodeList() {
 
 function addJobNodeItem(node_data, index) {
     var html = "<div class='node_item_container'>";
-    if (index % 2) {
-        html += "<div class='node_item_header_even'>";
+    if (node_data.type === TYPE_JOB_NODE_TIMEOUT) {
+        html += "<div class='timeout_node_item_header'>";
     } else {
-        html += "<div class='node_item_header'>";
+        if (index % 2) {
+            html += "<div class='node_item_header_even'>";
+        } else {
+            html += "<div class='node_item_header'>";
+        }
     }
     var header_data = [[
         "工号：" + node_data.account,
