@@ -85,15 +85,16 @@ class JobDAO(BaseDAO):
 
     @gen.coroutine
     def query_job_node_list(self, job_id, branch_id=None, count=None):
-        sql = "SELECT n.*, a.account, a.name as sender, a.department_id FROM %s n" \
+        sql = "SELECT n.*, a.account, a.name as sender, a.department_id, d.name AS dept FROM %s n" \
               " LEFT JOIN %s a ON n.sender_id=a.id" \
+              " LEFT JOIN department d ON a.department_id=d.id" \
               " WHERE job_id=%s" % (self.node_tab, self.account_tab, job_id)
         if branch_id:
             sql += " AND branch_id=%s" % branch_id
         else:
             sql += " AND branch_id is NULL"
         if count:
-            sql += ' LIMIT 1'
+            sql += ' LIMIT %s' % count
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 

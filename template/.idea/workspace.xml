@@ -17,28 +17,9 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.53346455">
+    <splitter split-orientation="horizontal" split-proportion="0.62401575">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="job_record.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/res/script/job_record.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="5168">
-                  <caret line="272" column="5" lean-forward="false" selection-start-line="272" selection-start-column="5" selection-end-line="272" selection-end-column="5" />
-                  <folding>
-                    <marker date="1506561766050" expanded="true" signature="6038:6051" ph="..." />
-                    <marker date="1506561766050" expanded="true" signature="6123:6143" ph="..." />
-                    <marker date="1506561766050" expanded="true" signature="6214:6224" ph="..." />
-                    <marker date="1506561766050" expanded="true" signature="6293:6304" ph="..." />
-                    <marker date="1506561766050" expanded="true" signature="6462:6475" ph="..." />
-                    <marker date="1506561766050" expanded="true" signature="10991:11003" ph="..." />
-                    <marker date="1506561766050" expanded="true" signature="11858:11870" ph="..." />
-                    <marker date="1506561766050" expanded="true" signature="11907:11917" ph="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="authority_manage.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/authority_manage.html">
               <provider selected="true" editor-type-id="text-editor">
@@ -78,11 +59,21 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="module_employee_info_table.css" pinned="false" current-in-tab="true">
+          <file leaf-file-name="module_employee_info_table.css" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/res/css/module_employee_info_table.css">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="524">
                   <caret line="168" column="1" lean-forward="false" selection-start-line="168" selection-start-column="1" selection-end-line="168" selection-end-column="1" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="personal.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/res/script/personal.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="196">
+                  <caret line="341" column="22" lean-forward="false" selection-start-line="341" selection-start-column="22" selection-end-line="341" selection-end-column="22" />
                   <folding />
                 </state>
               </provider>
@@ -348,7 +339,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/res/script/contact.js" />
         <option value="$PROJECT_DIR$/module_financial_guild.html" />
         <option value="$PROJECT_DIR$/module_hr_guild.html" />
         <option value="$PROJECT_DIR$/financial_purchase.html" />
@@ -399,6 +389,7 @@
         <option value="$PROJECT_DIR$/res/script/auto_job_detail.js" />
         <option value="$PROJECT_DIR$/res/css/doc_detail.css" />
         <option value="$PROJECT_DIR$/res/css/module_employee_info_table.css" />
+        <option value="$PROJECT_DIR$/res/script/personal.js" />
       </list>
     </option>
   </component>
@@ -684,12 +675,12 @@
       <workItem from="1506693466815" duration="1753000" />
       <workItem from="1506722697418" duration="71000" />
       <workItem from="1506724098851" duration="966000" />
-      <workItem from="1507459342321" duration="5289000" />
+      <workItem from="1507459342321" duration="6363000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="587176000" />
+    <option name="totallyTimeSpent" value="588250000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -726,13 +717,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/css/tabs.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base_certificate.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1387">
@@ -1178,6 +1162,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="524">
           <caret line="168" column="1" lean-forward="false" selection-start-line="168" selection-start-column="1" selection-end-line="168" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/script/personal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="341" column="22" lean-forward="false" selection-start-line="341" selection-start-column="22" selection-end-line="341" selection-end-column="22" />
           <folding />
         </state>
       </provider>

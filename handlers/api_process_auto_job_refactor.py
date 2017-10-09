@@ -104,6 +104,7 @@ class ApiProcessAutoJob(JobHandler):
             index = job_record['cur_path_index'] + 1 if job_record['cur_path_index'] else 1
             next_path = yield self.job_dao.get_job_uid_path_detail(job_id, index)
             if not next_path:
+                yield self.job_dao.update_job(job_id, cur_path_index=None)
                 yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)
                 yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
                 need_notify = True

@@ -339,7 +339,7 @@ function setResultMsg(container, msg) {
 function operationResult(data) {
     try {
         if (data.status !== 0) {
-            alert(data.msg);
+            promptMsg(data.msg);
             return;
         }
         if (op_current === OP_ALTER_PSD) {

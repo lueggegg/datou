@@ -16,7 +16,6 @@ class ApiQueryJobInfo(ApiHandler):
         info_type = self.get_argument_and_check_it('type')
 
         if info_type == 'node':
-            dept_map = yield self.get_department_map()
             branch_id = self.get_argument('branch_id', None)
             count = self.get_argument('count', None)
             ret = yield self.job_dao.query_job_node_list(job_id, branch_id, count)
@@ -31,7 +30,6 @@ class ApiQueryJobInfo(ApiHandler):
                         attachment = yield self.job_dao.query_node_attachment_list(item['id'], _type[1])
                         item[_type[2]] = attachment
 
-                item['dept'] = dept_map[item['department_id']]['name']
                 last_node = item
             if last_node and last_node['rec_id']:
                 rec_account = yield self.account_dao.query_account_by_id(last_node['rec_id'])

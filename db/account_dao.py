@@ -37,7 +37,7 @@ class AccountDAO(BaseDAO):
 
     @gen.coroutine
     def query_pure_account(self, account):
-        sql = "SELECT * FROM %s WHERE account='%s'" % (self.account_tab, account)
+        sql = "SELECT * FROM %s WHERE account='%s' OR login_phone='%s'" % (self.account_tab, account, account)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret[0] if ret else False)
 

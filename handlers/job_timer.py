@@ -84,6 +84,7 @@ class JobTimer:
                 yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_PROCESSED,
                                                        job_record['invoker'])
                 if next_path['uid']:
+                    yield self.job_dao.update_job(job_id, cur_path_index=None)
                     yield self.job_dao.update_job_mark(job_id, next_path['uid'], type_define.STATUS_JOB_MARK_WAITING)
                 elif next_path['set_id']:
                     uid_set = yield self.job_dao.query_uid_set(next_path['set_id'], True)
