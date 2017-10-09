@@ -64,6 +64,7 @@ class ApiAlterAccount(ApiHandler):
         elif op == 'add':
             msg = '添加员工'
             self.get_info_from_extend(info, extend_field)
+            yield self.init_report_uid(info)
             if 'password' not in info:
                 info['password'] = self.get_hash('oa123456')
             if 'birthday' not in info:
@@ -108,3 +109,11 @@ class ApiAlterAccount(ApiHandler):
 
     def get_birthday_from_id_card(self, id_card):
         return '%s-%s-%s' % (id_card[6:10], id_card[10:12], id_card[12:14])
+
+    @gen.coroutine
+    def init_report_uid(self, account):
+        if account['report_uid']:
+            return
+        dept_map = yield self.get_department_map()
+        dept = dept_map[int(account['department_id'])]
+        account['report_uid'] = dept['leader']

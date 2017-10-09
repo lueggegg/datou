@@ -14,7 +14,7 @@ class ApiIsAccountExist(ApiNoVerifyHandler):
             self.write_result(error_codes.EC_ARGUMENT_ERROR, '账号参数错误')
             return
         res = {"status": error_codes.EC_SUCCESS}
-        ret = yield self.account_dao.query_account(account)
+        ret = yield self.account_dao.query_pure_account(account)
         if not ret:
             self.write_result(error_codes.EC_UNKNOWN_ERROR, '账号不存在')
         else:
