@@ -17,7 +17,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.62401575">
+    <splitter split-orientation="horizontal" split-proportion="0.5807087">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
@@ -104,26 +104,26 @@
           <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/res/script/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="304">
-                  <caret line="240" column="36" lean-forward="false" selection-start-line="240" selection-start-column="36" selection-end-line="240" selection-end-column="36" />
+                <state relative-caret-position="481">
+                  <caret line="183" column="34" lean-forward="false" selection-start-line="183" selection-start-column="34" selection-end-line="183" selection-end-column="34" />
                   <folding>
-                    <marker date="1507566960015" expanded="true" signature="3895:3908" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="3984:4004" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="4079:4089" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="4162:4173" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="5412:5425" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="5505:5525" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="5604:5614" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="5691:5702" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="6962:6975" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="7055:7075" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="7154:7164" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="7241:7252" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="10737:10760" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="10888:10912" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="11000:11023" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="11989:12001" ph="..." />
-                    <marker date="1507566960015" expanded="true" signature="12038:12048" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="3895:3908" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="3984:4004" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="4079:4089" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="4162:4173" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="5412:5425" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="5505:5525" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="5604:5614" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="5691:5702" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="6969:6982" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="7062:7082" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="7161:7171" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="7248:7259" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="10744:10767" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="10895:10919" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="11007:11030" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="11996:12008" ph="..." />
+                    <marker date="1507571114065" expanded="true" signature="12045:12055" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -200,16 +200,6 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="job_path_manage.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/res/script/job_path_manage.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1026">
-                  <caret line="54" column="9" lean-forward="false" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/login.html">
               <provider selected="true" editor-type-id="text-editor">
@@ -240,13 +230,25 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="apply_resign.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="apply_resign.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/apply_resign.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="494">
-                  <caret line="50" column="30" lean-forward="false" selection-start-line="50" selection-start-column="30" selection-end-line="50" selection-end-column="30" />
+                <state relative-caret-position="228">
+                  <caret line="36" column="24" lean-forward="true" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
                   <folding>
                     <marker date="1505472413496" expanded="true" signature="1257:1272" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="419">
+                  <caret line="63" column="51" lean-forward="false" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="51" />
+                  <folding>
+                    <element signature="n#div#1;n#!!top" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -495,7 +497,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="SearchEverywhereHistoryKey" value="doc&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_detail.js&#10;auto_jo&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;index.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;emp&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;login.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/login.js&#10;employee_info_t&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;employee_info&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/module_employee_info_table.css&#10;base&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;ba&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;log&#9;FILE&#9;file://D:/code/python/tornado/datou/template/login.html&#10;login&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/login.js&#10;job_record&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;empl&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js&#10;module_em&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/module_employee_info_table.css&#10;index&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;index.htm&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;base.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;login.&#9;FILE&#9;file://D:/code/python/tornado/datou/template/login.html&#10;error.h&#9;FILE&#9;file://D:/code/python/tornado/datou/template/error.html&#10;employee_man&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_manage.html&#10;login.html&#9;FILE&#9;file://D:/code/python/tornado/datou/template/login.html&#10;inde&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;job_record.&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;doc_de&#9;FILE&#9;file://D:/code/python/tornado/datou/template/doc_detail.html&#10;auto&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;doc_det&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_detail.js&#10;off&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/official_doc.js&#10;index.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index.css&#10;index.&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;job_path&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_path_manage.js&#10;auto_job_detail&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;job_detail.h&#9;FILE&#9;file://D:/code/python/tornado/datou/template/auto_job_detail.html&#10;offi&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/official_doc.css&#10;base.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/base.css&#10;officic&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/official_doc.css&#10;job_re&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/job_record.css&#10;job_rec&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;base.html&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;list.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/list.css&#10;lis&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/attachment_list.js&#10;doc_&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/doc_detail.css&#10;ask&#9;FILE&#9;file://D:/code/python/tornado/datou/template/ask_for_leave.html&#10;leave_for&#9;FILE&#9;file://D:/code/python/tornado/datou/template/leave_for_born.html&#10;offic_&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/official_doc.css&#10;base.h&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;job_recor&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;doc_deta&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_detail.js&#10;test&#9;FILE&#9;file://D:/code/python/tornado/datou/template/test.html&#10;tab.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/tabs.css&#10;leave_&#9;FILE&#9;file://D:/code/python/tornado/datou/template/leave_for_born.html" />
+    <property name="SearchEverywhereHistoryKey" value="inde&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;doc&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_detail.js&#10;auto_jo&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;index.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;emp&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;login.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/login.js&#10;employee_info_t&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;employee_info&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/module_employee_info_table.css&#10;base&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;ba&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;log&#9;FILE&#9;file://D:/code/python/tornado/datou/template/login.html&#10;login&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/login.js&#10;job_record&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;empl&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js&#10;module_em&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/module_employee_info_table.css&#10;index&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;index.htm&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;base.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;login.&#9;FILE&#9;file://D:/code/python/tornado/datou/template/login.html&#10;error.h&#9;FILE&#9;file://D:/code/python/tornado/datou/template/error.html&#10;employee_man&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_manage.html&#10;login.html&#9;FILE&#9;file://D:/code/python/tornado/datou/template/login.html&#10;job_record.&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;doc_de&#9;FILE&#9;file://D:/code/python/tornado/datou/template/doc_detail.html&#10;auto&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;doc_det&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_detail.js&#10;off&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/official_doc.js&#10;index.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index.css&#10;index.&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;job_path&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_path_manage.js&#10;auto_job_detail&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;job_detail.h&#9;FILE&#9;file://D:/code/python/tornado/datou/template/auto_job_detail.html&#10;offi&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/official_doc.css&#10;base.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/base.css&#10;officic&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/official_doc.css&#10;job_re&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/job_record.css&#10;job_rec&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;base.html&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;list.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/list.css&#10;lis&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/attachment_list.js&#10;doc_&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/doc_detail.css&#10;ask&#9;FILE&#9;file://D:/code/python/tornado/datou/template/ask_for_leave.html&#10;leave_for&#9;FILE&#9;file://D:/code/python/tornado/datou/template/leave_for_born.html&#10;offic_&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/official_doc.css&#10;base.h&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;job_recor&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;doc_deta&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_detail.js&#10;test&#9;FILE&#9;file://D:/code/python/tornado/datou/template/test.html&#10;tab.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/tabs.css&#10;leave_&#9;FILE&#9;file://D:/code/python/tornado/datou/template/leave_for_born.html" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -678,12 +680,12 @@
       <workItem from="1506722697418" duration="71000" />
       <workItem from="1506724098851" duration="966000" />
       <workItem from="1507459342321" duration="7988000" />
-      <workItem from="1507566738433" duration="227000" />
+      <workItem from="1507566738433" duration="907000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="590102000" />
+    <option name="totallyTimeSpent" value="590782000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -945,13 +947,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1216">
-          <caret line="64" column="51" lean-forward="false" selection-start-line="64" selection-start-column="51" selection-end-line="64" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/script/job_record.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5168">
@@ -1059,16 +1054,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apply_resign.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="50" column="30" lean-forward="false" selection-start-line="50" selection-start-column="30" selection-end-line="50" selection-end-column="30" />
-          <folding>
-            <marker date="1505472413496" expanded="true" signature="1257:1272" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/script/personal.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6479">
@@ -1125,28 +1110,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/apply_resign.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="36" column="24" lean-forward="true" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
+          <folding>
+            <marker date="1505472413496" expanded="true" signature="1257:1272" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="63" column="51" lean-forward="false" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="51" />
+          <folding>
+            <element signature="n#div#1;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/res/script/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="240" column="36" lean-forward="false" selection-start-line="240" selection-start-column="36" selection-end-line="240" selection-end-column="36" />
+        <state relative-caret-position="481">
+          <caret line="183" column="34" lean-forward="false" selection-start-line="183" selection-start-column="34" selection-end-line="183" selection-end-column="34" />
           <folding>
-            <marker date="1507566960015" expanded="true" signature="3895:3908" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="3984:4004" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="4079:4089" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="4162:4173" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="5412:5425" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="5505:5525" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="5604:5614" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="5691:5702" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="6962:6975" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="7055:7075" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="7154:7164" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="7241:7252" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="10737:10760" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="10888:10912" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="11000:11023" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="11989:12001" ph="..." />
-            <marker date="1507566960015" expanded="true" signature="12038:12048" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="3895:3908" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="3984:4004" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="4079:4089" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="4162:4173" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="5412:5425" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="5505:5525" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="5604:5614" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="5691:5702" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="6969:6982" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="7062:7082" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="7161:7171" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="7248:7259" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="10744:10767" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="10895:10919" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="11007:11030" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="11996:12008" ph="..." />
+            <marker date="1507571114065" expanded="true" signature="12045:12055" ph="..." />
           </folding>
         </state>
       </provider>

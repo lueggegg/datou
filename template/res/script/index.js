@@ -161,7 +161,7 @@ function queryCompletedJob() {
 }
 
 function queryCompletedDocReport() {
-    var container = $("#completed_job_container");
+    var container = $("#completed_doc_report_container");
     if (__authority > __admin_authority && (__my_operation_mask & OPERATION_MASK_QUERY_REPORT) === 0) {
         container.hide();
     } else {

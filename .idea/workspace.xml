@@ -37,8 +37,8 @@
           <file leaf-file-name="job_timer.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/job_timer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-967">
-                  <caret line="18" column="61" lean-forward="true" selection-start-line="18" selection-start-column="61" selection-end-line="18" selection-end-column="61" />
+                <state relative-caret-position="705">
+                  <caret line="106" column="38" lean-forward="true" selection-start-line="106" selection-start-column="38" selection-end-line="106" selection-end-column="38" />
                   <folding>
                     <element signature="e#25#48#0" expanded="true" />
                   </folding>
@@ -594,13 +594,6 @@
       <workItem from="1502073814787" duration="641000" />
       <workItem from="1502195108416" duration="28000" />
     </task>
-    <task id="LOCAL-00034" summary="release 6">
-      <created>1505053583154</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1505053583154</updated>
-    </task>
     <task id="LOCAL-00035" summary="release 7">
       <created>1505106257292</created>
       <option name="number" value="00035" />
@@ -937,7 +930,14 @@
       <option name="project" value="LOCAL" />
       <updated>1507566802643</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="release 17">
+      <created>1507566972903</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1507566972903</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1413,8 +1413,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/job_timer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-967">
-          <caret line="18" column="61" lean-forward="true" selection-start-line="18" selection-start-column="61" selection-end-line="18" selection-end-column="61" />
+        <state relative-caret-position="705">
+          <caret line="106" column="38" lean-forward="true" selection-start-line="106" selection-start-column="38" selection-end-line="106" selection-end-column="38" />
           <folding>
             <element signature="e#25#48#0" expanded="true" />
           </folding>
