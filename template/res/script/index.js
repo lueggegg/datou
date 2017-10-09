@@ -229,7 +229,7 @@ function queryBirthdayEmployee() {
         return;
     }
     commonPost('/api/query_birthday_employee', null, function (data) {
-        var title = ['工号', '姓名', '部门', '生日'];
+        var title = ['工号', '姓名', '部门'];
         ['today', 'will', 'retire'].forEach(function (p1, p2, p3) {
             var accounts = data[p1];
             if (accounts.length > 0) {
@@ -238,8 +238,7 @@ function queryBirthdayEmployee() {
                     list_data.push([
                         '<a target="_blank" href="employee_info_table.html?op=update&uid=' + account.id + '">' + account.account + '</a>',
                         account.name,
-                        account.dept,
-                        account.birthday
+                        account.dept
                     ]);
                 });
                 $("#" + p1 + "_birthday_container").show();
