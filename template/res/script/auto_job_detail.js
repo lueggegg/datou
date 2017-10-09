@@ -45,6 +45,7 @@ function queryJobBaseInfo() {
     commonPost('/api/query_job_info', {type: 'base', job_id: __job_id}, function (data) {
         main_info = data;
         $("#doc_topic").text(main_info.title);
+        $('title').text(job_type_map[main_info.type]);
         if (main_info.status !== STATUS_JOB_PROCESSING) {
             var status = {};
             status[STATUS_JOB_COMPLETED] = '已完成';

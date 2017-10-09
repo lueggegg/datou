@@ -1,5 +1,5 @@
 {% extends base.html %}
-<title>{% block title %}{{ arg['title'][0] }}{% end %}</title>
+<title>{% block title %}自动化流程详情{% end %}</title>
 
 {% block custom_head %}
 <link href="res/css/doc_detail.css" rel="stylesheet">
@@ -41,7 +41,6 @@
 {% block custom_foot %}
 <script>
     var __job_id = {{ arg['job_id'][0] }};
-    var __title = decodeURI("{{ arg['title'][0] }}");
     var __notify = null;
     {% if 'notify' in arg %}
     __notify = 1;
