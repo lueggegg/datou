@@ -5,7 +5,7 @@ from tornado.ioloop import IOLoop
 from tornado.queues import Queue
 
 import datetime
-import type_define
+import type_define, config
 
 class JobTimer:
     __instance__ = None
@@ -22,6 +22,8 @@ class JobTimer:
 
     @gen.coroutine
     def start_history_tasks(self):
+        if not config.enable_job_timer:
+            return
         task_list = yield self.job_dao.query_job_timer_task_list()
         now = self.now()
         for task in task_list:
@@ -38,6 +40,8 @@ class JobTimer:
 
     @gen.coroutine
     def auto_job_timer_start(self, cur_path):
+        if not config.enable_job_timer:
+            return
         yield self.auto_job_queue.put(cur_path)
         IOLoop.current().call_later(self.auto_job_timeout, self.auto_job_timeout_cb)
         time = self.now() + datetime.timedelta(seconds=self.auto_job_timeout)
