@@ -106,6 +106,12 @@ class AccountDAO(BaseDAO):
         raise gen.Return(ret)
 
     @gen.coroutine
+    def update_dept_report_uid(self, dept_id, leader_id):
+        sql = 'UPDATE %s SET report_uid=%s WHERE department_id=%s and id!=%s and status' % (self.account_tab, leader_id, dept_id, leader_id)
+        ret = yield self._executor.async_update(self._get_inst(), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
     def add_dept(self, **kwargs):
         ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.dept_tab, **kwargs)
         raise gen.Return(ret)

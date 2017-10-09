@@ -17,22 +17,10 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5807087">
+    <splitter split-orientation="horizontal" split-proportion="0.26509187">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/base.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="342">
-                  <caret line="18" column="6" lean-forward="false" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-                  <folding>
-                    <marker date="1506283150403" expanded="true" signature="1597:1610" ph="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="employee_info_table.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="employee_info_table.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/employee_info_table.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="263">
@@ -45,6 +33,16 @@
                     <element signature="e#24444#24778#0" expanded="false" />
                     <element signature="e#27162#27350#0" expanded="false" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="employee_manage.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/employee_manage.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="457">
+                  <caret line="80" column="8" lean-forward="false" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="8" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -242,7 +240,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="419">
@@ -264,11 +262,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="employee_manage.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="employee_manage.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/res/script/employee_manage.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="6080">
-                  <caret line="370" column="65" lean-forward="false" selection-start-line="370" selection-start-column="65" selection-end-line="370" selection-end-column="65" />
+                <state relative-caret-position="187">
+                  <caret line="227" column="9" lean-forward="false" selection-start-line="227" selection-start-column="9" selection-end-line="227" selection-end-column="9" />
                   <folding>
                     <element signature="n#!!block;n#setDepartmentList#0" expanded="false" />
                   </folding>
@@ -301,7 +299,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>auto_job_d</find>
       <find>auto_job_de</find>
       <find>auto_job_det</find>
       <find>auto_job_deta</find>
@@ -331,6 +328,7 @@
       <find>photo</find>
       <find>position_type</find>
       <find>__title</find>
+      <find>dept_leader_setting_dlg</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -375,8 +373,6 @@
         <option value="$PROJECT_DIR$/doc_report.html" />
         <option value="$PROJECT_DIR$/doc_detail.html" />
         <option value="$PROJECT_DIR$/res/script/job_path_manage.js" />
-        <option value="$PROJECT_DIR$/employee_manage.html" />
-        <option value="$PROJECT_DIR$/res/script/employee_manage.js" />
         <option value="$PROJECT_DIR$/res/css/index.css" />
         <option value="$PROJECT_DIR$/res/css/job_record.css" />
         <option value="$PROJECT_DIR$/res/script/login.js" />
@@ -394,6 +390,8 @@
         <option value="$PROJECT_DIR$/res/script/auto_job_detail.js" />
         <option value="$PROJECT_DIR$/auto_job_detail.html" />
         <option value="$PROJECT_DIR$/res/script/index.js" />
+        <option value="$PROJECT_DIR$/employee_manage.html" />
+        <option value="$PROJECT_DIR$/res/script/employee_manage.js" />
       </list>
     </option>
   </component>
@@ -680,12 +678,12 @@
       <workItem from="1506722697418" duration="71000" />
       <workItem from="1506724098851" duration="966000" />
       <workItem from="1507459342321" duration="7988000" />
-      <workItem from="1507566738433" duration="1519000" />
+      <workItem from="1507566738433" duration="3001000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="591394000" />
+    <option name="totallyTimeSpent" value="592876000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -905,16 +903,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/script/employee_manage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6080">
-          <caret line="370" column="65" lean-forward="false" selection-start-line="370" selection-start-column="65" selection-end-line="370" selection-end-column="65" />
-          <folding>
-            <element signature="n#!!block;n#setDepartmentList#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/error.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -922,13 +910,6 @@
           <folding>
             <marker date="1504180700612" expanded="true" signature="257:266" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/employee_manage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1273">
-          <caret line="67" column="6" lean-forward="false" selection-start-line="67" selection-start-column="6" selection-end-line="72" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -1077,6 +1058,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1645">
           <caret line="168" column="1" lean-forward="false" selection-start-line="168" selection-start-column="1" selection-end-line="168" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1102,16 +1084,6 @@
           <caret line="36" column="24" lean-forward="true" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
           <folding>
             <marker date="1505472413496" expanded="true" signature="1257:1272" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="63" column="51" lean-forward="false" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="51" />
-          <folding>
-            <element signature="n#div#1;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1153,6 +1125,34 @@
             <element signature="e#24009#24412#0" expanded="false" />
             <element signature="e#24444#24778#0" expanded="false" />
             <element signature="e#27162#27350#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/employee_manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="80" column="8" lean-forward="false" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="63" column="51" lean-forward="false" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="51" />
+          <folding>
+            <element signature="n#div#1;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/script/employee_manage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="227" column="9" lean-forward="false" selection-start-line="227" selection-start-column="9" selection-end-line="227" selection-end-column="9" />
+          <folding>
+            <element signature="n#!!block;n#setDepartmentList#0" expanded="false" />
           </folding>
         </state>
       </provider>

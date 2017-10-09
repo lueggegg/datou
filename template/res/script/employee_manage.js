@@ -116,7 +116,7 @@ function dealOperation() {
                 promptMsg('请选择员工');
                 return;
             }
-            setDeptLeader(selected_dept, uid);
+            setDeptLeader(selected_dept, uid, $("#relative_report_uid_checkbox").is(':checked'));
             break;
         case SET_EMPLOYEE_WEIGHT:
             setEmployeeWeight();
@@ -225,10 +225,10 @@ function deleteDepartment() {
     $.post('/api/alter_dept', {dept_id: operate_dept, op: 'del'}, operationResult);
 }
 
-function setDeptLeader(dept_id, uid) {
+function setDeptLeader(dept_id, uid, relative_report) {
     var data = {leader: uid};
     data = JSON.stringify(data);
-    $.post( '/api/alter_dept', {dept_info: data, dept_id: dept_id, op: 'update'}, operationResult);
+    $.post( '/api/alter_dept', {relative_report: relative_report, dept_info: data, dept_id: dept_id, op: 'update'}, operationResult);
 }
 
 function addDepartment() {

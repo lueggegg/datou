@@ -34,6 +34,8 @@ class ApiAlterDept(ApiHandler):
                 new_leader = yield self.account_dao.query_account_by_id(info['leader'])
                 if new_leader['authority'] > type_define.AUTHORITY_DEPT_LEADER:
                     yield self.account_dao.update_account(new_leader['id'], authority=type_define.AUTHORITY_DEPT_LEADER)
+                if self.get_argument('relative_report', None):
+                    yield self.account_dao.update_dept_report_uid(dept_id, info['leader'])
             ret = self.account_dao.update_dept(dept_id, **info)
         elif op == 'add':
             msg = '添加部门'
