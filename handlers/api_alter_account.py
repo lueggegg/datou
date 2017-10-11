@@ -57,7 +57,7 @@ class ApiAlterAccount(ApiHandler):
                 if exist:
                     self.finish_with_error(error_codes.EC_SYS_ERROR, '该手机号码已经被绑定')
             self.get_info_from_extend(info, extend_field)
-            if not account['birthday'] and 'birthday' not in info and info['id_card']:
+            if 'id_card' in info and info['id_card'] and not account['birthday'] and 'birthday' not in info:
                 info['birthday'] = self.get_birthday_from_id_card(info['id_card'])
                 self.check_birthday(info['birthday'])
             ret = self.account_dao.update_account(uid, **info)
