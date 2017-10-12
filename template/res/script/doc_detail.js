@@ -261,7 +261,7 @@ function queryJobBaseInfo() {
             $("#job_status").text("已归档");
         } else {
             $("#job_status").text("处理中");
-            if (main_info.invoker !== __my_uid) {
+            if (!isAuthorized(OPERATION_MASK_QUERY_REPORT) && main_info.invoker !== __my_uid) {
                 $("#complete_btn").remove();
             } else {
                 $("#complete_btn").click(function (event) {

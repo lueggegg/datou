@@ -116,6 +116,8 @@ function decideDocReportQueryOperation() {
         container.append(type_options);
         selectMenu(container);
 
+        selectMenu($("#doc_status"));
+
         commonInitDialog(report_invoker_select_dlg, onReportInvokerSelected, {width: 720});
         report_invoker_select_controller = createEmployeeMultiSelectorController($("#report_employee_selectable_container"));
         $("#add_report_invoker_btn").click(openReportInvokerSelectDlg);
@@ -266,6 +268,7 @@ function queryDocReport() {
     if (job_type > 0) {
         param['job_type'] = job_type;
     }
+    param['job_status'] = $("#doc_status").val();
     var query_content = {};
     var begin_time = $("#report_invoke_begin").val();
     if (begin_time) {

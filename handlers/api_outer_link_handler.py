@@ -41,6 +41,10 @@ class ApiOuterLinkHandler(ApiHandler):
                 msg = '更新链接'
                 link_id = self.get_argument_and_check_it('link_id')
                 ret = yield self.config_dao.update_outer_link(link_id, **info)
+        elif op == 'top':
+            msg = '置顶链接'
+            link_id = self.get_argument_and_check_it('link_id')
+            ret = yield self.config_dao.update_outer_link(link_id, mod_time=self.now())
         elif op == 'del':
             msg = '删除链接'
             link_id = self.get_argument_and_check_it('link_id')

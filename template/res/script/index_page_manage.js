@@ -1,6 +1,7 @@
 var OP_ADD_NEWS_LINK = 1;
 var OP_UPDATE_NEWS_LINK = 2;
 var OP_DEL_NEWS_LINK = 3;
+var OP_TOP_NEWS_LINK = 4;
 
 var news_config_dlg = null;
 var current_news_type;
@@ -56,16 +57,17 @@ function queryNewsLink(type) {
     commonPost('/api/outer_link', {op: 'query', type: type}, function (data) {
         link_data_map[type].news_data = data;
 
-        var title = ['标题', '预览', '删除'];
+        var title = ['标题', '预览', '置顶', '删除'];
         var list_data = [title];
         data.forEach(function (p1, p2, p3) {
             list_data.push([
                 getNewsItemOperationHtml(p1.title, type, p2, OP_UPDATE_NEWS_LINK),
                 "<a id='item_view_url_'" + p1.id + "' target='_blank' href='" + p1.url + "'>预览</a>",
+                getNewsItemOperationHtml('置顶', type, p2, OP_TOP_NEWS_LINK),
                 getNewsItemOperationHtml('删除', type, p2, OP_DEL_NEWS_LINK)
             ]);
         });
-        updateListView(link_data_map[type].list_container, list_data, {weight: [4,1,1]})
+        updateListView(link_data_map[type].list_container, list_data, {weight: [4,1,1,1]})
     });
 }
 
@@ -82,9 +84,13 @@ function onNewsItemOperation(type, index, operation) {
             break;
         case OP_DEL_NEWS_LINK:
             showConfirmDialog('确认删除链接？', function () {
-                commonPost('/api/outer_link', {op: 'del', link_id: link_data_map[type].news_data[index].id}, onResult)
+                current_news_type = type;
+                commonPost('/api/outer_link', {op: 'del', link_id: link_data_map[type].news_data[index].id}, onResult);
             });
             break;
+        case OP_TOP_NEWS_LINK:
+            current_news_type = type;
+            commonPost('/api/outer_link', {op: 'top', link_id: link_data_map[type].news_data[index].id}, onResult);
     }
 }
 
@@ -187,7 +193,7 @@ function updateNewsLink() {
             }
         });
         news_config_dlg.dialog('close');
-        promptMsg('更新成功');
+        onResult(data);
     });
 }
 
@@ -203,6 +209,7 @@ function onResult(data) {
     switch (__current_operation) {
         case OP_ADD_NEWS_LINK:
         case OP_DEL_NEWS_LINK:
+        default:
             freshCurrent(link_data_map[current_news_type].anchor);
             break;
     }
