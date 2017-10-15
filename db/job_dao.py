@@ -65,7 +65,11 @@ class JobDAO(BaseDAO):
     @gen.coroutine
     def complete_job(self, job_id, complete_status=type_define.STATUS_JOB_COMPLETED):
         yield db_helper.update_table_values(self._get_inst(), self._executor, job_id, self.record_tab, status=complete_status)
-        yield self.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
+        if complete_status == type_define.STATUS_JOB_CANCEL:
+            yield self.delete_job_mark(job_id)
+        else:
+            yield self.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
+
         raise gen.Return(True)
 
     @gen.coroutine
@@ -205,6 +209,19 @@ class JobDAO(BaseDAO):
             else:
                 sql += ' AND uid IN %s' % (tuple(filter_list),)
         ret = yield self._executor.async_update(self._get_inst(), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def delete_job_mark(self, job_id, filter_list=None):
+        sql = 'DELETE FROM %s WHERE job_id=%s' % (self.mark_tab, job_id)
+        if isinstance(filter_list, int):
+            sql += ' AND uid != %s' % filter_list
+        elif isinstance(filter_list, list):
+            if len(filter_list) == 1:
+                sql += ' AND uid != %s' % filter_list[0]
+            else:
+                sql += ' AND uid IN %s' % (tuple(filter_list),)
+        ret = yield self._executor.async_delete(self._get_inst(), sql)
         raise gen.Return(ret)
 
     @gen.coroutine

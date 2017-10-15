@@ -44,8 +44,7 @@ class ApiProcessAutoJob(JobHandler):
             msg = '审批申请'
         elif op == 'cancel':
             job_id = self.get_argument_and_check_it('job_id')
-            yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_CANCEL)
-            yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
+            yield self.job_dao.complete_job(job_id, type_define.STATUS_JOB_CANCEL)
             self.process_result(True, '撤消自动化工作流')
             return
         elif op == 'reject':

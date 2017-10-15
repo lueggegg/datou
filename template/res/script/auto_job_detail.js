@@ -59,7 +59,7 @@ function queryJobBaseInfo() {
                 $("#cancel_btn").remove();
             } else {
                 $("#cancel_btn").click(function (event) {
-                    showConfirmDialog('撤回该工作流？', function () {
+                    showConfirmDialog('撤消该工作流？', function () {
                         commonPost('/api/process_auto_job', {op: 'cancel', job_id: __job_id, job_type: main_info.type}, function (data) {
                             promptMsg('撤消成功，2s后自动刷新...');
                             setTimeout(function () {

@@ -50,9 +50,11 @@ class ApiQueryJobList(ApiHandler):
                 kwargs = {}
             job_status = int(self.get_argument('job_status', 1))
             if job_status == 1:
-                kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED, type_define.STATUS_JOB_REJECTED]
+                kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED]
             elif job_status == 2:
                 kwargs['status_list'] = [type_define.STATUS_JOB_PROCESSING]
+            else:
+                kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED, type_define.STATUS_JOB_PROCESSING]
             if not job_type:
                 kwargs['type_list'] = [type_define.TYPE_JOB_OFFICIAL_DOC, type_define.TYPE_JOB_DOC_REPORT]
             ret = yield self.job_dao.query_job_list(job_type=job_type, count=count, offset=offset, **kwargs)

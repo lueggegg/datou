@@ -258,8 +258,13 @@ function queryJobBaseInfo() {
         $("#doc_topic").attr('title', main_info.title);
         if (main_info.status === STATUS_JOB_COMPLETED) {
             $("#complete_btn").remove();
+            $("#cancel_btn").remove();
             $("#job_status").text("已归档");
-        } else {
+        } else if (main_info.status === STATUS_JOB_CANCEL) {
+            $("#complete_btn").remove();
+            $("#cancel_btn").remove();
+            $("#job_status").text("已撤回");
+        }else {
             $("#job_status").text("处理中");
             if (!isAuthorized(OPERATION_MASK_QUERY_REPORT) && main_info.invoker !== __my_uid) {
                 $("#complete_btn").remove();
@@ -275,6 +280,19 @@ function queryJobBaseInfo() {
                         });
                     });
                 });
+                if (main_info.invoker === __my_uid) {
+                    $("#cancel_btn").click(function (event) {
+                        showConfirmDialog('撤回该' + doc_type_name + '？', function () {
+                            commonPost('/api/alter_job', {op: 'cancel', job_id: __job_id}, function (data) {
+                                promptMsg('撤消成功，2s后自动刷新...');
+                                setTimeout(function () {
+                                    refresh();
+                                }, 2000);
+                            });
+                        });
+                    });
+
+                }
             }
             if (main_info.sub_type === TYPE_JOB_SUB_TYPE_GROUP) {
                 commonPost('/api/alter_job', {op: 'group_doc_read', job_id: __job_id}, null);
@@ -340,7 +358,7 @@ function initGroupDoc() {
         container.append(html);
 
         commonInitDialog(select_doc_rec_dlg, onSelectedMultiRec, {width: 720});
-        if (main_info.status !== STATUS_JOB_COMPLETED) {
+        if (main_info.status !== STATUS_JOB_COMPLETED && main_info.status !== STATUS_JOB_CANCEL) {
             removeChildren(select_doc_rec_dlg);
             select_doc_rec_dlg.append('<div id="employee_selectable_container"></div>');
             rec_selectable_controller = createEmployeeMultiSelectorController($("#employee_selectable_container"), {filter_list: filter_list});
@@ -386,14 +404,14 @@ function initBranchDoc() {
             var html = '<ul>';
             data.forEach(function (p1, p2, p3) {
                 html += '<li value="' + p1.uid + '" onclick="onBranchChange(' + p1.uid + ')">' + p1.name + '</li>';
-                queryJobNodeList(p1);
+                queryJobNodeBranchList(p1);
             });
             html += '</ul>';
             container.append(html);
         });
     } else {
         container.hide();
-        queryJobNodeList({uid: __branch_id, account:'', name: '', dept: ''});
+        queryJobNodeBranchList({uid: __branch_id, account:'', name: '', dept: ''});
     }
 }
 
@@ -407,7 +425,7 @@ function queryAllJobNode() {
     });
 }
 
-function queryJobNodeList(branch) {
+function queryJobNodeBranchList(branch) {
     var branch_id = branch.uid;
     commonPost(query_url, {type: 'node', job_id: __job_id, branch_id: branch_id}, function(data) {
         node_list_data_map[branch_id] = data;
