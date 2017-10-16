@@ -24,6 +24,7 @@ class JobDAO(BaseDAO):
         self.uid_path_detail_table = 'job_uid_path_detail'
         self.admin_job_tab = 'admin_job'
         self.timer_task_tab = 'job_timer_task'
+        self.leave_detail_tab = 'leave_detail'
 
     @gen.coroutine
     def clear_all_job_data(self):
@@ -545,4 +546,36 @@ class JobDAO(BaseDAO):
         sql = 'SELECT * FROM %s' % self.timer_task_tab
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
+
+    @gen.coroutine
+    def add_leave_detail(self, **kwargs):
+        ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.leave_detail_tab, **kwargs)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_leave_detail_list(self, **kwargs):
+        sql = 'SELECT t.*, j.type, j.invoker, a.name, d.name AS dept FROM %s t' \
+              ' LEFT JOIN %s j ON j.id=t.job_id' \
+              ' LEFT JOIN %s a ON a.id=j.invoker' \
+              ' LEFT JOIN %s d ON d.id=a.department_id WHERE j.status=%s' \
+              '' % (self.leave_detail_tab, self.record_tab, self.account_tab, 'department', type_define.STATUS_JOB_COMPLETED)
+        order = ' ORDER BY a.department_id, a.id, t.begin_time'
+        if 'min_begin_time' in kwargs:
+            sql += " AND t.begin_time>='%s'" % kwargs['min_begin_time']
+        if 'max_begin_time' in kwargs:
+            sql += " AND t.begin_time<='%s'" % kwargs['max_begin_time']
+        if 'dept_id' in kwargs:
+            sql += " AND d.id=%s" % kwargs['dept_id']
+        if 'type_list' in kwargs:
+            type_list = kwargs['type_list']
+            if len(type_list) == 1:
+                sql += ' AND j.type=%s' % type_list[0]
+            else:
+                sql += ' AND j.type IN %s' % (tuple(type_list),)
+        if 'leave_type' in kwargs:
+            sql += " AND t.leave_type='%s'" % kwargs['leave_type']
+        sql += order
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
+
 

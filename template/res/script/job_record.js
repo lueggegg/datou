@@ -69,10 +69,25 @@ function decideAutoJobQueryOperation() {
         initDatePicker($("#invoke_begin"));
         initDatePicker($("#invoker_end"));
 
+        selectMenu($("#leave_type"));
+        commonPost('/api/query_dept_list', {pure: 1}, function (data) {
+            var options = '';
+           data.forEach(function (p1, p2, p3) {
+               options += '<option value="' + p1.id + '">' + p1.name + '</option>';
+           }) ;
+           var container = $("#leave_dept");
+           container.append(options);
+           selectMenu(container);
+        });
+        initDatePicker($("#min_begin_time"));
+        initDatePicker($("#max_begin_time"));
     } else {
         $("#query_job_tab").hide();
         $("#query_job_container").hide();
         invoker_select_dlg.hide();
+
+        $("#query_leave_detail").hide();
+        $("#query_leave_detail_container").hide();
     }
 }
 
@@ -224,6 +239,8 @@ function onQueryBtnClick() {
         queryCompletedAutoJob();
     } else if (value === 5) {
         queryDocReport();
+    } else if (value === 6) {
+        exportLeaveDetail();
     }
 }
 
@@ -359,5 +376,34 @@ function resetToOriginalPsd(index) {
     commonPost('/api/admin_reset_psd', {op: 'reset', job_id: item.id}, function (data) {
         promptMsg('重置成功');
         $("#admin_job_list").remove("[value='" + item.id + "']");
+    });
+}
+
+function exportLeaveDetail() {
+    var param = {};
+    var leave_type = $("#leave_type").val();
+    if (leave_type && leave_type !== '0') {
+        param['leave_type'] = leave_type;
+    }
+    var dept_id = parseInt($("#leave_dept").val());
+    if (dept_id && dept_id > 0) {
+        param['dept_id'] = dept_id;
+    }
+    var min_begin_time = $("#min_begin_time").val();
+    if (min_begin_time) {
+        param['min_begin_time'] = min_begin_time;
+    }
+    var max_begin_time = $("#max_begin_time").val();
+    if (max_begin_time) {
+        param['max_begin_time'] = max_begin_time;
+    }
+    if (min_begin_time && max_begin_time) {
+        if (min_begin_time >= max_begin_time) {
+            promptMsg('最早开始时间应小于最迟开始时间');
+            return;
+        }
+    }
+    commonPost('/api/leave_statistics', param, function (data) {
+        window.open(data);
     });
 }

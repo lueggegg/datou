@@ -85,7 +85,10 @@
             op: 'add',
             job_type: job_type,
             title: '产假申请',
-            content: wrapJobContent(content)
+            content: wrapJobContent(content),
+            begin_time: begin_time,
+            end_time: end_time,
+            leave_type: '产假'
         };
 
         var attachment = attachment_controller.get_upload_files();

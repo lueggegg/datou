@@ -37,6 +37,19 @@ class ApiProcessAutoJob(JobHandler):
             }
             job_id = yield self.job_dao.create_new_job(**job_record)
             self.check_result_and_finish_while_failed(job_id, '创建工作流失败')
+            if job_type in [type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY,
+                            type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY,
+                            type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY,
+                            type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY,
+                            type_define.TYPE_JOB_LEAVE_FOR_BORN_NORMAL,
+                            type_define.TYPE_JOB_LEAVE_FOR_BORN_LEADER,]:
+                leave_detail = {
+                    'job_id': job_id,
+                    'begin_time': self.get_argument_and_check_it('begin_time'),
+                    'end_time': self.get_argument_and_check_it('end_time'),
+                    'leave_type': self.get_argument_and_check_it('leave_type'),
+                }
+                yield self.job_dao.add_leave_detail(**leave_detail)
         elif op == 'reply':
             job_id = self.get_argument_and_check_it('job_id')
             yield self.check_job_mark(job_id)

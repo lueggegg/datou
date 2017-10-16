@@ -13,7 +13,7 @@ class ApiQueryDeptList(ApiHandler):
         res = {"status": error_codes.EC_SUCCESS}
         tree = self.get_argument('tree', None)
         if tree is None:
-            dept_list = yield self.account_dao.query_dept_list()
+            dept_list = yield self.account_dao.query_dept_list(pure=self.get_argument('pure', False))
         else:
             dept_list = yield self.get_department_tree(with_level=True)
         res["data"] = dept_list

@@ -43,8 +43,8 @@
     var position_type = {{ account_info['position_type'] }};
 
     $(function () {
-        $('#begin_time').datetimepicker();
-        $('#end_time').datetimepicker();
+        initDatePicker($("#begin_time"), {timepicker: true, format: 'Y-m-d H:i:00'});
+        initDatePicker($("#end_time"), {timepicker: true, format: 'Y-m-d H:i:00'});
 
         selectMenu($("#leave_type"));
     });
@@ -104,7 +104,10 @@
             op: 'add',
             job_type: job_type,
             title: '请假流程',
-            content: wrapJobContent(content)
+            content: wrapJobContent(content),
+            begin_time: begin_time,
+            end_time: end_time,
+            leave_type: type
         };
 
         var attachment = attachment_controller.get_upload_files();

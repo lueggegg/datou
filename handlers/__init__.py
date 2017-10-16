@@ -34,6 +34,7 @@ from api_process_auto_job_refactor import ApiProcessAutoJob
 from api_query_job_status_mark import ApiQueryJobStatusMark
 from api_job_memo import ApiJobMemo
 from api_admin_reset_psd import ApiAdminResetPsd
+from api_leave_statistics import ApiLeaveStatistics
 
 from job_timer import JobTimer
 

@@ -127,11 +127,14 @@ class AccountDAO(BaseDAO):
         raise gen.Return(ret[0] if ret else None)
 
     @gen.coroutine
-    def query_dept_list(self):
-        sql = 'SELECT a.*, b.name AS parent_name, c.account AS leader_account, c.name AS leader_name FROM %s a ' \
-              'LEFT JOIN %s b ON a.parent=b.id ' \
-              'LEFT JOIN %s c ON a.leader=c.id ' \
-              'WHERE a.status=1 ORDER BY weight DESC' % (self.dept_tab, self.dept_tab, self.account_tab)
+    def query_dept_list(self, pure=False):
+        if pure:
+            sql = 'SELECT * FROM %s WHERE status=1 ORDER BY weight DESC' % self.dept_tab
+        else:
+            sql = 'SELECT a.*, b.name AS parent_name, c.account AS leader_account, c.name AS leader_name FROM %s a ' \
+                  'LEFT JOIN %s b ON a.parent=b.id ' \
+                  'LEFT JOIN %s c ON a.leader=c.id ' \
+                  'WHERE a.status=1 ORDER BY weight DESC' % (self.dept_tab, self.dept_tab, self.account_tab)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 

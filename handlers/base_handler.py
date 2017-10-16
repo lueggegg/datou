@@ -192,6 +192,9 @@ class BaseHandler(RequestHandler):
         sha1.update(md5.hexdigest())
         return sha1.hexdigest()
 
+    def get_current_hash(self):
+        return self.get_hash('%s' % self.now())
+
     def is_valid_datetime(self, time, format='%Y-%m-%d'):
         try:
             datetime.datetime.strptime(time, format)
