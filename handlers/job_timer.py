@@ -21,7 +21,7 @@ class JobTimer:
         self.auto_job_queue = Queue()
         self.total_seconds = 86400
         self.system = None
-        self.daily_task_monment = datetime.timedelta(hours=21, minutes=17)
+        self.daily_task_monment = datetime.timedelta(hours=6, minutes=0)
         self.call_later(3, self.start)
 
     def call_later(self, delay, callback):
