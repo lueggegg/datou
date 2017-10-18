@@ -235,6 +235,8 @@ class JobDAO(BaseDAO):
               % (self.mark_tab, self.record_tab, self.account_tab, self.account_tab, uid,)
         if status is not None:
             sql += ' AND m.status=%s' % status
+        else:
+            sql += ' AND m.status!=%s' % type_define.STATUS_JOB_MARK_SYS_MSG
         if job_type:
             sql += ' AND r.type=%s' % job_type
         sql += ' ORDER BY r.mod_time DESC'

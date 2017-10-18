@@ -1,0 +1,74 @@
+{% extends base.html %}
+<title>{% block title %}生日祝福{% end %}</title>
+
+{% block custom_head %}
+<style>
+    #wishes_img {
+        margin-bottom: 5px;
+    }
+    #wishes_title {
+        text-align: center;
+        font-size: 2.5em;
+        color: orange;
+        margin-bottom: 10px;
+    }
+    #wishes_content {
+        margin-left: 5px;
+        font-size: 1.15em;
+    }
+    #wishes_content span {
+        color: blue;
+    }
+
+</style>
+{% end %}
+
+{% block custom_body %}
+<div style="display: inline-block; width: 100%;">
+    <div style="float: left; width: 760px;">
+        <div>
+            <img id="wishes_img">
+        </div>
+        <div id="wishes_title"></div>
+        <div id="wishes_content"></div>
+    </div>
+    <div style="float: right; width: auto">
+        <div id="inline_date" style="float: right"></div>
+    </div>
+</div>
+
+<script>
+    var __job_id = {{ arg['job_id'][0] }};
+
+    $(document).ready(function () {
+        $("#inline_date").datepicker();
+        queryContent();
+    });
+
+    function queryContent() {
+        commonPost('/api/query_job_info', {type: 'base', job_id: __job_id}, function (data) {
+            $("#wishes_title").text(data.title);
+        });
+        commonPost('/api/query_job_info', {type: 'node', job_id: __job_id}, function (data) {
+            if (data.length === 0) {
+                redirectError('页面不存在');
+            }
+            var node = data[0];
+            if (node.rec_id === __my_uid) {
+                commonPost('/api/alter_job', {op: 'notify_read', job_id: __job_id}, null);
+            } else if (!isAuthorized(OPERATION_MASK_EMPLOYEE)) {
+                redirectError('没有权限');
+            }
+            var content = abstractJobContent(node.content);
+            content = html2Text(content);
+            content = content.replace(/\{\*([^\*]+)\*\}/g, '<span>$1</span>');
+            $("#wishes_content").html(content);
+            if (node.has_img) {
+                $("#wishes_img").attr('src', node.img_attachment[0].path);
+            }
+        });
+    }
+
+</script>
+
+{% end %}

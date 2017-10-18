@@ -69,7 +69,7 @@ class AccountDAO(BaseDAO):
                 account_fields = ['id', 'account', 'name', 'department_id', 'position', 'weight']
                 account_fields = 'a.' + ', a.'.join(account_fields)
             elif field_type == type_define.TYPE_ACCOUNT_BIRTHDAY:
-                account_fields = ['id', 'account', 'name', 'department_id', 'birthday', 'join_date', 'sex', 'position_type', 'weight']
+                account_fields = ['id', 'account', 'name', 'department_id', 'birthday', 'join_date', 'sex', 'position_type', 'weight', 'position']
                 account_fields = 'a.' + ', a.'.join(account_fields)
             elif field_type == type_define.TYPE_ACCOUNT_OPERATION_MASK:
                 account_fields = ['id', 'account', 'name', 'operation_mask']
@@ -96,6 +96,8 @@ class AccountDAO(BaseDAO):
                     sql += ' AND a.id=%s' % uid_list[0]
                 else:
                     sql += ' AND a.id IN %s' % (tuple(uid_list),)
+            if 'birthday' in kwargs:
+                sql += " AND date_format(a.birthday, '%%m-%%d')=date_format('%s', '%%m-%%d')" % kwargs['birthday']
         sql += ' ORDER BY a.weight DESC'
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)

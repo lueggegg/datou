@@ -442,3 +442,4 @@ job_type_map[TYPE_JOB_FINANCIAL_PURCHASE] = '购物流程';
 job_type_map[TYPE_JOB_FINANCIAL_REIMBURSEMENT] = '报销流程';
 job_type_map[TYPE_JOB_DOC_REPORT] = '呈报表';
 job_type_map[TYPE_JOB_APPLY_RESET_PSD] = '重置密码';
+job_type_map[TYPE_JOB_SYSTEM_MSG] = '系统消息';

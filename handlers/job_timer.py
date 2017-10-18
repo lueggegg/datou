@@ -14,14 +14,28 @@ class JobTimer:
         JobTimer.__instance__ = self
         self.account_dao = kwargs['account_dao']
         self.job_dao = kwargs['job_dao']
+        self.config_dao = kwargs['config_dao']
         self.timeout_base = 60
         self.auto_job_timeout = kwargs['auto_job_timeout'] * self.timeout_base
         self.auto_job_extra_timeout = self.auto_job_timeout/3
         self.auto_job_queue = Queue()
-        IOLoop.current().call_later(3, self.start_history_tasks)
+        self.total_seconds = 86400
+        self.system = None
+        self.daily_task_monment = datetime.timedelta(hours=21, minutes=17)
+        self.call_later(3, self.start)
+
+    def call_later(self, delay, callback):
+        IOLoop.current().call_later(delay, callback)
+
+    @gen.coroutine
+    def start(self):
+        self.start_history_tasks()
+        left = self.next_daily_task_left_seconds()
+        self.call_later(left, self.daily_task)
 
     @gen.coroutine
     def start_history_tasks(self):
+        self.system = yield self.account_dao.query_pure_account('system')
         if not config.enable_job_timer:
             return
         task_list = yield self.job_dao.query_job_timer_task_list()
@@ -32,9 +46,9 @@ class JobTimer:
             cur_path = yield self.job_dao.get_job_uid_path_detail(job_id, job_record['cur_path_index'])
             yield self.auto_job_queue.put(cur_path)
             if task['time'] > now:
-                IOLoop.current().call_later((task['time'] - now).seconds, self.auto_job_timeout_cb)
+                self.call_later((task['time'] - now).seconds, self.auto_job_timeout_cb)
             else:
-                IOLoop.current().call_later(self.auto_job_extra_timeout, self.auto_job_timeout_cb)
+                self.call_later(self.auto_job_extra_timeout, self.auto_job_timeout_cb)
                 time = now + datetime.timedelta(seconds=self.auto_job_extra_timeout)
                 yield self.job_dao.update_job_timer_task(task['id'], time=time)
 
@@ -43,7 +57,7 @@ class JobTimer:
         if not config.enable_job_timer:
             return
         yield self.auto_job_queue.put(cur_path)
-        IOLoop.current().call_later(self.auto_job_timeout, self.auto_job_timeout_cb)
+        self.call_later(self.auto_job_timeout, self.auto_job_timeout_cb)
         time = self.now() + datetime.timedelta(seconds=self.auto_job_timeout)
         task = yield self.job_dao.query_job_timer_task(cur_path['job_id'])
         if task:
@@ -58,7 +72,7 @@ class JobTimer:
         job_record = yield self.job_dao.query_job_base_info(job_id)
         if job_record['cur_path_index'] == cur_path['order_index']:
             # auto job timeout
-            sender = yield self.account_dao.query_pure_account('system')
+            sender = self.system
             job_node = {
                 'job_id': job_id,
                 'time': self.now(),
@@ -103,5 +117,71 @@ class JobTimer:
                 yield self.job_dao.job_notify(job_id, notify_list, type_define.TYPE_JOB_NOTIFY_AUTO_JOB)
 
 
+    @gen.coroutine
+    def daily_task(self):
+        self.call_later(self.total_seconds, self.daily_task)
+        self.generate_birthday_wishes()
+
+    @gen.coroutine
+    def generate_birthday_wishes(self):
+        print 'birthday wishes: %s' % self.now()
+        account_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_BIRTHDAY, birthday=self.today())
+        if not account_list:
+            return
+        birthday_config = yield self.config_dao.query_common_config(type_define.TYPE_CONFIG_BIRTHDAY_WISHES)
+        config = {}
+        for item in birthday_config:
+            if item['key_id'] == type_define.TYPE_CONFIG_KEY_BIRTHDAY_WISHES_TITLE:
+                config['title'] = item['label']
+            elif item['key_id'] == type_define.TYPE_CONFIG_KEY_BIRTHDAY_WISHES_CONTENT:
+                config['content'] = item['label']
+            elif item['key_id'] == type_define.TYPE_CONFIG_KEY_BIRTHDAY_WISHES_IMG:
+                config['img'] = item['label']
+        job_record = {
+            'time': self.now(),
+            'title': config['title'],
+            'type': type_define.TYPE_JOB_SYSTEM_MSG,
+            'sub_type': type_define.TYPE_JOB_SYSTEM_MSG_SUB_TYPE_BIRTHDAY,
+            'invoker': self.system['id'],
+            'last_operator': self.system['id'],
+            'status': type_define.STATUS_JOB_COMPLETED,
+        }
+        job_node = {
+            'sender_id': self.system['id'],
+            'time': self.now(),
+            'has_img': 1 if config['img'] != 'invalid' else 0,
+        }
+        match_fields = ['name', 'position']
+        for account in account_list:
+            job_id = yield self.job_dao.create_new_job(**job_record)
+            job_node['job_id'] = job_id
+            job_node['rec_id'] = account ['id']
+            content = config['content']
+            for field in match_fields:
+                content = content.replace('{*%s*}'%field, '{*%s*}' % account[field])
+            job_node['content'] = content
+            node_id = yield self.job_dao.add_job_node(**job_node)
+            if job_node['has_img']:
+                attachment = {
+                    'node_id': node_id,
+                    'type': type_define.TYPE_JOB_ATTACHMENT_IMG,
+                    'path': config['img'],
+                    'name': 'null'
+                }
+                yield self.job_dao.add_node_attachment(**attachment)
+            yield self.job_dao.update_job_mark(job_id, account['id'], type_define.STATUS_JOB_MARK_SYS_MSG)
+            yield self.job_dao.add_notify_item(job_id, account['id'], type_define.TYPE_JOB_NOTIFY_SYS_MSG)
+
+    def next_daily_task_left_seconds(self):
+        now = self.now()
+        t = now.time()
+        now_seconds = (3600*t.hour + 60*t.minute + t.second)
+        target_seconds = self.daily_task_monment.total_seconds()
+        return (target_seconds + self.total_seconds - now_seconds) % self.total_seconds
+
     def now(self):
         return datetime.datetime.now()
+
+    def today(self):
+        return datetime.date.today()
+

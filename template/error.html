@@ -7,7 +7,7 @@
 <script>
     {% if 'message' in arg %}
     var msg = decodeURI("{{ arg['message'][0] }}");
-    msg = msg.replace(/\{\*([^\*]+)\*\}/g, "<span style='color:red'>$1</span>")
+    msg = msg.replace(/\{\*([^\*]+)\*\}/g, "<span style='color:red'>$1</span>");
     $("#message").html(msg);
     {% end %}
 </script>

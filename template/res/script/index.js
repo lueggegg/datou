@@ -2,6 +2,7 @@
 $(document).ready(function () {
     $("#inline_date").datepicker();
 
+    querySystemMsg();
     queryImgNews();
     queryTextNews();
     queryUsefulLink();
@@ -22,6 +23,36 @@ mark_status_map[STATUS_JOB_MARK_COMPLETED] = '已归档';
 mark_status_map[STATUS_JOB_MARK_WAITING] = '待办';
 mark_status_map[STATUS_JOB_MARK_PROCESSED] = '已处理';
 mark_status_map[STATUS_JOB_INVOKED_BY_MYSELF] = '我发起';
+
+function querySystemMsg() {
+    commonPost('/api/query_job_list', {query_type: TYPE_JOB_QUERY_NOTIFY_SYS_MSG}, function (data) {
+        if (data.length === 0) {
+            $("#system_msg_container").hide();
+        } else {
+            var sub_type = {};
+            sub_type[TYPE_JOB_SYSTEM_MSG_SUB_TYPE_BIRTHDAY] = '生日祝福';
+            var list = '';
+            data.forEach(function (p1, p2, p3) {
+                list += '<li>';
+                list += '<div class="recent_info_type">[' + sub_type[p1.sub_type] + ']</div>';
+                list += '<div class="recent_info_main"><a target="_blank" href="'
+                    + getSystemMsgUrl(p1) + '" title="' + p1.title + '">' + p1.title + '</a></div>';
+                list += '</li>';
+            });
+            $("#system_msg_list").append(list);
+
+        }
+    });
+}
+
+function getSystemMsgUrl(item) {
+    switch (item.sub_type) {
+        case TYPE_JOB_SYSTEM_MSG_SUB_TYPE_BIRTHDAY:
+            return 'birthday_wishes.html?job_id=' + item.id;
+        default:
+            return 'error.html';
+    }
+}
 
 function queryImgNews() {
     commonPost('/api/outer_link', {op: 'query', type: TYPE_NEWS_LINK_IMG}, function (data) {

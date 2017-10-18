@@ -99,7 +99,7 @@ function initAttachmentController(container, param) {
 
     var accept = '';
     if (controller.type === TYPE_JOB_ATTACHMENT_IMG) {
-        accept = 'accept="image/jpeg,image/jpg,image/png,image/bmp"';
+        accept = 'accept="image/jpeg,image/jpg,image/png,image/bmp,image/gif"';
     }
     var html = '<div id="' + outer_id + '">';
     html += '<div><a href="javascript:;" class="common_file_input">' + default_param.label;

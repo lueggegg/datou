@@ -1,0 +1,227 @@
+{% extends base_admin.html %}
+
+{% block title %}行政管理{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/tabs.css">
+<style>
+    #wishes_img {
+        min-height: 240px;
+        width: 60%;
+        border: 1px solid lightgray;
+    }
+
+    #upload_btn {
+        width: 60px;
+        margin-left: 5px;
+        height: 30px;
+        color: rgb(80,80,80);
+    }
+
+    .memo {
+        font-size: 0.9em;
+        color: gray;
+        margin-left: 2em;
+    }
+
+    #dlg_wishes_img {
+        margin-bottom: 5px;
+    }
+    #dlg_wishes_title {
+        text-align: center;
+        font-size: 2.5em;
+        color: orange;
+        margin-bottom: 10px;
+    }
+    #dlg_wishes_content {
+        margin-left: 5px;
+        font-size: 1.15em;
+    }
+    #dlg_wishes_content span {
+        color: blue;
+    }
+
+</style>
+{% end %}
+
+{% block custom_body %}
+<div id="tabs">
+    <ul>
+        <li><a href="#birthday_wishes_container">生日祝福</a></li>
+    </ul>
+
+    <div id="birthday_wishes_container">
+        <div style="margin-bottom: 10px">
+            标题：<input type="text" class="common_editor" id="wishes_title">
+        </div>
+        <div style="margin-bottom: 10px">
+            <div style="display: inline-block">
+                <a href="javascript:" class="common_file_input" style="float: left">选择祝福图片
+                    <input id="img_file" type="file" accept="image/jpeg,image/png,image/bmp,image/gif" onchange="onFileSelectorChanged()"/>
+                </a>
+                <button onclick="uploadImg()" id="upload_btn">上传</button>
+            </div>
+            <div>
+                <img id="wishes_img">
+                <img title="删除图片" src="res/images/icon/gray_del.png" class="common_small_del_btn" id="del_img_btn" onclick="delImg()">
+            </div>
+        </div>
+        <div>
+            <textarea class="common_text_area" id="wishes_content" placeholder="输入祝福语"></textarea>
+        </div>
+        <div class="memo">
+            1. 如需要使用生日员工名字，请输入{*name*}<br>
+            2. 如需要使用生日员工职位，请输入{*position*}<br>
+            3. 其他需要强调的文本，也用{**}括起来，如{*你好*}<br>
+            例子:<br>
+            　　致{*name*}{*position*}，祝您{*生日快乐*}！
+        </div>
+        <div class="common_btn_container">
+            <button class="ui-button ui-corner-all element_right" onclick="commit()">提交</button>
+            <button class="ui-button ui-corner-all element_right" style="margin-right: 10px" onclick="preview()">预览</button>
+        </div>
+    </div>
+</div>
+
+<div id="preview_dlg" title="预览">
+    <div style="float: left; width: 760px;">
+        <div>
+            <img id="dlg_wishes_img">
+        </div>
+        <div id="dlg_wishes_title"></div>
+        <div id="dlg_wishes_content"></div>
+    </div>
+</div>
+
+<script>
+    var img_data;
+    var invalid_img_path = 'invalid';
+    var img_path = invalid_img_path;
+    var preview_dlg;
+
+    $(document).ready(function () {
+        needAuthority(OPERATION_MASK_EMPLOYEE);
+
+        verticalTabs();
+        $("#upload_btn").hide();
+        $("#del_img_btn").hide();
+        preview_dlg = $("#preview_dlg");
+        commonInitDialog(preview_dlg, function () {
+            preview_dlg.dialog('close');
+        }, {width: 800});
+
+        queryConfig();
+    });
+
+    function queryConfig() {
+        commonPost('/api/common_config', {op: 'query', config_type: TYPE_CONFIG_BIRTHDAY_WISHES}, function (data) {
+            if (data.length > 0) {
+                data.forEach(function (p1, p2, p3) {
+                   switch (p1.key_id) {
+                       case TYPE_CONFIG_KEY_BIRTHDAY_WISHES_TITLE:
+                           $("#wishes_title").val(p1.label);
+                           break;
+                       case TYPE_CONFIG_KEY_BIRTHDAY_WISHES_CONTENT:
+                           $("#wishes_content").val(abstractJobContent(p1.label));
+                           break;
+                       case TYPE_CONFIG_KEY_BIRTHDAY_WISHES_IMG:
+                           img_path = p1.label;
+                           if (p1.label !== invalid_img_path) {
+                               $("#wishes_img").attr('src', p1.label);
+                               $("#del_img_btn").show();
+                           }
+                           break;
+                   }
+                });
+            }
+        });
+    }
+
+    function onFileSelectorChanged() {
+        var files = $("#img_file")[0].files;
+        if (files.length === 0) {
+            return;
+        }
+        var f = files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            img_data = e.target.result;
+            $("#wishes_img").attr('src', img_data);
+            $("#del_img_btn").show();
+            $("#upload_btn").show();
+        };
+        reader.readAsDataURL(f);
+    }
+
+    function delImg() {
+        $("#wishes_img").attr('src', '');
+        img_path = invalid_img_path;
+        $("#upload_btn").hide();
+        $("#del_img_btn").hide();
+    }
+    
+    function uploadImg() {
+        if (!img_data) {
+            promptMsg('未选择图片');
+            return;
+        }
+        commonPost('/api/upload_file', {type: TYPE_UPLOAD_BIRTHDAY_IMG, name: 'null', file_data: img_data}, function (data) {
+            img_path = data.path;
+        });
+    }
+
+    function commit() {
+        var title = $("#wishes_title").val();
+        if (!title) {
+            promptMsg('标题不能为空');
+            return;
+        }
+        var content = $("#wishes_content").val();
+        if (!content) {
+            promptMsg('祝福语不能为空');
+            return;
+        }
+        commonPost('/api/common_config', {op: 'update', config_type: TYPE_CONFIG_BIRTHDAY_WISHES, config_data: JSON.stringify(
+            [
+                {key: TYPE_CONFIG_KEY_BIRTHDAY_WISHES_TITLE, label: title},
+                {key: TYPE_CONFIG_KEY_BIRTHDAY_WISHES_CONTENT, label: wrapJobContent(content)},
+                {key: TYPE_CONFIG_KEY_BIRTHDAY_WISHES_IMG, label: img_path}
+            ]
+        )}, function (data) {
+            promptMsg('修改成功');
+        });
+    }
+    
+    function preview() {
+        var title = $("#wishes_title").val();
+        if (!title) {
+            promptMsg('标题不能为空');
+            return;
+        }
+        $("#dlg_wishes_title").text(title);
+        var content = $("#wishes_content").val();
+        if (!content) {
+            promptMsg('祝福语不能为空');
+            return;
+        }
+        content = html2Text(content);
+        content = content.replace(/\{\*name\*\}/g, '<span>张三</span>');
+        content = content.replace(/\{\*position\*\}/g, '<span>主任</span>');
+        content = content.replace(/\{\*([^\*]+)\*\}/g, "<span>$1</span>");
+        $("#dlg_wishes_content").html(content);
+
+        var img_element = $("#dlg_wishes_img");
+        if (img_data) {
+            img_element.attr('src', img_data);
+            img_element.show();
+        } else if (img_path !== invalid_img_path) {
+            img_element.attr('src', img_path);
+            img_element.show();
+        } else {
+            img_element.hide();
+        }
+
+        preview_dlg.dialog('open');
+    }
+
+</script>
+{% end %}

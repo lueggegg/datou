@@ -24,7 +24,7 @@ class ApiLeaveStatistics(ApiHandler):
                 item['dept'],
                 item['name'],
                 item['leave_type'],
-                '%s～%s' % (item['begin_time'], item['end_time']),
+                '%s ～ %s' % (item['begin_time'], item['end_time']),
                 self.get_workdays(item['begin_time'], item['end_time']),
             ]
             data.append(line)

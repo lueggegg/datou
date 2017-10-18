@@ -164,3 +164,9 @@
 #edit_employee_psd_dlg table td {
     height: 32px;
 }
+
+#system_msg_list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}

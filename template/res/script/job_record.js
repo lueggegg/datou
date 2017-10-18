@@ -38,6 +38,7 @@ $(document).ready(function () {
     decideAutoJobQueryOperation();
     decideDocReportQueryOperation();
     decideAdminJobOperation();
+    querySystemMsg();
 });
 
 function decideAutoJobQueryOperation() {
@@ -406,4 +407,30 @@ function exportLeaveDetail() {
     commonPost('/api/leave_statistics', param, function (data) {
         window.open(data);
     });
+}
+
+function querySystemMsg() {
+    commonPost('/api/query_job_list', {status: STATUS_JOB_MARK_SYS_MSG}, function (data) {
+        var title = ['类型', '主题'];
+        var sub_type = {};
+        sub_type[TYPE_JOB_SYSTEM_MSG_SUB_TYPE_BIRTHDAY] = '生日祝福';
+        var list_data = [title];
+        data.forEach(function (p1, p2, p3) {
+            var item = [
+                '<span style="color: orange">[' + sub_type[p1.sub_type] + ']</span>',
+                '<div><a target="_blank" href="'+ getSystemMsgUrl(p1) + '" title="' + p1.title + '">' + p1.title + '</a></div>'
+            ];
+            list_data.push(item);
+        });
+        updateListView($("#job_system_msg"), list_data, {weight: [1,4]});
+    });
+}
+
+function getSystemMsgUrl(item) {
+    switch (item.sub_type) {
+        case TYPE_JOB_SYSTEM_MSG_SUB_TYPE_BIRTHDAY:
+            return 'birthday_wishes.html?job_id=' + item.id;
+        default:
+            return 'error.html';
+    }
 }

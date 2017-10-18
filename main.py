@@ -22,6 +22,7 @@ _config_dao = config_dao.ConfigDAO(_mysql_inst_mgr)
 _job_timer = handlers.JobTimer(
     job_dao=_job_dao,
     account_dao=_account_dao,
+    config_dao=_config_dao,
     auto_job_timeout=3,
     doc_timeout=5
 )
