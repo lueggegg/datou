@@ -20,7 +20,7 @@ class ApiSendOfficialDoc(ApiHandler):
                 'time': time,
                 'mod_time': time,
                 'status': type_define.STATUS_JOB_PROCESSING,
-                'sub_type': self.get_argument('sub_type', type_define.TYPE_JOB_OFFICIAL_DOC_GROUP),
+                'sub_type': int(self.get_argument('sub_type', type_define.TYPE_JOB_OFFICIAL_DOC_GROUP)),
             }
             fields = ['title']
             for field in fields:
@@ -77,8 +77,8 @@ class ApiSendOfficialDoc(ApiHandler):
                 yield self.job_dao.delete_job(job_id)
             self.finish_with_error(error_codes.EC_SYS_ERROR, '创建工作流节点失败')
 
-        if op == 'reply':
-            yield self.job_dao.update_job_mark(job_id, self.account_info['id'], type_define.STATUS_JOB_MARK_PROCESSED,branch_id)
+        # if op == 'reply':
+        #     yield self.job_dao.update_job_mark(job_id, self.account_info['id'], type_define.STATUS_JOB_MARK_PROCESSED,branch_id)
 
         attachment_fields = [
             ['has_attachment', 'file_list', type_define.TYPE_JOB_ATTACHMENT_NORMAL],
@@ -111,8 +111,7 @@ class ApiSendOfficialDoc(ApiHandler):
                     yield self.job_dao.update_job_mark(job_id, uid, type_define.STATUS_JOB_MARK_WAITING)
         else:
             yield self.job_dao.update_job_mark(job_id, rec_id, type_define.STATUS_JOB_MARK_WAITING, branch_id)
-            if rec_id != self.account_info['id']:
-                yield self.job_dao.update_job_mark(job_id, self.account_info['id'], type_define.STATUS_JOB_MARK_WAITING, branch_id)
+            yield self.job_dao.update_job_mark(job_id, self.account_info['id'], type_define.STATUS_JOB_MARK_PROCESSED, branch_id)
 
 
 
