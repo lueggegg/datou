@@ -385,7 +385,7 @@ function commonPost(url, param, successCallback, block) {
 }
 
 function html2Text(sHtml) {
-    sHtml = sHtml.replace(/(<br\/>|<br>)/ig, '\n');
+    // sHtml = sHtml.replace(/(<br\/>|<br>)/ig, '\n');
     return sHtml.replace(/[ <>&"\n\r]/g,function(c){
         return {
             ' ': '&nbsp;',

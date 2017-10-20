@@ -86,6 +86,11 @@ class ApiHandler(BaseHandler):
         fid.close()
         return '/%s/%s' % (target_dir, filename)
 
+    def abstract_account(self, account, fields):
+        obj = {}
+        for field in fields:
+            obj[field] = account[field]
+        return obj
 
 class ApiNoVerifyHandler(ApiHandler):
     def post(self, *args, **kwargs):

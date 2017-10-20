@@ -12,9 +12,7 @@ class ApiProcessAutoJob(JobHandler):
 
     @gen.coroutine
     def _real_deal_request(self):
-        job_type = int(self.get_argument_and_check_it('job_type'))
         op = self.get_argument_and_check_it('op')
-        self.check_job_type(job_type)
         content = self.get_argument('content', '')
 
         now = self.now()
@@ -23,6 +21,8 @@ class ApiProcessAutoJob(JobHandler):
         msg = ''
         uid_list = []
         if op == 'add':
+            job_type = int(self.get_argument_and_check_it('job_type'))
+            self.check_job_type(job_type)
             uid_list = yield self.generate_uid_path_detail(job_type)
             if not uid_list:
                 self.finish_with_error(error_codes.EC_SYS_ERROR, '没有后续的路径')
@@ -67,6 +67,20 @@ class ApiProcessAutoJob(JobHandler):
             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
             msg = '拒绝申请'
             need_notify = True
+        elif op == 'query_cur':
+            job_id = self.get_argument_and_check_it('job_id')
+            cur_path_index = self.get_argument_and_check_it('cur_path_index')
+            uid_path = yield self.job_dao.get_job_uid_path_detail(job_id, cur_path_index)
+            fields = ['account', 'dept', 'name']
+            if uid_path['uid']:
+                account = yield self.account_dao.query_account_by_id(uid_path['uid'])
+                self.write_data([self.abstract_account(account, fields)])
+            elif uid_path['set_id']:
+                uid_set = yield self.job_dao.query_uid_set(uid_path['set_id'])
+                self.write_data(uid_set)
+            else:
+                self.finish_with_error(error_codes.EC_SYS_ERROR, '路径%s错误' % cur_path_index)
+            return
         else:
             job_id = None
             self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
@@ -156,20 +170,20 @@ class ApiProcessAutoJob(JobHandler):
         path = yield self.job_dao.query_first_job_auto_path(job_type)
         if not path:
             self.finish_with_error(error_codes.EC_SYS_ERROR, '未设置路径')
-        uid = self.account_info['id']
+        invoker = self.account_info['id']
         uid_list = []
         while path:
             if path['to_leader'] == type_define.TYPE_REPORT_TO_LEADER_TILL_DEPT:
-                leader = yield self.get_account_leader(uid, 'dept')
+                leader = yield self.get_account_leader(invoker, 'dept')
                 uid_list.append(leader['id'])
             elif path['to_leader'] == type_define.TYPE_REPORT_TO_LEADER_TILL_VIA:
-                leader_list = yield self.get_account_leader(uid, 'via', True)
+                leader_list = yield self.get_account_leader(invoker, 'via', True)
                 uid_list.extend(leader_list)
             elif path['to_leader'] == type_define.TYPE_REPORT_TO_LEADER_TILL_CHAIR:
-                leader_list = yield self.get_account_leader(uid, 'chair', True)
+                leader_list = yield self.get_account_leader(invoker, 'chair', True)
                 uid_list.extend(leader_list)
             elif path['to_leader'] in [type_define.TYPE_REPORT_CONTINUE_TILL_VIA, type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR]:
-                via = yield self.get_account_leader(uid, 'via')
+                via = yield self.get_account_leader(invoker, 'via')
                 uid_list.append(via['id'])
                 if path['to_leader'] == type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR and via['authority'] > type_define.AUTHORITY_CHAIR_LEADER:
                     if not via['report_uid']:
@@ -196,18 +210,16 @@ class ApiProcessAutoJob(JobHandler):
                 path = yield self.job_dao.query_job_auto_path(job_type, id=path['next_path_id'])
             else:
                 path = None
-        self.del_duplicate(uid_list)
-        if uid in uid_list:
-            uid_list.remove(uid)
+        self.del_duplicate(uid_list, invoker)
         raise gen.Return(uid_list)
 
-    def del_duplicate(self, uid_list):
+    def del_duplicate(self, uid_list, invoker):
         eval_list = []
         uid_list.reverse()
         while uid_list:
             item = uid_list.pop()
             eval_list.append({'data': item, 'valid': True})
-        single_set = set()
+        single_set = set([invoker])
         multi_list = []
         for obj in eval_list:
             item = obj['data']
