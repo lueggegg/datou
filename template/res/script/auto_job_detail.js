@@ -84,30 +84,28 @@ function queryJobNodeList() {
         });
         if (main_info.status === STATUS_JOB_PROCESSING) {
             commonPost('/api/query_job_status_mark', {job_id: __job_id}, function (data) {
-                if (data) {
-                    if (data.status === STATUS_JOB_MARK_WAITING) {
-                        $("#process_container").show();
-                        initProcessContainer();
-                    } else {
-                        commonPost('/api/process_auto_job', {op: 'query_cur', job_id: __job_id, cur_path_index: main_info.cur_path_index}, function (data) {
-                            var fake_node = {
-                                id: -1,
-                                account: 'system',
-                                sender: 'system',
-                                dept: '后台',
-                                has_attachment: 0,
-                                has_img: 0,
-                                time: '待定'
-                            };
-                            var content = '<div><span>【以下员工，待处理该工作流：】</span></div>';
-                            var divider = '&nbsp;&nbsp;&nbsp;&nbsp;';
-                            data.forEach(function (p1, p2, p3) {
-                                content += '<div>' + divider + p1.dept + divider + p1.account + divider + p1.name + '</div>';
-                            });
-                            fake_node['content'] = wrapJobContent(content);
-                            addJobNodeItem(fake_node, node_list_data.length, true);
+                if (data && data.status === STATUS_JOB_MARK_WAITING) {
+                    $("#process_container").show();
+                    initProcessContainer();
+                } else {
+                    commonPost('/api/process_auto_job', {op: 'query_cur', job_id: __job_id, cur_path_index: main_info.cur_path_index}, function (data) {
+                        var fake_node = {
+                            id: -1,
+                            account: 'system',
+                            sender: 'system',
+                            dept: '后台',
+                            has_attachment: 0,
+                            has_img: 0,
+                            time: '待定'
+                        };
+                        var content = '<div><span>【以下员工，待处理该工作流：】</span></div>';
+                        var divider = '&nbsp;&nbsp;&nbsp;&nbsp;';
+                        data.forEach(function (p1, p2, p3) {
+                            content += '<div>' + divider + p1.dept + divider + p1.account + divider + p1.name + '</div>';
                         });
-                    }
+                        fake_node['content'] = wrapJobContent(content);
+                        addJobNodeItem(fake_node, node_list_data.length, true);
+                    });
                 }
             });
         }
