@@ -40,7 +40,7 @@ class ApiEmployeeStatistics(ApiHandler):
             ['姓名', 'name', 0],
             ['性别', 'sex', 1],
             ['籍贯', 'descent', 1],
-            ['身份证号', 'id_card', 1],
+            ['身份证号', 'id_card', 0],
             ['出生日期', 'birthday', 0],
             ['毕业时间', 'graduate_date', 1],
             ['参加工作时间', 'work_begin_date', 1],
@@ -70,6 +70,8 @@ class ApiEmployeeStatistics(ApiHandler):
                 element = extend_info[field[1]] if field[2] else account[field[1]]
                 # if isinstance(element, datetime.date):
                 #     element = element.strftime('%Y年%m月%d日')
+                if field[1] == 'id_card':
+                    element = 'ID_' + element
                 line.append(element if element else '')
             data.append(line)
         path = self.generate_excel_file(data, 'employee_detail')
@@ -194,7 +196,7 @@ class ApiEmployeeStatistics(ApiHandler):
             data_line = data[line - 1]
             for i in range(1, len(data_line)):
                 ratio_line[i] = '%.2f' % (float(data_line[i])/size * 100,)
-        path = self.generate_excel_file(data, 'employee_detail')
+        path = self.generate_excel_file(data, 'employee_ratio')
         return path
 
 
