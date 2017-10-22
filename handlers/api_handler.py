@@ -81,6 +81,10 @@ class ApiHandler(BaseHandler):
         fid = codecs.open(file_path, 'w', 'utf-8')
         string = ''
         for line in data:
+            if not line:
+                string += '\n'
+                continue
+            line = ['%s' % item for item in line]
             string += '\t'.join(line) + '\n'
         fid.write(string.decode('utf-8'))
         fid.close()

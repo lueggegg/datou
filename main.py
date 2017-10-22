@@ -65,6 +65,7 @@ app = tornado.web.Application([
     (r'/api/operation_mask', handlers.ApiOperationMask),
     (r'/api/admin_reset_psd', handlers.ApiAdminResetPsd),
     (r'/api/leave_statistics', handlers.ApiLeaveStatistics),
+    (r'/api/employee_statistics', handlers.ApiEmployeeStatistics),
     (r'/(.*)', handlers.HtmlHandler),
 ],
     test_mode=config.test_mode,

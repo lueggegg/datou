@@ -53,6 +53,8 @@ $(document).ready(function () {
     selectMenu($("#current_department_menu"));
     selectMenu($("#leader_dept"));
     selectMenu($("#dept_leader_selector"));
+    selectMenu($("#statistics_dept"));
+    selectMenu($("#statistics_type"));
 
     $.post('/api/query_dept_list', null, setDepartmentList) ;
 
@@ -334,6 +336,7 @@ function setDepartmentList(data) {
                 }
             });
             $("#belong_dept").append(options).selectmenu();
+            $("#statistics_dept").append(options).selectmenu('refresh');
 
             initPageWhileHasCondition();
         }
@@ -509,4 +512,16 @@ function getLocationArgs() {
     }
     return null;
 
+}
+
+function exportEmployeeTable() {
+    var param = {op: 'export'};
+    var dept_id = parseInt($("#statistics_dept").val());
+    if (dept_id > 0) {
+        param['dept_id'] = dept_id;
+    }
+    param['type'] = $("#statistics_type").val();
+    commonPost('/api/employee_statistics', param, function (data) {
+        window.open(data);
+    });
 }

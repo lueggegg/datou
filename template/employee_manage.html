@@ -15,6 +15,7 @@
         <ul>
             <li><a href="#dept_config_container">部门管理</a></li>
             <li><a href="#employee_config_container">员工管理</a></li>
+            <li><a href="#employee_statistics_container">信息统计</a></li>
         </ul>
 
         <div class="tab_config_container" id="dept_config_container">
@@ -43,7 +44,26 @@
             <p>员工数：<span style="color: red" id="current_employee_count">0</span></p>
             <div id="employee_list" style="margin-top: 20px;"></div>
         </div>
-        <br/>
+
+        <div class="tab_config_container" id="employee_statistics_container">
+            <div class="common_btn_container">
+                部门：
+                <select id="statistics_dept">
+                    <option value="0" selected>全部</option>
+                </select>
+            </div>
+            <div class="common_btn_container">
+                类型：
+                <select id="statistics_type">
+                    <option value="detail" selected>信息详情表</option>
+                    <option value="ratio">人员结构表</option>
+                </select>
+            </div>
+            <div class="common_btn_container">
+                <button class="ui-button ui-corner-all" style="margin-left: 210px;" onclick="exportEmployeeTable()">导出</button>
+            </div>
+
+        </div>
     </div>
 
 <div id="edit_dept_dialog" title="增加部门">
