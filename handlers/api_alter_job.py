@@ -26,7 +26,7 @@ class ApiAlterJob(ApiHandler):
         elif op == 'notify_read':
             msg = '工作流通知已读'
             yield self.job_dao.del_notify_item(job_id, self.account_info['id'])
-        # elif op == 'group_doc_read':
+        elif op == 'group_doc_read':
             msg = '群组公文已读'
             job_mark = yield self.job_dao.query_job_mark(job_id, self.account_info['id'])
             if job_mark and job_mark['status'] == type_define.STATUS_JOB_MARK_WAITING:
