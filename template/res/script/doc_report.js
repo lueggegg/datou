@@ -155,7 +155,7 @@ function setMyDocTabData(index, data) {
     var list_data = [title];
     job_data.forEach(function (p1, p2, p3) {
         list_data.push([
-            "<div class=common_clickable onclick='onClickDocItem(" + p1.id + "," + p1.branch_id + ")'>" + p1.title + "</div>",
+            "<div  title='" + p1.title + "' class=common_clickable onclick='onClickDocItem(" + p1.id + "," + p1.branch_id + ")'>" + p1.title + "</div>",
             p1.invoker_name,
             abstractDateFromDatetime(p1.time),
             commonGetString(p1.last_operator_name),
