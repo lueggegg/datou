@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/mysql_config.py" afterPath="$PROJECT_DIR$/db/mysql_config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/admin_operation.py" afterPath="$PROJECT_DIR$/handlers/admin_operation.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_job_export.py" afterPath="$PROJECT_DIR$/handlers/api_job_export.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/error.html" afterPath="$PROJECT_DIR$/template/error.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/job_record.html" afterPath="$PROJECT_DIR$/template/job_record.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/base.js" afterPath="$PROJECT_DIR$/template/res/script/base.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,8 +36,8 @@
           <file leaf-file-name="admin_operation.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="300">
-                  <caret line="278" column="43" lean-forward="true" selection-start-line="278" selection-start-column="43" selection-end-line="278" selection-end-column="43" />
+                <state relative-caret-position="395">
+                  <caret line="283" column="0" lean-forward="true" selection-start-line="283" selection-start-column="0" selection-end-line="283" selection-end-column="0" />
                   <folding>
                     <element signature="e#25#38#0" expanded="true" />
                     <element signature="e#411#1371#0" expanded="false" />
@@ -171,11 +165,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="api_job_export.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="api_job_export.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/api_job_export.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="210">
-                  <caret line="97" column="51" lean-forward="false" selection-start-line="97" selection-start-column="51" selection-end-line="97" selection-end-column="51" />
+                <state relative-caret-position="381">
+                  <caret line="97" column="50" lean-forward="false" selection-start-line="97" selection-start-column="50" selection-end-line="97" selection-end-column="50" />
                   <folding>
                     <element signature="e#25#48#0" expanded="true" />
                   </folding>
@@ -183,7 +177,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="mysql_config.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="mysql_config.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/db/mysql_config.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="133">
@@ -342,9 +336,9 @@
         <option value="$PROJECT_DIR$/handlers/__init__.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/handlers/api_query_job_list.py" />
-        <option value="$PROJECT_DIR$/handlers/api_job_export.py" />
         <option value="$PROJECT_DIR$/db/mysql_config.py" />
         <option value="$PROJECT_DIR$/handlers/admin_operation.py" />
+        <option value="$PROJECT_DIR$/handlers/api_job_export.py" />
       </list>
     </option>
   </component>
@@ -598,13 +592,6 @@
       <workItem from="1501495371285" duration="22678000" />
       <workItem from="1502073814787" duration="641000" />
       <workItem from="1502195108416" duration="28000" />
-    </task>
-    <task id="LOCAL-00053" summary="release 11">
-      <created>1505549412418</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1505549412419</updated>
     </task>
     <task id="LOCAL-00054" summary="release 12">
       <created>1505689076784</created>
@@ -942,7 +929,14 @@
       <option name="project" value="LOCAL" />
       <updated>1509311656468</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="release 19">
+      <created>1509312785854</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1509312785855</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1386,8 +1380,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_employee_statistics.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="76" column="30" lean-forward="true" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="30" />
+        <state relative-caret-position="1843">
+          <caret line="97" column="38" lean-forward="false" selection-start-line="97" selection-start-column="38" selection-end-line="97" selection-end-column="38" />
           <folding>
             <element signature="e#25#59#0" expanded="true" />
           </folding>
@@ -1420,16 +1414,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_job_export.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="97" column="51" lean-forward="false" selection-start-line="97" selection-start-column="51" selection-end-line="97" selection-end-column="51" />
-          <folding>
-            <element signature="e#25#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/mysql_config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -1440,8 +1424,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="278" column="43" lean-forward="true" selection-start-line="278" selection-start-column="43" selection-end-line="278" selection-end-column="43" />
+        <state relative-caret-position="395">
+          <caret line="283" column="0" lean-forward="true" selection-start-line="283" selection-start-column="0" selection-end-line="283" selection-end-column="0" />
           <folding>
             <element signature="e#25#38#0" expanded="true" />
             <element signature="e#411#1371#0" expanded="false" />
@@ -1452,6 +1436,16 @@
             <element signature="e#4001#4078#0" expanded="false" />
             <element signature="e#4130#4209#0" expanded="false" />
             <element signature="e#4254#4709#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_job_export.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="97" column="50" lean-forward="false" selection-start-line="97" selection-start-column="50" selection-end-line="97" selection-end-column="50" />
+          <folding>
+            <element signature="e#25#48#0" expanded="true" />
           </folding>
         </state>
       </provider>

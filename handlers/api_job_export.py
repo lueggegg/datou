@@ -95,7 +95,7 @@ class ApiJobExport(JobHandler):
         p = re.compile(r'([ <>&"\n\r])')
         string = p.sub(self.html_to_text_map, string)
         p = re.compile(r'\{\*(.*?)\*\}')
-        string = p.sub(r'<span>\1</span>', string)m
+        string = p.sub(r'<span>\1</span>', string)
         return string
 
     def html_to_text_map(self, m):
