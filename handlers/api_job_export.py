@@ -22,12 +22,13 @@ class ApiJobExport(JobHandler):
         if op == 'single':
             job_id = self.get_argument_and_check_it('job_id')
             file_path = yield self.generate_export_file(job_id)
-            zip_path = [item + '.zip' for item in file_path]
-            if not os.path.isfile(zip_path[1]):
-                handle = zipfile.ZipFile(zip_path[1],'w',zipfile.ZIP_DEFLATED)
-                handle.write(file_path[1], file_path[2])
-                handle.close()
-            self.write_data(zip_path[0])
+            # zip_path = [item + '.zip' for item in file_path]
+            # if not os.path.isfile(zip_path[1]):
+            #     handle = zipfile.ZipFile(zip_path[1],'w',zipfile.ZIP_DEFLATED)
+            #     handle.write(file_path[1], file_path[2])
+            #     handle.close()
+            # self.write_data(zip_path[0])
+            self.write_data(file_path[0])
         elif op == 'chunk':
             job_list = self.get_argument_and_check_it('job_list')
             job_list = self.loads_json(job_list)
