@@ -8,6 +8,9 @@ var current_news_type;
 var link_data_map = {};
 var current_operating_news;
 
+var local_img_data;
+var local_img_path;
+
 $(document).ready(function () {
     needAuthority(OPERATION_MASK_INDEX_PAGE);
 
@@ -38,6 +41,10 @@ $(document).ready(function () {
         queryNewsLink(p1[0]);
     });
     verticalTabs();
+
+    $("#img_type").checkboxradio();
+    $("#local_img_container").hide();
+    $("#upload_img_btn").hide();
 
     initConfirmDialog();
 });
@@ -114,6 +121,11 @@ function openNewsLinkDlg(type, data) {
         $("#editor_img_url").val(img_url);
         $("#dlg_img").attr('src', img_url);
         $("#dlg_img_container").show();
+        $("#img_type").attr('checked', false);
+        $("#img_type").checkboxradio('refresh');
+        $("#upload_img_btn").hide();
+        changeImgContainer(false);
+        local_img_path = null;
     } else {
         $("#dlg_img_container").hide();
     }
@@ -140,12 +152,21 @@ function addNewsLink() {
     };
 
     if (current_news_type === TYPE_NEWS_LINK_IMG) {
-        var img_url = $("#editor_img_url").val();
-        if (!img_url) {
-            promptMsg('请输入图片链接');
-            return;
+        var checked = $("#img_type").is(":checked");
+        if (checked) {
+            if (!local_img_path) {
+                promptMsg('请上传本地图片');
+                return;
+            }
+            param['img_url'] = local_img_path;
+        } else {
+            var img_url = $("#editor_img_url").val();
+            if (!img_url) {
+                promptMsg('请输入图片链接');
+                return;
+            }
+            param['img_url'] = img_url;
         }
-        param['img_url'] = img_url;
     }
 
     commonPost('/api/outer_link', param, onResult);
@@ -172,12 +193,21 @@ function updateNewsLink() {
     };
 
     if (current_news_type === TYPE_NEWS_LINK_IMG) {
-        var img_url = $("#editor_img_url").val();
-        if (!img_url) {
-            promptMsg('请输入图片链接');
-            return;
+        var checked = $("#img_type").is(":checked");
+        if (checked) {
+            if (!local_img_path) {
+                promptMsg('请上传本地图片');
+                return;
+            }
+            param['img_url'] = local_img_path;
+        } else {
+            var img_url = $("#editor_img_url").val();
+            if (!img_url) {
+                promptMsg('请输入图片链接');
+                return;
+            }
+            param['img_url'] = img_url;
         }
-        param['img_url'] = img_url;
     }
 
     commonPost('/api/outer_link', param, function (data) {
@@ -212,5 +242,47 @@ function onResult(data) {
         default:
             freshCurrent(link_data_map[current_news_type].anchor);
             break;
+    }
+}
+
+function onImgFileSelectorChanged() {
+    var files = $("#img_file")[0].files;
+    if (files.length === 0) {
+        return;
+    }
+    var f = files[0];
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        local_img_data = e.target.result;
+        $("#dlg_img").attr('src', local_img_data);
+        $("#upload_img_btn").show();
+        $("#img_file").val('');
+    };
+    reader.readAsDataURL(f);
+}
+
+function uploadImg() {
+    if (!local_img_data) {
+        promptMsg('未选择图片');
+        return;
+    }
+    commonPost('/api/upload_file', {type: TYPE_UPLOAD_COMMON_IMG, name: 'null', file_data: local_img_data}, function (data) {
+        local_img_path = data.path;
+        promptMsg('上传成功');
+    });
+}
+
+function onImgTypeChanged() {
+    var checked = $("#img_type").is(":checked");
+    changeImgContainer(checked);
+}
+
+function changeImgContainer(checked) {
+    if (checked) {
+        $("#img_url_container").hide();
+        $("#local_img_container").show();
+    } else {
+        $("#img_url_container").show();
+        $("#local_img_container").hide();
     }
 }

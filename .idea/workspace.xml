@@ -3,8 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_upload_file.py" afterPath="$PROJECT_DIR$/handlers/api_upload_file.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/doc_report.js" afterPath="$PROJECT_DIR$/template/res/script/doc_report.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/index_page_manage.html" afterPath="$PROJECT_DIR$/template/index_page_manage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/index_page_manage.js" afterPath="$PROJECT_DIR$/template/res/script/index_page_manage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/type_define.js" afterPath="$PROJECT_DIR$/template/res/script/type_define.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/service_manage.html" afterPath="$PROJECT_DIR$/template/service_manage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/type_define.py" afterPath="$PROJECT_DIR$/type_define.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/type_define.txt" afterPath="$PROJECT_DIR$/type_define.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,8 +33,8 @@
           <file leaf-file-name="type_define.txt" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/type_define.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1235">
-                  <caret line="65" column="28" lean-forward="false" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
+                <state relative-caret-position="1178">
+                  <caret line="77" column="26" lean-forward="true" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
                   <folding />
                 </state>
               </provider>
@@ -74,7 +80,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="api_query_job_list.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="api_query_job_list.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="296">
@@ -87,7 +93,7 @@
           <file leaf-file-name="type_define.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/type_define.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="179">
+                <state relative-caret-position="-277">
                   <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
                   <folding />
                 </state>
@@ -112,6 +118,16 @@
                   <folding>
                     <element signature="e#25#59#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api_upload_file.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/handlers/api_upload_file.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="133">
+                  <caret line="61" column="134" lean-forward="false" selection-start-line="61" selection-start-column="134" selection-end-line="61" selection-end-column="134" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -321,10 +337,8 @@
         <option value="$PROJECT_DIR$/handlers/api_outer_link_handler.py" />
         <option value="$PROJECT_DIR$/db/config_dao.py" />
         <option value="$PROJECT_DIR$/handlers/api_query_depts.py" />
-        <option value="$PROJECT_DIR$/handlers/api_upload_file.py" />
         <option value="$PROJECT_DIR$/db/account_dao.py" />
         <option value="$PROJECT_DIR$/type_define.py" />
-        <option value="$PROJECT_DIR$/type_define.txt" />
         <option value="$PROJECT_DIR$/handlers/api_send_official_doc.py" />
         <option value="$PROJECT_DIR$/handlers/api_alter_job.py" />
         <option value="$PROJECT_DIR$/handlers/api_employee_statistics.py" />
@@ -340,6 +354,8 @@
         <option value="$PROJECT_DIR$/handlers/api_query_job_list.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/db/job_dao.py" />
+        <option value="$PROJECT_DIR$/type_define.txt" />
+        <option value="$PROJECT_DIR$/handlers/api_upload_file.py" />
       </list>
     </option>
   </component>
@@ -593,13 +609,6 @@
       <workItem from="1501495371285" duration="22678000" />
       <workItem from="1502073814787" duration="641000" />
       <workItem from="1502195108416" duration="28000" />
-    </task>
-    <task id="LOCAL-00056" summary="release 12">
-      <created>1505690986489</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1505690986489</updated>
     </task>
     <task id="LOCAL-00057" summary="release 13">
       <created>1505723146586</created>
@@ -937,7 +946,14 @@
       <option name="project" value="LOCAL" />
       <updated>1509314255659</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="release 19">
+      <created>1509314347614</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1509314347614</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1024,11 +1040,6 @@
           <url>file://$PROJECT_DIR$/handlers/api_query_job_list.py</url>
           <line>22</line>
           <option name="timeStamp" value="202" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/db/job_dao.py</url>
-          <line>176</line>
-          <option name="timeStamp" value="203" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -1216,14 +1227,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_upload_file.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="17" column="14" lean-forward="false" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/template/birthday_wishes.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1265,14 +1268,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1064">
           <caret line="60" column="8" lean-forward="false" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/type_define.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1235">
-          <caret line="65" column="28" lean-forward="false" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -1379,14 +1374,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/type_define.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="395">
@@ -1433,6 +1420,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="57" column="33" lean-forward="true" selection-start-line="57" selection-start-column="33" selection-end-line="57" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/db/job_dao.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -1443,10 +1438,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
+    <entry file="file://$PROJECT_DIR$/type_define.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="57" column="33" lean-forward="true" selection-start-line="57" selection-start-column="33" selection-end-line="57" selection-end-column="33" />
+        <state relative-caret-position="1178">
+          <caret line="77" column="26" lean-forward="true" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/type_define.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-277">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_upload_file.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="61" column="134" lean-forward="false" selection-start-line="61" selection-start-column="134" selection-end-line="61" selection-end-column="134" />
           <folding />
         </state>
       </provider>

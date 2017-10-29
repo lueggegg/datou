@@ -165,6 +165,7 @@
             return;
         }
         commonPost('/api/upload_file', {type: TYPE_UPLOAD_BIRTHDAY_IMG, name: 'null', file_data: img_data}, function (data) {
+            promptMsg('上传成功');
             img_path = data.path;
         });
     }

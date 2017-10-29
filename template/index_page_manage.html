@@ -17,11 +17,21 @@
 <div id="news_config_dlg">
     <div style="color: blue" class="news_config_dlg_item">请输入完整的链接（需要以http://或者https://开头）</div>
     <div id="dlg_img_container" class="news_config_dlg_item">
-        图片链接：
-        <br/>
-        <input type="text" id="editor_img_url">
-        <span class="common_clickable" onclick="viewImgUrl()">预览</span>
-        <br/>
+        <div style="margin-bottom: 5px;">
+            <input type="checkbox" id="img_type" onchange="onImgTypeChanged()"><label for="img_type">使用本地图片</label>
+        </div>
+        <div id="img_url_container">
+            图片链接：
+            <br/>
+            <input type="text" id="editor_img_url">
+            <span class="common_clickable" onclick="viewImgUrl()">预览</span>
+        </div>
+        <div id="local_img_container" style="display: inline-block">
+            <a href="javascript:" class="common_file_input" style="float: left">选择图片
+                <input id="img_file" type="file" accept="image/jpeg,image/png,image/bmp,image/gif" onchange="onImgFileSelectorChanged()"/>
+            </a>
+            <button onclick="uploadImg()" id="upload_img_btn">上传</button>
+        </div>
         <div class="news_img_container">
             <img id="dlg_img">
         </div>

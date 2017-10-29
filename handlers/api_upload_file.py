@@ -18,7 +18,7 @@ class ApiUploadFile(ApiHandler):
         filename = self.get_argument_and_check_it('name')
         file_data = self.get_argument_and_check_it('file_data')
         need_md5_dir = True
-        img_type = [type_define.TYPE_JOB_ATTACHMENT_IMG, type_define.TYPE_UPLOAD_BIRTHDAY_IMG]
+        img_type = [type_define.TYPE_JOB_ATTACHMENT_IMG, type_define.TYPE_UPLOAD_BIRTHDAY_IMG, type_define.TYPE_UPLOAD_COMMON_IMG]
         if file_type in img_type:
             r = re.match('data:image/(.+);base64,(.+)', file_data)
             parent_dir = 'res/attachment/images'
@@ -59,7 +59,7 @@ class ApiUploadFile(ApiHandler):
         if file_type == type_define.TYPE_UPLOAD_FILE_TO_DOWNLOAD:
             type_id = self.get_argument_and_check_it('type_id')
             path_id = yield self.config_dao.add_download_detail(title=filename, path=net_path, type_id=type_id)
-        elif file_type in [type_define.TYPE_UPLOAD_RULE_FILE, type_define.TYPE_UPLOAD_BIRTHDAY_IMG]:
+        elif file_type in [type_define.TYPE_UPLOAD_RULE_FILE, type_define.TYPE_UPLOAD_BIRTHDAY_IMG, type_define.TYPE_UPLOAD_COMMON_IMG]:
             path_id = 'useless'
         else:
             path_id = yield self.job_dao.add_file_path(filename=filename, path=net_path)
