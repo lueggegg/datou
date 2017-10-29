@@ -9,11 +9,20 @@
 {% block certificate_title %}产假申请{% end %}
 
 {% block certificate_content %}
-<div>
-    开始时间：<input type="text" id="begin_time" class="job_process_content_date_picker">
-</div>
-<div>
-    结束时间：<input type="text" id="end_time" class="job_process_content_date_picker">
+<div style="display: inline-block">
+    <div class="element_left">
+        <div>
+            开始时间：<input type="text" id="begin_time" class="job_process_content_date_picker">
+        </div>
+        <div>
+            结束时间：<input type="text" id="end_time" class="job_process_content_date_picker">
+        </div>
+    </div>
+    <div class="element_left" style="margin-left: 80px">
+        <div>
+            请假天数：<input type="text" id="leave_days" value="0">
+        </div>
+    </div>
 </div>
 <div>
     产假类型：
@@ -37,12 +46,22 @@
 <script>
     var attachment_controller = initAttachmentController($("#attachment_container"));
     var position_type = {{ account_info['position_type'] }};
+    var leave_step = 0.5;
 
     $(function () {
         initDatePicker($('#begin_time'));
         initDatePicker($('#end_time'));
 
         selectMenu($("#leave_type"));
+        $( "#leave_days" ).spinner({
+            spin: function( event, ui ) {
+                if ( ui.value < 0 ) {
+                    $( this ).spinner( "value", 0 );
+                    return false;
+                }
+            },
+            step: leave_step
+        });
     });
 
     function getParam(check) {
@@ -67,12 +86,16 @@
         }
 
         var reason = $("#reason").val();
+        var leave_days = parseFloat($("#leave_days").val());
+        var half_days = Math.ceil(leave_days/leave_step);
+        leave_days = half_days * leave_step;
 
-        var content =  "<div>开始时间：" + wrapWithSpan(begin_time) + "</div>";
-        content += "<div>开始时间：" + wrapWithSpan(end_time) + "</div>";
-        content += "<div>产假类型：" + wrapWithSpan($("#type_selector").val()) + "</div>";
-        content += "<div>详情：</div>";
-        content += "<div style='margin-left:2em'>" + reason + "</div>";
+        var content =  "开始时间：" + wrapWithStrength(begin_time) + "\n";
+        content += "开始时间：" + wrapWithStrength(end_time) + "\n";
+        content += "请假天数：" + wrapWithStrength(leave_days) + '天\n';
+        content += "产假类型：" + wrapWithStrength($("#type_selector").val()) + "\n";
+        content += "详情：\n";
+        content += getDoubleSpace(2) + reason + "\n";
 
         var job_type = null;
         if (position_type === TYPE_POSITION_NORMAL) {
@@ -88,7 +111,8 @@
             content: wrapJobContent(content),
             begin_time: begin_time,
             end_time: end_time,
-            leave_type: '产假'
+            leave_type: '产假',
+            half_day: half_days
         };
 
         var attachment = attachment_controller.get_upload_files();

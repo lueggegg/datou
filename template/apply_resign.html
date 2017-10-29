@@ -39,10 +39,11 @@
 
         var resign_date = $("#resign_date").val();
 
-        var content =  "<div>所属部门：<span>{{ account_info['dept'] }}</span>　　　　　　　　职位：<span>{{ account_info['position'] }}</span> </div>";
-        content += "<div>预计离职日期：" + wrapWithSpan(resign_date) + "</div>";
-        content += "<div>离职原因：</div>";
-        content += "<div style='margin-left:2em'>" + reason + "</div>";
+        var content =  "所属部门：" + wrapWithStrength("{{ account_info['dept'] }}");
+        content +=  getDoubleSpace(8) + "职位：" + wrapWithStrength("{{ account_info['position'] }}") + "\n";
+        content += "预计离职日期：" + wrapWithStrength(resign_date) + "\n";
+        content += "离职原因：\n";
+        content += getDoubleSpace(2) + reason + "\n";
 
         return {
             op: 'add',

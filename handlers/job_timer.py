@@ -79,16 +79,16 @@ class JobTimer:
                 'type': type_define.TYPE_JOB_NODE_TIMEOUT,
                 'sender_id': sender['id']
             }
-            msg = '<div><span>【以下员工，超时未处理该工作流：】</span></div>'
+            msg = '{*【以下员工，超时未处理该工作流：】*}\n'
             if cur_path['uid']:
                 account = yield self.account_dao.query_account_by_id(cur_path['uid'])
-                msg += '<div>　　%s　　%s　　%s</div>' % (account['dept'], account['account'], account['name'])
+                msg += '　　%s　　%s　　%s\n' % (account['dept'], account['account'], account['name'])
             elif cur_path['set_id']:
                 uid_set = yield self.job_dao.query_uid_set(cur_path['set_id'], True)
                 uid_list = [item['uid'] for item in uid_set]
                 accounts = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_SAMPLE, uid_list=uid_list)
                 for account in accounts:
-                    msg += '<div>　　%s　　%s　　%s</div>' % (account['dept'], account['account'], account['name'])
+                    msg += '　　%s　　%s　　%s\n' % (account['dept'], account['account'], account['name'])
             job_node['content'] = '{%s}' % msg
             yield self.job_dao.add_job_node(**job_node)
             next_path = yield self.job_dao.get_job_uid_path_detail(job_id, cur_path['order_index']+1)

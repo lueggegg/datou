@@ -25,8 +25,11 @@ class ApiLeaveStatistics(ApiHandler):
                 item['name'],
                 item['leave_type'],
                 '%s ～ %s' % (item['begin_time'], item['end_time']),
-                self.get_workdays(item['begin_time'], item['end_time']),
             ]
+            if item['half_day'] is None:
+                line.append(self.get_workdays(item['begin_time'], item['end_time']))
+            else:
+                line.append('%.1f天' % (0.5*item['half_day'], ))
             data.append(line)
         path = self.generate_excel_file(data, 'leave_statistics')
         self.write_data(path)

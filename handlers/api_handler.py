@@ -96,6 +96,7 @@ class ApiHandler(BaseHandler):
             obj[field] = account[field]
         return obj
 
+
 class ApiNoVerifyHandler(ApiHandler):
     def post(self, *args, **kwargs):
         return self._deal_request(False)

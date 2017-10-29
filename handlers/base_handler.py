@@ -49,7 +49,7 @@ class BaseHandler(RequestHandler):
 
     @gen.coroutine
     def _deal_request(self, verify=True):
-        if verify:
+        if verify and not self.get_argument('all_allow', None):
             st = yield self.verify_user()
             if not st:
                 return

@@ -49,6 +49,9 @@ class ApiProcessAutoJob(JobHandler):
                     'end_time': self.get_argument_and_check_it('end_time'),
                     'leave_type': self.get_argument_and_check_it('leave_type'),
                 }
+                half_day = self.get_argument('half_day', None)
+                if half_day is not None:
+                    leave_detail['half_day'] = half_day
                 yield self.job_dao.add_leave_detail(**leave_detail)
         elif op == 'reply':
             job_id = self.get_argument_and_check_it('job_id')

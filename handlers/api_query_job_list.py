@@ -20,6 +20,8 @@ class ApiQueryJobList(ApiHandler):
         query_type = int(self.get_argument('query_type', 0))
         if status is not None:
             status = int(status)
+        if job_type is not None:
+            job_type = int(job_type)
 
         if query_type == type_define.TYPE_JOB_QUERY_AUTO_JOB:
             query_content = self.get_argument('query_content', None)
@@ -36,11 +38,13 @@ class ApiQueryJobList(ApiHandler):
                     type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY,
                     type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY,
                 ]
+                job_type = None
             elif job_type == type_define.TYPE_JOB_HR_LEAVE_FOR_BORN:
                 kwargs['type_list'] = [
                     type_define.TYPE_JOB_LEAVE_FOR_BORN_LEADER,
                     type_define.TYPE_JOB_LEAVE_FOR_BORN_NORMAL,
                 ]
+                job_type = None
             ret = yield self.job_dao.query_job_list(job_type=job_type, count=count, offset=offset, **kwargs)
         elif query_type == type_define.TYPE_JOB_QUERY_DOC_REPORT:
             query_content = self.get_argument('query_content', None)

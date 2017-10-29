@@ -58,8 +58,8 @@
         }
 
         var content =  "<div>所属部门：<span>{{ account_info['dept'] }}</span>　　　　　　　　职位：<span>{{ account_info['position'] }}</span> </div>";
-        content += "<div>意向部门：" + wrapWithSpan(dept) + "</div>";
-        content += "<div>意向职位：" + wrapWithSpan(position) + "</div>";
+        content += "<div>意向部门：" + wrapWithStrength(dept) + "</div>";
+        content += "<div>意向职位：" + wrapWithStrength(position) + "</div>";
         content += "<div>调岗原因：</div>";
         content += "<div style='margin-left:2em'>" + reason + "</div>";
 

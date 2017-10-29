@@ -260,14 +260,18 @@ function queryJobBaseInfo() {
             $("#complete_btn").remove();
             $("#cancel_btn").remove();
             $("#job_status").text("已归档");
+            initExport();
         } else if (main_info.status === STATUS_JOB_CANCEL) {
             $("#complete_btn").remove();
             $("#cancel_btn").remove();
+            $("#export_btn").remove();
             $("#job_status").text("已撤回");
         }else {
+            $("#export_btn").remove();
             $("#job_status").text("处理中");
             if (!isAuthorized(OPERATION_MASK_QUERY_REPORT) && main_info.invoker !== __my_uid) {
                 $("#complete_btn").remove();
+                $("#cancel_btn").remove();
             } else {
                 $("#complete_btn").click(function (event) {
                     showConfirmDialog('归档后，不能再操作该' + doc_type_name + '。确认归档？', function () {
@@ -291,7 +295,8 @@ function queryJobBaseInfo() {
                             });
                         });
                     });
-
+                } else {
+                    $("#cancel_btn").remove();
                 }
             }
             if (main_info.sub_type === TYPE_JOB_SUB_TYPE_GROUP) {
@@ -299,6 +304,14 @@ function queryJobBaseInfo() {
             }
         }
         queryFirstJobNode();
+    });
+}
+
+function initExport() {
+    $("#export_btn").click(function () {
+        commonPost('/api/job_export', {op: 'single', job_id: __job_id}, function (data) {
+            window.open(data);
+        });
     });
 }
 
@@ -522,7 +535,7 @@ function addJobNodeItem(container, node_data, index, fake) {
         });
         img_list_html += "</ul>";
     }
-    $("#node_item_content_" + node_data.id).html(img_list_html + html2Text(abstractJobContent(node_data.content)));
+    $("#node_item_content_" + node_data.id).html(img_list_html + parseJobContent(node_data.content));
 }
 
 function replyDoc() {

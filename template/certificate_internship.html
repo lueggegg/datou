@@ -37,11 +37,11 @@
             promptMsg('请填写用途');
             return;
         }
-        var content = "　　兹证明，" + wrapWithSpan(account_info['name']);
-        content += "（身份证：" + wrapWithSpan(account_info['id_card']) + "）";
-        content += "于" + wrapWithSpan(begin_date) + "至" + wrapWithSpan(end_date) + "在我司实习，";
-        content += "实习职位为" + wrapWithSpan(account_info['position']) + "，";
-        content += "此证明仅作" + wrapWithSpan(usage) + "之用。";
+        var content = "　　兹证明，" + wrapWithStrength(account_info['name']);
+        content += "（身份证：" + wrapWithStrength(account_info['id_card']) + "）";
+        content += "于" + wrapWithStrength(begin_date) + "至" + wrapWithStrength(end_date) + "在我司实习，";
+        content += "实习职位为" + wrapWithStrength(account_info['position']) + "，";
+        content += "此证明仅作" + wrapWithStrength(usage) + "之用。";
 
         return {
             op: 'add',

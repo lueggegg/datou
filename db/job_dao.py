@@ -580,4 +580,15 @@ class JobDAO(BaseDAO):
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
+    @gen.coroutine
+    def query_html_tag_job_node_list(self):
+        sql = "SELECT id, content FROM %s WHERE content LIKE '%%<%%>%%'" % self.node_tab
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def update_job_node(self, node_id, **kwargs):
+        ret = yield db_helper.update_table_values(self._get_inst(), self._executor, node_id, self.node_tab, **kwargs)
+        raise gen.Return(ret)
+
 

@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from tornado import gen
-from api_handler import ApiNoVerifyHandler
 import codecs
+import re
+
+from tornado import gen
+
 import error_codes
+import type_define
+from api_handler import ApiNoVerifyHandler
+from tornado.template import Loader
+
 
 class AdminOperation(ApiNoVerifyHandler):
     @gen.coroutine
@@ -123,6 +129,50 @@ class AdminOperation(ApiNoVerifyHandler):
             self.write_json({'data': ret})
             return
 
+        elif op == 're_node':
+            msg = '替换html标签'
+            ret = True
+            node_list = yield self.job_dao.query_html_tag_job_node_list()
+            for node in node_list:
+                content = self.replace_html_content(node['content'])
+                yield self.job_dao.update_job_node(node['id'], content=content)
+
+        elif op == 'test':
+            job_id = self.get_argument('job_id', 209)
+            status_map = {
+                type_define.STATUS_JOB_PROCESSING: '处理中',
+                type_define.STATUS_JOB_COMPLETED: '已完成',
+                type_define.STATUS_JOB_CANCEL: '已撤回',
+                type_define.STATUS_JOB_REJECTED: '未通过',
+            }
+            main_info = yield self.job_dao.query_job_base_info(job_id)
+            main_info['status'] = status_map[main_info['status']]
+            branch_id = self.get_argument('branch_id', None)
+            node_list = yield self.job_dao.query_job_node_list(job_id, branch_id)
+            for item in node_list:
+                attachment_type = [
+                    ['has_attachment', type_define.TYPE_JOB_ATTACHMENT_NORMAL, 'attachment'],
+                    ['has_img', type_define.TYPE_JOB_ATTACHMENT_IMG, 'img_attachment'],
+                ]
+                for _type in attachment_type:
+                    if item[_type[0]]:
+                        attachment = yield self.job_dao.query_node_attachment_list(item['id'], _type[1])
+                        item[_type[2]] = attachment
+                content = self.abstract_job_content(item['content'])
+                content = self.html_to_text(content)
+                item['content'] = content
+            if node_list[0]['rec_set']:
+                rec_set = yield self.job_dao.query_uid_set(node_list[0]['rec_set'])
+            else:
+                rec_set = None
+            loader = Loader(self.get_template_path(), autoescape=None)
+            result = loader.load('base_job_export.html').generate(
+                        rec_set=rec_set,
+                        main_info=main_info,
+                        node_list=node_list,)
+            self.write(result)
+            return
+
         self.process_result(ret, msg)
 
 
@@ -195,3 +245,39 @@ class AdminOperation(ApiNoVerifyHandler):
             }
             yield self.account_dao.add_account(**account_info)
 
+    def abstract_job_content(self, content):
+        return content[1:-1]
+
+    def html_to_text(self, string):
+        # p = re.compile(r'<span>([^(</span>)]+)</span>')
+        # string = p.sub(r'{*\1*}', string)
+        p = re.compile(r'([ <>&"\n\r])')
+        string = p.sub(self.html_to_text_map, string)
+        p = re.compile(r'\{\*([^(\*\})]+)\*\}')
+        string = p.sub(r'<span>\1</span>', string)
+        return string
+
+    def html_to_text_map(self, m):
+        the_map = {
+            ' ': '&nbsp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '&': '&amp;',
+            '"': '&quot;',
+            '\n': "<br/>",
+            '\r': "<br/>",
+        }
+        o = m.group(1)
+        return the_map[o] if o in the_map else o
+
+    def no_escape(self, string):
+        return string
+
+    def replace_html_content(self, content):
+        tag = 'span'
+        p = re.compile(r'<%s.*>([^<>]+)</%s>' % (tag, tag))
+        content = p.sub(r'{*\1*}', content)
+        tag = 'div'
+        p = re.compile(r'<%s.*>([^<>]+)</%s>' % (tag, tag))
+        content = p.sub(r'\1\n', content)
+        return content

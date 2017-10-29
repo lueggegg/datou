@@ -53,8 +53,10 @@ function queryJobBaseInfo() {
             status[STATUS_JOB_CANCEL] = '已撤回';
             $("#cancel_btn").remove();
             $("#job_status").text(status[main_info.status]);
+            initExport();
         } else {
             $("#job_status").text('处理中');
+            $("#export_btn").remove();
             if (main_info.invoker !== __my_uid) {
                 $("#cancel_btn").remove();
             } else {
@@ -71,6 +73,14 @@ function queryJobBaseInfo() {
             }
         }
         queryJobNodeList();
+    });
+}
+
+function initExport() {
+    $("#export_btn").click(function () {
+        commonPost('/api/job_export', {op: 'single', job_id: __job_id}, function (data) {
+            window.open(data);
+        });
     });
 }
 
@@ -98,10 +108,10 @@ function queryJobNodeList() {
                             has_img: 0,
                             time: '待定'
                         };
-                        var content = '<div><span>【以下员工，待处理该工作流：】</span></div>';
-                        var divider = '&nbsp;&nbsp;&nbsp;&nbsp;';
+                        var content = '{*【以下员工，待处理该工作流：】*}\n';
+                        var divider = getDoubleSpace(2);
                         data.forEach(function (p1, p2, p3) {
-                            content += '<div>' + divider + p1.dept + divider + p1.account + divider + p1.name + '</div>';
+                            content += divider + p1.dept + divider + p1.account + divider + p1.name + '\n';
                         });
                         fake_node['content'] = wrapJobContent(content);
                         addJobNodeItem(fake_node, node_list_data.length, true);
@@ -156,7 +166,7 @@ function addJobNodeItem(node_data, index, fake) {
         });
         img_list_html += "</ul>";
     }
-    $("#node_item_content_" + node_data.id).html(img_list_html + '<div>' + abstractJobContent(node_data.content) + '</div>');
+    $("#node_item_content_" + node_data.id).html(img_list_html + '<div>' + parseJobContent(node_data.content) + '</div>');
 }
 
 function reply() {

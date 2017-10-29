@@ -7,6 +7,9 @@ var invoker_select_controller;
 var report_invoker_select_dlg;
 var report_invoker_select_controller;
 
+var auto_job_data = [];
+var doc_report_data = [];
+
 $(document).ready(function () {
     verticalTabs();
 
@@ -245,6 +248,43 @@ function onQueryBtnClick() {
     }
 }
 
+function onExportBtnClick() {
+    var value = $("#tabs ul .ui-state-active").val();
+    if (value === 4) {
+        exportAutoJob();
+    } else if (value === 5) {
+        exportDocReport();
+    }
+}
+
+function exportAutoJob() {
+    var job_list = [];
+    auto_job_data.forEach(function (p1, p2, p3) {
+        job_list.push(p1.id);
+    });
+    exportJobData(job_list);
+}
+
+function exportDocReport() {
+    var job_list = [];
+    doc_report_data.forEach(function (p1, p2, p3) {
+        if (p1.status === STATUS_JOB_COMPLETED) {
+            job_list.push(p1['id']);
+        }
+    });
+    exportJobData(job_list);
+}
+
+function exportJobData(job_list) {
+    if (job_list.length === 0) {
+        promptMsg('已归档的记录为0，请重新查询');
+        return;
+    }
+    commonPost('/api/job_export', {op: 'chunk', job_list: JSON.stringify(job_list)}, function (data) {
+        window.open(data);
+    });
+}
+
 function queryCompletedAutoJob() {
     var param = {query_type: TYPE_JOB_QUERY_AUTO_JOB};
     var job_type = parseInt($("#auto_job_type").val());
@@ -276,6 +316,7 @@ function queryCompletedAutoJob() {
     param['query_content'] = JSON.stringify(query_content);
 
     commonPost('/api/query_job_list', param, function (data) {
+        auto_job_data = data;
         setJobData(4, data);
     });
 }
@@ -312,6 +353,7 @@ function queryDocReport() {
     param['query_content'] = JSON.stringify(query_content);
 
     commonPost('/api/query_job_list', param, function (data) {
+        doc_report_data = data;
         setJobData(5, data);
     });
 

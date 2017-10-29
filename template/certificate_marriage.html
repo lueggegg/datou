@@ -31,10 +31,10 @@
             promptMsg('请填写用途');
             return;
         }
-        var content = "　　兹证明，" + wrapWithSpan(account_info['name']);
-        content += "（身份证：" + wrapWithSpan(account_info['id_card']) + "）";
-        content += "婚育状况为" + wrapWithSpan(marriage_type) + "，";
-        content += "此证明仅作" + wrapWithSpan(usage) + "之用。";
+        var content = "　　兹证明，" + wrapWithStrength(account_info['name']);
+        content += "（身份证：" + wrapWithStrength(account_info['id_card']) + "）";
+        content += "婚育状况为" + wrapWithStrength(marriage_type) + "，";
+        content += "此证明仅作" + wrapWithStrength(usage) + "之用。";
 
         return {
             op: 'add',

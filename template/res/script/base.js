@@ -417,8 +417,22 @@ function abstractJobContent(content) {
     return content.slice(1, content.length-1);
 }
 
-function wrapWithSpan(item) {
-    return '<span>' + item + '</span>';
+function parseJobContent(content) {
+    content = abstractJobContent(content);
+    content = html2Text(content);
+    return content.replace(/\{\*([^(\*\})]+)\*\}/g, "<span>$1</span>");
+}
+
+function wrapWithStrength(item) {
+    return '{*' + item + '*}';
+}
+
+function getDoubleSpace(count) {
+    var space = '';
+    for (var i = 0; i < count; ++i) {
+        space += '　';
+    }
+    return space;
 }
 
 var job_type_map = {};

@@ -50,10 +50,10 @@
                 return true;
             }
             if (p1[0] === 'reason') {
-                content += "<div>" + p1[1] + "：</div>";
-                content += "<div style='margin-left:2em'>" + value + "</div>";
+                content += p1[1] + "：\n";
+                content += getDoubleSpace(2) + value + "\n";
             } else {
-                content += "<div>" + p1[1] + "：" + wrapWithSpan(value) + p1[2] + "</div>";
+                content += p1[1] + "：" + wrapWithStrength(value) + p1[2] + "\n";
             }
             return false;
         });
