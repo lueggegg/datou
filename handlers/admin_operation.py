@@ -253,7 +253,7 @@ class AdminOperation(ApiNoVerifyHandler):
         # string = p.sub(r'{*\1*}', string)
         p = re.compile(r'([ <>&"\n\r])')
         string = p.sub(self.html_to_text_map, string)
-        p = re.compile(r'\{\*([^(\*\})]+)\*\}')
+        p = re.compile(r'\{\*(.*?)\*\}')
         string = p.sub(r'<span>\1</span>', string)
         return string
 
@@ -275,9 +275,9 @@ class AdminOperation(ApiNoVerifyHandler):
 
     def replace_html_content(self, content):
         tag = 'span'
-        p = re.compile(r'<%s.*>([^<>]+)</%s>' % (tag, tag))
+        p = re.compile(r'<%s[^>]*>(.*?)</%s>' % (tag, tag))
         content = p.sub(r'{*\1*}', content)
         tag = 'div'
-        p = re.compile(r'<%s.*>([^<>]+)</%s>' % (tag, tag))
+        p = re.compile(r'<%s[^>]*>(.*?)</%s>' % (tag, tag))
         content = p.sub(r'\1\n', content)
         return content

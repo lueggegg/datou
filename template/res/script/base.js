@@ -420,7 +420,7 @@ function abstractJobContent(content) {
 function parseJobContent(content) {
     content = abstractJobContent(content);
     content = html2Text(content);
-    return content.replace(/\{\*([^(\*\})]+)\*\}/g, "<span>$1</span>");
+    return content.replace(/\{\*(.*?)\*\}/g, "<span>$1</span>");
 }
 
 function wrapWithStrength(item) {
