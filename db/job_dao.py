@@ -169,6 +169,8 @@ class JobDAO(BaseDAO):
                 sql += ' AND invoker=%s' % invoker_set[0]
             else:
                 sql += ' AND invoker IN %s' % (tuple(invoker_set),)
+        if 'title' in kwargs:
+            sql += " AND r.title LIKE '%%%s%%'" % kwargs['title']
         sql += ' ORDER BY r.mod_time DESC'
         if count:
             sql += ' LIMIT %s, %s' % (offset, count)

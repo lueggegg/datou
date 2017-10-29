@@ -205,7 +205,7 @@ function setJobData(index, data) {
         data.forEach(function (p1, p2, p3) {
             var item = [
                 '<span style="color: orange">[' + job_type_map[p1.type] + ']</span>',
-                "<div class=common_clickable onclick='onClickDocItem(" + p1.type + "," + p1.id + "," + p1.branch_id + ")'>" + p1.title + "</div>",
+                "<div title='" + p1.title + "' class=common_clickable onclick='onClickDocItem(" + p1.type + "," + p1.id + "," + p1.branch_id + ")'>" + p1.title + "</div>",
                 "<div>" + p1.invoker_name + "</div>",
                 abstractDateFromDatetime(p1.time),
                 commonGetString(p1.last_operator_name),
@@ -349,6 +349,10 @@ function queryDocReport() {
         invoker_set.forEach(function (p1, p2, p3) {
             query_content.invoker_set.push(p1);
         });
+    }
+    var title = $("#report_title").val();
+    if (title) {
+        query_content['title'] = title;
     }
     param['query_content'] = JSON.stringify(query_content);
 
