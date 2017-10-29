@@ -2,37 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_job_export.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/download/job_export/readme.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/base_job_export.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/job_dao.py" afterPath="$PROJECT_DIR$/db/job_dao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/__init__.py" afterPath="$PROJECT_DIR$/handlers/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/admin_operation.py" afterPath="$PROJECT_DIR$/handlers/admin_operation.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_handler.py" afterPath="$PROJECT_DIR$/handlers/api_handler.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_leave_statistics.py" afterPath="$PROJECT_DIR$/handlers/api_leave_statistics.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_process_auto_job_refactor.py" afterPath="$PROJECT_DIR$/handlers/api_process_auto_job_refactor.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_query_job_list.py" afterPath="$PROJECT_DIR$/handlers/api_query_job_list.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/base_handler.py" afterPath="$PROJECT_DIR$/handlers/base_handler.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/job_timer.py" afterPath="$PROJECT_DIR$/handlers/job_timer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/apply_for_another_post.html" afterPath="$PROJECT_DIR$/template/apply_for_another_post.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/apply_resign.html" afterPath="$PROJECT_DIR$/template/apply_resign.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/ask_for_leave.html" afterPath="$PROJECT_DIR$/template/ask_for_leave.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/auto_job_detail.html" afterPath="$PROJECT_DIR$/template/auto_job_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/certificate_internship.html" afterPath="$PROJECT_DIR$/template/certificate_internship.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/certificate_marriage.html" afterPath="$PROJECT_DIR$/template/certificate_marriage.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/certificate_on_job.html" afterPath="$PROJECT_DIR$/template/certificate_on_job.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/doc_detail.html" afterPath="$PROJECT_DIR$/template/doc_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/financial_purchase.html" afterPath="$PROJECT_DIR$/template/financial_purchase.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/financial_reimbursement.html" afterPath="$PROJECT_DIR$/template/financial_reimbursement.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/job_record.html" afterPath="$PROJECT_DIR$/template/job_record.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/leave_for_born.html" afterPath="$PROJECT_DIR$/template/leave_for_born.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/recommend_new.html" afterPath="$PROJECT_DIR$/template/recommend_new.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/auto_job_detail.js" afterPath="$PROJECT_DIR$/template/res/script/auto_job_detail.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/base.js" afterPath="$PROJECT_DIR$/template/res/script/base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/doc_detail.js" afterPath="$PROJECT_DIR$/template/res/script/doc_detail.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/job_record.js" afterPath="$PROJECT_DIR$/template/res/script/job_record.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -105,8 +76,8 @@
           <file leaf-file-name="api_query_job_list.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="87">
-                  <caret line="46" column="31" lean-forward="false" selection-start-line="46" selection-start-column="31" selection-end-line="46" selection-end-column="31" />
+                <state relative-caret-position="353">
+                  <caret line="54" column="51" lean-forward="false" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
                   <folding />
                 </state>
               </provider>
@@ -414,6 +385,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="datou" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="datou" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="handlers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -597,13 +582,6 @@
       <workItem from="1501495371285" duration="22678000" />
       <workItem from="1502073814787" duration="641000" />
       <workItem from="1502195108416" duration="28000" />
-    </task>
-    <task id="LOCAL-00051" summary="release 10">
-      <created>1505419300216</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1505419300217</updated>
     </task>
     <task id="LOCAL-00052" summary="release 11">
       <created>1505487255118</created>
@@ -941,7 +919,14 @@
       <option name="project" value="LOCAL" />
       <updated>1508699317349</updated>
     </task>
-    <option name="localTasksCounter" value="100" />
+    <task id="LOCAL-00100" summary="release 19">
+      <created>1509311434701</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1509311434702</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1013,7 +998,8 @@
     <MESSAGE value="release 16" />
     <MESSAGE value="release 17" />
     <MESSAGE value="release 18" />
-    <option name="LAST_COMMIT_MESSAGE" value="release 18" />
+    <MESSAGE value="release 19" />
+    <option name="LAST_COMMIT_MESSAGE" value="release 19" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1447,8 +1433,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="46" column="31" lean-forward="false" selection-start-line="46" selection-start-column="31" selection-end-line="46" selection-end-column="31" />
+        <state relative-caret-position="353">
+          <caret line="54" column="51" lean-forward="false" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
           <folding />
         </state>
       </provider>

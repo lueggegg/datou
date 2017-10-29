@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ main_info['title'] }}</title>
+    <style>
+        .base_container {
+            width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .element_left {
+            float: left;
+        }
+
+        .element_right {
+            float: right;
+        }
+
+        .main_info_container {
+             height: 48px;
+             line-height: 48px;
+             padding-left: 10px;
+             font-size: 1.25em;
+             font-weight: bold;
+             background: rgb(69,69,69);
+             color: white;
+             letter-spacing: 0.05em;
+         }
+
+        .job_topic {
+            float: left;
+            width: 560px;
+            height: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .job_status {
+            width: 150px;
+            margin-right: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        #branch_tag_container {
+            display: inline-block;
+            width: 100%;
+            border: 1px solid lightgray;
+            margin-top: 10px;
+            border-radius: 4px;
+            background: rgb(252,252,253);
+        }
+
+        #branch_tag_container ul {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+        }
+
+        #branch_tag_container ul li {
+            float: left;
+            text-align: center;
+            min-width: 64px;
+            padding: 5px;
+            margin: 5px;
+            background: orange;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .node_container {
+            border: 1px solid lightgray;
+            margin-top: 10px;
+            border-radius: 4px;
+            background: rgb(252,252,253);
+        }
+
+        .node_item_header {
+            padding: 10px;
+            background: rgb(193,217,243);
+            border-bottom: 1px solid white;
+        }
+
+        .node_item_header_even {
+            padding: 10px;
+            background: rgb(193,243,253);
+            border-bottom: 1px solid white;
+        }
+
+        .node_header_ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            height: 24px;
+            font-size: 1.15em;
+            font-family: 黑体;
+        }
+
+        .node_header_ul li {
+            height: 24px;
+            float: left;
+        }
+
+        .node_item_header_time {
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .node_item_attachment {
+            padding-left: 10px;
+            padding-top: 5px;
+            padding-bottom: 10px;
+            background: rgb(239,245,251);
+        }
+
+        .node_item_attachment ul {
+            list-style-type: none;
+            margin: 0;
+        }
+
+        .node_item_attachment ul li {
+            max-width: 95%;
+            word-break:break-all;
+            color: orange;
+        }
+
+        .node_item_content {
+            border-top: 1px solid rgb(170,190,223);
+            padding: 10px;
+            margin-bottom: 10px;
+            word-wrap:break-word;
+        }
+
+        .node_item_content div {
+            margin-top: 10px;
+        }
+
+        .node_item_content span {
+            color: blue;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .node_item_content ul {
+            list-style-type: none;
+            margin: 0;
+        }
+
+        .node_item_content ul li{
+            margin: 10px;
+        }
+
+        .node_item_content ul li img{
+            max-width: 95%;
+            width: auto;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+<div class="base_container">
+    <div class="main_info_container">
+        <div class="element_left"> 主题：</div>
+        <div class="job_topic">{{ main_info['title']}}</div>
+        <div class="element_right job_status">{{ main_info['status'] }}</div>
+    </div>
+    {% if rec_set %}
+    <div id="branch_tag_container">
+        <ul>
+            {% for rec in rec_set %}
+            <li>{{ rec['name'] }}</li>
+            {% end %}
+        </ul>
+    </div>
+    {% end %}
+    {% for node_data in node_list %}
+    <div class="node_container">
+        <div class="node_item_header">
+            <ul class="node_header_ul">
+                <li style="width: 20%">工号：{{ node_data['account'] }}</li>
+                <li style="width: 20%">姓名：{{ node_data['sender'] }}</li>
+                <li style="width: 20%">部门：{{ node_data['dept'] }}</li>
+                <li style="width: 40%"><div class="node_item_header_time">{{ node_data['time'] }}</div></li>
+            </ul>
+        </div>
+        {% if node_data['has_attachment'] %}
+        <div class="node_item_attachment">
+            附件：
+            <ul>
+                {% for attachment in node_data['attachment'] %}
+                <li>{{ attachment['name'] }}</li>
+                {% end %}
+            </ul>
+        </div>
+        {% end %}
+        <div class="node_item_content">
+            {% if node_data['has_img'] %}
+            <ul>
+                {% for img in node_data['img_attachment'] %}
+                <li><img src="{{ img['path'] }}"></li>
+                {% end %}
+            </ul>
+            {% end %}
+            <div>
+                {{ node_data['content'] }}
+            </div>
+        </div>
+    </div>
+    {% end %}
+</div>
+</body>
