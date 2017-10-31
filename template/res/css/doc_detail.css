@@ -222,6 +222,8 @@
     border: 1px solid lightgray;
     border-radius: 4px;
     padding: 5px;
-    background: rgb(245,245,245)
-
+    background: rgb(245,245,245);
+    font-size: 15px;
+    color: rgb(69,69,69);
+    /*     font-family: 楷体; */
 }
