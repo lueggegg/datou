@@ -470,12 +470,11 @@ class JobDAO(BaseDAO):
         sql = "SELECT r.*, r.status AS job_status, i.name AS invoker_name FROM %s r" \
               " LEFT JOIN %s i ON i.id=r.invoker" \
               " LEFT JOIN %s n ON n.job_id=r.id" \
-              " WHERE r.status > 0 AND n.uid=%s AND n.type=%s" \
+              " WHERE r.status > 0 AND n.uid=%s AND n.type=%s ORDER BY r.mod_time DESC" \
               % (self.record_tab, self.account_tab, self.notify_tab, uid, notify_type)
         if 'count' in kwargs and kwargs['count']:
             offset = kwargs['offset'] if 'offset' in kwargs and kwargs['offset'] else 0
             sql += ' LIMIT %s, %s' % (offset, kwargs['count'])
-        sql += ' ORDER BY r.mod_time DESC'
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
