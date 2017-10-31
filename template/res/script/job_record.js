@@ -49,18 +49,18 @@ function decideAutoJobQueryOperation() {
     if (__authority <= __admin_authority || (__my_operation_mask & OPERATION_MASK_QUERY_AUTO_JOB)) {
         var type_options = '';
         [
-            TYPE_JOB_HR_ASK_FOR_LEAVE,
-            TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY,
-            TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY,
-            TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY,
-            TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY,
-            TYPE_JOB_HR_LEAVE_FOR_BORN,
-            TYPE_JOB_LEAVE_FOR_BORN_LEADER,
-            TYPE_JOB_LEAVE_FOR_BORN_NORMAL,
-            TYPE_JOB_HR_RESIGN,
-            TYPE_JOB_FINANCIAL_PURCHASE
+            [TYPE_JOB_HR_ASK_FOR_LEAVE, '请假流程'],
+            [TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY, '中层请假（1天内）'],
+            [TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY, '中层请假（多于1天）'],
+            [TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY, '员工请假（1天内）'],
+            [TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY, '中工请假（多于1天）'],
+            [TYPE_JOB_HR_LEAVE_FOR_BORN, '产假流程'],
+            [TYPE_JOB_LEAVE_FOR_BORN_LEADER, '中层产假'],
+            [TYPE_JOB_LEAVE_FOR_BORN_NORMAL, '员工产假'],
+            [TYPE_JOB_HR_RESIGN, '离职申请'],
+            [TYPE_JOB_FINANCIAL_PURCHASE, '购物流程']
         ].forEach(function (p1, p2, p3) {
-            type_options += '<option value="' + p1 + '">' + job_type_map[p1] + '</option>';
+            type_options += '<option value="' + p1[0] + '">' + p1[1] + '</option>';
         });
         var container = $("#auto_job_type");
         container.append(type_options);
