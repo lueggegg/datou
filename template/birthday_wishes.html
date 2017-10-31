@@ -20,6 +20,12 @@
         color: blue;
     }
 
+    #wishes_date {
+        color: gray;
+        text-align: right;
+        margin-right: 2em;
+    }
+
 </style>
 {% end %}
 
@@ -31,6 +37,7 @@
         </div>
         <div id="wishes_title"></div>
         <div id="wishes_content"></div>
+        <div id="wishes_date"></div>
     </div>
     <div style="float: right; width: auto">
         <div id="inline_date" style="float: right"></div>
@@ -47,6 +54,9 @@
 
     function queryContent() {
         commonPost('/api/query_job_info', {type: 'base', job_id: __job_id}, function (data) {
+            if (data.sub_type !== TYPE_JOB_SYSTEM_MSG_SUB_TYPE_BIRTHDAY) {
+                redirectError('类型错误');
+            }
             $("#wishes_title").text(data.title);
         });
         commonPost('/api/query_job_info', {type: 'node', job_id: __job_id}, function (data) {
@@ -64,6 +74,7 @@
             if (node.has_img) {
                 $("#wishes_img").attr('src', node.img_attachment[0].path);
             }
+            $("#wishes_date").text(node.time);
         });
     }
 
