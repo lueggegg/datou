@@ -167,7 +167,7 @@ function queryCompletedJob() {
     if (__authority > __admin_authority && (__my_operation_mask & OPERATION_MASK_QUERY_AUTO_JOB) === 0) {
         container.hide();
     } else {
-        commonPost('/api/query_job_list', {query_type: TYPE_JOB_QUERY_NOTIFY_AUTO_JOB}, function (data) {
+        commonPost('/api/query_job_list', {query_type: TYPE_JOB_QUERY_NOTIFY_AUTO_JOB, count: 10}, function (data) {
             if (data.length > 0) {
                 var job_status = {};
                 job_status[STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>';
@@ -196,7 +196,7 @@ function queryCompletedDocReport() {
     if (__authority > __admin_authority && (__my_operation_mask & OPERATION_MASK_QUERY_REPORT) === 0) {
         container.hide();
     } else {
-        commonPost('/api/query_job_list', {query_type: TYPE_JOB_QUERY_NOTIFY_DOC_REPORT}, function (data) {
+        commonPost('/api/query_job_list', {query_type: TYPE_JOB_QUERY_NOTIFY_DOC_REPORT, count: 10}, function (data) {
             if (data.length > 0) {
                 var job_status = {};
                 job_status[STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>';

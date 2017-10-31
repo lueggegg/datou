@@ -59,9 +59,7 @@
             } else if (!isAuthorized(OPERATION_MASK_EMPLOYEE)) {
                 redirectError('没有权限');
             }
-            var content = abstractJobContent(node.content);
-            content = html2Text(content);
-            content = content.replace(/\{\*([^\*]+)\*\}/g, '<span>$1</span>');
+            var content = parseJobContent(node.content);
             $("#wishes_content").html(content);
             if (node.has_img) {
                 $("#wishes_img").attr('src', node.img_attachment[0].path);

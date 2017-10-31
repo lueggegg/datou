@@ -527,6 +527,10 @@ function addJobNodeItem(container, node_data, index, fake) {
     html += "<div class='node_item_content' id='node_item_content_" + node_data.id + "'></div>";
     html += "</div>";
     container.append(html);
+    var content_html = '';
+    if (node_data.hasOwnProperty('extend') && node_data.extend) {
+        content_html += '<div class="node_extend_container">' + parseJobContent(node_data.extend) + '</div>';
+    }
     var img_list_html = '';
     if (node_data.has_img) {
         img_list_html += "<ul>";
@@ -535,7 +539,8 @@ function addJobNodeItem(container, node_data, index, fake) {
         });
         img_list_html += "</ul>";
     }
-    $("#node_item_content_" + node_data.id).html(img_list_html + parseJobContent(node_data.content));
+    content_html += img_list_html + parseJobContent(node_data.content);
+    $("#node_item_content_" + node_data.id).html(content_html);
 }
 
 function replyDoc() {

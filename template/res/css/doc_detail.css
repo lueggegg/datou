@@ -136,7 +136,7 @@
 }
 
 .node_item_content div {
-    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .node_item_content span {
@@ -216,4 +216,12 @@
 
 #branch_tag_container ul .branch_tag_active {
     background: rgb(0,192,255);
+}
+
+.node_extend_container {
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    padding: 5px;
+    background: rgb(245,245,245)
+
 }

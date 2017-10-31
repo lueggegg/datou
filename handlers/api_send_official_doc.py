@@ -62,11 +62,18 @@ class ApiSendOfficialDoc(ApiHandler):
                 set_id = yield self.job_dao.create_uid_set()
                 if not set_id:
                     self.finish_with_error(error_codes.EC_SYS_ERROR, '创建uid set失败')
-            elif job_record['sub_type'] == type_define.TYPE_JOB_OFFICIAL_DOC_GROUP:
-                first_node = yield self.job_dao.query_first_job_node(job_id)
-                set_id = first_node['rec_set']
+            if job_record['sub_type'] == type_define.TYPE_JOB_SUB_TYPE_GROUP:
+                if len(rec_set) > 0:
+                    extend = '{*【以下成员加入工作流】*}\n'
+                    rec_accounts = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_SAMPLE, uid_list=list(rec_set))
+                    for account in rec_accounts:
+                        extend += '　　%s　　%s　　%s\n' % (account['account'], account['name'], account['dept'])
+                    job_node['extend'] = '{%s}' % extend
                 if not set_id:
-                    self.finish_with_error(error_codes.EC_SYS_ERROR, '系统错误：rec_set不合法')
+                    first_node = yield self.job_dao.query_first_job_node(job_id)
+                    set_id = first_node['rec_set']
+                    if not set_id:
+                        self.finish_with_error(error_codes.EC_SYS_ERROR, '系统错误：rec_set不合法')
             job_node['rec_set'] = set_id
         branch_id = self.get_argument('branch_id', None)
         if branch_id:
