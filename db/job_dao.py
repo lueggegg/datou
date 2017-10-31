@@ -36,11 +36,11 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret)
 
     @gen.coroutine
-    def create_new_job(self, **kwargs):
+    def create_new_job(self, with_mark=True, **kwargs):
         if 'time' not in kwargs:
             kwargs['time'] = self.now()
         ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.record_tab, **kwargs)
-        if ret:
+        if ret and with_mark:
             self.update_job_mark(ret, kwargs['invoker'], type_define.STATUS_JOB_INVOKED_BY_MYSELF)
         raise gen.Return(ret)
 
@@ -171,6 +171,8 @@ class JobDAO(BaseDAO):
                 sql += ' AND invoker IN %s' % (tuple(invoker_set),)
         if 'title' in kwargs:
             sql += " AND r.title LIKE '%%%s%%'" % kwargs['title']
+        if 'last_operator' in kwargs and kwargs['last_operator']:
+            sql += ' AND r.last_operator=%s' % kwargs['last_operator']
         sql += ' ORDER BY r.mod_time DESC'
         if count:
             sql += ' LIMIT %s, %s' % (offset, count)
@@ -488,6 +490,12 @@ class JobDAO(BaseDAO):
     def del_job_uid_path_detail(self, job_id, index):
         sql = 'DELETE FROM %s WHERE job_id=%s AND order_index=%s' % (self.uid_path_detail_table, job_id, index)
         ret = yield self._executor.async_delete(self._get_inst(), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_job_uid_path_detail(self, job_id):
+        sql = 'SELECT * FROM %s WHERE job_id=%s' % (self.uid_path_detail_table, job_id)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
     @gen.coroutine

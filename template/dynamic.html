@@ -1,0 +1,84 @@
+{% extends base.html %}
+
+{% block title %}动态{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/tabs.css">
+<link rel="stylesheet" href="res/css/list.css">
+<link rel="stylesheet" href="res/css/official_doc.css">
+<script type="text/javascript" src="res/script/attachment_list.js"></script>
+<script type="text/javascript" src="res/script/dynamic.js"></script>
+<style>
+    #invoke_dynamic_container {
+        background: rgb(255,255,237);
+    }
+
+    .all_dynamic_title {
+        font-size: 1.2em;
+        margin-left: 0.5em;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .all_dynamic_title a {
+        color: blue;
+    }
+
+    .all_dynamic_title a:visited {
+        color: rgb(0,127,255);
+    }
+
+    .all_dynamic_info {
+        margin-left: 2.5em;
+        color: gray;
+        margin-bottom: 1em;
+    }
+
+    .my_dynamic_title {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+</style>
+{% end %}
+
+{% block custom_body %}
+<div id="tabs">
+    <ul>
+        <li><a href="#dynamic_list_container">动态列表</a></li>
+        <li><a href="#my_dynamic_container">我的动态</a></li>
+        <li><a href="#invoke_dynamic_container">发布动态</a></li>
+    </ul>
+
+    <div class="tab_config_container" id="dynamic_list_container">
+        <div id="all_dynamic_list">
+        </div>
+    </div>
+
+    <div class="tab_config_container" id="invoke_dynamic_container">
+        <div class="node_info_item">
+            <div class="element_left node_info_item_label">主题：　</div>
+            <input type="text" id="dynamic_topic" class="common_editor node_info_item_input element_left">
+        </div>
+        <div class="attachment_container" id="attachment_container"></div>
+        <div class="attachment_container" id="img_attachment_container"></div>
+        <div class="doc_text_area_container">
+            <textarea id='dynamic_content' class="doc_text_area"></textarea>
+        </div>
+        <div>
+            <button id='dynamic_send_btn' class="doc_send_btn">发 布</button>
+        </div>
+    </div>
+
+    <div class="tab_config_container" id="my_dynamic_container">
+        <div id="my_dynamic_list">
+        </div>
+    </div>
+</div>
+
+<div id="select_rec_dlg" title="发送到">
+    <div id="employee_selectable_container">
+    </div>
+</div>
+{% end %}

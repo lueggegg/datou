@@ -28,6 +28,14 @@ class MyEncoder(json.JSONEncoder):
 
         return json.JSONEncoder.default(self, obj)
 
+    @staticmethod
+    def dumps_json(obj):
+        return json.dumps(obj, encoding='utf8', cls=MyEncoder, ensure_ascii=False)
+
+    @staticmethod
+    def loads_json(arg):
+        return json.loads(arg, object_hook=utils.decode_dict)
+
 
 class BaseHandler(RequestHandler):
     def __init__(self, application, request, **kwargs):
@@ -168,13 +176,13 @@ class BaseHandler(RequestHandler):
     @gen.coroutine
     def write_json(self, res):
         self.set_header("Content-Type", "application/json; charset=utf-8")
-        self.write(json.dumps(res, encoding='utf8', cls=MyEncoder, ensure_ascii=False))
+        self.write(self.dumps_json(res))
 
     def loads_json(self, arg):
-        return json.loads(arg, object_hook=utils.decode_dict)
+        return MyEncoder.loads_json(arg)
 
     def dumps_json(self, obj):
-        return json.dumps(obj, ensure_ascii=False, encoding='utf-8')
+        return MyEncoder.dumps_json(obj)
 
     def get_portrait_path(self, filename, local=False):
         return self.get_res_file_path(filename, 'res/images/portrait', local)

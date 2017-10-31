@@ -6,6 +6,7 @@ import error_codes
 import type_define
 
 from api_job_handler import JobHandler
+from auto_job_util import UtilAutoJob
 
 
 class ApiProcessAutoJob(JobHandler):
@@ -106,6 +107,7 @@ class ApiProcessAutoJob(JobHandler):
         else:
             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_PROCESSED)
             mark_done = False
+            util = UtilAutoJob(account_dao=self.account_dao, job_dao=self.job_dao)
             while not mark_done:
                 to_leader = path['to_leader']
                 report_complete = False
@@ -117,7 +119,7 @@ class ApiProcessAutoJob(JobHandler):
                             type_define.TYPE_REPORT_TO_LEADER_TILL_VIA,
                             type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR
                         ]:
-                            leader = yield self.get_account_leader(job_record['invoker'], 'dept')
+                            leader = yield util.get_account_leader(job_record['invoker'], 'dept')
                             if leader['id'] == job_record['invoker']:
                                 if to_leader == type_define.TYPE_REPORT_TO_LEADER_TILL_DEPT:
                                     report_complete = True
@@ -126,7 +128,7 @@ class ApiProcessAutoJob(JobHandler):
                             else:
                                 next_rec = leader['id']
                         else:
-                            leader = yield self.get_account_leader(job_record['invoker'], 'via')
+                            leader = yield util.get_account_leader(job_record['invoker'], 'via')
                             next_rec = leader['id']
                         next_leader =  next_rec and next_rec == self.account_info['id']
                     else:

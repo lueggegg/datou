@@ -4,6 +4,7 @@ from tornado import gen
 
 import error_codes
 import type_define
+from auto_job_util import UtilAutoJob
 
 from api_job_handler import JobHandler
 
@@ -23,7 +24,12 @@ class ApiProcessAutoJob(JobHandler):
         if op == 'add':
             job_type = int(self.get_argument_and_check_it('job_type'))
             self.check_job_type(job_type)
-            uid_list = yield self.generate_uid_path_detail(job_type)
+            util = UtilAutoJob(account_dao=self.account_dao, job_dao=self.job_dao)
+            try:
+                uid_list = yield util.generate_uid_path_detail(job_type, self.account_info['id'])
+            except Exception, e:
+                self.finish_with_error(e.args[0], e.args[1])
+            # uid_list = yield self.generate_uid_path_detail(job_type)
             if not uid_list:
                 self.finish_with_error(error_codes.EC_SYS_ERROR, '没有后续的路径')
             job_record = {
@@ -168,78 +174,78 @@ class ApiProcessAutoJob(JobHandler):
                 yield self.job_dao.insert_into_uid_set(set_id, item)
             index += 1
 
-    @gen.coroutine
-    def generate_uid_path_detail(self, job_type):
-        path = yield self.job_dao.query_first_job_auto_path(job_type)
-        if not path:
-            self.finish_with_error(error_codes.EC_SYS_ERROR, '未设置路径')
-        invoker = self.account_info['id']
-        uid_list = []
-        while path:
-            if path['to_leader'] == type_define.TYPE_REPORT_TO_LEADER_TILL_DEPT:
-                leader = yield self.get_account_leader(invoker, 'dept')
-                uid_list.append(leader['id'])
-            elif path['to_leader'] == type_define.TYPE_REPORT_TO_LEADER_TILL_VIA:
-                leader_list = yield self.get_account_leader(invoker, 'via', True)
-                uid_list.extend(leader_list)
-            elif path['to_leader'] == type_define.TYPE_REPORT_TO_LEADER_TILL_CHAIR:
-                leader_list = yield self.get_account_leader(invoker, 'chair', True)
-                uid_list.extend(leader_list)
-            elif path['to_leader'] in [type_define.TYPE_REPORT_CONTINUE_TILL_VIA, type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR]:
-                via = yield self.get_account_leader(invoker, 'via')
-                uid_list.append(via['id'])
-                if path['to_leader'] == type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR and via['authority'] > type_define.AUTHORITY_CHAIR_LEADER:
-                    if not via['report_uid']:
-                        self.finish_with_error(error_codes.EC_SYS_ERROR, '未设置最高领导')
-                    uid_list.append(via['report_uid'])
-            elif path['to_leader'] == 0:
-                uid_set = set()
-                for detail in path['detail']:
-                    if detail['uid']:
-                        uid_set.add(detail['uid'])
-                    elif detail['dept_id']:
-                        account_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_JUST_ID, dept_id=detail['dept_id'])
-                        for account in account_list:
-                            uid_set.add(account['id'])
-                size = len(uid_set)
-                if size == 1:
-                    uid_list.append(uid_set.pop())
-                elif size > 1:
-                    uid_list.append(uid_set)
-            else:
-                self.finish_with_error(error_codes.EC_SYS_ERROR, 'invalid parameter: path["to_leader"]')
-
-            if path['next_path_id']:
-                path = yield self.job_dao.query_job_auto_path(job_type, id=path['next_path_id'])
-            else:
-                path = None
-        self.del_duplicate(uid_list, invoker)
-        raise gen.Return(uid_list)
-
-    def del_duplicate(self, uid_list, invoker):
-        eval_list = []
-        uid_list.reverse()
-        while uid_list:
-            item = uid_list.pop()
-            eval_list.append({'data': item, 'valid': True})
-        single_set = set([invoker])
-        multi_list = []
-        for obj in eval_list:
-            item = obj['data']
-            if isinstance(item, int):
-                if item in single_set:
-                    obj['valid'] = False
-                else:
-                    single_set.add(item)
-            else:
-                multi_list.append(obj)
-        for obj in multi_list:
-            for uid in single_set:
-                if uid in obj['data']:
-                    obj['valid'] = False
-        for obj in eval_list:
-            if obj['valid']:
-                uid_list.append(obj['data'])
+    # @gen.coroutine
+    # def generate_uid_path_detail(self, job_type):
+    #     path = yield self.job_dao.query_first_job_auto_path(job_type)
+    #     if not path:
+    #         self.finish_with_error(error_codes.EC_SYS_ERROR, '未设置路径')
+    #     invoker = self.account_info['id']
+    #     uid_list = []
+    #     while path:
+    #         if path['to_leader'] == type_define.TYPE_REPORT_TO_LEADER_TILL_DEPT:
+    #             leader = yield self.get_account_leader(invoker, 'dept')
+    #             uid_list.append(leader['id'])
+    #         elif path['to_leader'] == type_define.TYPE_REPORT_TO_LEADER_TILL_VIA:
+    #             leader_list = yield self.get_account_leader(invoker, 'via', True)
+    #             uid_list.extend(leader_list)
+    #         elif path['to_leader'] == type_define.TYPE_REPORT_TO_LEADER_TILL_CHAIR:
+    #             leader_list = yield self.get_account_leader(invoker, 'chair', True)
+    #             uid_list.extend(leader_list)
+    #         elif path['to_leader'] in [type_define.TYPE_REPORT_CONTINUE_TILL_VIA, type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR]:
+    #             via = yield self.get_account_leader(invoker, 'via')
+    #             uid_list.append(via['id'])
+    #             if path['to_leader'] == type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR and via['authority'] > type_define.AUTHORITY_CHAIR_LEADER:
+    #                 if not via['report_uid']:
+    #                     self.finish_with_error(error_codes.EC_SYS_ERROR, '未设置最高领导')
+    #                 uid_list.append(via['report_uid'])
+    #         elif path['to_leader'] == 0:
+    #             uid_set = set()
+    #             for detail in path['detail']:
+    #                 if detail['uid']:
+    #                     uid_set.add(detail['uid'])
+    #                 elif detail['dept_id']:
+    #                     account_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_JUST_ID, dept_id=detail['dept_id'])
+    #                     for account in account_list:
+    #                         uid_set.add(account['id'])
+    #             size = len(uid_set)
+    #             if size == 1:
+    #                 uid_list.append(uid_set.pop())
+    #             elif size > 1:
+    #                 uid_list.append(uid_set)
+    #         else:
+    #             self.finish_with_error(error_codes.EC_SYS_ERROR, 'invalid parameter: path["to_leader"]')
+    #
+    #         if path['next_path_id']:
+    #             path = yield self.job_dao.query_job_auto_path(job_type, id=path['next_path_id'])
+    #         else:
+    #             path = None
+    #     self.del_duplicate(uid_list, invoker)
+    #     raise gen.Return(uid_list)
+    #
+    # def del_duplicate(self, uid_list, invoker):
+    #     eval_list = []
+    #     uid_list.reverse()
+    #     while uid_list:
+    #         item = uid_list.pop()
+    #         eval_list.append({'data': item, 'valid': True})
+    #     single_set = set([invoker])
+    #     multi_list = []
+    #     for obj in eval_list:
+    #         item = obj['data']
+    #         if isinstance(item, int):
+    #             if item in single_set:
+    #                 obj['valid'] = False
+    #             else:
+    #                 single_set.add(item)
+    #         else:
+    #             multi_list.append(obj)
+    #     for obj in multi_list:
+    #         for uid in single_set:
+    #             if uid in obj['data']:
+    #                 obj['valid'] = False
+    #     for obj in eval_list:
+    #         if obj['valid']:
+    #             uid_list.append(obj['data'])
 
     @gen.coroutine
     def check_job_mark(self, job_id):

@@ -4,6 +4,7 @@ import logging
 
 from tornado import gen
 from api_handler import ApiHandler
+from auto_job_util import UtilAutoJob
 
 import error_codes
 import type_define
@@ -30,8 +31,9 @@ class ApiQueryJobList(ApiHandler):
             else:
                 kwargs = {}
             kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED, type_define.STATUS_JOB_REJECTED]
-            kwargs['exclude_type'] = [type_define.TYPE_JOB_OFFICIAL_DOC, type_define.TYPE_JOB_DOC_REPORT]
-            if job_type == type_define.TYPE_JOB_HR_ASK_FOR_LEAVE:
+            if job_type is None:
+                kwargs['type_list'] = UtilAutoJob.get_auto_job_type_list()
+            elif job_type == type_define.TYPE_JOB_HR_ASK_FOR_LEAVE:
                 kwargs['type_list'] = [
                     type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY,
                     type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY,
@@ -64,6 +66,8 @@ class ApiQueryJobList(ApiHandler):
             ret = yield self.job_dao.query_job_list(job_type=job_type, count=count, offset=offset, **kwargs)
         elif query_type == type_define.TYPE_JOB_QUERY_SYS_MSG:
             ret = yield self.job_dao.query_job_list(job_type=type_define.TYPE_JOB_SYSTEM_MSG, count=count, offset=offset)
+        elif query_type == type_define.TYPE_JOB_QUERY_DYNAMIC:
+            ret = yield self.job_dao.query_job_list(job_type=type_define.TYPE_JOB_DYNAMIC, last_operator=uid, count=count, offset=offset)
         elif query_type == type_define.TYPE_JOB_QUERY_NOTIFY_AUTO_JOB:
             ret = yield self.job_dao.query_notify_job_list(self.account_info['id'], type_define.TYPE_JOB_NOTIFY_AUTO_JOB, count=count, offset=offset)
         elif query_type == type_define.TYPE_JOB_QUERY_NOTIFY_DOC_REPORT:

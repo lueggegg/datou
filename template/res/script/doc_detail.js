@@ -261,11 +261,11 @@ function queryJobBaseInfo() {
             $("#cancel_btn").remove();
             $("#job_status").text("已归档");
             initExport();
-        } else if (main_info.status === STATUS_JOB_CANCEL) {
+        } else if (main_info.status === STATUS_JOB_CANCEL || main_info.status === STATUS_JOB_SYS_CANCEL) {
             $("#complete_btn").remove();
             $("#cancel_btn").remove();
             $("#export_btn").remove();
-            $("#job_status").text("已撤回");
+            $("#job_status").text(main_info.status === STATUS_JOB_CANCEL?"已撤回" : '系统撤回');
         }else {
             $("#export_btn").remove();
             $("#job_status").text("处理中");

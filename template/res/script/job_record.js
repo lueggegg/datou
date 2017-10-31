@@ -188,18 +188,19 @@ function queryJobList(index) {
 
 function setJobData(index, data) {
     if (index < 6) {
-        var weight =[1.2, 2, 1, 1.5, 1.5, 1.5];
-        var title = ['类型', '主题', '发送人', '发送时间', '上一个审阅人', '最后操作时间'];
+        var weight =[1.2, 2, 1, 1.5, 1.2, 1.5];
+        var title = ['类型', '主题', '发送人', '发送时间', '上一回复', '最后操作时间'];
         var new_status = (index < 4 && (job_types[index] === STATUS_JOB_MARK_COMPLETED
             || job_types[index] === STATUS_JOB_INVOKED_BY_MYSELF)) || (index > 3);
         var status = {};
         if (new_status) {
             title.push('状态');
-            weight.push(1);
+            weight.push(1.2);
             status[STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>';
             status[STATUS_JOB_COMPLETED] = '<span style="color: rgb(0,225,32)">已完成</span>';
             status[STATUS_JOB_REJECTED] = '<span style="color: red">未通过</span>';
             status[STATUS_JOB_CANCEL] = '<span style="color: gray">已撤回</span>';
+            status[STATUS_JOB_SYS_CANCEL] = '<span style="color: red">系统撤回</span>';
         }
         var list_data = [title];
         data.forEach(function (p1, p2, p3) {
@@ -460,6 +461,8 @@ function querySystemMsg() {
         var title = ['类型', '主题'];
         var sub_type = {};
         sub_type[TYPE_JOB_SYSTEM_MSG_SUB_TYPE_BIRTHDAY] = '生日祝福';
+        sub_type[TYPE_JOB_SYSTEM_MSG_SUB_TYPE_CANCEL_JOB] = '系统撤回';
+        sub_type[TYPE_JOB_SYSTEM_MSG_SUB_TYPE_OTHER] = '其他消息';
         var list_data = [title];
         data.forEach(function (p1, p2, p3) {
             var item = [

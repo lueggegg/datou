@@ -6,6 +6,8 @@ from tornado.queues import Queue
 
 import datetime
 import type_define, config
+from base_handler import MyEncoder
+from auto_job_util import UtilAutoJob
 
 class JobTimer:
     __instance__ = None
@@ -15,13 +17,14 @@ class JobTimer:
         self.account_dao = kwargs['account_dao']
         self.job_dao = kwargs['job_dao']
         self.config_dao = kwargs['config_dao']
+        self.auto_job_util = UtilAutoJob(**kwargs)
         self.timeout_base = 60
         self.auto_job_timeout = kwargs['auto_job_timeout'] * self.timeout_base
         self.auto_job_extra_timeout = self.auto_job_timeout/3
         self.auto_job_queue = Queue()
         self.total_seconds = 86400
         self.system = None
-        self.daily_task_monment = datetime.timedelta(hours=6, minutes=0)
+        self.daily_task_monment = datetime.timedelta(hours=5, minutes=0)
         self.call_later(3, self.start)
 
     def call_later(self, delay, callback):
@@ -120,7 +123,8 @@ class JobTimer:
     @gen.coroutine
     def daily_task(self):
         self.call_later(self.total_seconds, self.daily_task)
-        self.generate_birthday_wishes()
+        self.arrange_auto_job()
+        self.call_later(3600, self.generate_birthday_wishes)
 
     @gen.coroutine
     def generate_birthday_wishes(self):
@@ -178,6 +182,52 @@ class JobTimer:
         now_seconds = (3600*t.hour + 60*t.minute + t.second)
         target_seconds = self.daily_task_monment.total_seconds()
         return (target_seconds + self.total_seconds - now_seconds) % self.total_seconds
+
+    @gen.coroutine
+    def arrange_auto_job(self):
+        kwargs = {}
+        kwargs['tpye_list'] = UtilAutoJob.get_auto_job_type_list()
+        kwargs['status_list'] = [type_define.STATUS_JOB_PROCESSING]
+        job_list = yield self.job_dao.query_job_list(**kwargs)
+        for job in job_list:
+            job_id = job['id']
+            uid_path = yield self.job_dao.query_job_uid_path_detail(job_id)
+            changed = True
+            try:
+                uid_list = yield self.auto_job_util.generate_uid_path_detail(job['type'], job['invoker'])
+            except Exception, e:
+                print e
+            else:
+                if len(uid_path) == len(uid_list):
+                    for i in range(len(uid_path)):
+                        detail = uid_path[i]
+                        if detail['uid']:
+                            comp = detail['uid']
+                        else:
+                            uid_set = yield self.job_dao.query_uid_set(detail['set_id'], True)
+                            comp = set([uid['uid'] for uid in uid_set])
+                        if comp != uid_list[i]:
+                            break
+                    changed = False
+            if changed:
+                self.cancel_auto_job(job, '由于工作流路径发生变化，该工作流被系统撤回，请重新申请')
+
+
+    @gen.coroutine
+    def cancel_auto_job(self, job, msg='系统原因，该工作流被撤回'):
+        print 'cancel job:\n%s' % MyEncoder.dumps_json(job)
+        job_id = job['id']
+        yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_SYS_CANCEL, sub_type=type_define.TYPE_JOB_SYSTEM_MSG_SUB_TYPE_CANCEL_JOB)
+        yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
+        job_node = {
+            'job_id': job['id'],
+            'sender_id': self.system['id'],
+            'time': self.now(),
+            'content': '{{*【%s】*}\n}' % msg,
+            'type': type_define.TYPE_JOB_NODE_SYS_MSG,
+        }
+        node_id = yield self.job_dao.add_job_node(**job_node)
+        yield self.job_dao.add_notify_item(job_id, job['invoker'], type_define.TYPE_JOB_NOTIFY_SYS_MSG)
 
     def now(self):
         return datetime.datetime.now()

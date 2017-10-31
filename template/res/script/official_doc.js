@@ -152,7 +152,7 @@ function queryDocList(index) {
 
 function setMyDocTabData(index, data) {
     var job_data = data;
-    var title = ['主题', '发送人', '发送时间', '上一个审阅人', '最后操作时间'];
+    var title = ['主题', '发送人', '发送时间', '上一回复', '最后操作时间'];
     var list_data = [title];
     job_data.forEach(function (p1, p2, p3) {
         list_data.push([

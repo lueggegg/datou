@@ -51,6 +51,7 @@ function queryJobBaseInfo() {
             status[STATUS_JOB_COMPLETED] = '已完成';
             status[STATUS_JOB_REJECTED] = '未通过';
             status[STATUS_JOB_CANCEL] = '已撤回';
+            status[STATUS_JOB_SYS_CANCEL] = '系统撤回';
             $("#cancel_btn").remove();
             $("#job_status").text(status[main_info.status]);
             initExport();
@@ -127,7 +128,7 @@ function addJobNodeItem(node_data, index, fake) {
     var html = "<div class='node_item_container'>";
     if (fake) {
         html += "<div class='fake_node_item_header'>";
-    } else if (node_data.type === TYPE_JOB_NODE_TIMEOUT) {
+    } else if (node_data.type === TYPE_JOB_NODE_TIMEOUT || node_data.type === TYPE_JOB_NODE_SYS_MSG) {
         html += "<div class='timeout_node_item_header'>";
     } else {
         if (index % 2) {

@@ -67,6 +67,7 @@ app = tornado.web.Application([
     (r'/api/leave_statistics', handlers.ApiLeaveStatistics),
     (r'/api/employee_statistics', handlers.ApiEmployeeStatistics),
     (r'/api/job_export', handlers.ApiJobExport),
+    (r'/api/dynamic', handlers.ApiDynamic),
     (r'/(.*)', handlers.HtmlHandler),
 ],
     test_mode=config.test_mode,

@@ -31,6 +31,8 @@ function querySystemMsg() {
         } else {
             var sub_type = {};
             sub_type[TYPE_JOB_SYSTEM_MSG_SUB_TYPE_BIRTHDAY] = '生日祝福';
+            sub_type[TYPE_JOB_SYSTEM_MSG_SUB_TYPE_CANCEL_JOB] = '系统撤回';
+            sub_type[TYPE_JOB_SYSTEM_MSG_SUB_TYPE_OTHER] = '其他消息';
             var list = '';
             data.forEach(function (p1, p2, p3) {
                 list += '<li>';
@@ -49,6 +51,8 @@ function getSystemMsgUrl(item) {
     switch (item.sub_type) {
         case TYPE_JOB_SYSTEM_MSG_SUB_TYPE_BIRTHDAY:
             return 'birthday_wishes.html?job_id=' + item.id;
+        case TYPE_JOB_SYSTEM_MSG_SUB_TYPE_CANCEL_JOB:
+            return getJobUrl(item.type, item.id, null, 1);
         default:
             return 'error.html';
     }
@@ -146,7 +150,8 @@ function queryRecentJob() {
             job_status[STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>';
             job_status[STATUS_JOB_COMPLETED] = '<span style="color: rgb(0,225,32)">已完成</span>';
             job_status[STATUS_JOB_REJECTED] = '<span style="color: red">未通过</span>';
-            job_status[STATUS_JOB_CANCEL] = '<span style="color: gray">被撤回</span>';
+            job_status[STATUS_JOB_CANCEL] = '<span style="color: gray">已撤回</span>';
+            job_status[STATUS_JOB_SYS_CANCEL] = '<span style="color: red">系统撤回</span>';
             var list = '';
             data.forEach(function (p1, p2, p3) {
                 list += '<li>';
@@ -173,7 +178,8 @@ function queryCompletedJob() {
                 job_status[STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>';
                 job_status[STATUS_JOB_COMPLETED] = '<span style="color: rgb(0,225,32)">已完成</span>';
                 job_status[STATUS_JOB_REJECTED] = '<span style="color: red">未通过</span>';
-                job_status[STATUS_JOB_CANCEL] = '<span style="color: gray">被撤回</span>';
+                job_status[STATUS_JOB_CANCEL] = '<span style="color: gray">已撤回</span>';
+                job_status[STATUS_JOB_SYS_CANCEL] = '<span style="color: red">系统撤回</span>';
                 var list = '';
                 data.forEach(function (p1, p2, p3) {
                     list += '<li>';
@@ -202,7 +208,8 @@ function queryCompletedDocReport() {
                 job_status[STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>';
                 job_status[STATUS_JOB_COMPLETED] = '<span style="color: rgb(0,225,32)">已完成</span>';
                 job_status[STATUS_JOB_REJECTED] = '<span style="color: red">未通过</span>';
-                job_status[STATUS_JOB_CANCEL] = '<span style="color: gray">被撤回</span>';
+                job_status[STATUS_JOB_CANCEL] = '<span style="color: gray">已撤回</span>';
+                job_status[STATUS_JOB_SYS_CANCEL] = '<span style="color: red">系统撤回</span>';
                 var list = '';
                 data.forEach(function (p1, p2, p3) {
                     list += '<li>';
