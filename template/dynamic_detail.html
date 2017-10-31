@@ -1,0 +1,124 @@
+{% extends base.html %}
+<title>{% block title %}动态详情{% end %}</title>
+
+{% block custom_head %}
+<style>
+    #dynamic_title {
+        font-size: 2em;
+        text-align: center;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #dynamic_author {
+        text-align: right;
+        color: gray;
+        margin: 5px;
+        font-family: 楷体;
+    }
+
+    #img_container {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #img_container img {
+        margin-bottom: 5px;
+        border: 1px solid lightgrey;
+    }
+
+    #dynamic_content {
+        width: 98%;
+        margin-left: auto;
+        margin-right: auto;
+        word-break: break-all;
+        font-size: 1.15em;
+    }
+
+    #attachment_container {
+        width: 98%;
+        margin-top: 5px;
+        margin-left: auto;
+        margin-right: auto;
+        background: rgb(235,235,235);
+    }
+
+    #attachment_tag {
+        color: green;
+        margin-left: 5px;
+    }
+
+    #attachment_container div {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    #attachment_container div a {
+        margin-left: 2em;
+    }
+</style>
+{% end %}
+
+{% block custom_body %}
+<div style="display: inline-block; width: 100%;">
+    <div style="width: 900px; margin-left: auto; margin-right: auto;">
+        <div id="dynamic_title"></div>
+        <div id="dynamic_author"></div>
+        <div id="img_container">
+        </div>
+        <div id="dynamic_content"></div>
+        <div id="attachment_container"></div>
+    </div>
+</div>
+{% end %}
+
+{% block custom_foot %}
+<script>
+    var __job_id = {{ arg['job_id'][0] }};
+
+    $(document).ready(function () {
+        queryContent();
+    });
+
+    function queryContent() {
+        commonPost('/api/query_job_info', {type: 'base', job_id: __job_id, count: 1}, function (data) {
+            $("#dynamic_title").text(data.title);
+        });
+        commonPost('/api/query_job_info', {type: 'node', job_id: __job_id}, function (data) {
+            if (data.length === 0) {
+                redirectError('页面不存在');
+            }
+            var node = data[0];
+            var divider = getDoubleSpace(2);
+            var author_info = node.sender + divider + node.dept + divider + node.time;
+            $("#dynamic_author").text(author_info);
+            var content = parseJobContent(node.content);
+            $("#dynamic_content").html(content);
+
+            var img_container = $("#img_container");
+            if (node.has_img) {
+                node.img_attachment.forEach(function (p1, p2, p3) {
+                    img_container.append('<img src="' + p1.path + '">');
+                });
+            } else {
+                img_container.hide();
+            }
+
+            var attachment_container = $("#attachment_container");
+            if (node.has_attachment) {
+                attachment_container.append('<div id="attachment_tag">附件：</div>');
+                node.attachment.forEach(function (p1, p2, p3) {
+                    attachment_container.append('<div><a href="' + p1.path + '">' + p1.name + '</a></div>');
+                });
+            } else {
+                attachment_container.hide();
+            }
+        });
+    }
+</script>
+{% end %}

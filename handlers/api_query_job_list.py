@@ -65,11 +65,11 @@ class ApiQueryJobList(ApiHandler):
         elif query_type == type_define.TYPE_JOB_QUERY_SYS_MSG:
             ret = yield self.job_dao.query_job_list(job_type=type_define.TYPE_JOB_SYSTEM_MSG, count=count, offset=offset)
         elif query_type == type_define.TYPE_JOB_QUERY_NOTIFY_AUTO_JOB:
-            ret = yield self.job_dao.query_notify_job_list(self.account_info['id'], type_define.TYPE_JOB_NOTIFY_AUTO_JOB)
+            ret = yield self.job_dao.query_notify_job_list(self.account_info['id'], type_define.TYPE_JOB_NOTIFY_AUTO_JOB, count=count, offset=offset)
         elif query_type == type_define.TYPE_JOB_QUERY_NOTIFY_DOC_REPORT:
-            ret = yield self.job_dao.query_notify_job_list(self.account_info['id'], type_define.TYPE_JOB_NOTIFY_DOC_REPORT)
+            ret = yield self.job_dao.query_notify_job_list(self.account_info['id'], type_define.TYPE_JOB_NOTIFY_DOC_REPORT, count=count, offset=offset)
         elif query_type == type_define.TYPE_JOB_QUERY_NOTIFY_SYS_MSG:
-            ret = yield self.job_dao.query_notify_job_list(self.account_info['id'], type_define.TYPE_JOB_NOTIFY_SYS_MSG)
+            ret = yield self.job_dao.query_notify_job_list(self.account_info['id'], type_define.TYPE_JOB_NOTIFY_SYS_MSG, count=count, offset=offset)
         else:
             if status == type_define.STATUS_JOB_INVOKED_BY_MYSELF:
                 ret = yield self.job_dao.query_job_list(job_type, uid, count, offset)
