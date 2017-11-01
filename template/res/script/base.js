@@ -48,6 +48,10 @@ function removeChildren(container) {
     container.children().remove();
 }
 
+function isNumber(obj) {
+    return obj === +obj;
+}
+
 function selectMenu(container, onChange) {
     container.selectmenu({
         width: 230,

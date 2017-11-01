@@ -4,10 +4,8 @@
     <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/doc_report.html" afterPath="$PROJECT_DIR$/template/doc_report.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/official_doc.html" afterPath="$PROJECT_DIR$/template/official_doc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/doc_report.js" afterPath="$PROJECT_DIR$/template/res/script/doc_report.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/official_doc.js" afterPath="$PROJECT_DIR$/template/res/script/official_doc.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/base.js" afterPath="$PROJECT_DIR$/template/res/script/base.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/page_controller.js" afterPath="$PROJECT_DIR$/template/res/script/page_controller.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -63,8 +61,8 @@
           <file leaf-file-name="api_admin_reset_psd.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/api_admin_reset_psd.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="464">
-                  <caret line="41" column="14" lean-forward="true" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
+                <state relative-caret-position="407">
+                  <caret line="38" column="49" lean-forward="true" selection-start-line="38" selection-start-column="49" selection-end-line="38" selection-end-column="49" />
                   <folding />
                 </state>
               </provider>
@@ -620,20 +618,6 @@
       <workItem from="1502073814787" duration="641000" />
       <workItem from="1502195108416" duration="28000" />
     </task>
-    <task id="LOCAL-00071" summary="release 14">
-      <created>1506562059830</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1506562059832</updated>
-    </task>
-    <task id="LOCAL-00072" summary="release 14">
-      <created>1506562183948</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1506562183948</updated>
-    </task>
     <task id="LOCAL-00073" summary="release 15">
       <created>1506630430039</created>
       <option name="number" value="00073" />
@@ -963,7 +947,21 @@
       <option name="project" value="LOCAL" />
       <updated>1509550903145</updated>
     </task>
-    <option name="localTasksCounter" value="120" />
+    <task id="LOCAL-00120" summary="release 20">
+      <created>1509553702502</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1509553702502</updated>
+    </task>
+    <task id="LOCAL-00121" summary="release 20">
+      <created>1509554048747</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1509554048747</updated>
+    </task>
+    <option name="localTasksCounter" value="122" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1481,8 +1479,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_admin_reset_psd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="41" column="14" lean-forward="true" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
+        <state relative-caret-position="407">
+          <caret line="38" column="49" lean-forward="true" selection-start-line="38" selection-start-column="49" selection-end-line="38" selection-end-column="49" />
           <folding />
         </state>
       </provider>
