@@ -30,10 +30,16 @@ class ApiAdminResetPsd(ApiNoVerifyHandler):
             status = self.get_argument('status', None)
             if status is not None:
                 kwargs['status'] = status
-            ret = yield self.job_dao.query_admin_job_list(**kwargs)
+            count = self.get_argument('count', None)
+            offset = self.get_argument('offset', 0)
+            ret, total = yield self.job_dao.query_admin_job_list(count, offset, **kwargs)
             for item in ret:
                 item['extend'] = self.loads_json(item['extend'])
-            self.write_data(ret)
+            self.write_json({
+                'status': error_codes.EC_SUCCESS,
+                'data': ret,
+                'total': total,
+            })
             return
         elif op == 'reset':
             yield self.verify_user()

@@ -1,5 +1,6 @@
 import mysql_executor
 import datetime
+import re
 
 class DAOException(Exception):
     def __init__(self, message):
@@ -32,6 +33,10 @@ class BaseDAO:
         if not inst:
             raise DAOException("Get %s mysql instance error, not found" % self.desc)
         return inst
+
+    def get_count_sql(self, sql, alias='records_count'):
+        p = re.compile(r'select .+ from')
+        return p.sub(r'select count(*) as %s from' % alias, sql.lower())
 
     def now(self):
         return datetime.datetime.now()

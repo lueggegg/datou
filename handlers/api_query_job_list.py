@@ -24,6 +24,7 @@ class ApiQueryJobList(ApiHandler):
         if job_type is not None:
             job_type = int(job_type)
 
+        total = None
         if query_type == type_define.TYPE_JOB_QUERY_AUTO_JOB:
             query_content = self.get_argument('query_content', None)
             if query_content:
@@ -47,7 +48,7 @@ class ApiQueryJobList(ApiHandler):
                     type_define.TYPE_JOB_LEAVE_FOR_BORN_NORMAL,
                 ]
                 job_type = None
-            ret = yield self.job_dao.query_job_list(job_type=job_type, count=count, offset=offset, **kwargs)
+            ret, total = yield self.job_dao.query_job_list(job_type=job_type, count=count, offset=offset, **kwargs)
         elif query_type == type_define.TYPE_JOB_QUERY_DOC_REPORT:
             query_content = self.get_argument('query_content', None)
             if query_content:
@@ -63,11 +64,11 @@ class ApiQueryJobList(ApiHandler):
                 kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED, type_define.STATUS_JOB_PROCESSING]
             if not job_type:
                 kwargs['type_list'] = [type_define.TYPE_JOB_OFFICIAL_DOC, type_define.TYPE_JOB_DOC_REPORT]
-            ret = yield self.job_dao.query_job_list(job_type=job_type, count=count, offset=offset, **kwargs)
+            ret, total = yield self.job_dao.query_job_list(job_type=job_type, count=count, offset=offset, **kwargs)
         elif query_type == type_define.TYPE_JOB_QUERY_SYS_MSG:
-            ret = yield self.job_dao.query_job_list(job_type=type_define.TYPE_JOB_SYSTEM_MSG, count=count, offset=offset)
+            ret, total = yield self.job_dao.query_job_list(job_type=type_define.TYPE_JOB_SYSTEM_MSG, count=count, offset=offset)
         elif query_type == type_define.TYPE_JOB_QUERY_DYNAMIC:
-            ret = yield self.job_dao.query_job_list(job_type=type_define.TYPE_JOB_DYNAMIC, last_operator=uid, count=count, offset=offset)
+            ret, total = yield self.job_dao.query_job_list(job_type=type_define.TYPE_JOB_DYNAMIC, last_operator=uid, count=count, offset=offset)
         elif query_type == type_define.TYPE_JOB_QUERY_NOTIFY_AUTO_JOB:
             ret = yield self.job_dao.query_notify_job_list(self.account_info['id'], type_define.TYPE_JOB_NOTIFY_AUTO_JOB, count=count, offset=offset)
         elif query_type == type_define.TYPE_JOB_QUERY_NOTIFY_DOC_REPORT:
@@ -76,9 +77,10 @@ class ApiQueryJobList(ApiHandler):
             ret = yield self.job_dao.query_notify_job_list(self.account_info['id'], type_define.TYPE_JOB_NOTIFY_SYS_MSG, count=count, offset=offset)
         else:
             if status == type_define.STATUS_JOB_INVOKED_BY_MYSELF:
-                ret = yield self.job_dao.query_job_list(job_type, uid, count, offset)
+                ret, total = yield self.job_dao.query_job_list(job_type, uid, count, offset)
             else:
-                ret = yield self.job_dao.query_employee_job(uid, status, job_type, count, offset)
+                ret, total = yield self.job_dao.query_employee_job(uid, status, job_type, count, offset)
 
         res['data'] = ret
+        res['total'] = total
         self.write_json(res)

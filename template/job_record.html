@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="res/css/job_record.css">
 <script type="text/javascript" src="res/script/job_record.js"></script>
 <script type="text/javascript" src="res/script/employee_multi_selector.js"></script>
+<script type="text/javascript" src="res/script/page_controller.js"></script>
 <link rel="stylesheet" href="res/css/employee_multi_selector.css">
 {% module Template("module_date_time_picker.html") %}
 {% end %}
@@ -24,11 +25,26 @@
         <li id="query_leave_detail" value="6"><a href="#query_leave_detail_container">导出请假详情</a></li>
         <li id="query_admin_job" value="7"><a href="#admin_job_container">管理员工作流</a></li>
     </ul>
-    <div id="job_waiting"></div>
-    <div id="job_processed"></div>
-    <div id="job_completed"></div>
-    <div id="job_sent_by_myself"></div>
-    <div id="job_system_msg"></div>
+    <div id="job_waiting">
+        <div id="job_waiting_list"></div>
+        <div id="job_waiting_page_controller"></div>
+    </div>
+    <div id="job_processed">
+        <div id="job_processed_list"></div>
+        <div id="job_processed_page_controller"></div>
+    </div>
+    <div id="job_completed">
+        <div id="job_completed_list"></div>
+        <div id="job_completed_page_controller"></div>
+    </div>
+    <div id="job_sent_by_myself">
+        <div id="job_sent_by_myself_list"></div>
+        <div id="job_sent_by_myself_page_controller"></div>
+    </div>
+    <div id="job_system_msg">
+        <div id="job_system_msg_list"></div>
+        <div id="job_system_msg_page_controller"></div>
+    </div>
     <div id="query_job_container">
         <div class="common_btn_container">
             <div class="job_query_label">类型：</div>
@@ -55,8 +71,8 @@
                 <button id="add_invoker_btn" class="common_add_btn"></button>
             </div>
         </div>
-        <div class="common_container" id="job_list_container">
-        </div>
+        <div class="common_container" id="job_list_container"></div>
+        <div id="auto_job_count" style="text-align: right; padding-right: 50px;"></div>
     </div>
     <div id="query_doc_report_container">
         <div class="common_btn_container">
@@ -100,8 +116,8 @@
                 <button id="add_report_invoker_btn" class="common_add_btn"></button>
             </div>
         </div>
-        <div class="common_container" id="doc_report_list_container">
-        </div>
+        <div class="common_container" id="doc_report_list_container"></div>
+        <div id="doc_report_count" style="text-align: right; padding-right: 50px;"></div>
     </div>
     <div id="query_leave_detail_container">
         <div class="common_btn_container">
@@ -138,7 +154,10 @@
             </div>
         </div>
     </div>
-    <div id="admin_job_container"></div>
+    <div id="admin_job_container">
+        <div id="admin_job_list"></div>
+        <div id="admin_job_page_controller"></div>
+    </div>
 </div>
 
 <div id="select_invoker_dlg" title="发送者">

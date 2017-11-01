@@ -174,10 +174,15 @@ class JobDAO(BaseDAO):
         if 'last_operator' in kwargs and kwargs['last_operator']:
             sql += ' AND r.last_operator=%s' % kwargs['last_operator']
         sql += ' ORDER BY r.mod_time DESC'
+        total_count = None
+        if 'total_count' not in kwargs or not kwargs['total_count']:
+            total_count_sql = self.get_count_sql(sql)
+            total_count = yield self._executor.async_select(self._get_inst(True), total_count_sql)
+            total_count = total_count[0]['records_count']
         if count:
             sql += ' LIMIT %s, %s' % (offset, count)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
-        raise gen.Return(ret)
+        raise gen.Return((ret, total_count))
 
     @gen.coroutine
     def update_job_mark(self, job_id, uid, status, branch_id=None):
@@ -230,7 +235,7 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret)
 
     @gen.coroutine
-    def query_employee_job(self, uid, status=None, job_type=None, count=None, offset=0):
+    def query_employee_job(self, uid, status=None, job_type=None, count=None, offset=0, **kwargs):
         sql = 'SELECT m.*, m.status AS mark_status, r.*, r.status AS job_status, i.name AS invoker_name, o.name AS last_operator_name FROM %s m' \
               ' LEFT JOIN %s r ON m.job_id=r.id' \
               " LEFT JOIN %s i ON i.id = r.invoker" \
@@ -244,10 +249,15 @@ class JobDAO(BaseDAO):
         if job_type:
             sql += ' AND r.type=%s' % job_type
         sql += ' ORDER BY r.mod_time DESC'
+        total_count = None
+        if 'total_count' not in kwargs or not kwargs['total_count']:
+            total_count_sql = self.get_count_sql(sql)
+            total_count = yield self._executor.async_select(self._get_inst(True), total_count_sql)
+            total_count = total_count[0]['records_count']
         if count:
             sql += ' LIMIT %s, %s' % (offset, count)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
-        raise gen.Return(ret)
+        raise gen.Return((ret, total_count))
 
     @gen.coroutine
     def add_job_auto_path(self, dept_list, uid_list, **kwargs):
@@ -522,7 +532,7 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret[0] if ret else None)
 
     @gen.coroutine
-    def query_admin_job_list(self, **kwargs):
+    def query_admin_job_list(self, count=None, offset=0, **kwargs):
         sql = 'SELECT j.*, a.name, a.account, a.cellphone, a.id_card FROM %s j' \
               ' LEFT JOIN %s a ON j.invoker=a.id' % (self.admin_job_tab, self.account_tab)
         if kwargs:
@@ -531,8 +541,14 @@ class JobDAO(BaseDAO):
                 condition.append('j.%s=%s' % (key, kwargs[key]))
             sql += ' WHERE %s' % ' AND '.join(condition)
         sql += ' ORDER BY j.id DESC'
+        total_count = None
+        if count:
+            total_count_sql = self.get_count_sql(sql)
+            total_count = yield self._executor.async_select(self._get_inst(True), total_count_sql)
+            total_count = total_count[0]['records_count']
+            sql += ' LIMIT %s, %s' % (offset, count)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
-        raise gen.Return(ret)
+        raise gen.Return((ret, total_count))
 
     @gen.coroutine
     def add_job_timer_task(self, **kwargs):

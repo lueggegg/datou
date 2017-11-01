@@ -1,5 +1,5 @@
 var job_list_container = [];
-var job_types = [];
+var job_status_types = [];
 
 var invoker_select_dlg;
 var invoker_select_controller;
@@ -10,26 +10,38 @@ var report_invoker_select_controller;
 var auto_job_data = [];
 var doc_report_data = [];
 
+var item_per_page = 15;
+var status_job_page_controllers = [];
+var admin_job_page_controller;
+
 $(document).ready(function () {
     verticalTabs();
 
     job_list_container.push(
-        $("#job_waiting"),
-        $("#job_processed"),
-        $("#job_completed"),
-        $("#job_sent_by_myself"),
+        $("#job_waiting_list"),
+        $("#job_processed_list"),
+        $("#job_completed_list"),
+        $("#job_sent_by_myself_list"),
         $("#job_list_container"),
         $("#doc_report_list_container")
     );
-    job_types.push(
+
+    job_status_types.push(
         STATUS_JOB_MARK_WAITING,
         STATUS_JOB_MARK_PROCESSED,
         STATUS_JOB_MARK_COMPLETED,
         STATUS_JOB_INVOKED_BY_MYSELF
     );
 
-    for (var i in job_types) {
-        queryJobList(i);
+    status_jog_page_contrller_container = [
+        $("#job_waiting_page_controller"),
+        $("#job_processed_page_controller"),
+        $("#job_completed_page_controller"),
+        $("#job_sent_by_myself_page_controller")
+    ];
+
+    for (var i in job_status_types) {
+        initStatusJobList(i);
     }
 
     document.onkeydown = function (e) {
@@ -41,7 +53,7 @@ $(document).ready(function () {
     decideAutoJobQueryOperation();
     decideDocReportQueryOperation();
     decideAdminJobOperation();
-    querySystemMsg();
+    initSystemMsg();
 });
 
 function decideAutoJobQueryOperation() {
@@ -143,7 +155,6 @@ function decideDocReportQueryOperation() {
 
         initDatePicker($("#report_invoke_begin"));
         initDatePicker($("#report_invoker_end"));
-
     } else {
         $("#query_report_tab").hide();
         $("#query_doc_report_container").hide();
@@ -177,11 +188,20 @@ function delReportInvoner(uid) {
     report_invoker_select_controller.remove_item(uid);
 }
 
-function queryJobList(index) {
+function initStatusJobList(index) {
+    queryStatusJobList(0, item_per_page, index);
+    status_job_page_controllers[index] = createPageController(status_jog_page_contrller_container[index],
+        item_per_page, queryStatusJobList, index);
+}
+
+function queryStatusJobList(offset, count, index) {
     var param = {
-        status: job_types[index]
+        status: job_status_types[index],
+        offset: offset,
+        count: count
     };
-    commonPost('/api/query_job_list', param, function (data) {
+    commonPost('/api/query_job_list', param, function (data, ori_data) {
+        status_job_page_controllers[index].updateTotalCount(ori_data.total);
         setJobData(index, data);
     });
 }
@@ -190,8 +210,8 @@ function setJobData(index, data) {
     if (index < 6) {
         var weight =[1.2, 2, 1, 1.5, 1.2, 1.5];
         var title = ['类型', '主题', '发送人', '发送时间', '上一回复', '最后操作时间'];
-        var new_status = (index < 4 && (job_types[index] === STATUS_JOB_MARK_COMPLETED
-            || job_types[index] === STATUS_JOB_INVOKED_BY_MYSELF)) || (index > 3);
+        var new_status = (index < 4 && (job_status_types[index] === STATUS_JOB_MARK_COMPLETED
+            || job_status_types[index] === STATUS_JOB_INVOKED_BY_MYSELF)) || (index > 3);
         var status = {};
         if (new_status) {
             title.push('状态');
@@ -319,6 +339,7 @@ function queryCompletedAutoJob() {
     commonPost('/api/query_job_list', param, function (data) {
         auto_job_data = data;
         setJobData(4, data);
+        $("#auto_job_count").text('共' + auto_job_data.length + '条记录');
     });
 }
 
@@ -360,6 +381,7 @@ function queryDocReport() {
     commonPost('/api/query_job_list', param, function (data) {
         doc_report_data = data;
         setJobData(5, data);
+        $("#doc_report_count").text('共' + doc_report_data.length + '条记录');
     });
 
 }
@@ -374,14 +396,15 @@ function decideAdminJobOperation() {
         edit_psd_dlg.hide();
     } else {
         commonInitDialog(edit_psd_dlg, null, {width: 680, with_ok_btn:false});
-        queryAdminJob();
+        admin_job_page_controller = createPageController($("#admin_job_page_controller"), item_per_page, queryAdminJob);
+        queryAdminJob(0, item_per_page);
     }
 }
 
-function queryAdminJob() {
+function queryAdminJob(offset, count) {
     var title = ['类型', '账号', '姓名', '操作'];
     var list_data = [title];
-    commonPost('/api/admin_reset_psd', {op: 'query'}, function (data) {
+    commonPost('/api/admin_reset_psd', {op: 'query', offset: offset, count: count}, function (data, ori_data) {
         reset_psd_list = data;
         data.forEach(function (p1, p2, p3) {
             var id = 'div_psd_op_' + p1.id;
@@ -392,7 +415,8 @@ function queryAdminJob() {
                 '<div id="'+ id + '" style="color: green">' + getPsdOpHtml(p1, p2) + '</div>'
             ]);
         });
-        updateListView($("#admin_job_container"), list_data);
+        updateListView($("#admin_job_list"), list_data);
+        admin_job_page_controller.updateTotalCount(ori_data.total);
     });
 }
 
@@ -456,8 +480,14 @@ function exportLeaveDetail() {
     });
 }
 
-function querySystemMsg() {
-    commonPost('/api/query_job_list', {status: STATUS_JOB_MARK_SYS_MSG}, function (data) {
+var sys_msg_page_controller;
+function initSystemMsg() {
+    querySystemMsg(0, item_per_page);
+    sys_msg_page_controller = createPageController($("#job_system_msg_page_controller"), item_per_page, querySystemMsg);
+}
+
+function querySystemMsg(offset, count) {
+    commonPost('/api/query_job_list', {status: STATUS_JOB_MARK_SYS_MSG, offset: offset, count: count}, function (data, ori_data) {
         var title = ['类型', '主题'];
         var sub_type = {};
         sub_type[TYPE_JOB_SYSTEM_MSG_SUB_TYPE_BIRTHDAY] = '生日祝福';
@@ -471,7 +501,8 @@ function querySystemMsg() {
             ];
             list_data.push(item);
         });
-        updateListView($("#job_system_msg"), list_data, {weight: [1,4]});
+        updateListView($("#job_system_msg_list"), list_data, {weight: [1,4]});
+        sys_msg_page_controller.updateTotalCount(ori_data.total);
     });
 }
 

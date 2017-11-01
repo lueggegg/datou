@@ -6,12 +6,12 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/base_dao.py" afterPath="$PROJECT_DIR$/db/base_dao.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/job_dao.py" afterPath="$PROJECT_DIR$/db/job_dao.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_admin_reset_psd.py" afterPath="$PROJECT_DIR$/handlers/api_admin_reset_psd.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_query_job_list.py" afterPath="$PROJECT_DIR$/handlers/api_query_job_list.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/job_timer.py" afterPath="$PROJECT_DIR$/handlers/job_timer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/ask_for_leave.html" afterPath="$PROJECT_DIR$/template/ask_for_leave.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/job_record.html" afterPath="$PROJECT_DIR$/template/job_record.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/leave_for_born.html" afterPath="$PROJECT_DIR$/template/leave_for_born.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/css/dynamic_detail.css" afterPath="$PROJECT_DIR$/template/res/css/dynamic_detail.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/css/list.css" afterPath="$PROJECT_DIR$/template/res/css/list.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/base.js" afterPath="$PROJECT_DIR$/template/res/script/base.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/job_record.js" afterPath="$PROJECT_DIR$/template/res/script/job_record.js" />
@@ -32,7 +32,7 @@
     <favorites_list name="datou" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.46268657">
+    <splitter split-orientation="horizontal" split-proportion="0.57394844">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="type_define.txt" pinned="false" current-in-tab="false">
@@ -55,35 +55,25 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="admin_operation.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
+          <file leaf-file-name="api_query_job_list.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="395">
-                  <caret line="283" column="0" lean-forward="false" selection-start-line="283" selection-start-column="0" selection-end-line="283" selection-end-column="0" />
+                <state relative-caret-position="-455">
+                  <caret line="26" column="20" lean-forward="false" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
                   <folding>
-                    <element signature="e#25#38#0" expanded="true" />
-                    <element signature="e#411#1371#0" expanded="false" />
-                    <element signature="e#2525#3211#0" expanded="false" />
-                    <element signature="e#3260#3690#0" expanded="false" />
-                    <element signature="e#3741#3816#0" expanded="false" />
-                    <element signature="e#3872#3952#0" expanded="false" />
-                    <element signature="e#4001#4078#0" expanded="false" />
-                    <element signature="e#4130#4209#0" expanded="false" />
-                    <element signature="e#4254#4709#0" expanded="false" />
+                    <element signature="e#25#39#0" expanded="true" />
+                    <element signature="e#1358#1735#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="api_query_job_list.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
+          <file leaf-file-name="api_admin_reset_psd.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/handlers/api_admin_reset_psd.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="372">
-                  <caret line="83" column="28" lean-forward="false" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
-                  <folding>
-                    <element signature="e#25#39#0" expanded="true" />
-                    <element signature="e#1337#1714#0" expanded="false" />
-                  </folding>
+                <state relative-caret-position="445">
+                  <caret line="40" column="31" lean-forward="false" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -169,8 +159,8 @@
           <file leaf-file-name="job_dao.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/db/job_dao.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="289">
-                  <caret line="184" column="0" lean-forward="false" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
+                <state relative-caret-position="540">
+                  <caret line="548" column="51" lean-forward="false" selection-start-line="548" selection-start-column="51" selection-end-line="548" selection-end-column="51" />
                   <folding>
                     <element signature="e#0#16#0" expanded="true" />
                   </folding>
@@ -306,7 +296,6 @@
         <option value="$PROJECT_DIR$/handlers/html_handler.py" />
         <option value="$PROJECT_DIR$/handlers/api_rule_type.py" />
         <option value="$PROJECT_DIR$/handlers/api_query_accounts.py" />
-        <option value="$PROJECT_DIR$/handlers/api_admin_reset_psd.py" />
         <option value="$PROJECT_DIR$/handlers/error_codes.py" />
         <option value="$PROJECT_DIR$/handlers/login_handler.py" />
         <option value="$PROJECT_DIR$/handlers/JobTimer.py" />
@@ -341,8 +330,9 @@
         <option value="$PROJECT_DIR$/template/res/css/dynamic_detail.css" />
         <option value="$PROJECT_DIR$/handlers/job_timer.py" />
         <option value="$PROJECT_DIR$/db/base_dao.py" />
-        <option value="$PROJECT_DIR$/db/job_dao.py" />
         <option value="$PROJECT_DIR$/handlers/api_query_job_list.py" />
+        <option value="$PROJECT_DIR$/db/job_dao.py" />
+        <option value="$PROJECT_DIR$/handlers/api_admin_reset_psd.py" />
       </list>
     </option>
   </component>
@@ -637,13 +627,6 @@
       <workItem from="1501495371285" duration="22678000" />
       <workItem from="1502073814787" duration="641000" />
       <workItem from="1502195108416" duration="28000" />
-    </task>
-    <task id="LOCAL-00069" summary="release 14">
-      <created>1506376394075</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1506376394077</updated>
     </task>
     <task id="LOCAL-00070" summary="release 14">
       <created>1506377852018</created>
@@ -981,7 +964,14 @@
       <option name="project" value="LOCAL" />
       <updated>1509491320857</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <task id="LOCAL-00118" summary="release 20">
+      <created>1509531560407</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1509531560410</updated>
+    </task>
+    <option name="localTasksCounter" value="119" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -990,7 +980,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23229167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23229167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32897604" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1075,13 +1065,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/handlers/api_admin_reset_psd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="893">
-          <caret line="51" column="105" lean-forward="false" selection-start-line="51" selection-start-column="105" selection-end-line="51" selection-end-column="105" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/template/res/temp/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1483,24 +1466,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-455">
+          <caret line="26" column="20" lean-forward="false" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
+          <folding>
+            <element signature="e#25#39#0" expanded="true" />
+            <element signature="e#1358#1735#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/db/job_dao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="184" column="0" lean-forward="false" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
+        <state relative-caret-position="540">
+          <caret line="548" column="51" lean-forward="false" selection-start-line="548" selection-start-column="51" selection-end-line="548" selection-end-column="51" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
+    <entry file="file://$PROJECT_DIR$/handlers/api_admin_reset_psd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="83" column="28" lean-forward="false" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
-          <folding>
-            <element signature="e#25#39#0" expanded="true" />
-            <element signature="e#1337#1714#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="445">
+          <caret line="40" column="31" lean-forward="false" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>

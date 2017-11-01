@@ -188,7 +188,8 @@ class JobTimer:
         kwargs = {}
         kwargs['tpye_list'] = UtilAutoJob.get_auto_job_type_list()
         kwargs['status_list'] = [type_define.STATUS_JOB_PROCESSING]
-        job_list = yield self.job_dao.query_job_list(**kwargs)
+        kwargs['total_count'] = False
+        job_list, total = yield self.job_dao.query_job_list(**kwargs)
         for job in job_list:
             job_id = job['id']
             uid_path = yield self.job_dao.query_job_uid_path_detail(job_id)

@@ -31,6 +31,8 @@
     margin-right: auto;
     word-break: break-all;
     font-size: 1.15em;
+    line-height: 1.5em;
+    margin-bottom: 0.5em;
 }
 
 #attachment_container {

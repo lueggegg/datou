@@ -368,7 +368,7 @@ function commonPost(url, param, successCallback, block) {
                 return;
             }
             if (successCallback) {
-                successCallback(data.data);
+                successCallback(data.data, data);
             }
         } catch (e) {
             redirectError(e);
