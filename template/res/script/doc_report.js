@@ -12,6 +12,10 @@ var my_doc_tab_types = [];
 
 var rec_selectable_controller;
 
+var item_per_page = 15;
+var page_controllers = [];
+var my_doc_detail_containers = [];
+
 $(document).ready(function () {
     verticalTabs();
 
@@ -45,7 +49,10 @@ function initMyDoc() {
     my_doc_tab_types.push(STATUS_JOB_MARK_WAITING, STATUS_JOB_MARK_PROCESSED, STATUS_JOB_MARK_COMPLETED, STATUS_JOB_INVOKED_BY_MYSELF);
     showMyDocTab(0);
     my_doc_tabs.forEach(function (p1, p2, p3) {
-        queryDocList(p2);
+        p1.append('<div></div><div></div>');
+        var c = p1.children();
+        my_doc_detail_containers.push([$(c[0]), $(c[1])]);
+        initDocList(p2);
     });
     $("[name='my_doc_radio']").on('change', function (event) {
         var index = parseInt($("#my_doc_tab :radio:checked").val());
@@ -139,13 +146,21 @@ function showMyDocTab(index) {
     });
 }
 
-function queryDocList(index) {
+function initDocList(index) {
+    page_controllers[index] = createPageController(my_doc_detail_containers[index][1], item_per_page, queryDocList, index);
+    queryDocList(0, item_per_page, index);
+}
+
+function queryDocList(offset, count, index) {
     var param = {
         job_type: TYPE_JOB_DOC_REPORT,
-        status: my_doc_tab_types[index]
+        status: my_doc_tab_types[index],
+        offset: offset,
+        count: count
     };
-    commonPost('/api/query_job_list', param, function (data) {
+    commonPost('/api/query_job_list', param, function (data, ori_data) {
         setMyDocTabData(index, data);
+        page_controllers[index].updateTotalCount(ori_data.total);
     });
 }
 
@@ -162,7 +177,7 @@ function setMyDocTabData(index, data) {
             abstractDateFromDatetime(p1.mod_time)
         ]);
     });
-    updateListView(my_doc_tabs[index], list_data, {weight: [2,1,1,1,1]});
+    updateListView(my_doc_detail_containers[index][0], list_data, {weight: [2,1,1,1,1]});
 }
 
 function onClickDocItem(job_id, branch_id) {
