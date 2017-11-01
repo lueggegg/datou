@@ -93,6 +93,8 @@ function createPageController (container, items_per_page, callback, cb_args) {
     });
     $("#" + getCurrentViewId('goto_btn')).click( function (event) {
         var page = controller.spinner.val();
+        if (!isNaN(page)) page = 1;
+        page = Math.floor(page);
         if (page < 1) page = 1;
         else if (page > controller.total_page) page = controller.total_page;
         controller.current_page = page - 1;
