@@ -4,15 +4,36 @@ import tornado.web
 from tornado import ioloop
 import tornado.options
 from tornado.options import define, options
+import platform
 
 import handlers
 import config
 
 from db import account_dao, job_dao, config_dao, mysql_config, mysql_inst_mgr
+from util.util import Util
+import logging
 
 define("mode", 0, int, "Enable debug mode, 3 is network debug, 2 is debug, 1 is network release, 0 is local release")
 define("port", 5505, int, "Listen port")
 define("address", "0.0.0.0", str, "Bind address")
+if platform.system() == 'Windows':
+    default_log_file = 'D:/log/oa.log'
+else:
+    default_log_file = '/data/log/oa/oa.log'
+define('log_file', default_log_file, str, 'log file')
+define('log_level', 'debug', str, 'log level')
+options.parse_command_line()
+log_level = options.log_level.lower()
+if log_level == 'debug':
+    log_level = logging.DEBUG
+    config.enable_debug_log = True
+elif log_level == 'warning':
+    log_level = logging.WARNING
+elif log_level == 'error':
+    log_level = logging.ERROR
+else:
+    log_level = logging.INFO
+Util.init_logging(options.log_file, log_level)
 
 _mysql_config = mysql_config.MySQLConfig(mode=options.mode)
 _mysql_inst_mgr = mysql_inst_mgr.MySQLInstMgr(metas=_mysql_config.global_metas)

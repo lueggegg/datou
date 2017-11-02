@@ -6,6 +6,8 @@ import json
 import os
 import datetime
 import config
+import logging
+import traceback
 
 from tornado import gen
 
@@ -57,6 +59,7 @@ class BaseHandler(RequestHandler):
 
     @gen.coroutine
     def _deal_request(self, verify=True):
+        self.debug_info(self.request.arguments)
         if verify and not self.get_argument('all_allow', None):
             st = yield self.verify_user()
             if not st:
@@ -65,7 +68,7 @@ class BaseHandler(RequestHandler):
             yield self._real_deal_request()
         except Exception, e:
             if e is not self.end_notification:
-                self.debug_msg('exception %s' % e)
+                self.elog('exception %s' % self.dump_exp(e))
                 self.write_result(error_codes.EC_UNKNOWN_ERROR, '程序异常')
             return
 
@@ -84,10 +87,22 @@ class BaseHandler(RequestHandler):
 
 
         if not self.account_info:
+            self.wlog(self.dumps_json(kwargs))
             raise gen.Return((error_codes.EC_USER_NOT_EXIST, '账号不存在或已经失效'))
 
         self.account_info['portrait'] = self.get_portrait_path(self.account_info['portrait'])
+        self.debug_info(self.get_main_account_info())
         raise gen.Return((error_codes.EC_SUCCESS, self.account_info))
+
+    def get_main_account_info(self, account=None):
+        if account is None:
+            account = self.account_info
+        fields = ['id', 'account', 'name', 'dept']
+        result = {}
+        for f in fields:
+            if f in account:
+                result[f] = account[f]
+        return result
 
     def generate_extend(self, account_info):
         if 'extend' in account_info:
@@ -115,7 +130,7 @@ class BaseHandler(RequestHandler):
         self.write_json({'status': result, 'msg': msg})
 
     def finish_with_error(self, err_code, msg):
-        self.debug_msg('%s: %s' % (err_code, msg))
+        self.elog('%s: %s' % (err_code, msg))
         self.write_result(err_code, msg)
         raise self.end_notification
 
@@ -216,7 +231,25 @@ class BaseHandler(RequestHandler):
     def today(self):
         return datetime.date.today()
 
-    def debug_msg(self, msg):
-        if config.console_debug:
-            print '%s: [ %s ]' % (self.__class__, msg)
+    def __get_logging_msg(self, msg):
+        return '{%s: %s }' % (self.__class__, msg)
+
+    def dump_exp(self, e):
+        return "exp=\"%s\" trace=\"%s\"" % (str(e), traceback.format_exc())
+
+    def elog(self, msg):
+        logging.error(self.__get_logging_msg(msg))
+
+    def wlog(self, msg):
+        logging.warning(self.__get_logging_msg(msg))
+
+    def ilog(self, msg):
+        logging.info(self.__get_logging_msg(msg))
+
+    def dlog(self, msg):
+        logging.debug(self.__get_logging_msg(msg))
+
+    def debug_info(self, info):
+        if config.enable_debug_log:
+            self.dlog(self.dumps_json(info))
 

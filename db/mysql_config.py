@@ -5,7 +5,7 @@ class MySQLConfig:
         host = '127.0.0.1'
         port = 3306
         passwd = '123456'
-        db = 'release_oa_bk_1'
+        db = 'release_oa'
         if 'mode' in kwargs:
             if kwargs['mode'] == 1:
                 host = '203.88.48.251'
