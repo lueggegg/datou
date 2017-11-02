@@ -31,7 +31,7 @@ function createEmployeeMultiSelectorController(container, param) {
         dept_employee_map: {},
         employee_map: {},
         all_employee_list: [],
-        selected_set: new Set([]),
+        selected_set: new Set(),
         init_element: function () {
             controller.left_container = $("#" + left_div);
             controller.left_list = $("#list_item_" + left_div);
