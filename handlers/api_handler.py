@@ -10,6 +10,9 @@ class ApiHandler(BaseHandler):
     __dept_map = None
     __dept_tree = None
 
+    def get_tag(self):
+        return 'api'
+
     def get(self, *args, **kwargs):
         if config.allow_api_by_get:
             return self.post(*args, **kwargs)

@@ -51,6 +51,9 @@ class BaseHandler(RequestHandler):
         self.cookie_expires_days = 10
         self.end_notification = Exception('finish notification')
 
+    def get_tag(self):
+        return 'base'
+
     def post(self, *args, **kwargs):
         return self._deal_request()
 
@@ -91,6 +94,8 @@ class BaseHandler(RequestHandler):
             raise gen.Return((error_codes.EC_USER_NOT_EXIST, '账号不存在或已经失效'))
 
         self.account_info['portrait'] = self.get_portrait_path(self.account_info['portrait'])
+        if self.get_tag() != 'api':
+            self.account_dao.update_account(self.account_info['id'], last_op_time=self.now())
         self.debug_info(self.get_main_account_info())
         raise gen.Return((error_codes.EC_SUCCESS, self.account_info))
 

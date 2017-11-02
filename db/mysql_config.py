@@ -1,11 +1,15 @@
 import mysql_inst_mgr
+import platform
 
 class MySQLConfig:
     def __init__(self, *args, **kwargs):
         host = '127.0.0.1'
         port = 3306
         passwd = '123456'
-        db = 'release_oa'
+        if platform.system() == 'Windows':
+            db = 'release_oa_bk_1'
+        else:
+            db = 'release_oa'
         if 'mode' in kwargs:
             if kwargs['mode'] == 1:
                 host = '203.88.48.251'
