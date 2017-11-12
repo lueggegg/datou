@@ -8,6 +8,7 @@ import platform
 
 import handlers
 import config
+from handlers.jpush_server import JpushServer
 
 from db import account_dao, job_dao, config_dao, mysql_config, mysql_inst_mgr
 from util.util import Util
@@ -47,11 +48,13 @@ _job_timer = handlers.JobTimer(
     auto_job_timeout=3,
     doc_timeout=5
 )
+_push_server = JpushServer()
 
 app = tornado.web.Application([
     (r'/res/(.*)', tornado.web.StaticFileHandler, {'path': "./template/res/"}),
     (r'/', handlers.IndexHandler),
     (r'/admin/operation', handlers.AdminOperation),
+    (r'/admin', handlers.AdminOperation),
     (r'/login.html', handlers.LoginHandler),
     (r'/logout.html', handlers.LogoutHandler),
     (r'/api/update_account_info', handlers.ApiUpdateAccountInfo),
@@ -98,6 +101,7 @@ app = tornado.web.Application([
     account_dao=_account_dao,
     job_dao=_job_dao,
     config_dao=_config_dao,
+    push_server=_push_server,
     birthday_alert=14,
     retire_alert = 180,
     auto_next_timeout = 72,

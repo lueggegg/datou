@@ -50,6 +50,7 @@ class BaseHandler(RequestHandler):
         self.psd_question = None
         self.cookie_expires_days = 10
         self.end_notification = Exception('finish notification')
+        self.push_server = self.settings['push_server']
 
     def get_tag(self):
         return 'base'
