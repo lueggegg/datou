@@ -17,8 +17,10 @@ import logging
 define("mode", 0, int, "Enable debug mode, 3 is network debug, 2 is debug, 1 is network release, 0 is local release")
 define("port", 5505, int, "Listen port")
 define("address", "0.0.0.0", str, "Bind address")
+_push_server = None
 if platform.system() == 'Windows':
     default_log_file = 'D:/log/oa.log'
+    _push_server = JpushServer()
 else:
     default_log_file = '/data/log/oa/oa.log'
 define('log_file', default_log_file, str, 'log file')
@@ -48,7 +50,6 @@ _job_timer = handlers.JobTimer(
     auto_job_timeout=3,
     doc_timeout=5
 )
-_push_server = JpushServer()
 
 app = tornado.web.Application([
     (r'/res/(.*)', tornado.web.StaticFileHandler, {'path': "./template/res/"}),
