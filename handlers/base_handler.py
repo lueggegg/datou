@@ -258,6 +258,6 @@ class BaseHandler(RequestHandler):
     def debug_info(self, info):
         if config.enable_debug_log:
             info = self.dumps_json(info)
-            if len(info) < 2078:
-                self.dlog()
+            if len(info) < 2048:
+                self.dlog(info)
 
