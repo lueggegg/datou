@@ -138,7 +138,7 @@ class AdminOperation(ApiNoVerifyHandler):
                 yield self.job_dao.update_job_node(node['id'], content=content)
 
         elif op == 'push':
-            self.push_server.all('push test %s' + self.now())
+            self.push_server.all('push test %s' % self.now())
 
         elif op == 'test':
             pass
