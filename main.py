@@ -8,7 +8,6 @@ import platform
 
 import handlers
 import config
-from handlers.jpush_server import JpushServer
 
 from db import account_dao, job_dao, config_dao, mysql_config, mysql_inst_mgr
 from util.util import Util
@@ -49,6 +48,7 @@ _job_timer = handlers.JobTimer(
     doc_timeout=5
 )
 try:
+    from handlers.jpush_server import JpushServer
     _push_server = JpushServer()
 except:
     _push_server = None

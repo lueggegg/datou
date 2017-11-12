@@ -130,8 +130,8 @@
           <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="521">
-                  <caret line="53" column="23" lean-forward="false" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
+                <state relative-caret-position="437">
+                  <caret line="50" column="4" lean-forward="false" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="4" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                   </folding>
@@ -598,13 +598,6 @@
       <workItem from="1502073814787" duration="641000" />
       <workItem from="1502195108416" duration="28000" />
     </task>
-    <task id="LOCAL-00079" summary="release 17">
-      <created>1507498006901</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1507498006904</updated>
-    </task>
     <task id="LOCAL-00080" summary="release 17">
       <created>1507530308858</created>
       <option name="number" value="00080" />
@@ -941,7 +934,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510483288688</updated>
     </task>
-    <option name="localTasksCounter" value="128" />
+    <task id="LOCAL-00128" summary="release 21">
+      <created>1510483520549</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1510483520549</updated>
+    </task>
+    <option name="localTasksCounter" value="129" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1015,7 +1015,8 @@
     <MESSAGE value="release 18" />
     <MESSAGE value="release 19" />
     <MESSAGE value="release 20" />
-    <option name="LAST_COMMIT_MESSAGE" value="release 20" />
+    <MESSAGE value="release 21" />
+    <option name="LAST_COMMIT_MESSAGE" value="release 21" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1422,8 +1423,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="53" column="23" lean-forward="false" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
+        <state relative-caret-position="437">
+          <caret line="50" column="4" lean-forward="false" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="4" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
