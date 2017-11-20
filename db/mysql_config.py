@@ -14,6 +14,7 @@ class MySQLConfig:
             if kwargs['mode'] == 1:
                 host = '203.88.48.251'
                 port = 13306
+                db = 'release_oa'
             elif kwargs['mode'] == 2:
                 db = 'debug_oa'
             elif kwargs['mode'] == 3:

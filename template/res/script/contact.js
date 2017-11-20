@@ -20,7 +20,9 @@ $(document).ready(function () {
     });
 
     selectMenu($("#condition_dept"));
+    selectMenu($("#condition_status"));
 
+    initEmployeeStatusSelector();
     initPromptDialog();
 
     initDept();
@@ -35,6 +37,25 @@ function queryDeptLevel() {
             level_tag_map[p2] = p1.label;
         });
     });
+}
+
+function initEmployeeStatusSelector() {
+    var status_list = [
+        [-1, '全部'],
+        [STATUS_EMPLOYEE_NORMAL, '在职'],
+        [STATUS_EMPLOYEE_RESIGN, '离职'],
+        [STATUS_EMPLOYEE_RETIRE, '退休']
+    ];
+    var container = $("#condition_status");
+    var options = '';
+    status_list.forEach(function (p1, p2, p3) {
+        if (p1[0] === STATUS_EMPLOYEE_NORMAL) {
+            options += '<option selected value="' + p1[0] + '">' + p1[1] + '</option>';
+        } else {
+            options += '<option value="' + p1[0] + '">' + p1[1] + '</option>';
+        }
+    });
+    container.append(options).selectmenu('refresh');
 }
 
 function initDept() {
@@ -57,7 +78,7 @@ function queryDeptContact() {
         return;
     }
     clearContactDetail(TYPE_DEPT);
-    $.post('/api/query_account_list', {type: TYPE_ACCOUNT_CONTACT, dept_id: selected_dept}, function (data) {
+    $.post('/api/query_account_list', {type: TYPE_ACCOUNT_CONTACT, dept_id: selected_dept, status: STATUS_EMPLOYEE_NORMAL}, function (data) {
         responseContactQuery(TYPE_DEPT, data);
     });
 }
@@ -80,6 +101,11 @@ function querySearchContact() {
     var name = $("#condition_name").val();
     if (name) {
         conditions['name'] = name;
+        has_condition = true;
+    }
+    var status = parseInt($("#condition_status").val());
+    if (status !== -1) {
+        conditions['status'] = status;
         has_condition = true;
     }
     if (!has_condition) {

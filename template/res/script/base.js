@@ -461,3 +461,10 @@ job_type_map[TYPE_JOB_FINANCIAL_REIMBURSEMENT] = '报销流程';
 job_type_map[TYPE_JOB_DOC_REPORT] = '呈报表';
 job_type_map[TYPE_JOB_APPLY_RESET_PSD] = '重置密码';
 job_type_map[TYPE_JOB_SYSTEM_MSG] = '系统消息';
+
+
+var employee_status_map = {};
+employee_status_map[STATUS_EMPLOYEE_INVALID] = '删除';
+employee_status_map[STATUS_EMPLOYEE_NORMAL] = '在职';
+employee_status_map[STATUS_EMPLOYEE_RETIRE] = '退休';
+employee_status_map[STATUS_EMPLOYEE_RESIGN] = '离职';

@@ -28,7 +28,7 @@
 
 
         <div class="tab_config_container" id="employee_config_container" style="padding-bottom: 24px;">
-            <div class="selector_container">
+            <div class="common_btn_container">
                 <div style="float: left">
                     当前部门：
                     <select id="current_department_menu">
@@ -40,6 +40,11 @@
                     <!--<button id="add_employee_list" style="width: 140px" class="ui-button ui-corner-all ui-widget">+批量增加员工</button>                    &nbsp;&nbsp;-->
                     <button id="add_employee" style="width: 140px" class="ui-button ui-corner-all ui-widget">+增加员工</button>
                 </div>
+            </div>
+            <div class="common_btn_container">
+                员工状态：
+                <select id="employee_status_selector">
+                </select>
             </div>
             <p>员工数：<span style="color: red" id="current_employee_count">0</span></p>
             <div id="employee_list" style="margin-top: 20px;"></div>
@@ -99,6 +104,10 @@
         <input id="relative_report_uid_checkbox" checked type="checkbox">
         <label for="relative_report_uid_checkbox">部门内非主管员工更改为向新设置的主管汇报</label>
     </p>
+</div>
+
+<div id="edit_employee_status_dlg" title="修改员工状态">
+    <select id="dlg_employee_status_selector"></select>
 </div>
 {% end %}
 

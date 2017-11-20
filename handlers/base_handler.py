@@ -91,6 +91,7 @@ class BaseHandler(RequestHandler):
 
 
         if not self.account_info:
+            kwargs['desc'] = '账号不存在或已经失效'
             self.wlog(self.dumps_json(kwargs))
             raise gen.Return((error_codes.EC_USER_NOT_EXIST, '账号不存在或已经失效'))
 
@@ -244,6 +245,13 @@ class BaseHandler(RequestHandler):
         return "exp=\"%s\" trace=\"%s\"" % (str(e), traceback.format_exc())
 
     def elog(self, msg):
+        if self.account_info:
+            msg = '[uid: %s, account: %s, name: %s] %s' % (
+                self.account_info['id'],
+                self.account_info['account'],
+                self.account_info['name'],
+                msg,
+            )
         logging.error(self.__get_logging_msg(msg))
 
     def wlog(self, msg):

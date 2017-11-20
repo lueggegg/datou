@@ -7,6 +7,7 @@ import os
 from tornado import gen
 
 import error_codes
+import type_define
 from api_handler import ApiHandler
 
 
@@ -15,7 +16,7 @@ class ApiAlterAccount(ApiHandler):
     @gen.coroutine
     def _real_deal_request(self):
         op = self.get_argument('op', 'update')
-        if op != 'del':
+        if op != 'status':
             data = self.get_argument('account_info', None)
             if not data:
                 self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '参数错误')
@@ -79,12 +80,15 @@ class ApiAlterAccount(ApiHandler):
                     'data': ret,
                 })
                 return
-        elif op == 'del':
-            msg = '删除员工'
+        elif op == 'status':
+            msg = '修改员工状态'
             uid = self.get_argument('uid', None)
             if not uid:
                 self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '员工id错误')
-            info = {'status': 0, 'login_phone': None}
+            status = self.get_argument('status', type_define.STATUS_EMPLOYEE_INVALID)
+            info = {'status': status}
+            if status != type_define.STATUS_EMPLOYEE_NORMAL:
+                info['login_phone'] = None
             ret = self.account_dao.update_account(uid, **info)
         else:
             self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')

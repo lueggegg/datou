@@ -60,7 +60,7 @@ class AccountDAO(BaseDAO):
     @gen.coroutine
     def query_account_list(self, dept_id=None, field_type=type_define.TYPE_ACCOUNT_NORMAL, **kwargs):
         if field_type == type_define.TYPE_ACCOUNT_JUST_ID:
-            sql = 'SELECT a.id FROM %s a WHERE a.status=1' % (self.account_tab,)
+            sql = 'SELECT a.id FROM %s a WHERE a.status != %s' % (self.account_tab, type_define.STATUS_EMPLOYEE_INVALID)
         else:
             if field_type == type_define.TYPE_ACCOUNT_CONTACT:
                 account_fields = ['id', 'account', 'name', 'department_id', 'cellphone', 'position', 'email', 'qq', 'wechat', 'address', 'weight']
@@ -78,12 +78,14 @@ class AccountDAO(BaseDAO):
                 account_fields = 'a.*'
             sql = 'SELECT %s, d.name AS dept, a.id=d.leader AS is_leader FROM %s a ' \
                   'LEFT JOIN %s d ON a.department_id = d.id ' \
-                  'WHERE a.status=1 and d.status=1' % (account_fields, self.account_tab, self.dept_tab)
+                  'WHERE a.status!=%s and d.status=1' % (account_fields, self.account_tab, self.dept_tab, type_define.STATUS_EMPLOYEE_INVALID)
         if dept_id:
             sql += ' AND a.department_id=%s' % dept_id
         if field_type == type_define.TYPE_ACCOUNT_LEADER:
             sql += ' AND (a.operation_mask & %s OR a.operation_mask & %s)' % (type_define.AUTHORITY_CHAIR_LEADER, type_define.AUTHORITY_VIA_LEADER)
         if kwargs:
+            if 'status' in kwargs and kwargs['status'] is not None:
+                sql += ' AND a.status=%s' % kwargs['status']
             conditions = ['account', 'name']
             for condition in conditions:
                 if condition in kwargs and kwargs[condition]:

@@ -14,7 +14,7 @@ var EDIT_DEPT = 0;
 var DEL_DEPT = 1;
 var ADD_DEPT = 2;
 var EDIT_EMPLOYEE = 10;
-var DEL_EMPLOYEE = 11;
+var EDIT_EMPLOYEE_STATUS = 11;
 var ADD_EMPLOYEE = 12;
 var SET_EMPLOYEE_WEIGHT = 13;
 var RESET_EMPLOYEE_PSD = 14;
@@ -24,6 +24,7 @@ var current_operation = NULL_OPERATION;
 var dept_leader_setting_dlg;
 var employee_weight_dlg;
 var employee_psd_dlg;
+var edit_employee_status_dlg;
 
 $(document).ready(function () {
     needAuthority(OPERATION_MASK_EMPLOYEE);
@@ -34,11 +35,13 @@ $(document).ready(function () {
     dept_leader_setting_dlg = $("#edit_dept_leader_dlg");
     employee_weight_dlg = $("#edit_employee_weight_dlg");
     employee_psd_dlg = $("#edit_employee_psd_dlg");
+    edit_employee_status_dlg = $("#edit_employee_status_dlg");
 
     initDialog(dept_dialog);
     initDialog(dept_leader_setting_dlg);
     initDialog(employee_weight_dlg);
     initDialog(employee_psd_dlg);
+    initDialog(edit_employee_status_dlg);
 
     $( "#add_dept" ).click(function( event ) {
         current_operation = ADD_DEPT;
@@ -50,14 +53,25 @@ $(document).ready(function () {
     });
 
 
-    selectMenu($("#current_department_menu"));
+    selectMenu($("#current_department_menu"), function( event, ui ) {
+        var current_selected_dept = parseInt($(this).val());
+        if (selected_dept_for_employee !== current_selected_dept) {
+            selected_dept_for_employee = current_selected_dept;
+            queryDepartmentEmployees();
+        }
+    });
     selectMenu($("#leader_dept"));
     selectMenu($("#dept_leader_selector"));
     selectMenu($("#statistics_dept"));
     selectMenu($("#statistics_type"));
+    selectMenu($("#employee_status_selector"), function( event, ui ) {
+        queryDepartmentEmployees();
+    });
+    selectMenu($("#dlg_employee_status_selector"));
 
     $.post('/api/query_dept_list', null, setDepartmentList) ;
 
+    initEmployeeStatusSelector();
     initConfirmDialog();
 });
 
@@ -98,6 +112,42 @@ function initDialog(dialog, width) {
     });
 }
 
+function initEmployeeStatusSelector() {
+    var status_list = [
+        [-1, '全部'],
+        [STATUS_EMPLOYEE_NORMAL, '在职'],
+        [STATUS_EMPLOYEE_RESIGN, '离职'],
+        [STATUS_EMPLOYEE_RETIRE, '退休']
+    ];
+    var container = $("#employee_status_selector");
+    var options = '';
+    status_list.forEach(function (p1, p2, p3) {
+        if (p1[0] === STATUS_EMPLOYEE_NORMAL) {
+            options += '<option selected value="' + p1[0] + '">' + p1[1] + '</option>';
+        } else {
+            options += '<option value="' + p1[0] + '">' + p1[1] + '</option>';
+        }
+    });
+    container.append(options).selectmenu('refresh');
+
+    status_list = [
+        [STATUS_EMPLOYEE_INVALID, '删除'],
+        [STATUS_EMPLOYEE_RESIGN, '离职'],
+        [STATUS_EMPLOYEE_RETIRE, '退休'],
+        [STATUS_EMPLOYEE_NORMAL, '在职']
+    ];
+    container = $("#dlg_employee_status_selector");
+    options = '';
+    status_list.forEach(function (p1, p2, p3) {
+        if (p1[0] === STATUS_EMPLOYEE_INVALID) {
+            options += '<option selected value="' + p1[0] + '">' + p1[1] + '</option>';
+        } else {
+            options += '<option value="' + p1[0] + '">' + p1[1] + '</option>';
+        }
+    });
+    container.append(options).selectmenu('refresh');
+}
+
 function dealOperation() {
     switch (current_operation) {
         case EDIT_DEPT:
@@ -109,9 +159,6 @@ function dealOperation() {
         case DEL_DEPT:
             deleteDepartment();
             break;
-        case DEL_EMPLOYEE:
-            deleteEmployee();
-            break;
         case SET_DEPT_LEADER:
             var uid = $("#dept_leader_selector").val();
             if (!uid || uid === '-1') {
@@ -119,6 +166,9 @@ function dealOperation() {
                 return;
             }
             setDeptLeader(selected_dept, uid, $("#relative_report_uid_checkbox").is(':checked'));
+            break;
+        case EDIT_EMPLOYEE_STATUS:
+            editEmployeeStatus();
             break;
         case SET_EMPLOYEE_WEIGHT:
             setEmployeeWeight();
@@ -279,15 +329,14 @@ function openDeptDialog(data) {
     dept_dialog.dialog( "open" );
 }
 
-function deleteEmployee() {
-    $.post('/api/alter_account', {uid: operate_employee, op: 'del'}, operationResult);
-}
-
-function queryDepartmentEmployees(deptId) {
-    selected_dept_for_employee = deptId;
-    var arg = null;
-    if (deptId !=="0") {
-        arg = {dept_id: deptId};
+function queryDepartmentEmployees() {
+    var status = parseInt($("#employee_status_selector").val());
+    var arg = {};
+    if (selected_dept_for_employee !== 0) {
+        arg['dept_id'] = selected_dept_for_employee;
+    }
+    if (status !== -1) {
+        arg['status'] = status;
     }
     $.post('/api/query_account_list', arg, setEmployeeList);
 }
@@ -326,15 +375,7 @@ function setDepartmentList(data) {
             updateListView($("#dept_list"), listData, {weight: [2,2,2,1,1]});
 
             $("#leader_dept").append(options).selectmenu();
-            $("#current_department_menu").append(options).selectmenu({
-                change: function( event, ui ) {
-                    var current_selected_dept = $(this).val();
-                    if (selected_dept_for_employee !== current_selected_dept) {
-                        removeChildren($("#employee_list"));
-                        queryDepartmentEmployees(current_selected_dept);
-                    }
-                }
-            });
+            $("#current_department_menu").append(options).selectmenu('refresh');
             $("#belong_dept").append(options).selectmenu();
             $("#statistics_dept").append(options).selectmenu('refresh');
 
@@ -357,7 +398,7 @@ function getDeptLeaderHtml(dept) {
 }
 
 function setEmployeeList(data) {
-    var title = ['账号', '姓名', '部门', '职位', '权重', '删除'];
+    var title = ['账号', '姓名', '部门', '职位', '权重', '修改状态'];
     try {
         if (data.status !== 0 ) {
             redirectError();
@@ -372,7 +413,7 @@ function setEmployeeList(data) {
                     departments_map[element.department_id].name,
                     element.position,
                     getOperationHtml(SET_EMPLOYEE_WEIGHT, index),
-                    getOperationHtml(DEL_EMPLOYEE, index)
+                    getOperationHtml(EDIT_EMPLOYEE_STATUS, index)
                 ]);
             });
             dataList.unshift(title);
@@ -399,8 +440,10 @@ function getOperationHtml(operation, index) {
             tip = " title='编辑' ";
             break;
         case DEL_DEPT:
-        case DEL_EMPLOYEE:
-            label = "删除";
+            label = '删除';
+            break;
+        case EDIT_EMPLOYEE_STATUS:
+            label = employee_status_map[employee_list_data[index].status];
             break;
         case SET_EMPLOYEE_WEIGHT:
             label = employee_list_data[index].weight;
@@ -431,15 +474,13 @@ function onItemOperation(operation, index) {
             window.open('employee_info_table.html?op=update&uid=' + employee_list_data[index].id);
             // openEmployeeDialog(employee_list_data[index]);
             break;
-        case DEL_EMPLOYEE:
+        case EDIT_EMPLOYEE_STATUS:
             if (employee_list_data[index].role_data <= __authority) {
                 promptMsg(getOperationString() + '失败：权限不足');
                 return;
             }
-            showConfirmDialog("确认删除该员工？", function () {
-                operate_employee = employee_list_data[index].id;
-                dealOperation();
-            });
+            edit_employee_status_dlg.dialog('open');
+            operate_employee = employee_list_data[index].id;
             break;
         case SET_EMPLOYEE_WEIGHT:
             var employee = employee_list_data[index];
@@ -477,7 +518,7 @@ function getOperationString() {
             return '删除部门';
         case ADD_EMPLOYEE:
             return '增加员工';
-        case DEL_EMPLOYEE:
+        case EDIT_EMPLOYEE_STATUS:
             return '删除员工';
         case EDIT_EMPLOYEE:
             return '编辑员工信息';
@@ -495,7 +536,7 @@ function getResultLocation() {
         case SET_DEPT_LEADER:
             return 'dept_config_container';
         case ADD_EMPLOYEE:
-        case DEL_EMPLOYEE:
+        case EDIT_EMPLOYEE_STATUS:
         case EDIT_EMPLOYEE:
         case SET_EMPLOYEE_WEIGHT:
             return 'employee_config_container';
@@ -524,4 +565,19 @@ function exportEmployeeTable() {
     commonPost('/api/employee_statistics', param, function (data) {
         window.open(data);
     });
+}
+
+function editEmployeeStatus() {
+    var status = parseInt($("#dlg_employee_status_selector").val());
+    if (status === STATUS_EMPLOYEE_INVALID) {
+        showConfirmDialog("确认删除该员工？", function () {
+            realEditEmployeeStatus(status);
+        });
+    } else {
+        realEditEmployeeStatus(status);
+    }
+}
+
+function realEditEmployeeStatus(status) {
+    $.post('/api/alter_account', {uid: operate_employee, op: 'status', status: status}, operationResult);
 }
