@@ -63,7 +63,8 @@ class BaseHandler(RequestHandler):
 
     @gen.coroutine
     def _deal_request(self, verify=True):
-        self.debug_info(self.request.arguments)
+        if self.get_argument('file_data', None) is None:
+            self.debug_info(self.request.arguments)
         if verify and not self.get_argument('all_allow', None):
             st = yield self.verify_user()
             if not st:
@@ -266,6 +267,5 @@ class BaseHandler(RequestHandler):
     def debug_info(self, info):
         if config.enable_debug_log:
             info = self.dumps_json(info)
-            if len(info) < 2048:
-                self.dlog(info)
+            self.dlog(info)
 
