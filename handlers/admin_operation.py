@@ -129,19 +129,16 @@ class AdminOperation(ApiNoVerifyHandler):
             self.write_json({'data': ret})
             return
 
-        elif op == 're_node':
-            msg = '替换html标签'
-            ret = True
-            node_list = yield self.job_dao.query_html_tag_job_node_list()
-            for node in node_list:
-                content = self.replace_html_content(node['content'])
-                yield self.job_dao.update_job_node(node['id'], content=content)
-
         elif op == 'push':
             alert = self.get_argument('msg', 'push test')
             alert = '%s %s' % (alert, self.now())
             func = self.get_argument('func', 'all')
-            exec('self.push_server.%s(alert)' % func)
+            if func == 'alias':
+                alias = self.get_argument_and_check_it('alias')
+                alias = self.loads_json(alias)
+                self.push_server.alias(alert, alias)
+            else:
+                exec('self.push_server.%s(alert)' % func)
 
         elif op == 'test':
             pass

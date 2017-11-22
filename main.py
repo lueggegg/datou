@@ -21,7 +21,7 @@ if platform.system() == 'Windows':
 else:
     default_log_file = '/data/log/oa/oa.log'
 define('log_file', default_log_file, str, 'log file')
-define('log_level', 'info', str, 'log level')
+define('log_level', 'debug', str, 'log level')
 options.parse_command_line()
 log_level = options.log_level.lower()
 if log_level == 'debug':

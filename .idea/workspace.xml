@@ -3,23 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/account_dao.py" afterPath="$PROJECT_DIR$/db/account_dao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/mysql_config.py" afterPath="$PROJECT_DIR$/db/mysql_config.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/admin_operation.py" afterPath="$PROJECT_DIR$/handlers/admin_operation.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_alter_account.py" afterPath="$PROJECT_DIR$/handlers/api_alter_account.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_query_accounts.py" afterPath="$PROJECT_DIR$/handlers/api_query_accounts.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/base_handler.py" afterPath="$PROJECT_DIR$/handlers/base_handler.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/jpush_server.py" afterPath="$PROJECT_DIR$/handlers/jpush_server.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/contact.html" afterPath="$PROJECT_DIR$/template/contact.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/employee_manage.html" afterPath="$PROJECT_DIR$/template/employee_manage.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/base.js" afterPath="$PROJECT_DIR$/template/res/script/base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/contact.js" afterPath="$PROJECT_DIR$/template/res/script/contact.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/employee_manage.js" afterPath="$PROJECT_DIR$/template/res/script/employee_manage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/type_define.js" afterPath="$PROJECT_DIR$/template/res/script/type_define.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/type_define.py" afterPath="$PROJECT_DIR$/type_define.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/type_define.txt" afterPath="$PROJECT_DIR$/type_define.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,14 +23,14 @@
     <favorites_list name="datou" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.49456522">
+    <splitter split-orientation="horizontal" split-proportion="0.35394022">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="account_dao.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="account_dao.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/db/account_dao.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="226">
-                  <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+                <state relative-caret-position="1767">
+                  <caret line="97" column="55" lean-forward="false" selection-start-line="97" selection-start-column="55" selection-end-line="97" selection-end-column="55" />
                   <folding />
                 </state>
               </provider>
@@ -59,21 +46,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="admin_operation.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="admin_operation.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="167">
-                  <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="api_admin_reset_psd.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/handlers/api_admin_reset_psd.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="76">
-                  <caret line="8" column="39" lean-forward="false" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+                <state relative-caret-position="357">
+                  <caret line="135" column="31" lean-forward="false" selection-start-line="135" selection-start-column="31" selection-end-line="135" selection-end-column="31" />
                   <folding />
                 </state>
               </provider>
@@ -82,7 +59,7 @@
           <file leaf-file-name="base_handler.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/base_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="152">
+                <state relative-caret-position="418">
                   <caret line="34" column="44" lean-forward="false" selection-start-line="34" selection-start-column="44" selection-end-line="34" selection-end-column="44" />
                   <folding />
                 </state>
@@ -146,8 +123,8 @@
           <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="266">
-                  <caret line="15" column="16" lean-forward="false" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+                <state relative-caret-position="190">
+                  <caret line="23" column="26" lean-forward="false" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                   </folding>
@@ -158,8 +135,8 @@
           <file leaf-file-name="jpush_server.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/jpush_server.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="349">
-                  <caret line="45" column="27" lean-forward="false" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
+                <state relative-caret-position="311">
+                  <caret line="42" column="56" lean-forward="false" selection-start-line="42" selection-start-column="56" selection-end-line="42" selection-end-column="56" />
                   <folding>
                     <element signature="e#0#12#0" expanded="true" />
                   </folding>
@@ -167,21 +144,31 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name="payload.py" pinned="false" current-in-tab="false">
+            <entry file="file://C:/Python27/Lib/site-packages/jpush/push/payload.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="3686">
+                  <caret line="195" column="4" lean-forward="false" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="type_define.txt" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/type_define.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="399">
+                <state relative-caret-position="2166">
                   <caret line="114" column="0" lean-forward="true" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="api_alter_account.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="api_alter_account.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/api_alter_account.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="72">
-                  <caret line="10" column="34" lean-forward="true" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+                <state relative-caret-position="-270">
+                  <caret line="66" column="34" lean-forward="false" selection-start-line="66" selection-start-column="34" selection-end-line="66" selection-end-column="34" />
                   <folding>
                     <element signature="e#24#33#0" expanded="true" />
                   </folding>
@@ -189,11 +176,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="api_query_accounts.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="api_query_accounts.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/api_query_accounts.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="190">
-                  <caret line="19" column="49" lean-forward="false" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
+                <state relative-caret-position="133">
+                  <caret line="13" column="48" lean-forward="true" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
                   <folding />
                 </state>
               </provider>
@@ -338,15 +325,15 @@
         <option value="$PROJECT_DIR$/util/util.py" />
         <option value="$PROJECT_DIR$/handlers/api_handler.py" />
         <option value="$PROJECT_DIR$/db/job_dao.py" />
-        <option value="$PROJECT_DIR$/handlers/jpush_server.py" />
-        <option value="$PROJECT_DIR$/handlers/admin_operation.py" />
         <option value="$PROJECT_DIR$/type_define.txt" />
         <option value="$PROJECT_DIR$/db/mysql_config.py" />
         <option value="$PROJECT_DIR$/handlers/base_handler.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/handlers/api_alter_account.py" />
-        <option value="$PROJECT_DIR$/handlers/api_query_accounts.py" />
         <option value="$PROJECT_DIR$/db/account_dao.py" />
+        <option value="$PROJECT_DIR$/handlers/admin_operation.py" />
+        <option value="$PROJECT_DIR$/handlers/api_query_accounts.py" />
+        <option value="$PROJECT_DIR$/handlers/jpush_server.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -380,6 +367,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -436,8 +425,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
@@ -447,7 +434,7 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Other File Types" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="base&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/base_handler.py&#10;api&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_handler.py&#10;conf&#9;FILE&#9;file://D:/code/python/tornado/datou/db/mysql_config.py&#10;auto&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/auto_job_util.py&#10;api_query&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_query_job_list.py&#10;job_ti&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/job_timer.py&#10;job_dao&#9;FILE&#9;file://D:/code/python/tornado/datou/db/job_dao.py&#10;mys&#9;FILE&#9;file://D:/code/python/tornado/datou/db/mysql_config.py&#10;api_q&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_query_job_info.py&#10;base.&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/base_handler.py&#10;my&#9;FILE&#9;file://D:/code/python/tornado/datou/db/mysql_config.py&#10;accou&#9;FILE&#9;file://D:/code/python/tornado/datou/db/account_dao.py&#10;acc&#9;FILE&#9;file://D:/code/python/tornado/datou/db/account_dao.py&#10;mysq&#9;FILE&#9;file://D:/code/python/tornado/datou/db/mysql_config.py&#10;apiha&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_handler.py&#10;account&#9;FILE&#9;file://D:/code/python/tornado/datou/db/account_dao.py&#10;main&#9;FILE&#9;file://D:/code/python/tornado/datou/main.py&#10;job&#9;FILE&#9;file://D:/code/python/tornado/datou/db/job_dao.py&#10;ty&#9;FILE&#9;file://D:/code/python/tornado/datou/type_define.py&#10;job_ha&#9;null&#9;null&#10;api_up&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_upload_file.py&#10;employee_info&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;query&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_query_account_extend.py&#10;alter_ac&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_alter_account.py&#10;base.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;mai&#9;FILE&#9;file://D:/code/python/tornado/datou/main.py&#10;confi&#9;FILE&#9;file://D:/code/python/tornado/datou/db/config_dao.py&#10;ma&#9;FILE&#9;file://D:/code/python/tornado/datou/main.py&#10;employee_i&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;mysql&#9;FILE&#9;file://D:/code/python/tornado/datou/db/mysql_config.py" />
+    <property name="SearchEverywhereHistoryKey" value="pu&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/jpush_server.py&#10;base&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/base_handler.py&#10;api&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_handler.py&#10;conf&#9;FILE&#9;file://D:/code/python/tornado/datou/db/mysql_config.py&#10;auto&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/auto_job_util.py&#10;api_query&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_query_job_list.py&#10;job_ti&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/job_timer.py&#10;job_dao&#9;FILE&#9;file://D:/code/python/tornado/datou/db/job_dao.py&#10;mys&#9;FILE&#9;file://D:/code/python/tornado/datou/db/mysql_config.py&#10;api_q&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_query_job_info.py&#10;base.&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/base_handler.py&#10;my&#9;FILE&#9;file://D:/code/python/tornado/datou/db/mysql_config.py&#10;accou&#9;FILE&#9;file://D:/code/python/tornado/datou/db/account_dao.py&#10;acc&#9;FILE&#9;file://D:/code/python/tornado/datou/db/account_dao.py&#10;mysq&#9;FILE&#9;file://D:/code/python/tornado/datou/db/mysql_config.py&#10;apiha&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_handler.py&#10;account&#9;FILE&#9;file://D:/code/python/tornado/datou/db/account_dao.py&#10;main&#9;FILE&#9;file://D:/code/python/tornado/datou/main.py&#10;job&#9;FILE&#9;file://D:/code/python/tornado/datou/db/job_dao.py&#10;ty&#9;FILE&#9;file://D:/code/python/tornado/datou/type_define.py&#10;job_ha&#9;null&#9;null&#10;api_up&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_upload_file.py&#10;employee_info&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;query&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_query_account_extend.py&#10;alter_ac&#9;FILE&#9;file://D:/code/python/tornado/datou/handlers/api_alter_account.py&#10;base.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;mai&#9;FILE&#9;file://D:/code/python/tornado/datou/main.py&#10;confi&#9;FILE&#9;file://D:/code/python/tornado/datou/db/config_dao.py&#10;ma&#9;FILE&#9;file://D:/code/python/tornado/datou/main.py&#10;employee_i&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;mysql&#9;FILE&#9;file://D:/code/python/tornado/datou/db/mysql_config.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -620,13 +607,6 @@
       <workItem from="1501495371285" duration="22678000" />
       <workItem from="1502073814787" duration="641000" />
       <workItem from="1502195108416" duration="28000" />
-    </task>
-    <task id="LOCAL-00084" summary="release 17">
-      <created>1507571147957</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1507571147958</updated>
     </task>
     <task id="LOCAL-00085" summary="release 17">
       <created>1507577662230</created>
@@ -964,7 +944,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510517960532</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="release 21">
+      <created>1511143036477</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1511143036478</updated>
+    </task>
+    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -973,16 +960,16 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23333333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23333333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38344225" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38344225" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39651415" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39651415" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1071,7 +1058,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="38" column="34" lean-forward="false" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1134,7 +1120,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="722">
           <caret line="38" column="34" lean-forward="false" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1263,7 +1248,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="8" column="39" lean-forward="false" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1340,7 +1324,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-399">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1355,7 +1338,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="94" column="36" lean-forward="true" selection-start-line="94" selection-start-column="36" selection-end-line="94" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1363,40 +1345,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="10" column="53" lean-forward="true" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/jpush/push/payload.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1539">
-          <caret line="82" column="4" lean-forward="false" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/jpush_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="45" column="27" lean-forward="false" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/type_define.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
+        <state relative-caret-position="2166">
           <caret line="114" column="0" lean-forward="true" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1409,10 +1364,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/base_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="34" column="44" lean-forward="false" selection-start-line="34" selection-start-column="44" selection-end-line="34" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python27/Lib/site-packages/jpush/push/payload.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3686">
+          <caret line="195" column="4" lean-forward="false" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/account_dao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1767">
+          <caret line="97" column="55" lean-forward="false" selection-start-line="97" selection-start-column="55" selection-end-line="97" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="135" column="31" lean-forward="false" selection-start-line="135" selection-start-column="31" selection-end-line="135" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_query_accounts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="13" column="48" lean-forward="true" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/jpush_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="42" column="56" lean-forward="false" selection-start-line="42" selection-start-column="56" selection-end-line="42" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="15" column="16" lean-forward="false" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+        <state relative-caret-position="190">
+          <caret line="23" column="26" lean-forward="false" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -1421,35 +1426,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_alter_account.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="10" column="34" lean-forward="true" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+        <state relative-caret-position="-270">
+          <caret line="66" column="34" lean-forward="false" selection-start-line="66" selection-start-column="34" selection-end-line="66" selection-end-column="34" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/base_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="34" column="44" lean-forward="false" selection-start-line="34" selection-start-column="44" selection-end-line="34" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_query_accounts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="19" column="49" lean-forward="false" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/account_dao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>

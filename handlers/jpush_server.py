@@ -30,7 +30,7 @@ class JpushServer:
         push.notification = jpush.notification(alert=msg)
         push.platform = jpush.all_
         try:
-            response=push.send()
+            push.send()
         except common.Unauthorized:
             raise common.Unauthorized("Unauthorized")
         except common.APIConnectionException:
@@ -38,6 +38,13 @@ class JpushServer:
         except common.JPushFailure:
             print ("JPushFailure")
 
+    def alias(self, msg, alias):
+        push = self._jpush.create_push()
+        push.audience = jpush.audience({'alias': alias})
+        push.platform = jpush.all_
+        push.notification = jpush.notification(alert=msg)
+        print (push.payload)
+        push.send()
 
     def android(self, msg):
         push =self. _jpush.create_push()
