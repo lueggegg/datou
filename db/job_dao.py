@@ -240,7 +240,7 @@ class JobDAO(BaseDAO):
               ' LEFT JOIN %s r ON m.job_id=r.id' \
               " LEFT JOIN %s i ON i.id = r.invoker" \
               " LEFT JOIN %s o ON o.id = r.last_operator" \
-              ' WHERE m.uid=%s' \
+              ' WHERE m.uid=%s and r.status > 0' \
               % (self.mark_tab, self.record_tab, self.account_tab, self.account_tab, uid,)
         if status is not None:
             sql += ' AND m.status=%s' % status

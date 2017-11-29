@@ -19,8 +19,8 @@ class MyJPush(jpush.JPush):
 class JpushServer:
 
     def __init__(self):
-        self.app_key = '9e1c45f02b9e27be18734c23'
-        self.master_secret = 'c121ac7ef7a18789822343ed'
+        self.app_key = 'f7430a1c1812e2102d67e1af'
+        self.master_secret = 'd2bfa63c88ec21ceea89c228'
         # self._jpush = MyJPush(self.app_key, self.master_secret)
         self._jpush = jpush.JPush(self.app_key, self.master_secret)
 
