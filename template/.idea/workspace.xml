@@ -17,7 +17,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5566502">
+    <splitter split-orientation="horizontal" split-proportion="0.8289937">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="job_record.html" pinned="false" current-in-tab="false">
@@ -59,8 +59,8 @@
           <file leaf-file-name="page_controller.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/res/script/page_controller.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="387">
-                  <caret line="121" column="0" lean-forward="true" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+                <state relative-caret-position="2299">
+                  <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
                   <folding>
                     <marker date="1509554289964" expanded="true" signature="3798:3809" ph="..." />
                     <marker date="1509554289964" expanded="true" signature="3911:3922" ph="..." />
@@ -74,19 +74,62 @@
           <file leaf-file-name="employee_manage.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/employee_manage.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="411">
-                  <caret line="105" column="8" lean-forward="true" selection-start-line="105" selection-start-column="8" selection-end-line="105" selection-end-column="8" />
+                <state relative-caret-position="1995">
+                  <caret line="105" column="8" lean-forward="false" selection-start-line="105" selection-start-column="8" selection-end-line="105" selection-end-column="8" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="contact.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="contact.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/res/script/contact.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="291">
-                  <caret line="107" column="38" lean-forward="false" selection-start-line="107" selection-start-column="38" selection-end-line="107" selection-end-column="38" />
+                <state relative-caret-position="1444">
+                  <caret line="76" column="25" lean-forward="false" selection-start-line="76" selection-start-column="25" selection-end-line="76" selection-end-column="25" />
                   <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/res/script/index.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="6783">
+                  <caret line="357" column="11" lean-forward="true" selection-start-line="357" selection-start-column="11" selection-end-line="357" selection-end-column="11" />
+                  <folding>
+                    <marker date="1513068397178" expanded="true" signature="5261:5274" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="5350:5370" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="5445:5455" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="5528:5539" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="5616:5626" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="6877:6890" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="6970:6990" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="7069:7079" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="7156:7167" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="7248:7258" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="8537:8550" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="8630:8650" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="8729:8739" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="8816:8827" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="8908:8918" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="12404:12427" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="12555:12579" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="12667:12690" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="13656:13668" ph="..." />
+                    <marker date="1513068397178" expanded="true" signature="13705:13715" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="doc_detail.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/res/script/doc_detail.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="300">
+                  <caret line="277" column="59" lean-forward="false" selection-start-line="277" selection-start-column="59" selection-end-line="277" selection-end-column="59" />
+                  <folding>
+                    <element signature="e#9051#9618#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -99,16 +142,6 @@
                   <folding>
                     <marker date="1509530220311" expanded="true" signature="1597:1610" ph="..." />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="dynamic.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/res/script/dynamic.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1900">
-                  <caret line="100" column="12" lean-forward="false" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="12" />
-                  <folding />
                 </state>
               </provider>
             </entry>
@@ -140,8 +173,8 @@
           <file leaf-file-name="job_record.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/res/script/job_record.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="551">
-                  <caret line="337" column="0" lean-forward="true" selection-start-line="337" selection-start-column="0" selection-end-line="337" selection-end-column="0" />
+                <state relative-caret-position="6403">
+                  <caret line="337" column="0" lean-forward="false" selection-start-line="337" selection-start-column="0" selection-end-line="337" selection-end-column="0" />
                   <folding>
                     <marker date="1509549954888" expanded="true" signature="7659:7672" ph="..." />
                     <marker date="1509549954888" expanded="true" signature="7744:7764" ph="..." />
@@ -158,11 +191,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="employee_manage.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="employee_manage.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/res/script/employee_manage.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="94">
-                  <caret line="112" column="1" lean-forward="true" selection-start-line="112" selection-start-column="1" selection-end-line="148" selection-end-column="1" />
+                <state relative-caret-position="1919">
+                  <caret line="101" column="17" lean-forward="true" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
                   <folding>
                     <element signature="n#!!block;n#initEmployeeStatusSelector#0" expanded="false" />
                   </folding>
@@ -170,10 +203,20 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="855">
+                  <caret line="45" column="115" lean-forward="false" selection-start-line="45" selection-start-column="115" selection-end-line="45" selection-end-column="115" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="contact.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/contact.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="342">
+                <state relative-caret-position="684">
                   <caret line="36" column="50" lean-forward="false" selection-start-line="36" selection-start-column="50" selection-end-line="36" selection-end-column="50" />
                   <folding />
                 </state>
@@ -183,7 +226,7 @@
           <file leaf-file-name="employee_multi_selector.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/res/script/employee_multi_selector.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="368">
+                <state relative-caret-position="627">
                   <caret line="33" column="20" lean-forward="false" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="20" />
                   <folding />
                 </state>
@@ -200,24 +243,12 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="official_doc.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="official_doc.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/official_doc.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="874">
+                <state relative-caret-position="525">
                   <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
                   <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="doc_report.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/res/script/doc_report.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="266">
-                  <caret line="14" column="22" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
-                  <folding>
-                    <element signature="n#!!block;n#sendOfficialDoc#0" expanded="false" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -225,8 +256,8 @@
           <file leaf-file-name="base.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/res/script/base.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="406">
-                  <caret line="466" column="48" lean-forward="true" selection-start-line="466" selection-start-column="48" selection-end-line="466" selection-end-column="48" />
+                <state relative-caret-position="254">
+                  <caret line="413" column="1" lean-forward="true" selection-start-line="413" selection-start-column="1" selection-end-line="413" selection-end-column="1" />
                   <folding>
                     <marker date="1511141994912" expanded="true" signature="3847:3876" ph="..." />
                     <marker date="1511141994912" expanded="true" signature="5449:5455" ph=" " />
@@ -302,7 +333,6 @@
         <option value="$PROJECT_DIR$/res/css/job_common.css" />
         <option value="$PROJECT_DIR$/base_admin.html" />
         <option value="$PROJECT_DIR$/res/script/attachment_list.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/employee_info_table.html" />
         <option value="$PROJECT_DIR$/base_job_export.html" />
         <option value="$PROJECT_DIR$/apply_resign.html" />
@@ -313,11 +343,9 @@
         <option value="$PROJECT_DIR$/service_manage.html" />
         <option value="$PROJECT_DIR$/res/script/index_page_manage.js" />
         <option value="$PROJECT_DIR$/doc_detail.html" />
-        <option value="$PROJECT_DIR$/res/script/doc_detail.js" />
         <option value="$PROJECT_DIR$/res/script/type_define.js" />
         <option value="$PROJECT_DIR$/res/script/auto_job_detail.js" />
         <option value="$PROJECT_DIR$/res/css/index.css" />
-        <option value="$PROJECT_DIR$/res/script/index.js" />
         <option value="$PROJECT_DIR$/dynamic.html" />
         <option value="$PROJECT_DIR$/res/script/dynamic.js" />
         <option value="$PROJECT_DIR$/dynamic_detail.html" />
@@ -343,6 +371,9 @@
         <option value="$PROJECT_DIR$/res/script/employee_manage.js" />
         <option value="$PROJECT_DIR$/contact.html" />
         <option value="$PROJECT_DIR$/res/script/contact.js" />
+        <option value="$PROJECT_DIR$/res/script/index.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/res/script/doc_detail.js" />
       </list>
     </option>
   </component>
@@ -373,7 +404,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -421,6 +451,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -428,7 +459,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="SearchEverywhereHistoryKey" value="employee&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js&#10;report&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_report.js&#10;repor&#9;FILE&#9;file://D:/code/python/tornado/datou/template/doc_report.html&#10;offi&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/official_doc.js&#10;job_re&#9;FILE&#9;file://D:/code/python/tornado/datou/template/job_record.html&#10;page_con&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/page_controller.js&#10;test.&#9;FILE&#9;file://D:/code/python/tornado/datou/template/test.html&#10;base.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;doc_det&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/doc_detail.css&#10;base.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/base.css&#10;doc_re&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_report.js&#10;dynamic.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/dynamic.js&#10;li&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/list.css&#10;bir&#9;FILE&#9;file://D:/code/python/tornado/datou/template/birthday_wishes.html&#10;dy&#9;FILE&#9;file://D:/code/python/tornado/datou/template/dynamic.html&#10;doc_detail.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/doc_detail.css&#10;index_pa&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index_page_manage.js&#10;err&#9;FILE&#9;file://D:/code/python/tornado/datou/template/error.html&#10;aut&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;au&#9;FILE&#9;file://D:/code/python/tornado/datou/template/auto_job_detail.html&#10;doc&#9;FILE&#9;file://D:/code/python/tornado/datou/template/doc_detail.html&#10;leav&#9;FILE&#9;file://D:/code/python/tornado/datou/template/leave_for_born.html&#10;error&#9;FILE&#9;file://D:/code/python/tornado/datou/template/error.html&#10;base&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;list.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/list.css&#10;base.&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;employ&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js&#10;doc_de&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_detail.js&#10;job_record.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;index.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index.css&#10;index&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;auto_&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;job_det&#9;FILE&#9;file://D:/code/python/tornado/datou/template/auto_job_detail.html&#10;eminfo&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;base.c&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/base.css&#10;auto&#9;FILE&#9;file://D:/code/python/tornado/datou/template/auto_job_detail.html&#10;job_rec&#9;FILE&#9;file://D:/code/python/tornado/datou/template/job_record.html&#10;doc_deta&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_detail.js&#10;index_p&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index_page_manage.html&#10;inde&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;auto_jo&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;index.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;emp&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;login.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/login.js&#10;employee_info_t&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;employee_info&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/module_employee_info_table.css&#10;ba&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;log&#9;FILE&#9;file://D:/code/python/tornado/datou/template/login.html&#10;login&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/login.js&#10;job_record&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js" />
+    <property name="SearchEverywhereHistoryKey" value="index.html&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;index.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;employee&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js&#10;report&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_report.js&#10;repor&#9;FILE&#9;file://D:/code/python/tornado/datou/template/doc_report.html&#10;offi&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/official_doc.js&#10;job_re&#9;FILE&#9;file://D:/code/python/tornado/datou/template/job_record.html&#10;page_con&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/page_controller.js&#10;test.&#9;FILE&#9;file://D:/code/python/tornado/datou/template/test.html&#10;base.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;doc_det&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/doc_detail.css&#10;base.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/base.css&#10;doc_re&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_report.js&#10;dynamic.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/dynamic.js&#10;li&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/list.css&#10;bir&#9;FILE&#9;file://D:/code/python/tornado/datou/template/birthday_wishes.html&#10;dy&#9;FILE&#9;file://D:/code/python/tornado/datou/template/dynamic.html&#10;doc_detail.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/doc_detail.css&#10;index_pa&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index_page_manage.js&#10;err&#9;FILE&#9;file://D:/code/python/tornado/datou/template/error.html&#10;aut&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;au&#9;FILE&#9;file://D:/code/python/tornado/datou/template/auto_job_detail.html&#10;doc&#9;FILE&#9;file://D:/code/python/tornado/datou/template/doc_detail.html&#10;leav&#9;FILE&#9;file://D:/code/python/tornado/datou/template/leave_for_born.html&#10;error&#9;FILE&#9;file://D:/code/python/tornado/datou/template/error.html&#10;base&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/base.js&#10;list.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/list.css&#10;base.&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;employ&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/employee_manage.js&#10;doc_de&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_detail.js&#10;job_record.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/job_record.js&#10;index.css&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/index.css&#10;index&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/index.js&#10;auto_&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;job_det&#9;FILE&#9;file://D:/code/python/tornado/datou/template/auto_job_detail.html&#10;eminfo&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;base.c&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/base.css&#10;auto&#9;FILE&#9;file://D:/code/python/tornado/datou/template/auto_job_detail.html&#10;job_rec&#9;FILE&#9;file://D:/code/python/tornado/datou/template/job_record.html&#10;doc_deta&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/doc_detail.js&#10;index_p&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index_page_manage.html&#10;inde&#9;FILE&#9;file://D:/code/python/tornado/datou/template/index.html&#10;auto_jo&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/auto_job_detail.js&#10;emp&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;login.js&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/login.js&#10;employee_info_t&#9;FILE&#9;file://D:/code/python/tornado/datou/template/employee_info_table.html&#10;employee_info&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/css/module_employee_info_table.css&#10;ba&#9;FILE&#9;file://D:/code/python/tornado/datou/template/base.html&#10;log&#9;FILE&#9;file://D:/code/python/tornado/datou/template/login.html&#10;login&#9;FILE&#9;file://D:/code/python/tornado/datou/template/res/script/login.js" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -626,20 +657,24 @@
       <workItem from="1509297713384" duration="52445000" />
       <workItem from="1509639560844" duration="1262000" />
       <workItem from="1511139448191" duration="4080000" />
+      <workItem from="1512802808169" duration="617000" />
+      <workItem from="1512968860030" duration="37000" />
+      <workItem from="1513051399267" duration="4853000" />
+      <workItem from="1513164752532" duration="1042000" />
+      <workItem from="1513300473540" duration="1119000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="712817000" />
+    <option name="totallyTimeSpent" value="720485000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25989583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32535365" sideWeight="0.5005208" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32535365" sideWeight="0.49947917" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -651,6 +686,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32535365" sideWeight="0.49947917" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -667,20 +703,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/other_manage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="23" lean-forward="false" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="35" column="10" lean-forward="false" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/employee_info_table.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1900">
@@ -707,7 +729,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1919">
           <caret line="101" column="76" lean-forward="false" selection-start-line="101" selection-start-column="76" selection-end-line="101" selection-end-column="76" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -802,13 +823,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/script/doc_detail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="267" column="89" lean-forward="false" selection-start-line="267" selection-start-column="89" selection-end-line="267" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/css/index.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -820,7 +834,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="482">
           <caret line="72" column="33" lean-forward="false" selection-start-line="72" selection-start-column="33" selection-end-line="72" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -828,43 +841,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1976">
           <caret line="130" column="99" lean-forward="false" selection-start-line="130" selection-start-column="99" selection-end-line="130" selection-end-column="99" />
-          <folding>
-            <element signature="e#3166#4504#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/script/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <marker date="1509479040837" expanded="true" signature="5235:5248" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="5324:5344" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="5419:5429" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="5502:5513" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="5590:5600" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="6398:8014" ph="{...}" />
-            <marker date="1509479040837" expanded="true" signature="6594:8012" ph="{...}" />
-            <marker date="1509479040837" expanded="true" signature="6851:6864" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="6944:6964" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="7043:7053" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="7130:7141" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="7222:7232" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="8051:9691" ph="{...}" />
-            <marker date="1509479040837" expanded="true" signature="8252:9689" ph="{...}" />
-            <marker date="1509479040837" expanded="true" signature="8511:8524" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="8604:8624" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="8703:8713" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="8790:8801" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="8882:8889" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="8882:8892" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="12378:12401" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="12529:12553" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="12641:12664" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="13630:13642" ph="..." />
-            <marker date="1509479040837" expanded="true" signature="13679:13689" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -901,7 +877,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1577">
           <caret line="83" column="8" lean-forward="true" selection-start-line="83" selection-start-column="8" selection-end-line="83" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -909,7 +884,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3914">
           <caret line="206" column="35" lean-forward="true" selection-start-line="206" selection-start-column="35" selection-end-line="206" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -924,7 +898,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5092">
           <caret line="268" column="1" lean-forward="false" selection-start-line="268" selection-start-column="1" selection-end-line="268" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -956,7 +929,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
           <caret line="111" column="35" lean-forward="true" selection-start-line="111" selection-start-column="35" selection-end-line="111" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -964,7 +936,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1748">
           <caret line="92" column="18" lean-forward="true" selection-start-line="92" selection-start-column="18" selection-end-line="92" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -972,14 +943,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="60" column="18" lean-forward="true" selection-start-line="60" selection-start-column="18" selection-end-line="64" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/css/dynamic_detail.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="37" column="23" lean-forward="false" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1001,22 +964,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/doc_report.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="76" lean-forward="false" selection-start-line="11" selection-start-column="76" selection-end-line="11" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/official_doc.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="874">
-          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/script/official_doc.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3059">
@@ -1025,20 +972,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/script/doc_report.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="22" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
-          <folding>
-            <element signature="n#!!block;n#sendOfficialDoc#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/script/page_controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="121" column="0" lean-forward="true" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+        <state relative-caret-position="2299">
+          <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
           <folding>
             <marker date="1509554289964" expanded="true" signature="3798:3809" ph="..." />
             <marker date="1509554289964" expanded="true" signature="3911:3922" ph="..." />
@@ -1048,10 +985,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/employee_manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1995">
+          <caret line="105" column="8" lean-forward="false" selection-start-line="105" selection-start-column="8" selection-end-line="105" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc_report.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="76" lean-forward="false" selection-start-line="11" selection-start-column="76" selection-end-line="11" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/res/script/job_record.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="337" column="0" lean-forward="true" selection-start-line="337" selection-start-column="0" selection-end-line="337" selection-end-column="0" />
+        <state relative-caret-position="6403">
+          <caret line="337" column="0" lean-forward="false" selection-start-line="337" selection-start-column="0" selection-end-line="337" selection-end-column="0" />
           <folding>
             <marker date="1509549954888" expanded="true" signature="7659:7672" ph="..." />
             <marker date="1509549954888" expanded="true" signature="7744:7764" ph="..." />
@@ -1067,26 +1020,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/employee_manage.html">
+    <entry file="file://$PROJECT_DIR$/contact.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="105" column="8" lean-forward="true" selection-start-line="105" selection-start-column="8" selection-end-line="105" selection-end-column="8" />
+        <state relative-caret-position="684">
+          <caret line="36" column="50" lean-forward="false" selection-start-line="36" selection-start-column="50" selection-end-line="36" selection-end-column="50" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/script/employee_multi_selector.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
+        <state relative-caret-position="627">
           <caret line="33" column="20" lean-forward="false" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/css/dynamic_detail.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="37" column="23" lean-forward="false" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/script/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/script/contact.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1444">
+          <caret line="76" column="25" lean-forward="false" selection-start-line="76" selection-start-column="25" selection-end-line="76" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/script/employee_manage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1919">
+          <caret line="101" column="17" lean-forward="true" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
+          <folding>
+            <element signature="n#!!block;n#initEmployeeStatusSelector#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/script/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6783">
+          <caret line="357" column="11" lean-forward="true" selection-start-line="357" selection-start-column="11" selection-end-line="357" selection-end-column="11" />
+          <folding>
+            <marker date="1513068397178" expanded="true" signature="5261:5274" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="5350:5370" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="5445:5455" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="5528:5539" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="5616:5626" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="6877:6890" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="6970:6990" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="7069:7079" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="7156:7167" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="7248:7258" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="8537:8550" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="8630:8650" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="8729:8739" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="8816:8827" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="8908:8918" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="12404:12427" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="12555:12579" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="12667:12690" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="13656:13668" ph="..." />
+            <marker date="1513068397178" expanded="true" signature="13705:13715" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="45" column="115" lean-forward="false" selection-start-line="45" selection-start-column="115" selection-end-line="45" selection-end-column="115" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/script/base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="466" column="48" lean-forward="true" selection-start-line="466" selection-start-column="48" selection-end-line="466" selection-end-column="48" />
+        <state relative-caret-position="254">
+          <caret line="413" column="1" lean-forward="true" selection-start-line="413" selection-start-column="1" selection-end-line="413" selection-end-column="1" />
           <folding>
             <marker date="1511141994912" expanded="true" signature="3847:3876" ph="..." />
             <marker date="1511141994912" expanded="true" signature="5449:5455" ph=" " />
@@ -1095,29 +1118,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/contact.html">
+    <entry file="file://$PROJECT_DIR$/res/script/doc_report.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="36" column="50" lean-forward="false" selection-start-line="36" selection-start-column="50" selection-end-line="36" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/script/employee_manage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="112" column="1" lean-forward="true" selection-start-line="112" selection-start-column="1" selection-end-line="148" selection-end-column="1" />
+        <state relative-caret-position="-69">
+          <caret line="14" column="22" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
           <folding>
-            <element signature="n#!!block;n#initEmployeeStatusSelector#0" expanded="false" />
+            <element signature="n#!!block;n#sendOfficialDoc#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/script/contact.js">
+    <entry file="file://$PROJECT_DIR$/official_doc.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="107" column="38" lean-forward="false" selection-start-line="107" selection-start-column="38" selection-end-line="107" selection-end-column="38" />
+        <state relative-caret-position="525">
+          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/script/doc_detail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="277" column="59" lean-forward="false" selection-start-line="277" selection-start-column="59" selection-end-line="277" selection-end-column="59" />
+          <folding>
+            <element signature="e#9051#9618#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -49,7 +49,8 @@ function removeChildren(container) {
 }
 
 function isNumber(obj) {
-    return obj === +obj;
+    var n = Number(obj);
+    return !isNaN(n);
 }
 
 function selectMenu(container, onChange) {

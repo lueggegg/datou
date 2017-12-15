@@ -31,6 +31,9 @@ class ApiAlterJob(ApiHandler):
             job_mark = yield self.job_dao.query_job_mark(job_id, self.account_info['id'])
             if job_mark and job_mark['status'] == type_define.STATUS_JOB_MARK_WAITING:
                 yield self.job_dao.update_job_mark(job_id, self.account_info['id'], type_define.STATUS_JOB_MARK_PROCESSED)
+        elif op == 'group_all_read':
+            msg = '设置所有未读为已读'
+            yield self.job_dao.set_all_group_job_read(self.account_info['id'])
         else:
             self.write_result(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
             return

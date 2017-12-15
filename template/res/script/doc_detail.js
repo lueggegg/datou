@@ -276,9 +276,6 @@ function queryJobBaseInfo() {
                 $("#complete_btn").click(function (event) {
                     showConfirmDialog('归档后，不能再操作该' + doc_type_name + '。确认归档？', function () {
                         var param = {job_id: main_info.id};
-                        if (main_info.type = TYPE_JOB_DOC_REPORT) {
-                            param['notify'] = 1;
-                        }
                         commonPost('/api/alter_job', param, function (data) {
                             refresh();
                         });

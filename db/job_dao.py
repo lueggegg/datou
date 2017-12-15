@@ -133,7 +133,7 @@ class JobDAO(BaseDAO):
 
     @gen.coroutine
     def query_job_list(self, job_type=None, invoker=None, count=None, offset=0, **kwargs):
-        sql = "SELECT r.*, r.status AS job_status, i.name AS invoker_name, o.name AS last_operator_name FROM %s r" \
+        sql = "SELECT r.*, r.id AS job_id, r.status AS job_status, i.name AS invoker_name, o.name AS last_operator_name FROM %s r" \
               " LEFT JOIN %s i ON i.id = r.invoker" \
               " LEFT JOIN %s o ON o.id = r.last_operator" \
               " WHERE r.status > 0" % (self.record_tab, self.account_tab, self.account_tab)
@@ -198,6 +198,25 @@ class JobDAO(BaseDAO):
             if branch_id:
                 info['branch_id'] = branch_id
             ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.mark_tab, **info)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def set_all_group_job_read(self, uid):
+        sql = 'SELECT m.id FROM %s m ' \
+              ' LEFT JOIN %s r ON r.id = m.job_id' \
+              ' WHERE m.status=%s AND r.sub_type=%s AND m.uid=%s'\
+              % (self.mark_tab, self.record_tab,
+                 type_define.STATUS_JOB_MARK_WAITING, type_define.TYPE_JOB_SUB_TYPE_GROUP, uid)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        if ret:
+            if len(ret) > 1:
+                id_list = [item['id'] for item in ret]
+                sql = 'UPDATE %s SET status=%d' \
+                    ' WHERE id IN %s' % (self.mark_tab, type_define.STATUS_JOB_MARK_PROCESSED, tuple(id_list))
+            else:
+                sql = 'UPDATE %s SET status=%d' \
+                    ' WHERE id=%s' % (self.mark_tab, type_define.STATUS_JOB_MARK_PROCESSED, ret[0]['id'])
+            ret = yield self._executor.async_update(self._get_inst(), sql)
         raise gen.Return(ret)
 
     @gen.coroutine

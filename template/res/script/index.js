@@ -12,6 +12,8 @@ $(document).ready(function () {
     queryCompletedJob();
     queryCompletedDocReport();
     queryAdminJob();
+
+    initConfirmDialog();
 });
 
 var img_news = null;
@@ -346,5 +348,13 @@ function readAdminJob(index) {
     var item = reset_psd_list[index];
     commonPost('/api/admin_reset_psd', {op: 'read', job_id: item.id}, function (data) {
         $("#admin_job_list").children("[value='" + item.id + "']").remove();
+    });
+}
+
+function readAll() {
+    showConfirmDialog('确认将所有"新消息"标记为已读', function () {
+        commonPost('/api/alter_job', {job_id: 0, op: 'group_all_read'}, function (data) {
+            freshCurrent();
+        });
     });
 }

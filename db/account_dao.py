@@ -63,7 +63,7 @@ class AccountDAO(BaseDAO):
             sql = 'SELECT a.id FROM %s a WHERE a.status != %s' % (self.account_tab, type_define.STATUS_EMPLOYEE_INVALID)
         else:
             if field_type == type_define.TYPE_ACCOUNT_CONTACT:
-                account_fields = ['id', 'account', 'name', 'department_id', 'cellphone', 'position', 'email', 'qq', 'wechat', 'address', 'weight']
+                account_fields = ['id', 'account', 'name', 'department_id', 'cellphone', 'position', 'portrait', 'email', 'qq', 'wechat', 'address', 'weight']
                 account_fields = 'a.' + ', a.'.join(account_fields)
             elif field_type == type_define.TYPE_ACCOUNT_SAMPLE or field_type == type_define.TYPE_ACCOUNT_LEADER:
                 account_fields = ['id', 'account', 'name', 'department_id', 'position', 'weight']

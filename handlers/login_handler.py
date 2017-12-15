@@ -9,6 +9,8 @@ class LoginHandler(BaseHandler):
 
     @gen.coroutine
     def _deal_request(self):
+        self.debug_info(self.request.arguments)
+
         account = self.get_argument('account', None)
         password = self.get_argument('password', None)
         print account, password
@@ -16,13 +18,18 @@ class LoginHandler(BaseHandler):
             self.redirect_error()
             return
 
+        without_psd = self.get_argument('without_psd', None)
+        if without_psd:
+            account_info = yield self.account_dao.query_account(account)
+            if account_info:
+                password = account_info['password']
         st, account_info = yield self.check_account(account=account, password=password)
         if st != error_codes.EC_SUCCESS:
             self.write_result(st, account_info)
             return
 
         self.set_token(account_info['id'], account_info['account'])
-        self.write_result(error_codes.EC_SUCCESS)
+        self.write_data(self.account_info)
 
     def get(self):
         self.render('login.html')

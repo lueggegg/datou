@@ -51,6 +51,7 @@ class BaseHandler(RequestHandler):
         self.cookie_expires_days = 10
         self.end_notification = Exception('finish notification')
         self.push_server = self.settings['push_server']
+        self.need_redirect_login = True
 
     def get_tag(self):
         return 'base'
@@ -126,10 +127,13 @@ class BaseHandler(RequestHandler):
                 account_info['extend'] = extend
 
     def redirect_error(self):
-        self.redirect('error.html')
+        self.redirect('/error.html')
 
     def redirect_login(self):
-        self.redirect('login.html')
+        if self.need_redirect_login:
+            self.redirect('/login.html')
+        else:
+            self.write_result(error_codes.EC_SYS_ERROR, "call 'redirect_login'")
 
     def redirect_index(self):
         self.redirect('/index.html')
@@ -171,13 +175,6 @@ class BaseHandler(RequestHandler):
 
     @gen.coroutine
     def verify_user(self):
-        if self.settings['test_mode']:
-            self.account_info = {'id': 5, 'account': 'test', 'name': 'test_name',
-                'portrait': '4f705390ffbbf1c46691ddfa0b839d8b.png',
-                'authority': 1,
-            }
-            raise gen.Return(True)
-
         uid, account = self.get_token()
         if not uid or not account:
             self.redirect_login()

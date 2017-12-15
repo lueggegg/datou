@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import logging
-
 from tornado import gen
-from api_handler import ApiHandler
-import type_define
 
 import error_codes
+from api_handler import ApiHandler
+
 
 class ApiQueryAccountList(ApiHandler):
     @gen.coroutine
