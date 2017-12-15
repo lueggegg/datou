@@ -2,29 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/icon/icon_contact.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/icon/icon_contact_bg.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/icon/icon_my.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/icon/icon_my_bg.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/icon/icon_work.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/icon/icon_work_bg.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/images/icon/oa_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/handlers/api_fetch_my_info.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/account_dao.py" afterPath="$PROJECT_DIR$/db/account_dao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/job_dao.py" afterPath="$PROJECT_DIR$/db/job_dao.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/__init__.py" afterPath="$PROJECT_DIR$/handlers/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_alter_job.py" afterPath="$PROJECT_DIR$/handlers/api_alter_job.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_query_accounts.py" afterPath="$PROJECT_DIR$/handlers/api_query_accounts.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/base_handler.py" afterPath="$PROJECT_DIR$/handlers/base_handler.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/login_handler.py" afterPath="$PROJECT_DIR$/handlers/login_handler.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/logout_handler.py" afterPath="$PROJECT_DIR$/handlers/logout_handler.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/index.html" afterPath="$PROJECT_DIR$/template/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/base.js" afterPath="$PROJECT_DIR$/template/res/script/base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/doc_detail.js" afterPath="$PROJECT_DIR$/template/res/script/doc_detail.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/script/index.js" afterPath="$PROJECT_DIR$/template/res/script/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/res/css/list.css" afterPath="$PROJECT_DIR$/template/res/css/list.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -69,8 +49,8 @@
           <file leaf-file-name="api_alter_job.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/api_alter_job.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="21" column="47" lean-forward="false" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+                <state relative-caret-position="646">
+                  <caret line="38" column="18" lean-forward="true" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
                   <folding />
                 </state>
               </provider>
@@ -632,13 +612,6 @@
       <workItem from="1502073814787" duration="641000" />
       <workItem from="1502195108416" duration="28000" />
     </task>
-    <task id="LOCAL-00088" summary="release 17">
-      <created>1507814001477</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1507814001477</updated>
-    </task>
     <task id="LOCAL-00089" summary="release 17">
       <created>1507817808401</created>
       <option name="number" value="00089" />
@@ -975,7 +948,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511923527455</updated>
     </task>
-    <option name="localTasksCounter" value="137" />
+    <task id="LOCAL-00137" summary="release 23">
+      <created>1513301877488</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1513301877489</updated>
+    </task>
+    <option name="localTasksCounter" value="138" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1025,7 +1005,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="debug 1" />
     <MESSAGE value="debug 3" />
     <MESSAGE value="debug 4" />
     <MESSAGE value="release 1" />
@@ -1050,7 +1029,8 @@
     <MESSAGE value="release 20" />
     <MESSAGE value="release 21" />
     <MESSAGE value="release 22" />
-    <option name="LAST_COMMIT_MESSAGE" value="release 22" />
+    <MESSAGE value="release 23" />
+    <option name="LAST_COMMIT_MESSAGE" value="release 23" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1407,14 +1387,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_alter_job.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="21" column="47" lean-forward="false" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/type_define.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-817">
@@ -1443,6 +1415,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="823">
           <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_alter_job.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="38" column="18" lean-forward="true" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
           <folding />
         </state>
       </provider>
