@@ -23,7 +23,8 @@ $(document).ready(function () {
         $("#job_completed_list"),
         $("#job_sent_by_myself_list"),
         $("#job_list_container"),
-        $("#doc_report_list_container")
+        $("#doc_report_list_container"),
+        $("#job_search_list")
     );
 
     job_status_types.push(
@@ -49,6 +50,9 @@ $(document).ready(function () {
             onQueryBtnClick();
         }
     };
+
+    initDatePicker($("#search_invoke_begin"));
+    initDatePicker($("#search_invoker_end"));
 
     decideAutoJobQueryOperation();
     decideDocReportQueryOperation();
@@ -207,7 +211,7 @@ function queryStatusJobList(offset, count, index) {
 }
 
 function setJobData(index, data) {
-    if (index < 6) {
+    if (index < job_list_container.length) {
         var weight =[1.2, 2, 1, 1.5, 1.2, 1.5];
         var title = ['类型', '主题', '发送人', '发送时间', '上一回复', '最后操作时间'];
         var new_status = (index < 4 && (job_status_types[index] === STATUS_JOB_MARK_COMPLETED
@@ -259,13 +263,15 @@ function onClickDocItem(job_type, job_id, branch_id) {
 }
 
 function onQueryBtnClick() {
-    var value = $("#tabs ul .ui-state-active").val();
+    var value = parseInt($("#tabs ul .ui-state-active").val());
     if (value === 4) {
         queryCompletedAutoJob();
     } else if (value === 5) {
         queryDocReport();
     } else if (value === 6) {
         exportLeaveDetail();
+    } else if (value === 10) {
+        searchMyJob();
     }
 }
 
@@ -513,4 +519,41 @@ function getSystemMsgUrl(item) {
         default:
             return 'error.html';
     }
+}
+
+function searchMyJob() {
+    var query_content ={};
+    var has_condition = false;
+    var title = $("#search_job_title").val();
+    if (title) {
+        query_content['title'] = title;
+        has_condition = true;
+    }
+    var begin_time = $("#search_invoke_begin").val();
+    if (begin_time) {
+        query_content['begin_time'] = begin_time;
+        has_condition = true;
+    }
+    var end_time = $("#search_invoker_end").val();
+    if (end_time) {
+        query_content['end_time'] = end_time;
+        has_condition = true;
+    }
+    if (begin_time && end_time) {
+        var begin = new Date(begin_time);
+        var end = new Date(end_time);
+        var ms = end.getTime() - begin.getTime();
+        if (ms < 0) {
+            promptMsg('结束时间应该晚于开始时间');
+            return;
+        }
+    }
+    var param = null;
+    if (has_condition) {
+        param = {query_content: JSON.stringify(query_content)};
+    }
+    commonPost("/api/query_job_list", param, function (data) {
+        setJobData(6, data);
+        $("#search_result_count").text('共' + data.length + '条记录');
+    })
 }

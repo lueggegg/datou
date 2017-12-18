@@ -267,6 +267,12 @@ class JobDAO(BaseDAO):
             sql += ' AND m.status!=%s' % type_define.STATUS_JOB_MARK_SYS_MSG
         if job_type:
             sql += ' AND r.type=%s' % job_type
+        if 'title' in kwargs:
+            sql += " AND r.title LIKE '%%%s%%'" % kwargs['title']
+        if 'begin_time' in kwargs:
+            sql += " AND r.time >= '%s'" % kwargs['begin_time']
+        if 'end_time' in kwargs:
+            sql += " AND r.time < '%s'" % (datetime.datetime.strptime(kwargs['end_time'], '%Y-%m-%d') + datetime.timedelta(days=1))
         sql += ' ORDER BY r.mod_time DESC'
         total_count = None
         if 'total_count' not in kwargs or not kwargs['total_count']:

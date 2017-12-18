@@ -79,7 +79,12 @@ class ApiQueryJobList(ApiHandler):
             if status == type_define.STATUS_JOB_INVOKED_BY_MYSELF:
                 ret, total = yield self.job_dao.query_job_list(job_type, uid, count, offset)
             else:
-                ret, total = yield self.job_dao.query_employee_job(uid, status, job_type, count, offset)
+                query_content = self.get_argument('query_content', None)
+                if query_content:
+                    kwargs = self.loads_json(query_content)
+                else:
+                    kwargs = {}
+                ret, total = yield self.job_dao.query_employee_job(uid, status, job_type, count, offset, **kwargs)
 
         res['data'] = ret
         res['total'] = total

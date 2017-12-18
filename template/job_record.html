@@ -15,6 +15,7 @@
 {% block custom_body %}
 <div id="tabs">
     <ul>
+        <li value="10"><a href="#job_search">搜索工作流</a> </li>
         <li><a href="#job_waiting">待办的工作流</a> </li>
         <li><a href="#job_processed">已办的工作流</a> </li>
         <li><a href="#job_completed">已归档的工作流</a> </li>
@@ -25,6 +26,25 @@
         <li id="query_leave_detail" value="6"><a href="#query_leave_detail_container">导出请假详情</a></li>
         <li id="query_admin_job" value="7"><a href="#admin_job_container">管理员工作流</a></li>
     </ul>
+    <div id="job_search">
+        <div class="common_btn_container">
+            <div class="job_query_label">标题：</div>
+            <div class="job_query_content">
+                <input type="text" id="search_job_title" placeholder="标题为空则搜索全部" class="invoke_date_picker" style="width: 240px;text-align: left;">
+                <button id="search_btn" title="按Enter直接查询" class="ui-button ui-corner-all element_right" style="margin-right:60px; width: 80px; letter-spacing: 2px;" onclick="onQueryBtnClick()">查询</button>
+            </div>
+        </div>
+        <div class="common_btn_container">
+            <div class="job_query_label">发起时间：</div>
+            <div class="job_query_content">
+                <input type="text" id="search_invoke_begin" placeholder="开始" class="invoke_date_picker">
+                》
+                <input type="text" id="search_invoker_end" placeholder="至今" class="invoke_date_picker">
+            </div>
+        </div>
+        <div id="job_search_list"></div>
+        <div id="search_result_count" style="text-align: right; padding-right: 50px;"></div>
+    </div>
     <div id="job_waiting">
         <div id="job_waiting_list"></div>
         <div id="job_waiting_page_controller"></div>
