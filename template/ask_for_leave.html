@@ -57,15 +57,7 @@
         initDatePicker($("#end_time"), {timepicker: true, format: 'Y-m-d H:i:00'});
 
         selectMenu($("#leave_type"));
-        $( "#leave_days" ).spinner({
-            spin: function( event, ui ) {
-                if ( ui.value < 0 ) {
-                    $( this ).spinner( "value", 0 );
-                    return false;
-                }
-            },
-            step: leave_step
-        });
+        commonInitLeftSpinner( $("#leave_days") );
     });
 
     function getParam(check) {
@@ -103,9 +95,8 @@
                 job_type = TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY;
             }
         }
-        var leave_days = parseFloat($("#leave_days").val());
-        var half_days = Math.ceil(leave_days/leave_step);
-        leave_days = half_days * leave_step;
+        var half_days = getHalfDaysFromSpinner($("#leave_days"));
+        var leave_days = half_days * leave_step;
 
         var type = $("#leave_type").val();
 

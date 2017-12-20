@@ -74,18 +74,12 @@ class JobDAO(BaseDAO):
         raise gen.Return(True)
 
     @gen.coroutine
-    def add_job_node(self, **kwargs):
+    def add_job_node(self, is_comment=False, **kwargs):
         if 'time' not in kwargs:
             kwargs['time'] = self.now()
         ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.node_tab, **kwargs)
-        if ret:
+        if ret and not is_comment:
             yield self.update_job(kwargs['job_id'], mod_time=kwargs['time'], last_operator=kwargs['sender_id'])
-            # if 'rec_id' in kwargs and kwargs['rec_id']:
-            #     yield self.update_job_mark(job_id=kwargs['job_id'], uid=kwargs['rec_id'],
-            #                                status=type_define.STATUS_JOB_MARK_WAITING)
-            # if 'parent' in kwargs and kwargs['parent']:
-            #     yield self.update_job_mark(job_id=kwargs['job_id'], uid=kwargs['sender_id'],
-            #                                status=type_define.STATUS_JOB_MARK_PROCESSED)
         raise gen.Return(ret)
 
     @gen.coroutine
@@ -607,6 +601,18 @@ class JobDAO(BaseDAO):
     def add_leave_detail(self, **kwargs):
         ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, self.leave_detail_tab, **kwargs)
         raise gen.Return(ret)
+
+    @gen.coroutine
+    def update_leave_detail(self, job_id, half_day):
+        sql = "UPDATE %s SET half_day=%s WHERE job_id=%s" % (self.leave_detail_tab, half_day, job_id)
+        ret = yield self._executor.async_update(self._get_inst(), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def query_leave_detail(self, job_id):
+        sql = "SELECT * FROM %s WHERE job_id=%s" % (self.leave_detail_tab, job_id)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret[0] if ret else None)
 
     @gen.coroutine
     def query_leave_detail_list(self, **kwargs):

@@ -15,6 +15,7 @@
         <li><a href="#bottom_anchor">跳到底部</a></li>
         <li id="cancel_btn" class="common_clickable">撤回</li>
         <li id="export_btn" class="common_clickable">导出</li>
+        <li id="comment_btn" class="common_clickable">备注</li>
     </ul>
 </div>
 <div class="doc_detail_container">
@@ -37,6 +38,15 @@
     <div id="bottom_anchor"></div>
 </div>
 
+<div id="left_comment_dlg" title="备注">
+    <p>
+        实际休假天数：
+        <input type="text" id="real_left_days"/>
+    </p>
+    <p>
+        <textarea placeholder="填写备注内容" id="left_comment" class="common_text_area"></textarea>
+    </p>
+</div>
 {% end %}
 
 {% block custom_foot %}
@@ -47,4 +57,6 @@
     __notify = 1;
     {% end %}
 //    $('title').html(__title);
-</script>{% end %}
+    $(document).ready(init);
+</script>
+{% end %}

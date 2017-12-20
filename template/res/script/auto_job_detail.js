@@ -1,7 +1,9 @@
 var main_info;
 var node_list_data;
 
-$(document).ready(function () {
+var left_comment_dlg;
+
+function init() {
     if (!isAuthorized(OPERATION_MASK_QUERY_AUTO_JOB)) {
         commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id}, function (data) {
             if (!data) {
@@ -18,10 +20,14 @@ $(document).ready(function () {
 
     $("#process_container").hide();
 
+    $("#comment_btn").hide();
+    left_comment_dlg = $("#left_comment_dlg");
+    left_comment_dlg.hide();
+
     queryJobBaseInfo();
 
     initConfirmDialog();
-});
+}
 
 function initProcessContainer() {
     $("#doc_send_btn").click(function (event) {
@@ -41,6 +47,15 @@ function initProcessContainer() {
     });
 }
 
+function isLeftJob(type) {
+    return type === TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY ||
+        type === TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY ||
+        type === TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY ||
+        type === TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY ||
+        type === TYPE_JOB_LEAVE_FOR_BORN_NORMAL ||
+        type === TYPE_JOB_LEAVE_FOR_BORN_LEADER;
+}
+
 function queryJobBaseInfo() {
     commonPost('/api/query_job_info', {type: 'base', job_id: __job_id}, function (data) {
         main_info = data;
@@ -55,6 +70,30 @@ function queryJobBaseInfo() {
             $("#cancel_btn").remove();
             $("#job_status").text(status[main_info.status]);
             initExport();
+            if (main_info.status === STATUS_JOB_COMPLETED && isLeftJob(main_info.type)) {
+                left_comment_dlg.show();
+                commonInitLeftSpinner($("#real_left_days"));
+                commonPost('/api/process_auto_job', {job_id: __job_id, op: 'query_leave_detail'}, function (data) {
+                    $("#real_left_days").spinner('value', data.half_day * 0.5);
+                });
+                commonInitDialog(left_comment_dlg, function () {
+                    var half_day = getHalfDaysFromSpinner($("#real_left_days"));
+                    var comment = $("#left_comment").val();
+                    if (!comment) {
+                        promptMsg("请输入备注内容");
+                        return;
+                    }
+                    comment = '【实际请假{*' + (half_day*0.5) + '*}天】\n' + comment;
+                    commonPost('/api/process_auto_job',
+                        {job_id: __job_id, op: 'left_comment', half_day: half_day, comment: wrapJobContent(comment), 'node_type': TYPE_JOB_NODE_COMMENT},
+                        function (data) { window.location.reload();});
+                }, {width: 640});
+                var comment_btn = $("#comment_btn");
+                comment_btn.show();
+                comment_btn.click(function () {
+                    left_comment_dlg.dialog("open");
+                });
+            }
         } else {
             $("#job_status").text('处理中');
             $("#export_btn").remove();
@@ -126,10 +165,14 @@ function queryJobNodeList() {
 function addJobNodeItem(node_data, index, fake) {
     fake = !!fake;
     var html = "<div class='node_item_container'>";
+    var comment_label = '';
     if (fake) {
         html += "<div class='fake_node_item_header'>";
     } else if (node_data.type === TYPE_JOB_NODE_TIMEOUT || node_data.type === TYPE_JOB_NODE_SYS_MSG) {
         html += "<div class='timeout_node_item_header'>";
+    } else if (node_data.type === TYPE_JOB_NODE_COMMENT) {
+        html += "<div class='comment_node_item_header'>";
+        comment_label += "<div class='comment_node_label'>备注</div>";
     } else {
         if (index % 2) {
             html += "<div class='node_item_header_even'>";
@@ -167,7 +210,7 @@ function addJobNodeItem(node_data, index, fake) {
         });
         img_list_html += "</ul>";
     }
-    $("#node_item_content_" + node_data.id).html(img_list_html + '<div>' + parseJobContent(node_data.content) + '</div>');
+    $("#node_item_content_" + node_data.id).html(comment_label + img_list_html + '<div>' + parseJobContent(node_data.content) + '</div>');
 }
 
 function reply() {

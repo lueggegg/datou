@@ -87,6 +87,12 @@
             border-bottom: 1px solid white;
         }
 
+        .node_comment_item_header {
+            padding: 10px;
+            background: rgb(255,192,0);
+            border-bottom: 1px solid white;
+        }
+
         .node_item_header_even {
             padding: 10px;
             background: rgb(193,243,253);
@@ -183,7 +189,11 @@
     {% end %}
     {% for node_data in node_list %}
     <div class="node_container">
+        {% if node_data['type'] == 4 %}
+        <div class="node_comment_item_header">
+        {% else %}
         <div class="node_item_header">
+        {% end %}
             <ul class="node_header_ul">
                 <li style="width: 20%">工号：{{ node_data['account'] }}</li>
                 <li style="width: 20%">姓名：{{ node_data['sender'] }}</li>
@@ -208,6 +218,9 @@
                 <li><img src="{{ img['path'] }}"></li>
                 {% end %}
             </ul>
+            {% end %}
+            {% if node_data['type'] == 4 %}
+            <div style="color: red">备注</div>
             {% end %}
             <div>
                 {{ node_data['content'] }}

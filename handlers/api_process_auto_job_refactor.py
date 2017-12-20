@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 from tornado import gen
 
 import error_codes
@@ -15,6 +16,7 @@ class ApiProcessAutoJob(JobHandler):
     def _real_deal_request(self):
         op = self.get_argument_and_check_it('op')
         content = self.get_argument('content', '')
+        is_comment = False
 
         now = self.now()
         ret = True
@@ -43,12 +45,7 @@ class ApiProcessAutoJob(JobHandler):
             }
             job_id = yield self.job_dao.create_new_job(**job_record)
             self.check_result_and_finish_while_failed(job_id, '创建工作流失败')
-            if job_type in [type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY,
-                            type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY,
-                            type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY,
-                            type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY,
-                            type_define.TYPE_JOB_LEAVE_FOR_BORN_NORMAL,
-                            type_define.TYPE_JOB_LEAVE_FOR_BORN_LEADER,]:
+            if self.is_type_of_leave(job_type):
                 leave_detail = {
                     'job_id': job_id,
                     'begin_time': self.get_argument_and_check_it('begin_time'),
@@ -90,6 +87,19 @@ class ApiProcessAutoJob(JobHandler):
             else:
                 self.finish_with_error(error_codes.EC_SYS_ERROR, '路径%s错误' % cur_path_index)
             return
+        elif op == 'left_comment':
+            msg = "备注请假流程"
+            is_comment = True
+            job_id = self.get_argument_and_check_it('job_id')
+            content = self.get_argument('comment', '')
+            half_day = self.get_argument('half_day', None)
+            if half_day is not None:
+                yield self.job_dao.update_leave_detail(job_id, half_day)
+        elif op == 'query_leave_detail':
+            job_id = self.get_argument_and_check_it('job_id')
+            ret = yield self.job_dao.query_leave_detail(job_id)
+            self.write_data(ret)
+            return
         else:
             job_id = None
             self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
@@ -107,12 +117,21 @@ class ApiProcessAutoJob(JobHandler):
         node_type = self.get_argument('node_type', None)
         if node_type:
             job_node['type'] = node_type
-        node_id = yield self.job_dao.add_job_node(**job_node)
+        node_id = yield self.job_dao.add_job_node(is_comment, **job_node)
         if not node_id:
             if op == 'add':
                 yield self.job_dao.delete_job(job_id)
             yield self.job_dao.delete_job(job_id)
             self.finish_with_error(error_codes.EC_SYS_ERROR, '创建工作流节点失败')
+
+        if op == 'left_comment':
+            job_record = yield self.job_dao.query_job_base_info(job_id)
+            filename = 'job_%s_%s.html' % (job_id, job_record['title'].decode('utf-8'))
+            dir_path = 'res/download/job_export'
+            file_path = self.get_res_file_path(filename, dir_path, True)
+            os.remove(file_path)
+            self.process_result(True, msg)
+            return
 
         attachment_fields = [
             ['has_attachment', 'file_list', type_define.TYPE_JOB_ATTACHMENT_NORMAL],
@@ -173,79 +192,6 @@ class ApiProcessAutoJob(JobHandler):
                 yield self.job_dao.add_job_uid_path_detail(job_id, index, set_id=set_id)
                 yield self.job_dao.insert_into_uid_set(set_id, item)
             index += 1
-
-    # @gen.coroutine
-    # def generate_uid_path_detail(self, job_type):
-    #     path = yield self.job_dao.query_first_job_auto_path(job_type)
-    #     if not path:
-    #         self.finish_with_error(error_codes.EC_SYS_ERROR, '未设置路径')
-    #     invoker = self.account_info['id']
-    #     uid_list = []
-    #     while path:
-    #         if path['to_leader'] == type_define.TYPE_REPORT_TO_LEADER_TILL_DEPT:
-    #             leader = yield self.get_account_leader(invoker, 'dept')
-    #             uid_list.append(leader['id'])
-    #         elif path['to_leader'] == type_define.TYPE_REPORT_TO_LEADER_TILL_VIA:
-    #             leader_list = yield self.get_account_leader(invoker, 'via', True)
-    #             uid_list.extend(leader_list)
-    #         elif path['to_leader'] == type_define.TYPE_REPORT_TO_LEADER_TILL_CHAIR:
-    #             leader_list = yield self.get_account_leader(invoker, 'chair', True)
-    #             uid_list.extend(leader_list)
-    #         elif path['to_leader'] in [type_define.TYPE_REPORT_CONTINUE_TILL_VIA, type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR]:
-    #             via = yield self.get_account_leader(invoker, 'via')
-    #             uid_list.append(via['id'])
-    #             if path['to_leader'] == type_define.TYPE_REPORT_CONTINUE_TILL_CHAIR and via['authority'] > type_define.AUTHORITY_CHAIR_LEADER:
-    #                 if not via['report_uid']:
-    #                     self.finish_with_error(error_codes.EC_SYS_ERROR, '未设置最高领导')
-    #                 uid_list.append(via['report_uid'])
-    #         elif path['to_leader'] == 0:
-    #             uid_set = set()
-    #             for detail in path['detail']:
-    #                 if detail['uid']:
-    #                     uid_set.add(detail['uid'])
-    #                 elif detail['dept_id']:
-    #                     account_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_JUST_ID, dept_id=detail['dept_id'])
-    #                     for account in account_list:
-    #                         uid_set.add(account['id'])
-    #             size = len(uid_set)
-    #             if size == 1:
-    #                 uid_list.append(uid_set.pop())
-    #             elif size > 1:
-    #                 uid_list.append(uid_set)
-    #         else:
-    #             self.finish_with_error(error_codes.EC_SYS_ERROR, 'invalid parameter: path["to_leader"]')
-    #
-    #         if path['next_path_id']:
-    #             path = yield self.job_dao.query_job_auto_path(job_type, id=path['next_path_id'])
-    #         else:
-    #             path = None
-    #     self.del_duplicate(uid_list, invoker)
-    #     raise gen.Return(uid_list)
-    #
-    # def del_duplicate(self, uid_list, invoker):
-    #     eval_list = []
-    #     uid_list.reverse()
-    #     while uid_list:
-    #         item = uid_list.pop()
-    #         eval_list.append({'data': item, 'valid': True})
-    #     single_set = set([invoker])
-    #     multi_list = []
-    #     for obj in eval_list:
-    #         item = obj['data']
-    #         if isinstance(item, int):
-    #             if item in single_set:
-    #                 obj['valid'] = False
-    #             else:
-    #                 single_set.add(item)
-    #         else:
-    #             multi_list.append(obj)
-    #     for obj in multi_list:
-    #         for uid in single_set:
-    #             if uid in obj['data']:
-    #                 obj['valid'] = False
-    #     for obj in eval_list:
-    #         if obj['valid']:
-    #             uid_list.append(obj['data'])
 
     @gen.coroutine
     def check_job_mark(self, job_id):

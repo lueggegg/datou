@@ -440,6 +440,23 @@ function getDoubleSpace(count) {
     return space;
 }
 
+function commonInitLeftSpinner(container) {
+    container.spinner({
+        spin: function( event, ui ) {
+            if ( ui.value < 0 ) {
+                $( this ).spinner( "value", 0 );
+                return false;
+            }
+        },
+        step: 0.5
+    });
+}
+
+function getHalfDaysFromSpinner(container) {
+    var leave_days = parseFloat(container.val());
+    return Math.ceil(leave_days/0.5);
+}
+
 var job_type_map = {};
 job_type_map[TYPE_JOB_OFFICIAL_DOC] = '公文';
 job_type_map[TYPE_JOB_CERTIFICATE_SALARY] = '收入证明';

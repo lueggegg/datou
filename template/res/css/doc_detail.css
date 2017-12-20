@@ -86,6 +86,15 @@
     background: rgb(255,32,0);
 }
 
+.comment_node_item_header {
+    padding: 10px;
+    background: rgb(255,192,0);
+}
+
+.comment_node_label {
+    color: red;
+}
+
 .node_item_header_ul {
     list-style-type: none;
     padding: 0;
