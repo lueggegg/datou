@@ -170,3 +170,7 @@
     margin: 0;
     list-style-type: none;
 }
+
+#system_msg_list li {
+    margin-bottom: 10px;
+}

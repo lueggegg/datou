@@ -70,11 +70,15 @@ function queryJobBaseInfo() {
             $("#cancel_btn").remove();
             $("#job_status").text(status[main_info.status]);
             initExport();
-            if (main_info.status === STATUS_JOB_COMPLETED && isLeftJob(main_info.type)) {
+            if (main_info.status === STATUS_JOB_COMPLETED && isLeftJob(main_info.type) && isAuthorized(OPERATION_MASK_COMMENT_LEAVE)) {
                 left_comment_dlg.show();
                 commonInitLeftSpinner($("#real_left_days"));
                 commonPost('/api/process_auto_job', {job_id: __job_id, op: 'query_leave_detail'}, function (data) {
-                    $("#real_left_days").spinner('value', data.half_day * 0.5);
+                    if (data) {
+                        $("#real_left_days").spinner('value', data.half_day * 0.5);
+                    } else {
+                        $("#real_left_days").spinner('value', 0);
+                    }
                 });
                 commonInitDialog(left_comment_dlg, function () {
                     var half_day = getHalfDaysFromSpinner($("#real_left_days"));
