@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from tornado.web import RequestHandler
+from tornado.httpclient import AsyncHTTPClient
+from tornado.httpclient import HTTPRequest
+
 import hashlib
 import json
 import os
@@ -13,6 +16,36 @@ from tornado import gen
 
 import error_codes
 import utils
+
+class HttpClient:
+    def __init__(self):
+        self.client = AsyncHTTPClient()
+        self.arguments = []
+        self._url = None
+
+    def url(self, url):
+        self._url = url
+        return self
+
+    def add(self, arg, value):
+        self.arguments.append('%s=%s' % (arg, value))
+        return self
+
+    def get(self):
+        if len(self.arguments) > 0:
+            args = '&'.join(self.arguments)
+            self._url += '?%s' % args
+        request = HTTPRequest(self._url)
+        request.method = "GET"
+        return self.client.fetch(request)
+
+    def post(self):
+        request = HTTPRequest(self._url)
+        if len(self.arguments) > 0:
+            request.body = '&'.join(self.arguments)
+        request.method = "POST"
+        return self.client.fetch(request)
+
 
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):

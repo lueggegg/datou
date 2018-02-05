@@ -77,9 +77,10 @@ class ApiProcessAutoJob(JobHandler):
             job_id = self.get_argument_and_check_it('job_id')
             cur_path_index = self.get_argument_and_check_it('cur_path_index')
             uid_path = yield self.job_dao.get_job_uid_path_detail(job_id, cur_path_index)
-            fields = ['account', 'dept', 'name']
             if uid_path['uid']:
+                fields = ['uid', 'account', 'dept', 'name']
                 account = yield self.account_dao.query_account_by_id(uid_path['uid'])
+                account['uid'] = account['id']
                 self.write_data([self.abstract_account(account, fields)])
             elif uid_path['set_id']:
                 uid_set = yield self.job_dao.query_uid_set(uid_path['set_id'])

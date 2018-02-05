@@ -46,7 +46,7 @@ class JobDAO(BaseDAO):
 
     @gen.coroutine
     def query_job_base_info(self, job_id):
-        sql = "SELECT r.*, i.name AS invoker_name FROM %s r" \
+        sql = "SELECT r.*, r.status AS job_status, i.name AS invoker_name FROM %s r" \
               " LEFT JOIN %s i ON i.id = r.invoker" \
               " WHERE r.status > 0 and r.id=%s" % (self.record_tab, self.account_tab, job_id)
         ret = yield self._executor.async_select(self._get_inst(True), sql)

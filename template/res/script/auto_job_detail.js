@@ -3,6 +3,8 @@ var node_list_data;
 
 var left_comment_dlg;
 
+$(document).ready(init);
+
 function init() {
     if (!isAuthorized(OPERATION_MASK_QUERY_AUTO_JOB)) {
         commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id}, function (data) {
@@ -220,7 +222,7 @@ function addJobNodeItem(node_data, index, fake) {
 function reply() {
     var content = $("#doc_content").val();
     var param = {
-        content: wrapJobContent(html2Text(content)),
+        content: wrapJobContent(content),
         job_id: __job_id,
         op: 'reply',
         job_type: main_info.type

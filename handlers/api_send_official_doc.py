@@ -5,6 +5,7 @@ from tornado import gen
 import error_codes
 import type_define
 from api_handler import ApiHandler
+from job_timer import JobTimer
 
 class ApiSendOfficialDoc(ApiHandler):
 
@@ -114,8 +115,26 @@ class ApiSendOfficialDoc(ApiHandler):
                 for uid in rec_set:
                     yield self.job_dao.update_job_mark(job_id, uid, type_define.STATUS_JOB_MARK_WAITING, uid)
             else:
+                push_alias = []
                 for uid in rec_set:
                     yield self.job_dao.update_job_mark(job_id, uid, type_define.STATUS_JOB_MARK_WAITING)
+                    push_alias.append('%s' % uid)
+                self.debug_info({"alias" : push_alias})
+                content = job_node['content'][1:-1]
+                length = len(content)
+                if length == 0:
+                    content = '【无内容】'
+                elif length > 20:
+                    content = content[1:18] + '...'
+                extra =  {
+                    "type": job_record['type'],
+                    "job_id": job_id,
+                    'title': job_record['title'],
+                    'content': content,
+                    'sender': self.account_info['name']
+                }
+                self.push_server.android("", push_alias, extra)
+                return
         else:
             yield self.job_dao.update_job_mark(job_id, rec_id, type_define.STATUS_JOB_MARK_WAITING, branch_id)
             yield self.job_dao.update_job_mark(job_id, self.account_info['id'], type_define.STATUS_JOB_MARK_PROCESSED, branch_id)

@@ -3,7 +3,7 @@ from jpush import common
 from jpush.push.core import Push, PushResponse
 
 import logging
-from base_handler import MyEncoder
+from base_handler import MyEncoder, HttpClient
 
 class MyPush(Push):
     def send(self):
@@ -18,11 +18,19 @@ class MyJPush(jpush.JPush):
 
 class JpushServer:
 
-    def __init__(self):
+    def __init__(self, call_remote=True):
         self.app_key = 'f7430a1c1812e2102d67e1af'
         self.master_secret = 'd2bfa63c88ec21ceea89c228'
         # self._jpush = MyJPush(self.app_key, self.master_secret)
         self._jpush = jpush.JPush(self.app_key, self.master_secret)
+        self.call_remote = call_remote
+
+    def call_in_remote_server(self, method, **kwargs):
+        client = HttpClient()
+        client.url("http://localhost:6606").add('op', 'push').add("method", method)
+        if kwargs:
+            client.add('kwargs', MyEncoder.dumps_json(kwargs))
+        client.post()
 
     def all(self, msg):
         push = self._jpush.create_push()
@@ -46,13 +54,18 @@ class JpushServer:
         print (push.payload)
         push.send()
 
-    def android(self, msg):
+    def android(self, msg, alias=None, extra=None):
+        if self.call_remote:
+            self.call_in_remote_server('android', msg=msg, alias=alias, extra=extra)
+            return
         push =self. _jpush.create_push()
-        push.audience = jpush.all_
         push.platform = jpush.all_
-        android = jpush.android(alert=msg, priority=1, style=1, alert_type=2,big_text='jjjjjjjjjj', extras={'k1':'v1'})
-        ios = jpush.ios(alert="Hello, IOS JPush!", sound="a.caf", extras={'k1': 'v1'})
-        push.notification = jpush.notification(alert=msg, android=android, ios=ios)
+        if alias:
+            push.audience = jpush.audience({'alias': alias})
+        else:
+            push.audience = jpush.all_
+        android = jpush.android(alert=msg, extras=extra)
+        push.notification = jpush.notification(alert=msg, android=android)
         print (push.payload)
         push.send()
 

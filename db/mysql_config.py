@@ -7,7 +7,7 @@ class MySQLConfig:
         port = 3306
         passwd = '123456'
         if platform.system() == 'Windows':
-            db = 'release_oa_bk_1'
+            db = 'release_oa'
         else:
             db = 'release_oa'
         if 'mode' in kwargs:

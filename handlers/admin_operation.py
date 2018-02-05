@@ -9,7 +9,9 @@ import error_codes
 import type_define
 from api_handler import ApiNoVerifyHandler
 from tornado.template import Loader
-
+from tornado.httpclient import AsyncHTTPClient
+from tornado.httpclient import HTTPRequest
+from base_handler import HttpClient
 
 class AdminOperation(ApiNoVerifyHandler):
     @gen.coroutine
@@ -43,6 +45,12 @@ class AdminOperation(ApiNoVerifyHandler):
                 }
                 ret = yield self.account_dao.add_account(**account_info)
             msg = '初始化'
+
+        elif op == 'get_account_info':
+            account = self.get_argument_and_check_it('account')
+            ret = yield self.account_dao.query_account(account)
+            self.write_data(ret)
+            return
 
         elif op == 'get_account_list':
             ret = yield self.account_dao.query_account_list()
@@ -129,6 +137,15 @@ class AdminOperation(ApiNoVerifyHandler):
             self.write_json({'data': ret})
             return
 
+        elif op == 'client':
+            client = HttpClient()
+            resp = client.url("http://localhost:5505/api/query_account_list")\
+                .add('operation_mask', 32).add('all_allow', 1).post()
+            resp = yield resp
+            self.set_header("Content-Type", "application/json; charset=utf-8")
+            self.write(resp.body)
+            self.finish()
+
         elif op == 'push':
             alert = self.get_argument('msg', 'push test')
             alert = '%s %s' % (alert, self.now())
@@ -139,6 +156,16 @@ class AdminOperation(ApiNoVerifyHandler):
                 self.push_server.alias(alert, alias)
             else:
                 exec('self.push_server.%s(alert)' % func)
+
+        elif op == 'push_server':
+            extra =  {
+                    "type": 1,
+                    "job_id": 962,
+                    'title': 'hello world',
+                    'content': '你们好吗',
+                    'sender': '磊哥'
+                }
+            self.push_server.android("", [212], extra)
 
         elif op == 'test':
             pass
