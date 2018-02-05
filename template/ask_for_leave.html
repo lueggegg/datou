@@ -80,8 +80,14 @@
             promptMsg('结束时间应该晚于开始时间');
             return;
         }
-        var beyond_ond_day = ms > 86400 * 1000;
         var job_type = null;
+        var half_days = getHalfDaysFromSpinner($("#leave_days"));
+        if (half_days <= 0) {
+            promptMsg("请选择休假时长");
+            return;
+        }
+        var leave_days = half_days * leave_step;
+        var beyond_ond_day = half_days > 2;
         if (beyond_ond_day) {
             if (position_type === TYPE_POSITION_NORMAL) {
                 job_type = TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY;
@@ -95,8 +101,6 @@
                 job_type = TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY;
             }
         }
-        var half_days = getHalfDaysFromSpinner($("#leave_days"));
-        var leave_days = half_days * leave_step;
 
         var type = $("#leave_type").val();
 

@@ -21,6 +21,7 @@ class ApiProcessAutoJob(JobHandler):
         now = self.now()
         ret = True
         need_notify = False
+        push_content = None
         msg = ''
         uid_list = []
         if op == 'add':
@@ -72,6 +73,7 @@ class ApiProcessAutoJob(JobHandler):
             yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_REJECTED)
             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
             msg = '拒绝申请'
+            push_content = '【未通过】'
             need_notify = True
         elif op == 'query_cur':
             job_id = self.get_argument_and_check_it('job_id')
@@ -155,6 +157,11 @@ class ApiProcessAutoJob(JobHandler):
         if op == 'add':
             yield self.generate_job_path_detail(job_id, uid_list)
 
+        ret = yield self.job_dao.query_job_relative_uid_list(job_id)
+        push_alias = ret if ret else []
+        if self.account_info['id'] in push_alias:
+            push_alias.remove(self.account_info['id'])
+
         if not need_notify:
             index = job_record['cur_path_index'] + 1 if job_record['cur_path_index'] else 1
             next_path = yield self.job_dao.get_job_uid_path_detail(job_id, index)
@@ -163,6 +170,7 @@ class ApiProcessAutoJob(JobHandler):
                 yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)
                 yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
                 need_notify = True
+                push_content = '【已归档】' + self.getContentPart(job_node['content'], 1, 15)
             else:
                 if op == 'reply':
                     yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_PROCESSED, job_record['invoker'])
@@ -173,7 +181,18 @@ class ApiProcessAutoJob(JobHandler):
                     for item in uid_set:
                         yield self.job_dao.update_job_mark(job_id, item['uid'], type_define.STATUS_JOB_MARK_WAITING)
                 yield self.job_dao.update_job(job_id, cur_path_index=next_path['order_index'])
+                push_content = '【新回复】' + self.getContentPart(job_node['content'], 1, 15)
                 self.job_timer.auto_job_timer_start(next_path)
+
+        if push_content and push_alias:
+            extra =  {
+                "type": job_record['type'],
+                "job_id": job_id,
+                'title': job_record['title'],
+                'content': push_content,
+                'sender': self.account_info['name']
+            }
+            self.push_server.android("", push_alias, extra)
 
         if need_notify:
             notify_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_JUST_ID,

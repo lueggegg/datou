@@ -248,6 +248,12 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret)
 
     @gen.coroutine
+    def query_job_relative_uid_list(self, job_id):
+        sql = 'SELECT uid FROM %s WHERE job_id=%s' % (self.mark_tab, job_id)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(None if not ret else [item['uid'] for item in ret])
+
+    @gen.coroutine
     def query_employee_job(self, uid, status=None, job_type=None, count=None, offset=0, **kwargs):
         sql = 'SELECT m.*, m.status AS mark_status, r.*, r.status AS job_status, i.name AS invoker_name, o.name AS last_operator_name FROM %s m' \
               ' LEFT JOIN %s r ON m.job_id=r.id' \

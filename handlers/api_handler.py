@@ -99,6 +99,10 @@ class ApiHandler(BaseHandler):
             obj[field] = account[field]
         return obj
 
+    def getContentPart(self, content, begin, count):
+        size = len(content) - begin
+        return  content[begin:] if size <= count else content[begin:begin+count] + '...'
+
 
 class ApiNoVerifyHandler(ApiHandler):
     def post(self, *args, **kwargs):
