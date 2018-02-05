@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/template/res/download/app/oa.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/jpush_server.py" afterPath="$PROJECT_DIR$/handlers/jpush_server.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,21 +23,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.41734758">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="api_query_job_list.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="api_query_job_list.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="400">
                   <caret line="87" column="0" lean-forward="true" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="doc_detail.html" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/template/doc_detail.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="228">
-                  <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -126,7 +115,7 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="job_dao.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="job_dao.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/db/job_dao.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="150">
@@ -156,11 +145,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="jpush_server.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="jpush_server.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/jpush_server.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1007">
-                  <caret line="58" column="47" lean-forward="false" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="47" />
+                <state relative-caret-position="566">
+                  <caret line="75" column="31" lean-forward="false" selection-start-line="75" selection-start-column="31" selection-end-line="75" selection-end-column="31" />
                   <folding>
                     <element signature="e#0#12#0" expanded="true" />
                   </folding>
@@ -338,10 +327,10 @@
         <option value="$PROJECT_DIR$/handlers/api_send_official_doc.py" />
         <option value="$PROJECT_DIR$/handlers/admin_operation.py" />
         <option value="$PROJECT_DIR$/push_main.py" />
-        <option value="$PROJECT_DIR$/handlers/jpush_server.py" />
         <option value="$PROJECT_DIR$/handlers/base_handler.py" />
         <option value="$PROJECT_DIR$/db/job_dao.py" />
         <option value="$PROJECT_DIR$/handlers/api_query_job_list.py" />
+        <option value="$PROJECT_DIR$/handlers/jpush_server.py" />
       </list>
     </option>
   </component>
@@ -688,13 +677,6 @@
       <workItem from="1502073814787" duration="641000" />
       <workItem from="1502195108416" duration="28000" />
     </task>
-    <task id="LOCAL-00097" summary="release 18">
-      <created>1508665042769</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1508665042770</updated>
-    </task>
     <task id="LOCAL-00098" summary="release 18">
       <created>1508697442325</created>
       <option name="number" value="00098" />
@@ -1031,7 +1013,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517803018703</updated>
     </task>
-    <option name="localTasksCounter" value="146" />
+    <task id="LOCAL-00146" summary="release 25">
+      <created>1517803635868</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1517803635868</updated>
+    </task>
+    <option name="localTasksCounter" value="147" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1418,16 +1407,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/jpush_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1007">
-          <caret line="58" column="47" lean-forward="false" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_send_official_doc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
@@ -1490,14 +1469,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="87" column="0" lean-forward="true" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/job_dao.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1508,9 +1479,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/template/doc_detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        <state relative-caret-position="437">
+          <caret line="23" column="34" lean-forward="true" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="87" column="0" lean-forward="true" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/jpush_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="566">
+          <caret line="75" column="31" lean-forward="false" selection-start-line="75" selection-start-column="31" selection-end-line="75" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

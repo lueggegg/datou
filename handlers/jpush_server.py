@@ -67,7 +67,13 @@ class JpushServer:
         android = jpush.android(alert=msg, extras=extra)
         push.notification = jpush.notification(alert=msg, android=android)
         print (push.payload)
-        push.send()
+        retry_time = 3
+        while retry_time:
+            try:
+                push.send()
+                return
+            except:
+                retry_time -= 1
 
     def silent(self, msg):
         push = self._jpush.create_push()
