@@ -27,8 +27,8 @@ class JobTimer:
         self.daily_task_monment = datetime.timedelta(hours=5, minutes=0)
         self.call_later(3, self.start)
 
-    def call_later(self, delay, callback):
-        IOLoop.current().call_later(delay, callback)
+    def call_later(self, delay, callback, *arg, **kwargs):
+        IOLoop.current().call_later(delay, callback, *arg, **kwargs)
 
     @gen.coroutine
     def start(self):

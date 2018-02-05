@@ -274,7 +274,7 @@ class JobDAO(BaseDAO):
             total_count = yield self._executor.async_select(self._get_inst(True), total_count_sql)
             total_count = total_count[0]['records_count']
         if count:
-            sql += ' LIMIT %s, %s' % (offset, count)
+            sql += ' LIMIT %s, %s' % (int(offset), int(count))
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return((ret, total_count))
 
