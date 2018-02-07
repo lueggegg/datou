@@ -12,7 +12,8 @@ class ApiQueryBirthdayEmployee(ApiHandler):
 
     @gen.coroutine
     def _real_deal_request(self):
-        account_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_BIRTHDAY)
+        account_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_BIRTHDAY,
+                                                                 status=type_define.STATUS_EMPLOYEE_NORMAL)
         data = {
             'today': [],
             'will': [],

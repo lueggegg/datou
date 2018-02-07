@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
+    <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="release 25">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/api_query_birthday_employee.py" afterPath="$PROJECT_DIR$/handlers/api_query_birthday_employee.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/handlers/job_timer.py" afterPath="$PROJECT_DIR$/handlers/job_timer.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,7 +27,7 @@
           <file leaf-file-name="api_query_job_list.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="696">
+                <state relative-caret-position="1558">
                   <caret line="89" column="28" lean-forward="false" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
                   <folding />
                 </state>
@@ -58,8 +59,8 @@
           <file leaf-file-name="api_send_official_doc.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/api_send_official_doc.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2337">
-                  <caret line="126" column="33" lean-forward="true" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
+                <state relative-caret-position="2299">
+                  <caret line="126" column="33" lean-forward="false" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
                   <folding>
                     <element signature="e#25#48#0" expanded="true" />
                   </folding>
@@ -67,11 +68,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="api_alter_job.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="api_alter_job.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/api_alter_job.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="229">
-                  <caret line="50" column="33" lean-forward="true" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
+                <state relative-caret-position="734">
+                  <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -81,7 +82,7 @@
             <entry file="file://$PROJECT_DIR$/push_main.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="247">
-                  <caret line="24" column="24" lean-forward="true" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+                  <caret line="24" column="24" lean-forward="false" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                   </folding>
@@ -104,8 +105,28 @@
           <file leaf-file-name="job_timer.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/job_timer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="437">
-                  <caret line="30" column="33" lean-forward="false" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+                <state relative-caret-position="551">
+                  <caret line="132" column="129" lean-forward="false" selection-start-line="132" selection-start-column="129" selection-end-line="132" selection-end-column="129" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api_query_birthday_employee.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/handlers/api_query_birthday_employee.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="171">
+                  <caret line="15" column="65" lean-forward="false" selection-start-line="15" selection-start-column="65" selection-end-line="15" selection-end-column="65" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="account_dao.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/db/account_dao.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-103">
+                  <caret line="60" column="8" lean-forward="false" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="8" />
                   <folding />
                 </state>
               </provider>
@@ -118,7 +139,7 @@
           <file leaf-file-name="job_dao.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/db/job_dao.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="169">
+                <state relative-caret-position="4655">
                   <caret line="250" column="8" lean-forward="false" selection-start-line="250" selection-start-column="8" selection-end-line="250" selection-end-column="8" />
                   <folding />
                 </state>
@@ -128,7 +149,7 @@
           <file leaf-file-name="auto_job_detail.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/template/auto_job_detail.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="823">
+                <state relative-caret-position="1102">
                   <caret line="58" column="31" lean-forward="false" selection-start-line="58" selection-start-column="31" selection-end-line="58" selection-end-column="31" />
                   <folding />
                 </state>
@@ -148,7 +169,7 @@
           <file leaf-file-name="jpush_server.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/jpush_server.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="338">
+                <state relative-caret-position="1102">
                   <caret line="63" column="28" lean-forward="false" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
                   <folding>
                     <element signature="e#0#12#0" expanded="true" />
@@ -160,8 +181,8 @@
           <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="101">
-                  <caret line="15" column="16" lean-forward="false" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+                <state relative-caret-position="462">
+                  <caret line="34" column="28" lean-forward="true" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                   </folding>
@@ -194,7 +215,7 @@
           <file leaf-file-name="api_process_auto_job_refactor.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/api_process_auto_job_refactor.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="125">
+                <state relative-caret-position="2926">
                   <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="162" selection-end-column="54" />
                   <folding>
                     <element signature="e#25#34#0" expanded="true" />
@@ -206,7 +227,7 @@
           <file leaf-file-name="api_handler.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/handlers/api_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="519">
+                <state relative-caret-position="1672">
                   <caret line="92" column="19" lean-forward="true" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
                   <folding />
                 </state>
@@ -280,7 +301,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/handlers/error_codes.py" />
         <option value="$PROJECT_DIR$/handlers/JobTimer.py" />
         <option value="$PROJECT_DIR$/handlers/api_is_account_exist.py" />
         <option value="$PROJECT_DIR$/handlers/api_outer_link_handler.py" />
@@ -318,7 +338,6 @@
         <option value="$PROJECT_DIR$/handlers/api_query_job_info.py" />
         <option value="$PROJECT_DIR$/template/auto_job_detail.html" />
         <option value="$PROJECT_DIR$/template/res/script/auto_job_detail.js" />
-        <option value="$PROJECT_DIR$/handlers/job_timer.py" />
         <option value="$PROJECT_DIR$/handlers/utils.py" />
         <option value="$PROJECT_DIR$/handlers/admin_operation.py" />
         <option value="$PROJECT_DIR$/push_main.py" />
@@ -331,6 +350,8 @@
         <option value="$PROJECT_DIR$/handlers/api_alter_job.py" />
         <option value="$PROJECT_DIR$/handlers/api_process_auto_job_refactor.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/handlers/job_timer.py" />
+        <option value="$PROJECT_DIR$/handlers/api_query_birthday_employee.py" />
       </list>
     </option>
   </component>
@@ -365,7 +386,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -408,6 +428,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
@@ -610,13 +631,6 @@
       <workItem from="1501495371285" duration="22678000" />
       <workItem from="1502073814787" duration="641000" />
       <workItem from="1502195108416" duration="28000" />
-    </task>
-    <task id="LOCAL-00102" summary="release 19">
-      <created>1509312785854</created>
-      <option name="number" value="00102" />
-      <option name="presentableId" value="LOCAL-00102" />
-      <option name="project" value="LOCAL" />
-      <updated>1509312785855</updated>
     </task>
     <task id="LOCAL-00103" summary="release 19">
       <created>1509313069103</created>
@@ -954,7 +968,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517863597022</updated>
     </task>
-    <option name="localTasksCounter" value="151" />
+    <task id="LOCAL-00151" summary="release 25">
+      <created>1517863612617</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
+      <option name="project" value="LOCAL" />
+      <updated>1517863612617</updated>
+    </task>
+    <option name="localTasksCounter" value="152" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -963,16 +984,16 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17135416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17135416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38344225" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38344225" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39651415" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39651415" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1042,13 +1063,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Python27/Lib/site-packages/jpush/push/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="35" column="6" lean-forward="false" selection-start-line="35" selection-start-column="6" selection-end-line="35" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python27/Lib/site-packages/jpush/core.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -1219,14 +1233,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/job_timer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="30" column="33" lean-forward="false" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python27/Lib/logging/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1280,13 +1286,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/account_dao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2964">
@@ -1315,7 +1314,7 @@
     <entry file="file://$PROJECT_DIR$/push_main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
-          <caret line="24" column="24" lean-forward="true" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+          <caret line="24" column="24" lean-forward="false" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -1349,7 +1348,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_query_job_list.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="696">
+        <state relative-caret-position="1558">
           <caret line="89" column="28" lean-forward="false" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
           <folding />
         </state>
@@ -1357,7 +1356,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/template/auto_job_detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="823">
+        <state relative-caret-position="1102">
           <caret line="58" column="31" lean-forward="false" selection-start-line="58" selection-start-column="31" selection-end-line="58" selection-end-column="31" />
           <folding />
         </state>
@@ -1365,7 +1364,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
+        <state relative-caret-position="1672">
           <caret line="92" column="19" lean-forward="true" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
           <folding />
         </state>
@@ -1373,8 +1372,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_send_official_doc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2337">
-          <caret line="126" column="33" lean-forward="true" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
+        <state relative-caret-position="2299">
+          <caret line="126" column="33" lean-forward="false" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
           <folding>
             <element signature="e#25#48#0" expanded="true" />
           </folding>
@@ -1383,7 +1382,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/db/job_dao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
+        <state relative-caret-position="4655">
           <caret line="250" column="8" lean-forward="false" selection-start-line="250" selection-start-column="8" selection-end-line="250" selection-end-column="8" />
           <folding />
         </state>
@@ -1391,7 +1390,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_process_auto_job_refactor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
+        <state relative-caret-position="2926">
           <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="162" selection-end-column="54" />
           <folding>
             <element signature="e#25#34#0" expanded="true" />
@@ -1401,7 +1400,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/jpush_server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
+        <state relative-caret-position="1102">
           <caret line="63" column="28" lean-forward="false" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
@@ -1409,21 +1408,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="34" column="28" lean-forward="true" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api_alter_job.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="50" column="33" lean-forward="true" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
+        <state relative-caret-position="734">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/db/account_dao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="15" column="16" lean-forward="false" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-103">
+          <caret line="60" column="8" lean-forward="false" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/job_timer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="132" column="129" lean-forward="false" selection-start-line="132" selection-start-column="129" selection-end-line="132" selection-end-column="129" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api_query_birthday_employee.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="15" column="65" lean-forward="false" selection-start-line="15" selection-start-column="65" selection-end-line="15" selection-end-column="65" />
+          <folding />
         </state>
       </provider>
     </entry>

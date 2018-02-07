@@ -129,7 +129,8 @@ class JobTimer:
     @gen.coroutine
     def generate_birthday_wishes(self):
         print 'birthday wishes: %s' % self.now()
-        account_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_BIRTHDAY, birthday=self.today())
+        account_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_BIRTHDAY,
+                                                                 birthday=self.today(), status=type_define.STATUS_EMPLOYEE_NORMAL)
         if not account_list:
             return
         birthday_config = yield self.config_dao.query_common_config(type_define.TYPE_CONFIG_BIRTHDAY_WISHES)
