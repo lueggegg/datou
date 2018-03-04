@@ -165,7 +165,7 @@ class AdminOperation(ApiNoVerifyHandler):
                     'content': '你们好吗',
                     'sender': '磊哥'
                 }
-            self.push_server.android("", [212], extra)
+            self.push_server.push_with_alias("", [241, 76, 242], extra)
 
         elif op == 'test':
             pass

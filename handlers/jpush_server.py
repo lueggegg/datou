@@ -54,9 +54,9 @@ class JpushServer:
         print (push.payload)
         push.send()
 
-    def android(self, msg, alias=None, extra=None):
+    def push_with_alias(self, msg, alias=None, extra=None):
         if self.call_remote:
-            self.call_in_remote_server('android', msg=msg, alias=alias, extra=extra)
+            self.call_in_remote_server('push_with_alias', msg=msg, alias=alias, extra=extra)
             return
         push =self. _jpush.create_push()
         push.platform = jpush.all_
@@ -65,7 +65,8 @@ class JpushServer:
         else:
             push.audience = jpush.all_
         android = jpush.android(alert=msg, extras=extra)
-        push.notification = jpush.notification(alert=msg, android=android)
+        ios = jpush.ios(alert="%s: %s" % (extra['sender'], extra['content']))
+        push.notification = jpush.notification(alert=msg, android=android, ios=ios)
         print (push.payload)
         retry_time = 3
         while retry_time:

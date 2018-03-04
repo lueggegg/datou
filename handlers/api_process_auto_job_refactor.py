@@ -192,7 +192,7 @@ class ApiProcessAutoJob(JobHandler):
                 'content': push_content,
                 'sender': self.account_info['name']
             }
-            self.push_server.android("", push_alias, extra)
+            self.push_server.push_with_alias("", push_alias, extra)
 
         if need_notify:
             notify_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_JUST_ID,

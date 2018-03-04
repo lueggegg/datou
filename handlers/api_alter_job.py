@@ -53,6 +53,6 @@ class ApiAlterJob(ApiHandler):
                 'content': push_content,
                 'sender': self.account_info['name']
             }
-            self.push_server.android("", push_alias, extra)
+            self.push_server.push_with_alias("", push_alias, extra)
 
         self.process_result(ret, msg)

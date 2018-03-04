@@ -133,7 +133,7 @@ class ApiSendOfficialDoc(ApiHandler):
                     'content': content,
                     'sender': self.account_info['name']
                 }
-                self.push_server.android("", push_alias, extra)
+                self.push_server.push_with_alias("", push_alias, extra)
                 return
         else:
             yield self.job_dao.update_job_mark(job_id, rec_id, type_define.STATUS_JOB_MARK_WAITING, branch_id)
