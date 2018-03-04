@@ -65,7 +65,7 @@ class JpushServer:
         else:
             push.audience = jpush.all_
         android = jpush.android(alert=msg, extras=extra)
-        ios = jpush.ios(alert="%s: %s" % (extra['sender'], extra['content']))
+        ios = jpush.ios(alert="%s\n%s: %s" % (extra['title'], extra['sender'], extra['content']))
         push.notification = jpush.notification(alert=msg, android=android, ios=ios)
         print (push.payload)
         retry_time = 3
