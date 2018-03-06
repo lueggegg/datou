@@ -159,6 +159,7 @@
                     <option value="副台长">副台长</option>
                     <option value="财务总监">财务总监</option>
                     <option value="编委">编委</option>
+                    <option value="编审">编审</option>
                     <option value="主任">主任</option>
                     <option value="副主任">副主任</option>
                     <option value="董秘">董秘</option>
@@ -707,7 +708,7 @@
             account_info['sex'] = TYPE_SEX_FEMALE;
         }
 
-        if (info['position'] === '主任' || info['position'] === '副主任' || info['position'] === '编委') {
+        if (info['position'] === '主任' || info['position'] === '副主任' || info['position'] === '编委' || info['position'] === '编审') {
             account_info['position_type'] = TYPE_POSITION_LEADER;
         } else {
             account_info['position_type'] = TYPE_POSITION_NORMAL;
