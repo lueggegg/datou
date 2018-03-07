@@ -87,7 +87,7 @@ class JobDAO(BaseDAO):
         sql = "SELECT n.*, a.account, a.name as sender, a.department_id, d.name AS dept FROM %s n" \
               " LEFT JOIN %s a ON n.sender_id=a.id" \
               " LEFT JOIN department d ON a.department_id=d.id" \
-              " WHERE job_id=%s" % (self.node_tab, self.account_tab, job_id)
+              " WHERE job_id=%s AND n.status=1" % (self.node_tab, self.account_tab, job_id)
         if branch_id:
             sql += " AND branch_id=%s" % branch_id
         else:
