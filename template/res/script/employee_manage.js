@@ -335,9 +335,10 @@ function queryDepartmentEmployees() {
     if (selected_dept_for_employee !== 0) {
         arg['dept_id'] = selected_dept_for_employee;
     }
-    if (status !== -1) {
-        arg['status'] = status;
-    }
+//    if (status !== -1) {
+//        arg['status'] = status;
+//    }
+    arg['status'] = status
     $.post('/api/query_account_list', arg, setEmployeeList);
 }
 

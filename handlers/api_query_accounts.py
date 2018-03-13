@@ -4,7 +4,7 @@ from tornado import gen
 
 import error_codes
 from api_handler import ApiHandler
-
+import type_define
 
 class ApiQueryAccountList(ApiHandler):
     @gen.coroutine
@@ -15,7 +15,10 @@ class ApiQueryAccountList(ApiHandler):
         account = self.get_argument('account', None)
         name = self.get_argument('name', None)
         operation_mask = self.get_argument('operation_mask', None)
-        status = self.get_argument('status', None)
+        # status = self.get_argument('status', None)
+        status = int(self.get_argument('status', type_define.STATUS_EMPLOYEE_NORMAL))
+        if status == -1:
+            status = None
 
         if filed_type:
             filed_type = int(filed_type)

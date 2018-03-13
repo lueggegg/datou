@@ -104,10 +104,11 @@ function querySearchContact() {
         has_condition = true;
     }
     var status = parseInt($("#condition_status").val());
-    if (status !== -1) {
-        conditions['status'] = status;
-        has_condition = true;
-    }
+//    if (status !== -1) {
+//        conditions['status'] = status;
+//        has_condition = true;
+//    }
+    conditions['status'] = status
     if (!has_condition) {
         promptMsg('请输入搜索条件');
         return;
