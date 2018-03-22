@@ -38,6 +38,7 @@ from api_admin_reset_psd import ApiAdminResetPsd
 from api_leave_statistics import ApiLeaveStatistics
 from api_job_export import ApiJobExport
 from api_dynamic import ApiDynamic
+from api_query_leave_list import ApiQueryLeaveList
 
 from job_timer import JobTimer
 

@@ -657,4 +657,21 @@ class JobDAO(BaseDAO):
         ret = yield db_helper.update_table_values(self._get_inst(), self._executor, node_id, self.node_tab, **kwargs)
         raise gen.Return(ret)
 
+    @gen.coroutine
+    def query_leave_list(self, query_date = None):
+        if query_date is None:
+            query_date = self.today()
+        elif not isinstance(query_date, datetime.date):
+            query_date = datetime.datetime.strptime(query_date, '%Y-%M-%d').date()
+        begin_bounce = query_date + datetime.timedelta(days=1)
+        end_bounce = query_date
+        sql = "SELECT l.*, a.name, d.name AS dept FROM leave_detail l " \
+              " LEFT JOIN job_record r ON r.id=l.job_id " \
+              " LEFT JOIN employee a ON a.id=r.invoker " \
+              " LEFT JOIN department d ON d.id=a.department_id " \
+              " WHERE r.status=%s and l.end_time > '%s' and l.begin_time <= '%s' " \
+               % (type_define.STATUS_JOB_COMPLETED, end_bounce, begin_bounce,)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
+
 

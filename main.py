@@ -13,11 +13,14 @@ from db import account_dao, job_dao, config_dao, mysql_config, mysql_inst_mgr
 from util.util import Util
 import logging
 
-define("mode", 0, int, "Enable debug mode, 3 is network debug, 2 is debug, 1 is network release, 0 is local release")
+define("mode", 1, int, "Enable debug mode, 3 is network debug, 2 is debug, 1 is network release, 0 is local release")
 define("port", 5505, int, "Listen port")
 define("address", "0.0.0.0", str, "Bind address")
-if platform.system() == 'Windows':
+system = platform.system()
+if system == 'Windows':
     default_log_file = 'D:/log/oa.log'
+elif system == 'Darwin':
+    default_log_file = './log/oa.log'
 else:
     default_log_file = '/data/log/oa/oa.log'
 define('log_file', default_log_file, str, 'log file')
@@ -96,6 +99,7 @@ app = tornado.web.Application([
     (r'/api/job_export', handlers.ApiJobExport),
     (r'/api/dynamic', handlers.ApiDynamic),
     (r'/api/fetch_my_info', handlers.ApiFetchMyInfo),
+    (r'/api/query_leave_list', handlers.ApiQueryLeaveList),
     (r'/(.*)', handlers.HtmlHandler),
 ],
     test_mode=config.test_mode,

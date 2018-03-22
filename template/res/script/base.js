@@ -134,7 +134,8 @@ function getListViewHtml(data, param){
        if (p2 === 0 && !default_param.without_title) {
            content += "<ul class='th " + default_param.ul_class + "'>";
        } else {
-           content += "<ul class='" + default_param.ul_class + background[p2 % 2] + "'>";
+           var title = default_param.line_titles? default_param.line_titles[p2] : "";
+           content += "<ul class='" + default_param.ul_class + background[p2 % 2] + "' title='" + title + "'>";
        }
         p1.forEach(function (field, index, p) {
             content += "<li style='width: " + widths[index] + "%'>" + field + "</li>";
