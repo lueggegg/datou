@@ -13,9 +13,9 @@ from db import account_dao, job_dao, config_dao, mysql_config, mysql_inst_mgr
 from util.util import Util
 import logging
 
-define("mode", 1, int, "Enable debug mode, 3 is network debug, 2 is debug, 1 is network release, 0 is local release")
 define("port", 5505, int, "Listen port")
 define("address", "0.0.0.0", str, "Bind address")
+server_mode = 1
 system = platform.system()
 if system == 'Windows':
     default_log_file = 'D:/log/oa.log'
@@ -23,6 +23,9 @@ elif system == 'Darwin':
     default_log_file = './log/oa.log'
 else:
     default_log_file = '/data/log/oa/oa.log'
+    server_mode = 0
+
+define("mode", server_mode, int, "Enable debug mode, 3 is network debug, 2 is debug, 1 is network release, 0 is local release")
 define('log_file', default_log_file, str, 'log file')
 define('log_level', 'debug', str, 'log level')
 options.parse_command_line()
