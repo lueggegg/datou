@@ -9,6 +9,7 @@ from tornado import gen
 
 import error_codes
 from api_handler import ApiHandler
+import codecs
 
 class ApiUploadFile(ApiHandler):
 
@@ -52,9 +53,17 @@ class ApiUploadFile(ApiHandler):
             net_path = os.path.join('%s/%s' % (parent_dir, data_md5), filename)
 
         if not os.path.isfile(file_path):
+            base64_data = base64_data.encode('utf-8')
+            # data = base64.decodestring(base64_data)
+            data = base64.b64decode(base64_data)
             fid = open(file_path, 'wb')
-            fid.write(base64.decodestring(base64_data))
+            fid.write(data)
             fid.close()
+            # data = base64.decodestring(base64_data)
+            # data = data.decode('utf-8')
+            # fid = codecs.open(file_path, 'w', 'utf-8')
+            # fid.write(data)
+            # fid.close()
 
         if file_type == type_define.TYPE_UPLOAD_FILE_TO_DOWNLOAD:
             type_id = self.get_argument_and_check_it('type_id')
