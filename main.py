@@ -13,8 +13,8 @@ from db import account_dao, job_dao, config_dao, mysql_config, mysql_inst_mgr
 from util.util import Util
 import logging
 
-define("port", 5505, int, "Listen port")
-define("address", "0.0.0.0", str, "Bind address")
+define("port", 9999, int, "Listen port")
+define("address", "127.0.0.1", str, "Bind address")
 server_mode = 1
 system = platform.system()
 if system == 'Windows':
