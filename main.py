@@ -22,6 +22,8 @@ if system == 'Windows':
 elif system == 'Darwin':
     default_log_file = './log/oa.log'
 else:
+    import setproctitle
+    setproctitle.setproctitle('oa_main')
     default_log_file = '/data/log/oa/oa.log'
     server_mode = 0
 
@@ -29,6 +31,7 @@ define("mode", server_mode, int, "Enable debug mode, 3 is network debug, 2 is de
 define('log_file', default_log_file, str, 'log file')
 define('log_level', 'debug', str, 'log level')
 options.parse_command_line()
+
 log_level = options.log_level.lower()
 if log_level == 'debug':
     log_level = logging.DEBUG

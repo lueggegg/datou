@@ -13,6 +13,7 @@ import traceback
 
 define("port", 6606, int, "Listen port")
 define("address", "0.0.0.0", str, "Bind address")
+options.parse_command_line()
 
 class PushHandler(RequestHandler):
     def __init__(self, application, request, **kwargs):
