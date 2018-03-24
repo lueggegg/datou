@@ -12,7 +12,7 @@ import logging
 import traceback
 
 define("port", 6606, int, "Listen port")
-define("address", "0.0.0.0", str, "Bind address")
+define("address", "127.0.0.1", str, "Bind address")
 options.parse_command_line()
 
 class PushHandler(RequestHandler):
