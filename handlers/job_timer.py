@@ -4,6 +4,7 @@ from tornado import gen
 from tornado.ioloop import IOLoop
 from tornado.queues import Queue
 
+import logging
 import datetime
 import type_define, config
 from base_handler import MyEncoder
@@ -187,7 +188,7 @@ class JobTimer:
     @gen.coroutine
     def arrange_auto_job(self):
         kwargs = {}
-        kwargs['tpye_list'] = UtilAutoJob.get_auto_job_type_list()
+        kwargs['type_list'] = UtilAutoJob.get_auto_job_type_list()
         kwargs['status_list'] = [type_define.STATUS_JOB_PROCESSING]
         kwargs['total_count'] = False
         job_list, total = yield self.job_dao.query_job_list(**kwargs)
@@ -217,7 +218,7 @@ class JobTimer:
 
     @gen.coroutine
     def cancel_auto_job(self, job, msg='系统原因，该工作流被撤回'):
-        print 'cancel job:\n%s' % MyEncoder.dumps_json(job)
+        logging.warn('cancel job:\n%s;\nreason: %s' % (MyEncoder.dumps_json(job),msg))
         job_id = job['id']
         yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_SYS_CANCEL, sub_type=type_define.TYPE_JOB_SYSTEM_MSG_SUB_TYPE_CANCEL_JOB)
         yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
