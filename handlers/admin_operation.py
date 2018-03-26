@@ -12,6 +12,8 @@ from tornado.template import Loader
 from tornado.httpclient import AsyncHTTPClient
 from tornado.httpclient import HTTPRequest
 from base_handler import HttpClient
+from auto_job_util import UtilAutoJob
+import datetime
 
 class AdminOperation(ApiNoVerifyHandler):
     @gen.coroutine
@@ -169,7 +171,32 @@ class AdminOperation(ApiNoVerifyHandler):
 
         elif op == 'test':
             pass
+            job_record = yield self.job_dao.execute_sql("select * from job_record where status=1 and sub_type=2 and "
+                                "mod_time < '%s' " % (self.now() - datetime.timedelta(days=7),))
+            # job_record = yield self.job_dao.execute_sql("select id from job_record where status=1 and "
+            #                    "type not in %s and last_operator=250 order by id" % (tuple(UtilAutoJob.get_auto_job_type_list()),))
+            print len(job_record)
+            for index, job_id in enumerate(job_record):
+                job_id = job_id['id']
+                # print index, job_id
+                # yield self.job_dao.execute_sql("update job_status_mark set status=%s where job_id=%s" % (
+                #     type_define.STATUS_JOB_MARK_WAITING, job_id
+                # ))
+                # yield self.job_dao.execute_sql("update job_node n set n.status=0 where n.id in "
+                #     "(select * from (select max(a.id) from job_node a where a.job_id=%s) kk)" % job_id)
+                # yield self.job_dao.execute_sql("update job_record set status=%s, mod_time='%s' where id=%s"
+                #         % (type_define.STATUS_JOB_PROCESSING, self.now()-datetime.timedelta(days=2), job_id))
 
+                # node = yield self.job_dao.execute_sql("select a.* from job_node a where a.id = "
+                #             "(select max(b.id) from job_node b where b.job_id=%s and b.status=1)" % job_id)
+                # if not node:
+                #     continue
+                # node = node[0]
+                # yield self.job_dao.execute_sql("update job_record set mod_time='%s', last_operator=%s where id=%s"
+                #         % (node['time'], node['sender_id'], job_id))
+                # yield self.job_dao.execute_sql("delete from job_notify where job_id=%s and type=%s" %
+                #                                (job_id, type_define.TYPE_JOB_NOTIFY_SYS_MSG))
+                # yield self.job_dao.execute_sql("update job_status_mark set status=%s where job_id=%s" % (type_define.STATUS_JOB_MARK_PROCESSED, job_id))
         self.process_result(ret, msg)
 
 
