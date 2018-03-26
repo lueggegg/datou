@@ -415,7 +415,8 @@
         report_name: null,
         report_uid_dlg: null,
         report_uid_default: true,
-        authority: 1024
+        authority: 1024,
+        src: null
     };
 
     $(document).ready(function() {
@@ -603,6 +604,7 @@
             param = {uid: module_data.uid}
         }
         commonPost('/api/query_account_extend', param, function (data) {
+            module_data.src = data;
             module_data.operation_mask = data.operation_mask;
             module_data.authority = data.authority;
 
@@ -686,12 +688,14 @@
         }
 
 //        if (__authority <= __admin_authority) {
-            var dept = $("#dept_selector").val();
-            if (!dept || dept === '-1') {
+            var dept = parseInt($("#dept_selector").val());
+            if (!dept || dept === -1) {
                 promptMsg('请选择部门');
                 return;
             }
-            account_info['department_id'] = dept;
+            if (!module_data.src || module_data.src.department_id != dept) {
+                account_info['department_id'] = dept;
+            }
 //        }
 
         if ((info['position'] === '台长' || info['position'] === '副台长') ) {
@@ -717,7 +721,9 @@
         if (module_data.report_uid_default) {
             account_info['report_uid'] = null;
         } else {
-            account_info['report_uid'] = module_data.report_uid;
+            if (!module_data.src || module_data.src.report_uid != module_data.report_uid) {
+                account_info['report_uid'] = module_data.report_uid;
+            }
         }
         param['account_info'] = JSON.stringify(account_info);
 
@@ -727,6 +733,9 @@
                     encodeURI('添加员工成功，账号为{*' + data.account + "*}，初始密码为{*oa123456*}");
             } else {
                 promptMsg('修改成功');
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
             }
         });
     }

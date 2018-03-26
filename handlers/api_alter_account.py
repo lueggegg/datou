@@ -61,6 +61,8 @@ class ApiAlterAccount(ApiHandler):
             if 'id_card' in info and info['id_card'] and not account['birthday'] and 'birthday' not in info:
                 info['birthday'] = self.get_birthday_from_id_card(info['id_card'])
                 self.check_birthday(info['birthday'])
+            if 'report_uid' not in info and 'department_id' in info:
+                self.set_default_report_uid(info, info['department_id'])
             ret = self.account_dao.update_account(uid, **info)
         elif op == 'add':
             msg = '添加员工'
@@ -73,6 +75,8 @@ class ApiAlterAccount(ApiHandler):
             self.check_birthday(info['birthday'])
             if 'portrait' not in info:
                 info['portrait'] = 'default_portrait.png'
+            if 'report_uid' not in info:
+                self.set_default_report_uid(info, info['department_id'])
             ret = yield self.account_dao.add_account(**info)
             if ret:
                 self.write_json({
@@ -94,6 +98,12 @@ class ApiAlterAccount(ApiHandler):
             self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
 
         self.process_result(ret, msg)
+
+    @gen.coroutine
+    def set_default_report_uid(self, account_info, dept_id):
+        dept_map = yield self.get_department_map()
+        dept_id = int(dept_id)
+        account_info['report_uid'] = dept_map[dept_id]['leader']
 
 
     def get_info_from_extend(self, info, extend_field):
