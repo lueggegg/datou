@@ -6,6 +6,7 @@ from tornado.queues import Queue
 
 import logging
 import datetime
+import traceback
 import type_define, config
 from base_handler import MyEncoder
 from auto_job_util import UtilAutoJob
@@ -199,7 +200,7 @@ class JobTimer:
             try:
                 uid_list = yield self.auto_job_util.generate_uid_path_detail(job['type'], job['invoker'])
             except Exception, e:
-                print e
+                logging.error('exception %s' % "exp=\"%s\" trace=\"%s\"" % (str(e), traceback.format_exc()))
             else:
                 if len(uid_path) == len(uid_list):
                     for i in range(len(uid_path)):
@@ -212,8 +213,8 @@ class JobTimer:
                         if comp != uid_list[i]:
                             break
                     changed = False
-            if changed:
-                self.cancel_auto_job(job, '由于工作流路径发生变化，该工作流被系统撤回，请重新申请')
+                if changed:
+                    self.cancel_auto_job(job, '由于工作流路径发生变化，该工作流被系统撤回，请重新申请')
 
 
     @gen.coroutine
