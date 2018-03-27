@@ -1,8 +1,8 @@
 import jpush
 from jpush import common
 from jpush.push.core import Push, PushResponse
-
 import logging
+
 from base_handler import MyEncoder, HttpClient
 
 class MyPush(Push):
@@ -26,6 +26,7 @@ class JpushServer:
         self.call_remote = call_remote
 
     def call_in_remote_server(self, method, **kwargs):
+        logging.info("remote push: %s" % kwargs)
         client = HttpClient()
         client.url("http://localhost:6606").add('op', 'push').add("method", method)
         if kwargs:

@@ -125,7 +125,7 @@ class ApiSendOfficialDoc(ApiHandler):
                 if length == 0:
                     content = '【无内容】'
                 elif length > 20:
-                    content = '【新消息】' + content[1:18] + '...'
+                    content = '【新消息】' + self.getContentPart(content, 1, 15)
                 extra =  {
                     "type": job_record['type'],
                     "job_id": job_id,

@@ -45,13 +45,15 @@ class ApiAlterJob(ApiHandler):
             self.write_result(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
             return
 
-        if push_content:
+        while push_content:
             job_record = yield self.job_dao.query_job_base_info(job_id)
             ret = yield self.job_dao.query_job_relative_uid_list(job_id)
-            push_alias = ret if ret else []
+            if not ret:
+                break
+            push_alias = ret
             if self.account_info['id'] in push_alias:
                 push_alias.remove(self.account_info['id'])
-            extra =  {
+            extra = {
                 "type": job_record['type'],
                 "job_id": job_id,
                 'title': job_record['title'],
@@ -59,5 +61,6 @@ class ApiAlterJob(ApiHandler):
                 'sender': self.account_info['name']
             }
             self.push_server.push_with_alias("", push_alias, extra)
+            break
 
         self.process_result(ret, msg)
