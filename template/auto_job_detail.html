@@ -16,6 +16,7 @@
         <li id="cancel_btn" class="common_clickable">撤回</li>
         <li id="export_btn" class="common_clickable">导出</li>
         <li id="comment_btn" class="common_clickable">备注</li>
+        <li id="delete_btn" onclick="deleteJob()" class="common_clickable">删除</li>
     </ul>
 </div>
 <div class="doc_detail_container">
@@ -57,5 +58,18 @@
     __notify = 1;
     {% end %}
 //    $('title').html(__title);
+
+    if (__authority !== AUTHORITY_DEVELOPER) {
+        $("#delete_btn").hide();
+    }
+
+    function deleteJob() {
+        commonPost("api/alter_job", {
+            job_id: __job_id,
+            op: "delete"
+        }, function (data) {
+            window.location.href = "/";
+        });
+    }
 </script>
 {% end %}

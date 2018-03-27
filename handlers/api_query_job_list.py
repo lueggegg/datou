@@ -31,7 +31,8 @@ class ApiQueryJobList(ApiHandler):
                 kwargs = self.loads_json(query_content)
             else:
                 kwargs = {}
-            kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED, type_define.STATUS_JOB_REJECTED]
+            # kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED, type_define.STATUS_JOB_REJECTED]
+            self.parse_query_status(kwargs)
             if job_type is None:
                 kwargs['type_list'] = UtilAutoJob.get_auto_job_type_list()
             elif job_type == type_define.TYPE_JOB_HR_ASK_FOR_LEAVE:
@@ -55,13 +56,7 @@ class ApiQueryJobList(ApiHandler):
                 kwargs = self.loads_json(query_content)
             else:
                 kwargs = {}
-            job_status = int(self.get_argument('job_status', 1))
-            if job_status == 1:
-                kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED]
-            elif job_status == 2:
-                kwargs['status_list'] = [type_define.STATUS_JOB_PROCESSING]
-            else:
-                kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED, type_define.STATUS_JOB_PROCESSING]
+            self.parse_query_status(kwargs)
             if not job_type:
                 kwargs['type_list'] = [type_define.TYPE_JOB_OFFICIAL_DOC, type_define.TYPE_JOB_DOC_REPORT]
             ret, total = yield self.job_dao.query_job_list(job_type=job_type, count=count, offset=offset, **kwargs)
@@ -89,3 +84,19 @@ class ApiQueryJobList(ApiHandler):
         res['data'] = ret
         res['total'] = total
         self.write_json(res)
+
+    def parse_query_status(self, kwargs, query_type=None):
+        job_status = int(self.get_argument('job_status', 1))
+        if job_status == 1:
+            if query_type == type_define.TYPE_JOB_QUERY_AUTO_JOB:
+                kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED, type_define.STATUS_JOB_REJECTED]
+            else:
+                kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED]
+        elif job_status == 2:
+            kwargs['status'] = type_define.STATUS_JOB_PROCESSING
+        elif job_status == 3:
+            kwargs['status_list'] = [type_define.STATUS_JOB_CANCEL, type_define.STATUS_JOB_SYS_CANCEL]
+        else:
+            pass
+            # kwargs['status_list'] = [type_define.STATUS_JOB_COMPLETED, type_define.STATUS_JOB_PROCESSING]
+

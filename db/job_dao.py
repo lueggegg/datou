@@ -147,12 +147,20 @@ class JobDAO(BaseDAO):
                 sql += ' AND r.type NOT IN %s' % (tuple(exclude_type),)
         if invoker:
             sql += ' AND r.invoker=%s' % invoker
-        if 'status_list' in kwargs:
+        if 'status' in kwargs:
+            sql += ' AND r.status = %s' % kwargs['status']
+        elif 'status_list' in kwargs:
             status_list = kwargs['status_list']
             if len(status_list) == 1:
                 sql += ' AND r.status=%s' % status_list[0]
             else:
                 sql += ' AND r.status IN %s' % (tuple(status_list),)
+        elif 'exclude_status' in kwargs:
+            exclude_status = kwargs['exclude_status']
+            if len(exclude_status) == 1:
+                sql += ' AND r.status != %s' % exclude_status[0]
+            else:
+                sql += ' AND r.status NOT IN %s' % (tuple(exclude_status),)
         if 'begin_time' in kwargs:
             sql += " AND r.time >= '%s'" % kwargs['begin_time']
         if 'end_time' in kwargs:

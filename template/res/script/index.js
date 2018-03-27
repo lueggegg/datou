@@ -368,15 +368,16 @@ function queryTodayLeave() {
     }
     commonPost('/api/query_leave_list', null, function (data) {
         if (data.length === 0) return;
-        var list = [['部门', '姓名', '休假类型']];
+        var list = [['部门', '姓名', '类型']];
         var line_titles = [''];
         data.forEach(function (p1, p2, p3) {
-            list.push([p1.dept, p1.name, p1.leave_type]);
+            list.push(['<div>' + p1.dept + '</div>', p1.name, p1.leave_type]);
             line_titles.push('开始时间：' + p1.begin_time + ' ~ 结束时间：' + p1.end_time);
         });
         updateListView(container, list, {
             keep_children: true,
-            line_titles: line_titles
+            line_titles: line_titles,
+            weight: [4,3,2]
         });
     })
 

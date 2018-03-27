@@ -36,6 +36,11 @@ class ApiAlterJob(ApiHandler):
         elif op == 'group_all_read':
             msg = '设置所有未读为已读'
             yield self.job_dao.set_all_group_job_read(self.account_info['id'])
+        elif op == 'delete':
+            msg = '删除工作流'
+            if not self.is_developer():
+                self.finish_with_error(error_codes.EC_HAS_NO_AUTHORITY, '仅开发权限可以删除')
+            yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_INVALID)
         else:
             self.write_result(error_codes.EC_ARGUMENT_ERROR, '操作类型错误')
             return

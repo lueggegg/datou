@@ -90,6 +90,7 @@ function decideAutoJobQueryOperation() {
         initDatePicker($("#invoker_end"));
 
         selectMenu($("#leave_type"));
+        selectMenu($("#auto_job_status"));
         commonPost('/api/query_dept_list', {pure: 1}, function (data) {
             var options = '';
            data.forEach(function (p1, p2, p3) {
@@ -318,6 +319,7 @@ function queryCompletedAutoJob() {
     if (job_type > 0) {
         param['job_type'] = job_type;
     }
+    param['job_status'] = $("#auto_job_status").val();
     var query_content = {};
     var begin_time = $("#invoke_begin").val();
     if (begin_time) {

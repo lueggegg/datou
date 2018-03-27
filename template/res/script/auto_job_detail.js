@@ -192,7 +192,7 @@ function addJobNodeItem(node_data, index, fake) {
         "部门：" + node_data.dept,
         "<div class='node_item_header_time'>" + node_data.time + "</div>"
     ]];
-    html += getListViewHtml(header_data, {weight: [1, 1, 1, 2], without_title: true, diff_background: false, ul_class: 'node_item_header_ul'});
+    html += getListViewHtml(header_data, {weight: [1, 1, 1, 1.5], without_title: true, diff_background: false, ul_class: 'node_item_header_ul'});
     html += "</div>";
     if (node_data.has_attachment) {
         html += "<div class='node_item_attachment'>附件：";

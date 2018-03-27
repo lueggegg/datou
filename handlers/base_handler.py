@@ -12,6 +12,8 @@ import config
 import logging
 import traceback
 
+import type_define
+
 from tornado import gen
 
 import error_codes
@@ -298,4 +300,7 @@ class BaseHandler(RequestHandler):
         if config.enable_debug_log:
             info = self.dumps_json(info)
             self.dlog(info)
+
+    def is_developer(self):
+        return self.account_info['authority'] == type_define.AUTHORITY_DEVELOPER
 
