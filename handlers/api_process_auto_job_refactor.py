@@ -146,6 +146,8 @@ class ApiProcessAutoJob(JobHandler):
                 file_list = self.loads_json(file_list)
                 job_attachment = {'node_id': node_id}
                 for path_id in file_list:
+                    if not path_id:
+                        continue
                     path_info = yield self.job_dao.query_file_path(path_id)
                     job_attachment['name'] = path_info['filename']
                     job_attachment['path'] = path_info['path']
@@ -181,7 +183,7 @@ class ApiProcessAutoJob(JobHandler):
                     for item in uid_set:
                         yield self.job_dao.update_job_mark(job_id, item['uid'], type_define.STATUS_JOB_MARK_WAITING)
                 yield self.job_dao.update_job(job_id, cur_path_index=next_path['order_index'])
-                push_content = '【新回复】' + self.getContentPart(job_node['content'], 1, 15)
+                push_content = u'【新回复】' + self.getContentPart(job_node['content'], 1, 15)
                 self.job_timer.auto_job_timer_start(next_path)
 
         if push_content and push_alias:

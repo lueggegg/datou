@@ -65,7 +65,8 @@ class JobDAO(BaseDAO):
 
     @gen.coroutine
     def complete_job(self, job_id, complete_status=type_define.STATUS_JOB_COMPLETED):
-        yield db_helper.update_table_values(self._get_inst(), self._executor, job_id, self.record_tab, status=complete_status)
+        yield db_helper.update_table_values(self._get_inst(), self._executor, job_id, self.record_tab,
+                                            status=complete_status, mod_time=self.now())
         if complete_status == type_define.STATUS_JOB_CANCEL:
             yield self.delete_job_mark(job_id)
         else:

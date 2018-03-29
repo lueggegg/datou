@@ -24,7 +24,7 @@ class ApiAlterJob(ApiHandler):
             notify_list = yield self.account_dao.query_account_list(field_type=type_define.TYPE_ACCOUNT_JUST_ID, operation_mask=type_define.OPERATION_MASK_QUERY_REPORT)
             notify_list = [item['id'] for item in notify_list]
             yield self.job_dao.job_notify(job_id, notify_list, type_define.TYPE_JOB_NOTIFY_DOC_REPORT)
-            push_content = "【已归档】"
+            push_content = u"【已归档】"
         elif op == 'notify_read':
             msg = '工作流通知已读'
             yield self.job_dao.del_notify_item(job_id, self.account_info['id'])
