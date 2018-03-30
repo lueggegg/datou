@@ -79,17 +79,18 @@ class ApiHandler(BaseHandler):
                 info[field] = arg
 
     def generate_excel_file(self, data, filename_prefix='statistics', target_dir='res/temp'):
-        filename = filename_prefix + '_' + self.get_current_hash() + '.xlsx'
+        filename = filename_prefix + '_' + self.get_current_hash() + '.csv'
         file_path = self.get_res_file_path(filename, target_dir, True)
-        fid = codecs.open(file_path, 'w', 'utf-8')
+        # fid = codecs.open(file_path, 'w', 'utf-8')
+        fid = open(file_path, 'w')
         string = ''
         for line in data:
             if not line:
                 string += '\n'
                 continue
             line = ['%s' % item for item in line]
-            string += '\t'.join(line) + '\n'
-        fid.write(string.decode('utf-8'))
+            string += ','.join(line) + '\n'
+        fid.write(string)
         fid.close()
         return '/%s/%s' % (target_dir, filename)
 
