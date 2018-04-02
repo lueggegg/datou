@@ -679,6 +679,7 @@ class JobDAO(BaseDAO):
               " LEFT JOIN employee a ON a.id=r.invoker " \
               " LEFT JOIN department d ON d.id=a.department_id " \
               " WHERE r.status=%s and l.end_time > '%s' and l.begin_time <= '%s' " \
+              " ORDER BY l.weight, l.begin_time DESC" \
                % (type_define.STATUS_JOB_COMPLETED, end_bounce, begin_bounce,)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
