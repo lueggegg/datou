@@ -53,6 +53,8 @@ class ApiProcessAutoJob(JobHandler):
                     'end_time': self.get_argument_and_check_it('end_time'),
                     'leave_type': self.get_argument_and_check_it('leave_type'),
                 }
+                if job_type in [type_define.TYPE_JOB_LEAVE_FOR_BORN_NORMAL, type_define.TYPE_JOB_LEAVE_FOR_BORN_LEADER]:
+                    leave_detail['weight'] = 1
                 half_day = self.get_argument('half_day', None)
                 if half_day is not None:
                     leave_detail['half_day'] = half_day
@@ -172,7 +174,7 @@ class ApiProcessAutoJob(JobHandler):
                 yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)
                 yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
                 need_notify = True
-                push_content = '【已归档】' + self.getContentPart(job_node['content'], 1, 15)
+                push_content = u'【已归档】' + self.getContentPart(job_node['content'], 1, 15)
             else:
                 if op == 'reply':
                     yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_PROCESSED, job_record['invoker'])
@@ -219,6 +221,6 @@ class ApiProcessAutoJob(JobHandler):
     def check_job_mark(self, job_id):
         job_mark = yield self.job_dao.query_job_mark(job_id, self.account_info['id'])
         if job_mark and job_mark['status'] != type_define.STATUS_JOB_INVOKED_BY_MYSELF and job_mark['status'] != type_define.STATUS_JOB_MARK_WAITING:
-            self.finish_with_error(error_codes.EC_SYS_ERROR, '该工作流已经被审阅或撤回')
+            self.finish_with_error(error_codes.EC_SYS_ERROR, '工作流状态异常，不能回复')
 
 
