@@ -1,10 +1,6 @@
-import os
-
-import tornado.web
 from tornado import ioloop
-import tornado.options
 from tornado.options import define, options
-from tornado.web import RequestHandler
+from tornado.web import RequestHandler, Application
 from handlers.base_handler import MyEncoder
 from handlers.jpush_server import JpushServer
 
@@ -15,10 +11,12 @@ define("port", 6606, int, "Listen port")
 define("address", "127.0.0.1", str, "Bind address")
 options.parse_command_line()
 
+_push_server = JpushServer(False)
+
 class PushHandler(RequestHandler):
     def __init__(self, application, request, **kwargs):
         RequestHandler.__init__(self, application, request, **kwargs)
-        self.push_server = JpushServer(False)
+        self.push_server = self.settings['push_server']
         self.retry_times = 3
 
     def post(self, *args, **kwargs):
@@ -53,9 +51,10 @@ class PushHandler(RequestHandler):
         return "exp=\"%s\" trace=\"%s\"" % (str(e), traceback.format_exc())
 
 
-app = tornado.web.Application([
+app = Application([
     (r'/', PushHandler),
-]
+],
+    push_server=_push_server,
 )
 
 app.listen(options.port, options.address)

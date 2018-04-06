@@ -2,6 +2,9 @@ import jpush
 from jpush import common
 from jpush.push.core import Push, PushResponse
 import logging
+import json
+import traceback
+import os
 
 from base_handler import MyEncoder, HttpClient
 
@@ -19,11 +22,16 @@ class MyJPush(jpush.JPush):
 class JpushServer:
 
     def __init__(self, call_remote=True):
-        self.app_key = 'f7430a1c1812e2102d67e1af'
-        self.master_secret = 'd2bfa63c88ec21ceea89c228'
-        # self._jpush = MyJPush(self.app_key, self.master_secret)
-        self._jpush = jpush.JPush(self.app_key, self.master_secret)
         self.call_remote = call_remote
+        if not call_remote:
+            dir = os.path.dirname(__file__)
+            fid = open(os.path.join(dir, 'jpush.config'), 'r')
+            data = fid.read()
+            config = json.loads(data)
+            self.app_key = config['app_key']
+            self.master_secret = config['master_secret']
+            logging.info("jpush app_key{%s}, master_key{%s...}" % (self.app_key, self.master_secret[:6]))
+            self._jpush = jpush.JPush(self.app_key, self.master_secret)
 
     def call_in_remote_server(self, method, **kwargs):
         logging.info("remote push: %s" % kwargs)
