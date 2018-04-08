@@ -100,7 +100,7 @@ class AccountDAO(BaseDAO):
                     sql += ' AND a.id IN %s' % (tuple(uid_list),)
             if 'birthday' in kwargs:
                 sql += " AND date_format(a.birthday, '%%m-%%d')=date_format('%s', '%%m-%%d')" % kwargs['birthday']
-        sql += ' ORDER BY d.weight DESC, a.weight DESC'
+        sql += ' ORDER BY a.weight DESC'
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
