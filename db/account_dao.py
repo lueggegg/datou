@@ -61,7 +61,9 @@ class AccountDAO(BaseDAO):
     def query_account_list(self, dept_id=None, field_type=type_define.TYPE_ACCOUNT_NORMAL, **kwargs):
         if field_type == type_define.TYPE_ACCOUNT_JUST_ID:
             sql = 'SELECT a.id FROM %s a WHERE a.status != %s' % (self.account_tab, type_define.STATUS_EMPLOYEE_INVALID)
+            order = 'a.weight desc'
         else:
+            order = 'd.weight desc, a.weight desc'
             if field_type == type_define.TYPE_ACCOUNT_CONTACT:
                 account_fields = ['id', 'account', 'name', 'department_id', 'cellphone', 'position', 'portrait', 'email', 'qq', 'wechat', 'address', 'weight']
                 account_fields = 'a.' + ', a.'.join(account_fields)
@@ -100,7 +102,7 @@ class AccountDAO(BaseDAO):
                     sql += ' AND a.id IN %s' % (tuple(uid_list),)
             if 'birthday' in kwargs:
                 sql += " AND date_format(a.birthday, '%%m-%%d')=date_format('%s', '%%m-%%d')" % kwargs['birthday']
-        sql += ' ORDER BY a.weight DESC'
+        sql += ' ORDER BY %s' % order
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
