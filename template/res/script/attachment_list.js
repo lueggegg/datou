@@ -82,10 +82,20 @@ function initAttachmentController(container, param) {
         },
         get_upload_files: function () {
             var ret = [];
+            var complete = true;
             for (var key in this.files) {
                 if (this.files.hasOwnProperty(key) && this.files[key]) {
-                    ret.push(this.files[key].path_id);
+                    if (this.files[key].upload) {
+                        ret.push(this.files[key].path_id);
+                    } else {
+                        complete = false;
+                    }
                 }
+            }
+            if (!complete) {
+                promptMsg("附件上传中...");
+                throw new Error("waiting upload files");
+
             }
             return ret.length > 0? ret : null;
         },
