@@ -62,6 +62,8 @@ try:
 except:
     _push_server = None
 
+template_path = os.path.join(os.path.dirname(__file__), "template")
+
 app = tornado.web.Application([
     (r'/res/(.*)', tornado.web.StaticFileHandler, {'path': "./template/res/"}),
     (r'/', handlers.IndexHandler),
@@ -111,7 +113,8 @@ app = tornado.web.Application([
     test_mode=config.test_mode,
     autoreload=False,
     cookie_secret='a05e6ee50f9f0b5d7cbade2fee456874a',
-    template_path=os.path.join(os.path.dirname(__file__), "template"),
+    template_path=template_path,
+    static_path=os.path.join(template_path, 'static'),
     account_dao=_account_dao,
     job_dao=_job_dao,
     config_dao=_config_dao,
