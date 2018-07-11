@@ -194,6 +194,9 @@ function closeWaitingDlg() {
 var __common_confirm_dlg;
 var __common_confirm_dlg_callback;
 function initConfirmDialog() {
+    if (__common_confirm_dlg) {
+        return;
+    }
     var html = "<div id='__common_confirm_dlg' title='确认操作'><p id='__common_confirm_dlg_info' class='common_prompt_info'>info</p><p>&nbsp;</p></div>";
     $("body").append(html);
     __common_confirm_dlg = $("#__common_confirm_dlg");

@@ -2,7 +2,7 @@ var __next_controller_id = 1;
 var __controller_map = {};
 var __next_fid = 1;
 var __file_map = {};
-var __max_upload_file_size = 16 * 1024 * 1024;
+var __max_upload_file_size = 20 * 1024 * 1024;
 
 function getNextControllerId() {
     var ret = __next_controller_id;
@@ -82,10 +82,20 @@ function initAttachmentController(container, param) {
         },
         get_upload_files: function () {
             var ret = [];
+            var complete = true;
             for (var key in this.files) {
                 if (this.files.hasOwnProperty(key) && this.files[key]) {
-                    ret.push(this.files[key].path_id);
+                    if (this.files[key].upload) {
+                        ret.push(this.files[key].path_id);
+                    } else {
+                        complete = false;
+                    }
                 }
+            }
+            if (!complete) {
+                promptMsg("附件上传中...");
+                throw new Error("waiting upload files");
+
             }
             return ret.length > 0? ret : null;
         },
