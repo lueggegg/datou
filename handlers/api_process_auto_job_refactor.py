@@ -76,6 +76,7 @@ class ApiProcessAutoJob(JobHandler):
             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
             msg = '拒绝申请'
             push_content = '【未通过】'
+            job_record = yield self.job_dao.query_job_base_info(job_id)
             need_notify = True
         elif op == 'query_cur':
             job_id = self.get_argument_and_check_it('job_id')
@@ -174,7 +175,7 @@ class ApiProcessAutoJob(JobHandler):
                 yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)
                 yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
                 need_notify = True
-                push_content = u'【已归档】' + self.get_content_part(job_node['content'], 1, 15, 1)
+                push_content = u'【已归档】' + self.get_content_part(job_node['content'], 1, 15, -1)
             else:
                 if op == 'reply':
                     yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_PROCESSED, job_record['invoker'])
@@ -185,7 +186,7 @@ class ApiProcessAutoJob(JobHandler):
                     for item in uid_set:
                         yield self.job_dao.update_job_mark(job_id, item['uid'], type_define.STATUS_JOB_MARK_WAITING)
                 yield self.job_dao.update_job(job_id, cur_path_index=next_path['order_index'])
-                push_content = u'【新回复】' + self.get_content_part(job_node['content'], 1, 15, 1)
+                push_content = u'【新回复】' + self.get_content_part(job_node['content'], 1, 15, -1)
                 self.job_timer.auto_job_timer_start(next_path)
 
         if push_content and push_alias:
