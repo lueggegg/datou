@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>我的列表</title>
+    <script src="http://cdn.amazeui.org/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.css">
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.widgets.helper.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.widgets.helper.min.js"></script>
+    <script src="res/assets/slick.min.js"></script>
+    <link rel="stylesheet" href="res/assets/amazeui.slick.min.css">
+    <style>
+        .guild {
+            height: 8em;
+            margin-bottom: 1rem;
+        }
+
+        .guild button {
+            height: 100%;
+            font-size: 4rem;
+            border-bottom: 1px solid lightgray;
+        }
+
+        .parent {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            /*border: 1px solid lightgray;*/
+        }
+
+        .img_desc {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            line-height: 3.25rem;
+            padding: 1rem;
+            font-size: 3rem;
+            background: rgba(0,0,0,0.5);
+            color: pink;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .btn-gray {
+            background: lightgray;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<div class="am-g guild">
+    <button class="am-u-md-4" onclick="toDaily()">小猪日志</button>
+    <button class="am-u-md-4 am-btn am-btn-primary">我的</button>
+    <button id="voice" class="am-btn btn-gray am-u-md-4" onclick="onVoice()"><i class="am-icon-volume-off am-icon-lg"></i></button>
+</div>
+
+<div class="am-g" id="list_container" style="height: 100rem">
+
+</div>
+
+<audio id="audio" src="res/voice/luck.mp3">not supported</audio>
+<script>
+    var audio = $("#audio");
+    var music_list = [
+        "",
+        "yongqi.mp3",
+        "hongdou.mp3",
+        "luck.mp3"
+    ];
+
+    listControl();
+    musicControl();
+
+    function listControl() {
+        $.post("/api/yc_upload", {op: 'query'}, function (data) {
+            var html = '';
+            data.data.forEach(function (item) {
+                var path = item.path;
+                html += "<img class='am-img-thumbnail am-img-responsive' src='" + path + "'>";
+            });
+            $("#list_container").html(html);
+            $("#list_container").slick({
+                infinite: true,
+                speed: 2000,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                centerMode: false
+            });
+        });
+    }
+
+    var voice = false;
+    function onVoice() {
+        voice = !voice;
+        if (voice) {
+            $("#voice").removeClass("btn-gray");
+            $("#voice").addClass("am-btn-warning");
+            $("#voice i").removeClass("am-icon-volume-off");
+            $("#voice i").addClass("am-icon-volume-up");
+            audio[0].play();
+        } else {
+            audio[0].pause();
+            $("#voice").removeClass("am-btn-warning");
+            $("#voice").addClass("btn-gray");
+            $("#voice i").removeClass("am-icon-volume-up");
+            $("#voice i").addClass("am-icon-volume-off");
+        }
+    }
+
+    function musicControl() {
+        audio.on("ended", function () {
+            changeMusic(-1);
+        });
+    }
+
+    function changeMusic(index) {
+        if (index < 0) {
+            index = randInt(music_list.length + yc_daily) - index;
+        }
+        audio.attr("src", "res/voice/" + music_list[index]);
+        audio[0].play();
+    }
+
+    function randInt(bound) {
+        return Math.floor(Math.random() * bound);
+    }
+
+    function toDaily() {
+        window.location.href = "yc_daily.html";
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>小猪猪日记</title>
+    <script src="http://cdn.amazeui.org/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.css">
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.widgets.helper.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.widgets.helper.min.js"></script>
+    <script src="res/assets/slick.min.js"></script>
+    <link rel="stylesheet" href="res/assets/amazeui.slick.min.css">
+    <style>
+        .guild {
+            height: 8em;
+            margin-bottom: 1rem;
+        }
+
+        .guild button {
+            height: 100%;
+            font-size: 4rem;
+            border-bottom: 1px solid lightgray;
+        }
+
+        .parent {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            /*border: 1px solid lightgray;*/
+        }
+
+        .img_desc {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            line-height: 3.25rem;
+            padding: 1rem;
+            font-size: 3rem;
+            background: rgba(0,0,0,0.5);
+            color: pink;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .btn-gray {
+            background: lightgray;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<div class="am-g guild">
+    <button class="am-u-md-4 am-btn-primary">小猪日志</button>
+    <button class="am-u-md-4 am-btn" onclick="toList()">我的</button>
+    <button id="voice" class="am-btn btn-gray am-u-md-4" onclick="onVoice()"><i class="am-icon-volume-off am-icon-lg"></i></button>
+</div>
+<div class="am-g">
+    <div class="parent">
+        <div class="single-item">
+            <div>
+                <div class="am-g">
+                <div class="am-form-group am-form-file am-u-md-6">
+                    <button type="button" class="am-btn am-btn-danger am-btn-sm"  style="font-size: 3rem">
+                        <i class="am-icon-camera"></i> 选择要上传的图片</button>
+                    <input id="doc-form-img" type="file" accept="image/*" >
+                </div>
+                <div class="am-form-group am-u-md-6" hidden id="upload_btn">
+                    <button onclick="upload()" type="button" class="am-btn am-btn-success am-btn-sm"  style="font-size: 3rem">
+                        <i class="am-icon-cloud-upload"></i> 上传</button>
+                </div>
+                </div>
+                <div class="am-g">
+                    <div class="parent" style="font-size: 4rem" id="upload_prompt">
+                        此刻的小猪语晨，又会是怎样的光景？
+                        <br>
+                        可以多多分享一哈哟！
+                        <br>耐你
+                        <i class="am-icon-heart" style="color: pink"></i>
+                    </div>
+                    <div id="upload_thumbs" hidden>
+                        <div><img src="" style="max-height: 50rem;"></div>
+                        <div style="margin-left: 10rem" id="upload_result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="img_desc">124<br>345</div>
+    </div>
+</div>
+<div class="am-g">
+    <div class="parent">
+        <button type="button" class="am-btn" style="font-size: 5rem; float: left" onclick="toFirst()">
+            <i class="am-icon-fast-backward"></i> first</button>
+        <button type="button" class="am-btn" style="font-size: 5rem; float: right" onclick="toLast()">
+            last <i class="am-icon-fast-forward"></i></button>
+    </div>
+</div>
+<audio id="audio" src="res/voice/luck.mp3">not supported</audio>
+<script>
+
+    var audio = $("#audio");
+    var msg_list = [];
+
+    var img_list = [
+        ['start.jpg'],
+        ['little.png', ['15岁', '.', '..', '的高中']],
+        ['school.png', ['新生入学<br>', '甲：看,', '前面那个', '豆丁,', '不会也是新生吧', '', ' <br>',
+            '乙：好小!!<br>', "甲乙：哈哈..."
+        ]],
+        ['angry.png', ['我已经', '高三了<br>', '赶紧叫学姐']],
+        ['high.png', ['18岁<br>', '年轻就要疯狂一下', ' ']],
+        ['long.png', ['19岁<br>', '头发又长回来了<br>', '扎个小马尾', '美美哒 <i class="am-icon-heart"></i>', ' ']],
+        ['p.png', ['20岁<br>', '浪漫之都', '巴黎<br>',
+            '姐，最时尚<i class="am-icon-star"></i><i class="am-icon-star"></i>' +
+            '<i class="am-icon-star"></i><i class="am-icon-star"></i><i class="am-icon-star"></i>', ' ']
+        ],
+        ['work.png', ['飞往大洋那边<br>', '生活节奏一下子快了很多<br>', '每天都忙不过来<br>', '唉，明天又要交论文', ' ']],
+        ['tired.png', ['昨晚又不小心睡着了<br>', '不到2个小时自然就惊醒<br>', '好困！！<br>', '还有点流鼻涕', '难受', ' ']],
+        ['meet.png', ['哇，师哥!！<br>', '辛苦的日常，', '但偶尔也有会好事<br>', '会遇上一些让人开心的人<br>', '缘分',' 真好<br>',
+            '【作者再次补充：哇，帅哥】']],
+        ['comm.png', ['有时时间很难过<br>', '有时却又觉得太快<br>', '只是发发信息，', '回过神来，就过了很久<br>',
+            '但还是没了解对方太多<br>', '下一次，会是什么时候呢', ' ']],
+        ['new.png', ['嘿嘿<br>', '换了个新发型，', '齐刘海<br>', '要是那只猴子看了，', '会不会被惊艳到', ' ']],
+        ['love.png', ['23岁的夏天<br>', '有些事情，', '自然而然的发生了<br>', '小猪：泼猴，你有两条路可以选。',
+            '左边，', '做我男朋友;', '右边，', '未知。', '你选择？<br>', '猴：左，左，', '绝对选左', ' '], 1],
+        ['bf.png', ['以后要乖乖的哟，', '可不能撒野', ' ']],
+        ['plane.png', ['终于回来了<br>', '本想着，很多事情会好起来<br>', '却是很多意外<br>', '飞来飞去的日常,', '生活比以往好像更累了', ' ']],
+        ['slim.png', ['哇！！<br>', '吓到自己了<br>', '这体重，现在都不好意思给猴子发照片<br>', '他看到，又会说我"怎么怎么怎么滴"', ' ']],
+        ['eat.png', ['得做出一些改变了<br>', '首先!!', '吃好', ' ']],
+        ['run.png', ['坚持','.', '..', ' ']],
+        ['sleep.png', ['不能再熬夜了', ' ']],
+        ['back.png', ['努力的日子，是有回报的<br>', '明艳动人的姐，', '又回来了！！！', ' ']],
+        ['time_fly.jpg', ['时间飞快', ' ']],
+        ['cake.gif', ['我家小猪猪<br>', '生日快乐！！', ' '], 2]
+
+    ];
+
+    var music_list = [
+        "",
+        "yongqi.mp3",
+        "birthday.mp3",
+        "hongdou.mp3",
+        "luck.mp3"
+    ];
+
+    initItems(img_list);
+    msgCycle();
+
+    function initItems(img_list) {
+        //*
+        var slider = $(".single-item");
+        var list_html = "";
+        img_list.forEach(function (item) {
+            list_html += "<img class='am-img-thumbnail am-img-responsive' src='res/image/" + item[0] + "'>";
+
+        });
+        slider.prepend(list_html);
+        //*/
+        slider.slick({
+            infinite: false,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            centerMode: false
+        });
+        slider.on('afterChange', function(event, slick, currentSlide){
+            var item = img_list[currentSlide];
+            showItemMsg(item);
+            if (item[2]) {
+                changeMusic(item[2]);
+            }
+
+        });
+        showItemMsg(img_list[0]);
+
+        musicControl();
+
+        initUpload();
+    }
+
+    function toFirst() {
+        $(".single-item").slick("slickGoTo", 0, false);
+    }
+
+    function toLast() {
+        $(".single-item").slick("slickGoTo", img_list.length, false);
+    }
+
+    var voice = false;
+    function onVoice() {
+        voice = !voice;
+        if (voice) {
+            $("#voice").removeClass("btn-gray");
+            $("#voice").addClass("am-btn-warning");
+            $("#voice i").removeClass("am-icon-volume-off");
+            $("#voice i").addClass("am-icon-volume-up");
+            audio[0].play();
+        } else {
+            audio[0].pause();
+            $("#voice").removeClass("am-btn-warning");
+            $("#voice").addClass("btn-gray");
+            $("#voice i").removeClass("am-icon-volume-up");
+            $("#voice i").addClass("am-icon-volume-off");
+        }
+    }
+
+    function musicControl() {
+        audio.on("ended", function () {
+            changeMusic(-3);
+        });
+    }
+
+    function changeMusic(index) {
+        if (index < 0) {
+            index = randInt(music_list.length + yc_daily) - index;
+        }
+        audio.attr("src", "res/voice/" + music_list[index]);
+        audio[0].play();
+    }
+
+    function randInt(bound) {
+        return Math.floor(Math.random() * bound);
+    }
+
+
+    function showItemMsg(item) {
+        if (item && item[1]) {
+            $(".img_desc").show();
+            $(".img_desc").html('');
+            msg_list = [].concat(item[1]);
+        } else {
+            $(".img_desc").hide();
+        }
+    }
+
+    function msgCycle() {
+        setInterval(function () {
+            if (msg_list.length > 0) {
+                var msg = msg_list.shift();
+                var suffix = msg_list.length === 0? "【next】" : " ";
+                if (msg !== '') {
+                    $(".img_desc").append(msg + suffix);
+                }
+            }
+        }, 1000);
+    }
+
+    var file_name;
+    var file_data;
+    var file_path;
+    function initUpload() {
+        $("#doc-form-img").on("change", function () {
+            var files = this.files;
+            if (files.length === 0) {
+                return;
+            }
+            var f = files[0];
+            file_name = f.name;
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#upload_prompt").hide();
+                file_data = e.target.result;
+                $("#upload_thumbs").show();
+                $("#upload_btn").show();
+                $("#upload_thumbs img").attr("src", file_data);
+                $("#upload_result").html("准备上传");
+                //*
+                $.post("/api/upload_file", {name: file_name, file_data: file_data, type: 5}, function(data) {
+                    if (data.status !== 0) {
+                        file_path = null;
+                    } else {
+                        file_path = data.path;
+                    }
+                });
+                //*/
+            };
+            reader.readAsDataURL(f);
+
+        });
+    }
+    
+    function upload() {
+        if (file_path) {
+            $.post("/api/yc_upload", {path: file_path}, function () {
+                $("#upload_result").html('上传成功');
+            });
+        } else {
+            $("#upload_result").html('上传失败');
+        }
+
+    }
+    
+    function toList() {
+        window.location.href = "/yc_list.html";
+        
+    }
+
+
+</script>
+</body>
+</html>
