@@ -49,3 +49,5 @@ from api_rule_type import ApiRuleType
 from api_rule_detail import ApiRuleDetail
 from api_common_config import ApiCommonConfig
 from api_employee_statistics import ApiEmployeeStatistics
+
+from yc_upload import YcUpload

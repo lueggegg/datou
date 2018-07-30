@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>公司制度</title>
+    <title>公文交互</title>
     <script type="text/javascript" src="res/jquery/external/jquery/jquery.js"></script>
     <script type="text/javascript" src="res/jquery/jquery-ui.js"></script>
     <link href="res/jquery/jquery-ui.css" rel="stylesheet">
@@ -16,7 +15,12 @@
 
     <link rel="stylesheet" href="res/css/tabs.css">
     <link rel="stylesheet" href="res/css/list.css">
-    <link rel="stylesheet" href="res/css/company_rule.css">
+    <link rel="stylesheet" href="res/css/official_doc.css">
+    <script type="text/javascript" src="res/script/official_doc.js"></script>
+    <script type="text/javascript" src="res/script/attachment_list.js?v=14cb9eada420f96694398b011069e7c4"></script>
+    <script type="text/javascript" src="res/script/employee_multi_selector.js"></script>
+    <link rel="stylesheet" href="res/css/employee_multi_selector.css">
+    <script type="text/javascript" src="res/script/page_controller.js"></script>
 
 </head>
 <body>
@@ -32,11 +36,11 @@
                 欢迎使用OA系统
             </div>
             <div class="element_right" style="margin-right: 20px">
-                <a href="personal.html">大佬</a>&nbsp;|&nbsp;<a href="logout.html">退出</a>
+                <a href="personal.html">system</a>&nbsp;|&nbsp;<a href="logout.html">退出</a>
             </div>
             <div class="element_right" style="margin-right: 10px">
                 <a href="personal.html" class="web_header_portrait_container">
-                    <img id='header_user_portrait' src="res/images/portrait/a01e9138fdb031c644845d013b1bdc66.png">
+                    <img id='header_user_portrait' src="res/images/portrait/default_portrait.png">
                 </a>
             </div>
 
@@ -55,59 +59,54 @@
         <div class="content_body_container">
 
             <div id="tabs">
-                <ul id="tab_item_list"></ul>
+                <ul>
+                    <li><a href="#invoke_doc_container">发送公文</a></li>
+                    <li><a href="#my_doc_container">我的公文</a></li>
+                </ul>
+                <div class="tab_config_container" id="invoke_doc_container">
+                    <div class="node_info_item">
+                        <div class="element_left node_info_item_label">主题：　</div>
+                        <input type="text" id="doc_topic" class="common_editor node_info_item_input element_left">
+                        <div style="float: right; margin-right: 40px;" title="选中后，每个接收者将生成相互独立的处理路径；不选中，则所有接收者共享公文" hidden>
+                            <input type="checkbox" id="branch_type"><label for="branch_type">链式公文</label>
+                        </div>
+                    </div>
+                    <div class="node_info_item">
+                        <div class="element_left node_info_item_label">发送到：</div>
+                        <div class="rec_container">
+                            <ul id="rec_list">
+                            </ul>
+                            <button id="add_rec_btn" class="node_info_item_add_btn"></button>
+                        </div>
+                    </div>
+                    <div class="attachment_container" id="attachment_container"></div>
+                    <div class="attachment_container" id="img_attachment_container"></div>
+                    <div class="doc_text_area_container">
+                        <textarea id='doc_content' class="doc_text_area"></textarea>
+                    </div>
+                    <div>
+                        <button id='doc_send_btn' class="doc_send_btn">发 送</button>
+                    </div>
+                </div>
+                <div class="tab_config_container" id="my_doc_container">
+                    <div id="my_doc_tab">
+                        <input type="radio" name="my_doc_radio" value="0" id="waiting" checked><label for="waiting">待办的公文</label>
+                        <input type="radio" name="my_doc_radio" value="1" id="processed"><label for="processed">已处理的公文</label>
+                        <input type="radio" name="my_doc_radio" value="2" id="completed"><label for="completed">已归档的公文</label>
+                        <input type="radio" name="my_doc_radio" value="3" id="sent_by_myself"><label for="sent_by_myself">我发送的公文</label>
+                    </div>
+                    <div class="common_border common_container">
+                        <div id="doc_waiting"></div>
+                        <div id="doc_processed"></div>
+                        <div id="doc_completed"></div>
+                        <div id="doc_sent_by_myself"></div>
+                    </div>
+                </div>
             </div>
-            <script>
-                var container_prefix = 'rule_container_';
-                $(document).ready(function () {
-                    queryRuleType();
-                });
-                function queryRuleType() {
-                    commonPost('http://localhost:5505/api/rule_type?op=query', null, function (data) {
-                        type_list_data = data;
-                        if (data.length > 0) {
-                            var tab_list_html = '';
-                            var tab_container_html = '';
-                            data.forEach(function (p1, p2, p3) {
-                                var id = container_prefix + p1.id;
-                                tab_list_html += '<li value="' + p1.id + '"><a href="#' + id + '">' + p1.label + '</a>';
-                                tab_container_html += '<div id="' + id + '">';
-                                if (p1.memo) {
-                                    tab_container_html += '<div class="common_container" style="font-size: 1.25em; text-align: center;">' + p1.memo + '</div>';
-                                }
-                                tab_container_html += '</div>';
-                                queryRuleList(p1.id);
-                            });
-                            $("#tabs ul").append(tab_list_html);
-                            $("#tabs").append(tab_container_html);
-                            verticalTabs();
-                            $(".add_new_rule_btn").click(function (event) {
-                                openRuleDetailDlg();
-                            });
-                        }
-                    });
-                }
-                function queryRuleList(type_id) {
-                    commonPost('/api/rule_detail', {op: 'query', type_id: type_id}, function (data) {
-                        var html = '';
-                        data.forEach(function (p1, p2, p3) {
-                            html += '<div class="rule_item_container">';
-                            html += '<div class="rule_title">' + (p2+1) + '. ' + p1.title + '</div>';
-                            var detail = abstractJobContent(p1.detail);
-                            if (detail) {
-                                html += '<div class="rule_detail">' + html2Text(detail) +'</div>';
-                            }
-                            if (p1.attachment_title) {
-                                html += '<div class="rule_detail" style="margin-top: 5px">';
-                                html += '附件：<a style="color: #00dd1c" href="' + p1.attachment_path + '">' + p1.attachment_title + '</a>';
-                                html += '</div>';
-                            }
-                            html += '</div>'
-                        });
-                        $("#" + container_prefix + type_id).append(html);
-                    });
-                }
-            </script>
+            <div id="select_rec_dlg" title="发送到">
+                <div id="employee_selectable_container">
+                </div>
+            </div>
 
         </div>
 
@@ -115,23 +114,44 @@
 
     </div>
 </div>
-<div>
-    <input id="ss" style="width: 60px;">
-</div>
 </body>
 <script>
-    $(document).ready(function () {
-        $("#ss").spinner({
+    $("#__common_tag_area").hide();
+    __authority = 0;
+    __my_uid = 250;
+    __my_operation_mask = 0;
+    function getGuildItemHtml(item) {
+        return '<li><a style="color: white;" href="' + item.href + '">' + item.label + '</a></li>'
+    }
+    function showGuildBar() {
+
+        var guild = [
+            {href: 'index.html', label: '首页', authority: __common_authority},
+            {href: 'personal.html', label: '个人信息', authority: __common_authority},
+            {href: 'contact.html', label: '通讯录', authority: __common_authority},
+            {href: 'job_record.html', label: '工作流', authority: __common_authority},
+            {href: 'doc_report.html', label: '呈报表', authority: __common_authority},
+            {href: 'official_doc.html', label: '公文交互', authority: __common_authority},
+            {href: 'auto_job.html', label: '自动化流程', authority: __common_authority},
+            {href: 'company_rule.html', label: '公司制度', authority: __common_authority},
+            {href: 'download_file.html', label: '文件下载', authority: __common_authority},
+            {href: 'dynamic.html', label: '动态', authority: __common_authority}
+        ];
+
+        var html = '';
+        guild.forEach(function (item, p2, p3) {
+            if (item.authority >= __authority) {
+                html += getGuildItemHtml(item);
+            } else if (item.hasOwnProperty('operation_mask') && (item.operation_mask & __my_operation_mask)) {
+                html += getGuildItemHtml(item);
+            }
         });
+        $("#guild_bar").append(html);
+    }
+    $(function () {
+        showGuildBar();
+        initPromptDialog();
     });
-
-    function foo(a, b) {
-        alert(b);
-    }
-
-    function bar() {
-        foo(1);
-    }
 </script>
 
 </html>

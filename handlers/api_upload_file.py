@@ -8,10 +8,10 @@ import type_define
 from tornado import gen
 
 import error_codes
-from api_handler import ApiHandler
+from api_handler import ApiHandler, ApiNoVerifyHandler
 import codecs
 
-class ApiUploadFile(ApiHandler):
+class ApiUploadFile(ApiNoVerifyHandler):
 
     @gen.coroutine
     def _real_deal_request(self):

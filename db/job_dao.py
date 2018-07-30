@@ -684,4 +684,14 @@ class JobDAO(BaseDAO):
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 
+    @gen.coroutine
+    def yc_new_upload(self, file_path):
+        ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, 'yc_temp', path=file_path)
+        raise gen.Return(ret)
+
+    @gen.coroutine
+    def yc_query_upload(self):
+        sql = 'select * from yc_temp'
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
 

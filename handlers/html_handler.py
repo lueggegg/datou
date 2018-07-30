@@ -10,10 +10,13 @@ class HtmlHandler(BaseHandler):
 
     @gen.coroutine
     def get(self, *args, **kwargs):
-        st = yield self.verify_user()
-        if not st:
-            return
         path = self.request.path
+        if path[1:4] != 'yc_':
+            st = yield self.verify_user()
+            if not st:
+                return
+        else:
+            self.wlog('yc_request from %s' % self.request.remote_ip)
         try:
             arg = self.request.arguments
             self.render(path[1:], account_info=self.account_info, arg=arg)
