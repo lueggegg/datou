@@ -211,8 +211,8 @@
           <file leaf-file-name="yc_daily.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/yc_daily.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-30">
-                  <caret line="161" column="32" lean-forward="false" selection-start-line="161" selection-start-column="32" selection-end-line="161" selection-end-column="32" />
+                <state relative-caret-position="195">
+                  <caret line="272" column="97" lean-forward="false" selection-start-line="272" selection-start-column="97" selection-end-line="272" selection-end-column="97" />
                   <folding>
                     <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
                     <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="false" />
@@ -368,8 +368,8 @@
         <option value="$PROJECT_DIR$/test.html" />
         <option value="$PROJECT_DIR$/official_doc.html" />
         <option value="$PROJECT_DIR$/doc_report.html" />
-        <option value="$PROJECT_DIR$/yc_daily.html" />
         <option value="$PROJECT_DIR$/yc_list.html" />
+        <option value="$PROJECT_DIR$/yc_daily.html" />
       </list>
     </option>
   </component>
@@ -380,7 +380,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+    <option name="x" value="-226" />
+    <option name="y" value="170" />
     <option name="width" value="1440" />
     <option name="height" value="824" />
   </component>
@@ -634,15 +635,15 @@
       <workItem from="1521978139408" duration="7462000" />
       <workItem from="1522920429798" duration="597000" />
       <workItem from="1531300230202" duration="717000" />
-      <workItem from="1532941456215" duration="6676000" />
+      <workItem from="1532941456215" duration="7257000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="766441000" />
+    <option name="totallyTimeSpent" value="767022000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="824" extended-state="6" />
+    <frame x="-226" y="170" width="1440" height="824" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18252291" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1060,18 +1061,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yc_daily.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-30">
-          <caret line="161" column="32" lean-forward="false" selection-start-line="161" selection-start-column="32" selection-end-line="161" selection-end-column="32" />
-          <folding>
-            <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yc_list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-342">
@@ -1080,6 +1069,18 @@
             <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
             <element signature="n#div#0;n#body#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#div#1;n#body#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yc_daily.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="272" column="97" lean-forward="false" selection-start-line="272" selection-start-column="97" selection-end-line="272" selection-end-column="97" />
+          <folding>
+            <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
