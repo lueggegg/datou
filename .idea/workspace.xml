@@ -4,7 +4,6 @@
     <list default="true" id="edd05cf1-26e5-492e-ba47-48cb7ab6fd4f" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/handlers/html_handler.py" afterPath="$PROJECT_DIR$/handlers/html_handler.py" />
-      <change beforePath="$PROJECT_DIR$/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/template/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,8 +25,8 @@
           <file leaf-file-name="admin_operation.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="392">
-                  <caret line="142" column="21" lean-forward="false" selection-start-line="142" selection-start-column="21" selection-end-line="142" selection-end-column="21" />
+                <state relative-caret-position="362">
+                  <caret line="140" column="0" lean-forward="true" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
                   <folding>
                     <element signature="e#25#38#0" expanded="true" />
                   </folding>
@@ -200,8 +199,8 @@
           <file leaf-file-name="html_handler.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/handlers/html_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="320">
-                  <caret line="34" column="24" lean-forward="true" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+                <state relative-caret-position="272">
+                  <caret line="38" column="19" lean-forward="false" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
                   <folding>
                     <element signature="e#25#73#0" expanded="true" />
                   </folding>
@@ -623,20 +622,6 @@
       <workItem from="1502073814787" duration="641000" />
       <workItem from="1502195108416" duration="28000" />
     </task>
-    <task id="LOCAL-00130" summary="release 21">
-      <created>1510517812804</created>
-      <option name="number" value="00130" />
-      <option name="presentableId" value="LOCAL-00130" />
-      <option name="project" value="LOCAL" />
-      <updated>1510517812804</updated>
-    </task>
-    <task id="LOCAL-00131" summary="release 21">
-      <created>1510517946044</created>
-      <option name="number" value="00131" />
-      <option name="presentableId" value="LOCAL-00131" />
-      <option name="project" value="LOCAL" />
-      <updated>1510517946044</updated>
-    </task>
     <task id="LOCAL-00132" summary="release 21">
       <created>1510517960532</created>
       <option name="number" value="00132" />
@@ -966,7 +951,21 @@
       <option name="project" value="LOCAL" />
       <updated>1533001180039</updated>
     </task>
-    <option name="localTasksCounter" value="179" />
+    <task id="LOCAL-00179" summary="yc">
+      <created>1533024320978</created>
+      <option name="number" value="00179" />
+      <option name="presentableId" value="LOCAL-00179" />
+      <option name="project" value="LOCAL" />
+      <updated>1533024320978</updated>
+    </task>
+    <task id="LOCAL-00180" summary="yc">
+      <created>1533024779838</created>
+      <option name="number" value="00180" />
+      <option name="presentableId" value="LOCAL-00180" />
+      <option name="project" value="LOCAL" />
+      <updated>1533024779838</updated>
+    </task>
+    <option name="localTasksCounter" value="181" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -984,7 +983,7 @@
   <component name="ToolWindowManager">
     <frame x="0" y="30" width="1440" height="817" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17829457" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17829457" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32859176" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32761088" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1064,7 +1063,7 @@
           <option name="timeStamp" value="262" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="283" />
+      <option name="time" value="284" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -1493,8 +1492,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/admin_operation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="142" column="21" lean-forward="false" selection-start-line="142" selection-start-column="21" selection-end-line="142" selection-end-column="21" />
+        <state relative-caret-position="362">
+          <caret line="140" column="0" lean-forward="true" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
           <folding>
             <element signature="e#25#38#0" expanded="true" />
           </folding>
@@ -1503,8 +1502,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/handlers/html_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="34" column="24" lean-forward="true" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+        <state relative-caret-position="272">
+          <caret line="38" column="19" lean-forward="false" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
           <folding>
             <element signature="e#25#73#0" expanded="true" />
           </folding>

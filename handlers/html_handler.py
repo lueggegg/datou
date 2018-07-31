@@ -36,5 +36,5 @@ class HtmlHandler(BaseHandler):
             'content': city,
             'sender': 'system'
             }
-        self.wlog('yc_request to %s from %s【%s】' % (path, self.request.remote_ip, city))
+        self.wlog(u'yc_request to %s from %s【%s】' % (path, self.request.remote_ip, city))
         self.push_server.push_with_alias("", [250], extra)
