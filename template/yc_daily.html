@@ -270,7 +270,7 @@
                 $("#upload_thumbs img").attr("src", file_data);
                 $("#upload_result").html("准备上传");
                 //*
-                $.post("/api/upload_file", {name: file_name, file_data: file_data, type: 5}, function(data) {
+                $.post("/api/upload_file", {name: file_name, file_data: file_data, type: 5, yc: 1}, function(data) {
                     if (data.status !== 0) {
                         file_path = null;
                     } else {

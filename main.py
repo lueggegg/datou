@@ -126,5 +126,5 @@ app = tornado.web.Application([
     job_timer=_job_timer,
 )
 
-app.listen(options.port, options.address)
+app.listen(options.port, options.address, xheaders=True)
 ioloop.IOLoop.current().start()

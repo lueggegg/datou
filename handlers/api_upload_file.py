@@ -74,6 +74,10 @@ class ApiUploadFile(ApiNoVerifyHandler):
             path_id = yield self.job_dao.add_file_path(filename=filename, path=net_path)
         if not path_id:
             self.finish_with_error(error_codes.EC_SYS_ERROR, '写入文件路径失败')
+
+        if self.get_argument("yc", ""):
+            yield self.job_dao.yc_new_upload(net_path, 0)
+
         res = {
             'status': error_codes.EC_SUCCESS,
             'path_id': path_id,
