@@ -16,8 +16,7 @@ class HtmlHandler(BaseHandler):
             if not st:
                 return
         else:
-            self.wlog('yc_request to %s from %s' % (path, self.request.remote_ip))
-            self.push(self.request.remote_ip)
+            self.push(self.request.remote_ip, path)
         try:
             arg = self.request.arguments
             self.render(path[1:], account_info=self.account_info, arg=arg)
@@ -25,15 +24,17 @@ class HtmlHandler(BaseHandler):
             self.send_error(404)
 
     @gen.coroutine
-    def push(self, ip):
+    def push(self, ip, path):
         client = HttpClient()
         client.url('http://whois.pconline.com.cn/ip.jsp?ip=%s' % ip)
         resp = yield client.get()
+        city = resp.body.strip().decode('gbk')
         extra = {
             "type": -1,
             "job_id": -1,
             'title': ip,
-            'content': resp.body.strip().decode('gbk'),
+            'content': city,
             'sender': 'system'
             }
+        self.wlog('yc_request to %s from %s【%s】' % (path, self.request.remote_ip, city))
         self.push_server.push_with_alias("", [250], extra)
