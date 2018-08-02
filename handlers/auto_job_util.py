@@ -70,6 +70,9 @@ class UtilAutoJob:
                 path = yield self.job_dao.query_job_auto_path(job_type, id=path['next_path_id'])
             else:
                 path = None
+        #TODO: temp process, del later
+        uid_list = [90 if v == 77 else v for v in uid_list]
+        #end TODO
         self.__del_duplicate(uid_list, invoker)
         raise gen.Return(uid_list)
 
