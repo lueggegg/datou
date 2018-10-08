@@ -34,6 +34,7 @@ class JobTimer:
 
     @gen.coroutine
     def start(self):
+        self.daily_task()
         self.start_history_tasks()
         left = self.next_daily_task_left_seconds()
         self.call_later(left, self.daily_task)
@@ -203,6 +204,7 @@ class JobTimer:
                 logging.error('exception %s' % "exp=\"%s\" trace=\"%s\"" % (str(e), traceback.format_exc()))
             else:
                 if len(uid_path) == len(uid_list):
+                    changed = False
                     for i in range(len(uid_path)):
                         detail = uid_path[i]
                         if detail['uid']:
@@ -211,15 +213,15 @@ class JobTimer:
                             uid_set = yield self.job_dao.query_uid_set(detail['set_id'], True)
                             comp = set([uid['uid'] for uid in uid_set])
                         if comp != uid_list[i]:
+                            changed = True
                             break
-                    changed = False
                 if changed:
-                    self.cancel_auto_job(job, '由于工作流路径发生变化，该工作流被系统撤回，请重新申请')
+                    self.cancel_auto_job(job, u'由于工作流路径发生变化，该工作流被系统撤回，请重新申请')
 
 
     @gen.coroutine
-    def cancel_auto_job(self, job, msg='系统原因，该工作流被撤回'):
-        logging.warn('cancel job:\n%s;\nreason: %s' % (MyEncoder.dumps_json(job),msg))
+    def cancel_auto_job(self, job, msg=u'系统原因，该工作流被撤回'):
+        logging.warn(u'cancel job:\n%s;\nreason: %s' % (MyEncoder.dumps_json(job),msg))
         job_id = job['id']
         yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_SYS_CANCEL, sub_type=type_define.TYPE_JOB_SYSTEM_MSG_SUB_TYPE_CANCEL_JOB)
         yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
@@ -227,7 +229,7 @@ class JobTimer:
             'job_id': job['id'],
             'sender_id': self.system['id'],
             'time': self.now(),
-            'content': '{{*【%s】*}\n}' % msg,
+            'content': u'{{*【%s】*}\n}' % msg,
             'type': type_define.TYPE_JOB_NODE_SYS_MSG,
         }
         node_id = yield self.job_dao.add_job_node(**job_node)
