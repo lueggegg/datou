@@ -34,7 +34,6 @@ class JobTimer:
 
     @gen.coroutine
     def start(self):
-        self.daily_task()
         self.start_history_tasks()
         left = self.next_daily_task_left_seconds()
         self.call_later(left, self.daily_task)
