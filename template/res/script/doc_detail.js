@@ -605,7 +605,7 @@ function replyDoc() {
     var content = $("#doc_content").val();
     if (custom_content && !has_img_attachment && !has_attachment && !add_new_member) {
         var filter = ['已阅', '收到'];
-        if ($.inArray(content, filter)) {
+        if ($.inArray(content, filter) !== -1) {
             state_quick_reply = true;
         }
     }
