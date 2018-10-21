@@ -14,6 +14,7 @@ class ApiSendOfficialDoc(ApiHandler):
         time = self.now()
         op = self.get_argument_and_check_it('op')
         job_type = self.get_argument('type', type_define.TYPE_JOB_OFFICIAL_DOC)
+        quick_reply = False
         if op == 'add':
             job_record = {
                 'type': job_type,
@@ -32,6 +33,7 @@ class ApiSendOfficialDoc(ApiHandler):
             job_id = self.get_argument_and_check_it('job_id')
             job_record = yield self.job_dao.query_job_base_info(job_id)
             self.check_result_and_finish_while_failed(job_record, '工作流不存在')
+            quick_reply = self.get_argument('quick_reply', False)
         else:
             self.finish_with_error(error_codes.EC_ARGUMENT_ERROR, '参数错误')
             return
@@ -114,7 +116,7 @@ class ApiSendOfficialDoc(ApiHandler):
             if job_record['sub_type'] == type_define.TYPE_JOB_SUB_TYPE_BRANCH:
                 for uid in rec_set:
                     yield self.job_dao.update_job_mark(job_id, uid, type_define.STATUS_JOB_MARK_WAITING, uid)
-            else:
+            elif not quick_reply:
                 push_alias = []
                 for uid in rec_set:
                     yield self.job_dao.update_job_mark(job_id, uid, type_define.STATUS_JOB_MARK_WAITING)

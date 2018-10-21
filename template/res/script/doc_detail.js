@@ -26,6 +26,12 @@ var active_branch_tag;
 
 var rec_selectable_controller;
 
+var custom_content = false;
+var add_new_member = false;
+var has_attachment = false;
+var has_img_attachment = false;
+var state_quick_reply = true;
+
 $(document).ready(function (event) {
 
     if (!isAuthorized(OPERATION_MASK_QUERY_REPORT)) {
@@ -43,9 +49,21 @@ $(document).ready(function (event) {
 
     select_doc_rec_dlg = $("#select_rec_dlg");
 
+    var reply_input = $("#doc_content");
+    reply_input.val('');
+    reply_input.on('input', function () {
+        custom_content = !!$.trim(reply_input.val());
+        setSendButtonState();
+    });
+
     initConfirmDialog();
     current_branch = __branch_id;
 });
+
+function setSendButtonState() {
+    state_quick_reply = !(custom_content || has_attachment || add_new_member || has_img_attachment);
+    $("#doc_send_btn").text(state_quick_reply? '已阅' : '回复');
+}
 
 function checkAuthority() {
     commonPost('/api/query_job_info', {type: 'authority', job_id: __job_id, branch_id: __branch_id}, function (data) {
@@ -100,10 +118,19 @@ function initCommonProcessContainer() {
     $("#add_rec_btn").click(function (event) {
         openSelectRecDlg();
     });
-    attachment_controller = initAttachmentController($("#attachment_container"));
+    attachment_controller = initAttachmentController($("#attachment_container"), {
+        change: function () {
+            has_attachment = !!attachment_controller.get_upload_files();
+            setSendButtonState();
+        }
+    });
     img_attachment_controller = initAttachmentController($("#img_attachment_container"), {
         type: TYPE_JOB_ATTACHMENT_IMG,
-        label: '添加图片'
+        label: '添加图片',
+        change: function () {
+            has_img_attachment = !!img_attachment_controller.get_upload_files();
+            setSendButtonState();
+        }
     });
 
     $("#doc_send_btn").click(function (event) {
@@ -395,11 +422,18 @@ function onSelectedMultiRec() {
     });
     container.append(list_data);
     select_doc_rec_dlg.dialog('close');
+    onRecChange();
 }
 
 function delRecFromMulti(uid) {
     $("#rec_list [value='" + uid + "']").remove();
     rec_selectable_controller.remove_item(uid);
+    onRecChange();
+}
+
+function onRecChange() {
+    add_new_member = rec_selectable_controller.get_result().size > 0;
+    setSendButtonState();
 }
 
 function initBranchDoc() {
@@ -569,6 +603,18 @@ function replyDoc() {
     }
 
     var content = $("#doc_content").val();
+    if (custom_content && !has_img_attachment && !has_attachment && !add_new_member) {
+        var filter = ['已阅', '收到'];
+        if ($.inArray(content, filter)) {
+            state_quick_reply = true;
+        }
+    }
+    if (state_quick_reply) {
+        param['quick_reply'] = 1;
+        if (!custom_content) {
+            content = '已阅';
+        }
+    }
     param['content'] = wrapJobContent(content);
 
     var attachment = attachment_controller.get_upload_files();

@@ -24,7 +24,8 @@ function initAttachmentController(container, param) {
     var default_param = {
         ul_class: 'attachment_list',
         type: TYPE_JOB_ATTACHMENT_NORMAL,
-        label: '上传附件'
+        label: '上传附件',
+        change: null
     };
     compareParam(default_param, param);
 
@@ -34,6 +35,11 @@ function initAttachmentController(container, param) {
         id: controller_id,
         type: default_param.type,
         outer: "#" + outer_id,
+        on_change: function () {
+            if (default_param.change) {
+                default_param.change();
+            }
+        },
         change: function() {
             var file_selector = $(this.outer + " input");
             var files = file_selector[0].files;
@@ -60,6 +66,7 @@ function initAttachmentController(container, param) {
         del_item: function(item_value) {
             this.get_item(item_value).remove();
             this.files[item_value] = null;
+            this.on_change();
         },
         on_upload_success: function (fid, path_id, path) {
             if (this.files[fid]) {
@@ -73,6 +80,7 @@ function initAttachmentController(container, param) {
                 } else {
                     item.html("<a target='_blank' href='" + path + "'>" + html + "</a>");
                 }
+                this.on_change();
             }
         },
         on_upload_failed: function (fid) {
