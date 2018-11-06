@@ -84,6 +84,7 @@ class ConfigDAO(BaseDAO):
         sql = "SELECT * FROM %s" % self.rule_detail_tab
         if type_id:
             sql += " WHERE type_id=%s" % type_id
+        sql += ' ORDER BY title'
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 

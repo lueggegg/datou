@@ -52,9 +52,11 @@
             data.forEach(function (p1, p2, p3) {
                 html += '<div class="rule_item_container">';
                 html += '<div class="rule_title">' + (p2+1) + '. ' + p1.title + '</div>';
-                var detail = abstractJobContent(p1.detail);
-                if (detail) {
-                    html += '<div class="rule_detail">' + html2Text(detail) +'</div>';
+                if (p1.detail) {
+                    var detail = abstractJobContent(p1.detail);
+                    if (detail) {
+                        html += '<div class="rule_detail">' + html2Text(detail) +'</div>';
+                    }
                 }
                 if (p1.attachment_title) {
                     html += '<div class="rule_detail" style="margin-top: 5px">';
