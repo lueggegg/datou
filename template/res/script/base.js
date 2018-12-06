@@ -93,6 +93,36 @@ function compareParam(default_param, param) {
         }
     }
 }
+
+/*
+param.format = [
+    {
+        key: #string
+        formatter: #function
+    }
+]
+ */
+function displayListViewWithObjList(container, obj_list, param) {
+    var data = [];
+    if (!param.without_title && param.title) {
+        data.push(param.title);
+    }
+    obj_list.forEach(function (obj, row) {
+        var row_data = [];
+        param.format.forEach(function (formatter, col) {
+            if (formatter.formatter) {
+                row_data.push(formatter.formatter(obj, row));
+            } else if (formatter.key && obj.hasOwnProperty(formatter.key)) {
+                row_data.push(obj[formatter.key]);
+            } else {
+                row_data.push('')
+            }
+        })
+        data.push(row_data);
+    });
+    updateListView(container, data, param);
+}
+
 function updateListView(container, data, param) {
     if (!(param && param.hasOwnProperty('keep_children'))) {
         removeChildren(container);
@@ -394,7 +424,6 @@ function commonPost(url, param, successCallback, block) {
 }
 
 function html2Text(sHtml) {
-    // sHtml = sHtml.replace(/(<br\/>|<br>)/ig, '\n');
     return sHtml.replace(/[ <>&"\n\r]/g,function(c){
         return {
             ' ': '&nbsp;',
@@ -429,7 +458,9 @@ function abstractJobContent(content) {
 function parseJobContent(content) {
     content = abstractJobContent(content);
     content = html2Text(content);
-    return content.replace(/\{\*(.*?)\*\}/g, "<span>$1</span>");
+    content = content.replace(/\{\*(.*?)\*\}/g, "<span>$1</span>");
+    content = content.replace(/\{\a\((.*?)\)\((.*?)\)\a\}/g, "<a href='$2' target='_blank' style='color: #1E88C7'>$1</a>");
+    return content;
 }
 
 function wrapWithStrength(item) {
