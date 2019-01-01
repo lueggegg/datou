@@ -48,7 +48,8 @@ var TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW = 24;
 var TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY_NEW = 25;
 var TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW = 26;
 var TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW = 27;
-var TYPE_JOB_END = 28;
+var TYPE_JOB_ROLL_BACK_LEAVE = 28;
+var TYPE_JOB_END = 29;
 
 var TYPE_JOB_SUB_TYPE_BRANCH = 1;
 var TYPE_JOB_SUB_TYPE_GROUP = 2;
@@ -165,3 +166,6 @@ var job_sequence_via_leader_judge = 3;
 var job_sequence_hr_leader_judge = 4;
 var job_sequence_main_leader_judge = 5;
 var job_sequence_hr_record = 6;
+var job_sequence_rolling_back = 10;
+var job_sequence_rolled_back = 11;
+var job_sequence_roll_back_rejected = 12;

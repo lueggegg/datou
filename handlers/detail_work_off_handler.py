@@ -40,7 +40,9 @@ class DetailWorkOffHandler(BaseHandler):
         leave_detail = yield self.job_dao.query_new_leave_detail(job_id)
         annual = yield self.get_annual(job_record['invoker'])
         job_type = job_record['type']
+        is_roll = self.is_roll(job_record)
         detail = {
+            'title': '请假' if not is_roll else '销假',
             'job_id': job_id,
             'invoker': '',
             'department': '',
@@ -65,13 +67,20 @@ class DetailWorkOffHandler(BaseHandler):
             'status': '处理中',
             'reply_desc': '同意',
             'reject_desc': '不同意',
+            'mark': None,
         }
         if leave_detail['extend']:
             detail['type'] += '(%s)' % leave_detail['extend']
         if leave_detail['annual_part']:
             annual_part = leave_detail['annual_part'] / 2.0
             off_part = leave_detail['off_part'] / 2.0
-            detail['time'] += '<div style="color:gray;font-size:0.8rem">(备注：系统判定该休假包含年假%s天，事假%s天)</div>' % (annual_part, off_part)
+            if not is_roll:
+                detail['time'] += '<div style="color:gray;font-size:0.8rem">(备注：系统判定该休假包含年假%s天，事假%s天)</div>' % (annual_part, off_part)
+                if job_record['cur_path_id']:
+                    detail['mark'] = '<a href="detail_of_work_off.html?job_id=%s" target="_blank">跳转到销假条</a>' % job_record['cur_path_id']
+            else:
+                detail['time'] += '<div style="color:gray;font-size:0.8rem">(备注：系统判定该销假撤回年假%s天，事假%s天)</div>' % (-annual_part, -off_part)
+                detail['mark'] = '<a href="detail_of_work_off.html?job_id=%s" target="_blank">跳转到休假条</a>' % job_record['cur_path_id']
         seq_field_map = {
             type_define.job_sequence_add: 'reason',
             type_define.job_sequence_pre_judge: 'pre_judgement',
@@ -108,14 +117,20 @@ class DetailWorkOffHandler(BaseHandler):
         myself = invoker == self.account_info['id']
         detail['can_cancel'] = myself and detail['waiting'] and next_sequence != type_define.job_sequence_hr_record
         detail['can_export'] = type_define.STATUS_JOB_COMPLETED == status
-        detail['can_roll_back'] = myself and type_define.STATUS_JOB_COMPLETED == status
+        detail['can_roll_back'] = myself and type_define.STATUS_JOB_COMPLETED == status and not is_roll and not job_record['cur_path_id']
         self.render('detail_of_work_off.html', account_info=self.account_info, detail=detail)
+
+    def is_roll(self, job_record):
+        return job_record['sub_type'] == type_define.TYPE_JOB_ROLL_BACK_LEAVE
 
     def unwrap_content(self, content):
         return content[1:-1]
 
     def get_leave_time_desc(self, leave_detail):
-        return '自%s  至  %s，假期内工作日共%s天' % (leave_detail['begin_time'], leave_detail['end_time'], leave_detail['half_day']/2.0)
+        day = leave_detail['half_day']/2.0
+        if day < 0:
+            day = -day
+        return '自%s  至  %s，假期内工作日共%s天' % (leave_detail['begin_time'], leave_detail['end_time'], day)
 
     @gen.coroutine
     def get_annual(self, uid):
@@ -157,12 +172,13 @@ class DetailWorkOffHandler(BaseHandler):
         invoker = job_record['invoker']
         annual = yield self.get_annual(invoker)
         doc = Document()
-        title = doc.add_paragraph(u'深圳市东部传媒股份有限公司请、休假条')
+        desc = u'请假' if not self.is_roll(job_record) else u'销假'
+        title = doc.add_paragraph(u'深圳市东部传媒股份有限公司%s条' % desc)
         title.runs[0].font.size = Pt(24)
         title.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
         cell_map = {}
-        self.create_table(doc, cell_map)
+        self.create_table(doc, cell_map, desc)
         cell_map['type'].text = leave_detail['leave_type'].decode('utf8')
         cell_map['time'].text = u'\n%s\n' % self.get_leave_time_desc(leave_detail).decode('utf8')
         cell_map['total'].text = u'应休年假%s天' % annual['total']
@@ -192,7 +208,7 @@ class DetailWorkOffHandler(BaseHandler):
         sign.add_run(u'\t\t\t').underline = True
         doc.save(file_path)
 
-    def create_table(self, doc, cell_map):
+    def create_table(self, doc, cell_map, desc):
         table = doc.add_table(rows=0, cols=4)
         table.style = 'TableGrid'
         table.autofit = True
@@ -206,7 +222,7 @@ class DetailWorkOffHandler(BaseHandler):
         cell_map['dept'] = cells[3]
 
         cells = table.add_row().cells
-        self.set_field_cell(cells[0], u'\n请假类别\n')
+        self.set_field_cell(cells[0], u'\n%s类别\n' % desc)
         cell_map['type'] = cells[1]
         cell_map['total'] = cells[2]
         cell_map['used'] = cells[3]
@@ -218,13 +234,13 @@ class DetailWorkOffHandler(BaseHandler):
         cell_map['pre_judge'] = cells[1]
 
         cells = table.add_row().cells
-        self.set_field_cell(cells[0], u'请假事由')
+        self.set_field_cell(cells[0], u'%s事由' % desc)
         cells[1].merge(cells[2])
         cells[1].merge(cells[3])
         cell_map['reason'] = cells[1]
 
         cells = table.add_row().cells
-        self.set_field_cell(cells[0], u'请假时间')
+        self.set_field_cell(cells[0], u'%s时间' % desc)
         cells[1].merge(cells[2])
         cells[1].merge(cells[3])
         cell_map['time'] = cells[1]

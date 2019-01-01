@@ -1,7 +1,9 @@
 {% extends base.html %}
 
-{% block title %}休假详情{% end %}
+{% block title %}{{ detail['title'] }}详情{% end %}
 {% block custom_head %}
+{% module Template("module_date_time_picker.html") %}
+<link rel="stylesheet" href="res/css/job_common.css">
 <link rel="stylesheet" href="{{static_url('../res/css/detail_of_work_off.css')}}">
 {% end %}
 
@@ -21,7 +23,7 @@
     </div>
 
     <div class="table_title">
-        深圳市东部传媒股份有限公司请、休假条
+        深圳市东部传媒股份有限公司{{ detail['title'] }}条
     </div>
     {% set cols=3 %}
     <div>
@@ -33,27 +35,27 @@
                 <td id="department">{{ detail['department'] }}</td>
             </tr>
             <tr>
-                <td class="field">请假类别</td>
+                <td class="field">{{ detail['title'] }}类别</td>
                 <td id="leave_type">{{ detail['type'] }}</td>
                 <td>应享受年休假{{ detail['total_annual'] }}天</td>
                 <td>已休年休假{{ detail['used_annual'] }}天</td>
             </tr>
             <tr>
-                <td class="field">人事部初核意见</td>
-                <td colspan="{{ cols }}">
-                    {% raw detail['pre_judgement'] %}
-                </td>
-            </tr>
-            <tr>
-                <td class="field">请假事由</td>
+                <td class="field">{{ detail['title'] }}事由</td>
                 <td colspan="{{ cols }}">
                     {% raw detail['reason'] %}
                 </td>
             </tr>
             <tr>
-                <td class="field">请假时间</td>
+                <td class="field">{{ detail['title'] }}时间</td>
                 <td colspan="{{ cols }}">
                     {% raw detail['time'] %}
+                </td>
+            </tr>
+            <tr>
+                <td class="field">人事部初核意见</td>
+                <td colspan="{{ cols }}">
+                    {% raw detail['pre_judgement'] %}
                 </td>
             </tr>
             <tr>
@@ -88,6 +90,14 @@
                     {% end %}
                 </td>
             </tr>
+            {% if detail['mark'] %}
+            <tr>
+                <td class="field">备注</td>
+                <td colspan="{{ cols }}">
+                    {% raw detail['mark'] %}
+                </td>
+            </tr>
+            {% end %}
 
         </table>
     </div>
@@ -104,8 +114,50 @@
     </div>
 </div>
 
+<div id="roll_back_dlg" title="销假申请">
+    <div style="display: inline-block">
+        <div class="element_left">
+        <div>
+            开始时间：
+            <input type="text" id="begin_time" class="job_process_content_date_picker">
+            <select id="begin_time_part">
+                <option value="0" selected>上午</option>
+                <option value="1">下午</option>
+            </select>
+        </div>
+        <div>
+            结束时间：
+            <input type="text" id="end_time" class="job_process_content_date_picker">
+            <select id="end_time_part">
+                <option value="0" selected>上午</option>
+                <option value="1">下午</option>
+            </select>
+        </div>
+    </div>
+        <div class="element_left" style="margin-left: 80px">
+            <div>
+                销假天数：<input type="text" id="leave_days" value="0">
+            </div>
+        </div>
+    </div>
+    <div>
+        销假原因：
+        <div>
+            <textarea id="reason" class="common_text_area"></textarea>
+        </div>
+    </div>
+
+</div>
+
 <script>
     var job_id = {{ detail['job_id'] }};
+
+    var roll_back_dlg = $("#roll_back_dlg");
+    commonInitDialog(roll_back_dlg, roll_back, {width: 720});
+    initDatePicker($("#begin_time"));
+    initDatePicker($("#end_time"));
+    commonInitLeftSpinner( $("#leave_days") );
+
     initConfirmDialog();
 
     $("#doc_send_btn").click(function (event) {
@@ -122,7 +174,7 @@
         export_doc();
     });
     $("#roll_back_btn").click(function (event) {
-        roll_back();
+        roll_back_dlg.dialog('open');
     });
 
     function reply() {
@@ -173,7 +225,54 @@
     }
 
     function roll_back() {
-        commonPost('/api/work_off', {op: 'roll', job_id: job_id}, function (data) {
+
+        var begin_time = $("#begin_time").val();
+        if (!begin_time) {
+            promptMsg('请选择开始时间');
+            return''
+        }
+        var begin_time_part = $("#begin_time_part").val();
+
+        var end_time = $("#end_time").val();
+        if (!end_time) {
+            promptMsg('请选择结束时间');
+            return''
+        }
+        var end_time_part = $("#end_time_part").val();
+
+        if (begin_time > end_time || (begin_time === end_time && begin_time_part > end_time_part)) {
+            promptMsg('结束时间应该晚于开始时间');
+            return;
+        }
+        var time_part = {
+            0: '上午',
+            1: '下午'
+        };
+        begin_time += ' ' +  time_part[begin_time_part];
+        end_time += ' ' + time_part[end_time_part];
+        var half_days = getHalfDaysFromSpinner($("#leave_days"));
+        if (half_days <= 0) {
+            promptMsg("请选择销假时长");
+            return;
+        }
+        var reason = $("#reason").val();
+        if (!reason) {
+            promptMsg('请填写销假原因');
+            return
+        }
+
+        roll_back_dlg.dialog('close');
+        var param = {
+            op: 'roll',
+            job_id: job_id,
+            content: wrapJobContent(reason),
+            begin_time: begin_time,
+            end_time: end_time,
+            half_day: half_days
+        };
+        commonPost('/api/work_off', param, function (data) {
+            refresh();
+            window.open('detail_of_work_off.html?job_id=' + data);
 
         });
     }
