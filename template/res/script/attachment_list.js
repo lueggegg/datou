@@ -2,7 +2,7 @@ var __next_controller_id = 1;
 var __controller_map = {};
 var __next_fid = 1;
 var __file_map = {};
-var __max_upload_file_size = 20 * 1024 * 1024;
+var __max_upload_file_size = 64 * 1024 * 1024;
 
 function getNextControllerId() {
     var ret = __next_controller_id;
