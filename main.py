@@ -71,6 +71,7 @@ app = tornado.web.Application([
     (r'/admin', handlers.AdminOperation),
     (r'/login.html', handlers.LoginHandler),
     (r'/logout.html', handlers.LogoutHandler),
+    (r'/detail_work_off.html', handlers.DetailWorkOffHandler),
     (r'/api/update_account_info', handlers.ApiUpdateAccountInfo),
     (r'/api/update_password_protect_question', handlers.ApiUpdatePasswordPretectQuestion),
     (r'/api/get_password_protect_question', handlers.ApiGetPasswordProtectQuestion),

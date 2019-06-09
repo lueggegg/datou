@@ -7,6 +7,7 @@ from html_handler import HtmlHandler
 from index_handler import IndexHandler
 from personal_handler import PersonalHandler
 from employee_manage_handler import EmployeeManageHandler
+from detail_work_off_handler import DetailWorkOffHandler
 
 from api_update_account_info import ApiUpdateAccountInfo
 from api_update_password_protect_question import ApiUpdatePasswordPretectQuestion

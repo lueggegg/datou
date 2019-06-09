@@ -1,0 +1,82 @@
+{% extends base.html %}
+
+{% block title %}员工信息登记表{% end %}
+{% block custom_head %}
+<link rel="stylesheet" href="res/css/detail_of_work_off.css">
+{% module Template("module_date_time_picker.html") %}
+{% end %}
+
+{% block custom_body %}
+<div class="table_container">
+    <div class="table_title">
+        深圳市东部传媒股份有限公司请、休假条
+    </div>
+    <div>
+        <table cellspacing="0">
+            <tr>
+                <td>姓名</td>
+                <td id="applicant">{{ detail['applicant'] }}</td>
+                <td>部门</td>
+                <td id="department">{{ detail['department'] }}</td>
+            </tr>
+            <tr>
+                <td>请假类别</td>
+                <td id="leave_type">{{ detail['type'] }}</td>
+                <td>应享受年休假{{ detail['total_annual'] }}天</td>
+                <td>已休年休假{{ detail['used_annual'] }}天</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>人事部初核意见</td>
+                <td>{{ detail['pre_judgement'] }}</td>
+            </tr>
+            <tr>
+                <td>请假事由</td>
+                <td>{{ detail['reason'] }}</td>
+            </tr>
+            <tr>
+                <td>请假时间</td>
+                <td>
+                    {{ detail['time'] }}
+                </td>
+            </tr>
+            <tr>
+                <td>部门负责人意见</td>
+                <td>
+                    {{ detail['department_leader_judgement'] }}
+                </td>
+            </tr>
+            <tr>
+                <td>分管领导意见</td>
+                <td>
+                    {{ detail['via_leader_judgement'] }}
+                </td>
+            </tr>
+            <tr>
+                <td>分管人事领导意见</td>
+                <td>
+                    {{ detail['hr_leader_judgement'] }}
+                </td>
+            </tr>
+            <tr>
+                <td>主要负责人意见</td>
+                <td>
+                    {{ detail['main_leader_judgement'] }}
+                </td>
+            </tr>
+            <tr>
+                <td>人事部备案情况</td>
+                <td>
+                    {{ detail['hr_department_record'] }}
+                </td>s
+            </tr>
+        </table>
+    </div>
+    <div>
+        <div>附件</div>
+        {% for attachment in detail['attachment'] %}
+        <div><a href="{{ attachment['path'] }}">{{ attachment['name'] }}</a></div>
+        {% end %}
+    </div>
+</div>
+{% end %}}
