@@ -138,7 +138,7 @@ class ApiWorkOffHandler(JobHandler):
                 job_type = job_record['type']
                 next_sequence = job_sequence_map[job_type][cur_sequence]
                 if next_sequence in [type_define.job_sequence_hr_record, type_define.job_sequence_pre_judge]:
-                    uids = yield self.account_dao.query_account_list(dept_id=43, field_type=type_define.TYPE_ACCOUNT_JUST_ID)
+                    uids = yield self.account_dao.query_account_list(dept_id=22, field_type=type_define.TYPE_ACCOUNT_JUST_ID)
                     for uid in uids:
                         yield self.job_dao.update_job_mark(job_id, uid['id'], type_define.STATUS_JOB_MARK_WAITING)
                 elif next_sequence == type_define.job_sequence_leader_judge:
