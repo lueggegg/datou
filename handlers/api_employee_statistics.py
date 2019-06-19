@@ -37,6 +37,7 @@ class ApiEmployeeStatistics(ApiHandler):
 
     def generate_detail_info_table(self, account_list):
         fields = [
+            ['账号', 'account', 0],
             ['姓名', 'name', 0],
             ['性别', 'sex', 1],
             ['籍贯', 'descent', 1],
@@ -58,8 +59,8 @@ class ApiEmployeeStatistics(ApiHandler):
             ['部门', 'dept', 0],
             ['编制类型', 'authorized_strength', 1],
         ]
-        data = [field[0] for field in fields]
-        data.insert(0, '序号')
+        data = [field[0].decode('utf8') for field in fields]
+        data.insert(0, u'序号')
         data = [data]
         index = 0
         for account in account_list:
@@ -72,7 +73,7 @@ class ApiEmployeeStatistics(ApiHandler):
                 #     element = element.strftime('%Y年%m月%d日')
                 if field[1] == 'id_card':
                     element = 'ID_' + element
-                line.append(element if element else '')
+                line.append(element.decode('utf8') if element else u'')
             data.append(line)
         path = self.generate_excel_file(data, 'employee_detail')
         return path
