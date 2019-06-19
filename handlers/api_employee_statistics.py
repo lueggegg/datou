@@ -59,8 +59,8 @@ class ApiEmployeeStatistics(ApiHandler):
             ['部门', 'dept', 0],
             ['编制类型', 'authorized_strength', 1],
         ]
-        data = [field[0].decode('utf8') for field in fields]
-        data.insert(0, u'序号')
+        data = [field[0] for field in fields]
+        data.insert(0, '序号')
         data = [data]
         index = 0
         for account in account_list:
@@ -73,7 +73,7 @@ class ApiEmployeeStatistics(ApiHandler):
                 #     element = element.strftime('%Y年%m月%d日')
                 if field[1] == 'id_card':
                     element = 'ID_' + element
-                line.append(u'%s' % element if element else u'')
+                line.append(element if element else '')
             data.append(line)
         path = self.generate_excel_file(data, 'employee_detail')
         return path
