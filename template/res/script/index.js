@@ -248,12 +248,13 @@ function getJobUrl(job_type, job_id, branch_id, notify) {
         case TYPE_JOB_OFFICIAL_DOC:
         case TYPE_JOB_DOC_REPORT:
             url =  'doc_detail.html?job_id=' + job_id;
-            if (branch_id) {
-                url += '&branch_id=' + branch_id;
-            }
             break;
         default:
-            url = 'auto_job_detail.html?job_id=' + job_id + "&title=" + encodeURI(job_type_map[job_type]);
+            if (isNewLeaveJob(job_type)) {
+                url = 'detail_of_work_off.html?job_id=' + job_id;
+            } else {
+                url = 'auto_job_detail.html?job_id=' + job_id + "&title=" + encodeURI(job_type_map[job_type]);
+            }
             break;
     }
     if (notify) {

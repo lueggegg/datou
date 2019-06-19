@@ -7,11 +7,36 @@ import datetime
 class ApiLeaveStatistics(ApiHandler):
 
     @gen.coroutine
+    def process_leave_sum(self):
+        fields = ['dept_id', 'min_begin_time', 'max_begin_time']
+        kwargs = {}
+        self.travel_argument(kwargs, fields)
+        leave_types = ['事假', '病假', '婚假', '丧假', '产假', '陪产假', '因公', '其他']
+        title = ['序号', '部门', '姓名', '应休年假', '已休年假', '剩余年假']
+        title.extend(leave_types)
+        data = [title]
+        annual_list = yield self.job_dao.query_annual_leave_list()
+        annual_map = {}
+        for index, annual in enumerate(annual_list):
+            annual_map[annual['uid']] = annual
+            row = [index+1, annual['dept'], annual['name'], annual['total'], annual['used'], annual['total']-annual['used']]
+            for key in leave_types:
+                row.append(0)
+            data.append(row)
+        path = self.generate_excel_file(data, 'leave_sum_statistics')
+        self.write_data(path)
+
+
+    @gen.coroutine
     def _real_deal_request(self):
+        if self.get_argument('sum', None):
+            yield self.process_leave_sum()
+            return
+
         fields = ['dept_id', 'leave_type', 'min_begin_time', 'max_begin_time']
         kwargs = {}
         self.travel_argument(kwargs, fields)
-        ret = yield self.job_dao.query_leave_detail_list(**kwargs)
+        ret = yield self.job_dao.query_new_leave_detail_list(**kwargs)
         if not ret:
             self.finish_with_error(3, '没有数据')
         title = ['序号', '部门', '姓名', '请假类型', '请假日期', '天数（工作日）', '备注']
@@ -31,7 +56,7 @@ class ApiLeaveStatistics(ApiHandler):
             else:
                 line.append('%.1f天' % (0.5*item['half_day'], ))
             data.append(line)
-        path = self.generate_excel_file(data, 'leave_statistics')
+        path = self.generate_excel_file(data, 'leave_detail_statistics')
         self.write_data(path)
 
 

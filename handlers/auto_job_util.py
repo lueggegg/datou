@@ -13,12 +13,10 @@ class UtilAutoJob:
     @staticmethod
     def get_auto_job_type_list():
         return [
-            type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY,
-            type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY,
-            type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY,
-            type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY,
-            type_define.TYPE_JOB_LEAVE_FOR_BORN_LEADER,
-            type_define.TYPE_JOB_LEAVE_FOR_BORN_NORMAL,
+            type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW,
+            type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY_NEW,
+            type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW,
+            type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW,
             type_define.TYPE_JOB_HR_RESIGN,
             type_define.TYPE_JOB_FINANCIAL_PURCHASE,
         ]

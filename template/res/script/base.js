@@ -514,6 +514,10 @@ job_type_map[TYPE_JOB_FINANCIAL_REIMBURSEMENT] = '报销流程';
 job_type_map[TYPE_JOB_DOC_REPORT] = '呈报表';
 job_type_map[TYPE_JOB_APPLY_RESET_PSD] = '重置密码';
 job_type_map[TYPE_JOB_SYSTEM_MSG] = '系统消息';
+job_type_map[TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW] = '中层请假';
+job_type_map[TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY_NEW] = '中层请假';
+job_type_map[TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW] = '员工请假';
+job_type_map[TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW] = '员工请假';
 
 
 var employee_status_map = {};
@@ -521,3 +525,8 @@ employee_status_map[STATUS_EMPLOYEE_INVALID] = '删除';
 employee_status_map[STATUS_EMPLOYEE_NORMAL] = '在职';
 employee_status_map[STATUS_EMPLOYEE_RETIRE] = '退休';
 employee_status_map[STATUS_EMPLOYEE_RESIGN] = '离职';
+
+function isNewLeaveJob(type) {
+    return type >= TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW && type <= TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW;
+}
+

@@ -19,7 +19,25 @@ class HtmlHandler(BaseHandler):
             self.push(self.request.remote_ip, path)
         try:
             arg = self.request.arguments
-            self.render(path[1:], account_info=self.account_info, arg=arg)
+            extend = {}
+            target = path[1:]
+            if target == 'ask_for_leave.html':
+                annual = yield self.job_dao.query_user_annual_leave(self.account_info['id'])
+                if annual:
+                    extend = {
+                        'total': annual['total'] / 2.0,
+                        'used': annual['used'] / 2.0,
+                        'undetermined': annual['undetermined'] / 2.0,
+                    }
+                    extend['rest'] = extend['total'] - extend['used'] - extend['undetermined']
+                else:
+                    extend = {
+                        'total': 0,
+                        'used': 0,
+                        'rest': 0,
+                        'undetermined': 0,
+                    }
+            self.render(target, account_info=self.account_info, arg=arg, extend=extend)
         except IOError:
             self.send_error(404)
 

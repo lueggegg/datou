@@ -5,6 +5,12 @@
 {% module Template("module_date_time_picker.html") %}
 <script type="text/javascript" src="{{static_url('../res/script/attachment_list.js')}}"></script>
 <link rel="stylesheet" href="res/css/list.css">
+<style>
+    .annual {
+        padding-right: 1rem;
+        color: blue;
+    }
+</style>
 {% end %}
 {% block certificate_title %}请假流程{% end %}
 
@@ -12,10 +18,20 @@
 <div style="display: inline-block">
     <div class="element_left">
         <div>
-            开始时间：<input type="text" id="begin_time" class="job_process_content_date_picker">
+            开始时间：
+            <input type="text" id="begin_time" class="job_process_content_date_picker">
+            <select id="begin_time_part">
+                <option value="0" selected>上午</option>
+                <option value="1">下午</option>
+            </select>
         </div>
         <div>
-            结束时间：<input type="text" id="end_time" class="job_process_content_date_picker">
+            结束时间：
+            <input type="text" id="end_time" class="job_process_content_date_picker">
+            <select id="end_time_part">
+                <option value="0" selected>上午</option>
+                <option value="1">下午</option>
+            </select>
         </div>
     </div>
     <div class="element_left" style="margin-left: 80px">
@@ -30,10 +46,22 @@
         <option selected value="病假">病假</option>
         <option value="事假">事假</option>
         <option value="年假">年假</option>
-        <option value="调休">调休</option>
         <option value="婚假">婚假</option>
         <option value="丧假">丧假</option>
+        <option value="产假">产假</option>
+        <option value="陪产假">陪产假</option>
+        <option value="因公">因公</option>
+        <option value="其他">其他</option>
     </select>
+</div>
+<div>
+    其他类型：<input type="text" id="other_type" class="common_editor">
+</div>
+<div>
+    应休年假: <span class="annual">{{ extend['total'] }}天</span>
+    已休年假: <span class="annual">{{ extend['used'] }}天</span>
+    待审年假: <span class="annual">{{ extend['undetermined'] }}天</span>
+    剩余可用年假: <span class="annual">{{ extend['rest'] }}天</span>
 </div>
 <div>
     请假原因：
@@ -53,11 +81,15 @@
     var leave_step = 0.5;
 
     $(function () {
-        initDatePicker($("#begin_time"), {timepicker: true, format: 'Y-m-d H:i:00'});
-        initDatePicker($("#end_time"), {timepicker: true, format: 'Y-m-d H:i:00'});
+        initDatePicker($("#begin_time"));
+        initDatePicker($("#end_time"));
 
         selectMenu($("#leave_type"));
         commonInitLeftSpinner( $("#leave_days") );
+
+        $("#job_memo_container").append("<br>**请假时间不包含结束时间指定的时间点，例如开始时间为2月1号上午，结束时间为2月2号上午，则表示2月2号上午正常上班，请假时长为1天");
+        $("#job_memo_container").append("<br>**病假需要上传相关证明");
+        $("#job_memo_container").append("<br>**因公或其他，需要填写其他类型");
     });
 
     function getParam(check) {
@@ -68,18 +100,26 @@
             promptMsg('请选择开始时间');
             return''
         }
+        var begin_time_part = $("#begin_time_part").val();
+
         var end_time = $("#end_time").val();
         if (!end_time) {
             promptMsg('请选择结束时间');
             return''
         }
-        var begin = new Date(begin_time);
-        var end = new Date(end_time);
-        var ms = end.getTime() - begin.getTime();
-        if (ms < 0) {
+        var end_time_part = $("#end_time_part").val();
+
+        if (begin_time > end_time || (begin_time === end_time && begin_time_part >= end_time_part)) {
             promptMsg('结束时间应该晚于开始时间');
             return;
         }
+        var time_part = {
+            0: '上午',
+            1: '下午'
+        };
+        begin_time += ' ' +  time_part[begin_time_part];
+        end_time += ' ' + time_part[end_time_part];
+
         var job_type = null;
         var half_days = getHalfDaysFromSpinner($("#leave_days"));
         if (half_days <= 0) {
@@ -90,15 +130,15 @@
         var beyond_ond_day = half_days > 2;
         if (beyond_ond_day) {
             if (position_type === TYPE_POSITION_NORMAL) {
-                job_type = TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY;
+                job_type = TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW;
             } else {
-                job_type = TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY;
+                job_type = TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW;
             }
         } else {
             if (position_type === TYPE_POSITION_NORMAL) {
-                job_type = TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY;
+                job_type = TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW;
             } else {
-                job_type = TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY;
+                job_type = TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY_NEW;
             }
         }
 
@@ -109,30 +149,45 @@
             promptMsg('请填写请假原因');
             return
         }
-
-        var content =  "开始时间：" + wrapWithStrength(begin_time) + "\n";
-        content += "结束时间：" + wrapWithStrength(end_time) + "\n";
-        content += "请假天数：" + wrapWithStrength(leave_days) + '天\n';
-        content += "请假类型：" + wrapWithStrength(type) + "\n";
-        content += "请假原因：\n";
-        content += getDoubleSpace(2) + reason + "\n";
-
-
         var param = {
             op: 'add',
             job_type: job_type,
             title: '请假流程',
-            content: wrapJobContent(content),
+            content: wrapJobContent(reason),
             begin_time: begin_time,
             end_time: end_time,
             leave_type: type,
-            half_day: half_days
+            half_day: half_days,
+            url: '/api/work_off'
         };
+
+        if (type === '因公' || type === '其他') {
+            var other_type = $("#other_type").val();
+            if (!other_type) {
+                promptMsg('需要填写其他类型');
+                return;
+            }
+            param['other_type'] = other_type;
+        }
 
         var attachment = attachment_controller.get_upload_files();
         if (attachment) {
             param['has_attachment'] = 1;
             param['file_list'] = JSON.stringify(attachment);
+        }
+        if (type === '病假' && !attachment) {
+            promptMsg('病假需要上传病历等相关证明');
+            return;
+        }
+
+        var rest_annual = parseInt({{ extend['rest'] }} * 2);
+        var total_annual = parseInt({{ extend['total']}} * 2);
+        if (type === '年假' || type === '事假') {
+            if (half_days > rest_annual) {
+                param['confirm'] = '剩余年假不足，不足天数记为事假，是否继续申请？';
+            }
+            param['rest'] = rest_annual;
+            param['total'] = total_annual;
         }
         return param;
     }

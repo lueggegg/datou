@@ -37,10 +37,10 @@ class ApiQueryJobList(ApiHandler):
                 kwargs['type_list'] = UtilAutoJob.get_auto_job_type_list()
             elif job_type == type_define.TYPE_JOB_HR_ASK_FOR_LEAVE:
                 kwargs['type_list'] = [
-                    type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY,
-                    type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY,
-                    type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY,
-                    type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY,
+                    type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW,
+                    type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY_NEW,
+                    type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW,
+                    type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW,
                 ]
                 job_type = None
             elif job_type == type_define.TYPE_JOB_HR_LEAVE_FOR_BORN:

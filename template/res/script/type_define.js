@@ -44,7 +44,11 @@ var TYPE_JOB_APPLY_RESET_PSD = 20;
 var TYPE_JOB_CUSTOM_NEW = 21;
 var TYPE_JOB_SYSTEM_MSG = 22;
 var TYPE_JOB_DYNAMIC = 23;
-var TYPE_JOB_END = 24;
+var TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW = 24;
+var TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY_NEW = 25;
+var TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW = 26;
+var TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW = 27;
+var TYPE_JOB_END = 28;
 
 var TYPE_JOB_SUB_TYPE_BRANCH = 1;
 var TYPE_JOB_SUB_TYPE_GROUP = 2;
@@ -154,3 +158,10 @@ var OPERATION_MASK_QUERY_REPORT = 512;
 var OPERATION_MASK_COMMENT_LEAVE = 1024;
 var OPERATION_MASK_LEAVE_LIST_PROMPT = 2048;
 
+var job_sequence_add = 0;
+var job_sequence_pre_judge = 1;
+var job_sequence_leader_judge = 2;
+var job_sequence_via_leader_judge = 3;
+var job_sequence_hr_leader_judge = 4;
+var job_sequence_main_leader_judge = 5;
+var job_sequence_hr_record = 6;

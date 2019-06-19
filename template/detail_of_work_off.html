@@ -1,82 +1,201 @@
 {% extends base.html %}
 
-{% block title %}员工信息登记表{% end %}
+{% block title %}休假详情{% end %}
 {% block custom_head %}
-<link rel="stylesheet" href="res/css/detail_of_work_off.css">
-{% module Template("module_date_time_picker.html") %}
+<link rel="stylesheet" href="{{static_url('../res/css/detail_of_work_off.css')}}">
 {% end %}
 
 {% block custom_body %}
+
 <div class="table_container">
+    <div style="height: 2rem; padding-bottom: 0.2rem">
+        <div class="job_status element_left"><span style="color: black">工作流状态：</span>{% raw detail['status'] %}</div>
+        <div class="doc_detail_anchor common_border element_right">
+            <ul id="doc_node_list_anchor">
+                <li id="cancel_btn" class="common_clickable" {% if not detail['can_cancel'] %}hidden{% end %}>撤回</li>
+                <li id="roll_back_btn" class="common_clickable" {% if not detail['can_export'] %}hidden{% end %}>销假</li>
+                <li id="export_btn" class="common_clickable" {% if not detail['can_export'] %}hidden{% end %}>导出</li>
+                <li id="delete_btn" onclick="deleteJob()" class="common_clickable" {% if not detail['can_del'] %}hidden{% end %}>删除</li>
+            </ul>
+        </div>
+    </div>
+
     <div class="table_title">
         深圳市东部传媒股份有限公司请、休假条
     </div>
+    {% set cols=3 %}
     <div>
         <table cellspacing="0">
             <tr>
-                <td>姓名</td>
-                <td id="applicant">{{ detail['applicant'] }}</td>
-                <td>部门</td>
+                <td class="field">姓名</td>
+                <td id="applicant">{{ detail['invoker'] }}</td>
+                <td class="field">部门</td>
                 <td id="department">{{ detail['department'] }}</td>
             </tr>
             <tr>
-                <td>请假类别</td>
+                <td class="field">请假类别</td>
                 <td id="leave_type">{{ detail['type'] }}</td>
                 <td>应享受年休假{{ detail['total_annual'] }}天</td>
                 <td>已休年休假{{ detail['used_annual'] }}天</td>
             </tr>
             <tr>
-                <td></td>
-                <td>人事部初核意见</td>
-                <td>{{ detail['pre_judgement'] }}</td>
-            </tr>
-            <tr>
-                <td>请假事由</td>
-                <td>{{ detail['reason'] }}</td>
-            </tr>
-            <tr>
-                <td>请假时间</td>
-                <td>
-                    {{ detail['time'] }}
+                <td class="field">人事部初核意见</td>
+                <td colspan="{{ cols }}">
+                    {% raw detail['pre_judgement'] %}
                 </td>
             </tr>
             <tr>
-                <td>部门负责人意见</td>
-                <td>
-                    {{ detail['department_leader_judgement'] }}
+                <td class="field">请假事由</td>
+                <td colspan="{{ cols }}">
+                    {% raw detail['reason'] %}
                 </td>
             </tr>
             <tr>
-                <td>分管领导意见</td>
-                <td>
-                    {{ detail['via_leader_judgement'] }}
+                <td class="field">请假时间</td>
+                <td colspan="{{ cols }}">
+                    {% raw detail['time'] %}
                 </td>
             </tr>
             <tr>
-                <td>分管人事领导意见</td>
-                <td>
-                    {{ detail['hr_leader_judgement'] }}
+                <td class="field">部门负责人意见</td>
+                <td colspan="{{ cols }}">
+                    {% raw detail['department_leader_judgement'] %}
                 </td>
             </tr>
             <tr>
-                <td>主要负责人意见</td>
-                <td>
-                    {{ detail['main_leader_judgement'] }}
+                <td class="field">分管领导意见</td>
+                <td colspan="{{ cols }}">
+                    {% raw detail['via_leader_judgement'] %}
                 </td>
             </tr>
             <tr>
-                <td>人事部备案情况</td>
-                <td>
-                    {{ detail['hr_department_record'] }}
-                </td>s
+                <td class="field">分管人事领导意见</td>
+                <td colspan="{{ cols }}">
+                    {% raw detail['hr_leader_judgement'] %}
+                </td>
             </tr>
+            <tr>
+                <td class="field">主要负责人意见</td>
+                <td colspan="{{ cols }}">
+                    {% raw detail['main_leader_judgement'] %}
+                </td>
+            </tr>
+            <tr>
+                <td class="field">人事部备案情况</td>
+                <td colspan="{{ cols }}">
+                    {% raw detail['hr_department_record'] %}
+                </td>
+            </tr>
+            <tr>
+                <td class="field">附件</td>
+                <td colspan="{{ cols }}">
+                    {% for attachment in detail['attachment'] %}
+                    <div><a href="{{ attachment['path'] }}">{{ attachment['name'] }}</a></div>
+                    {% end %}
+                </td>
+            </tr>
+
         </table>
     </div>
-    <div>
-        <div>附件</div>
-        {% for attachment in detail['attachment'] %}
-        <div><a href="{{ attachment['path'] }}">{{ attachment['name'] }}</a></div>
-        {% end %}
+
+    <div id="process_container" {% if not detail['waiting'] %} hidden {% end %}>
+        <div class="doc_text_area_container">{{ detail['process_desc'] }}</div>
+        <div class="doc_text_area_container">
+            <textarea id='doc_content' class="doc_text_area" placeholder="同意"></textarea>
+        </div>
+        <div style="height: 32px;">
+            <button id='doc_send_btn' class="doc_send_btn">同意</button>
+            <button id='doc_reject_btn' class="doc_reject_btn">不同意</button>
+        </div>
     </div>
 </div>
-{% end %}}
+
+<script>
+    var job_id = {{ detail['job_id'] }};
+    initConfirmDialog();
+
+    $("#doc_send_btn").click(function (event) {
+        reply();
+    });
+    $("#doc_reject_btn").click(function (event) {
+        reject();
+    });
+
+    $("#cancel_btn").click(function (event) {
+        cancel();
+    });
+    $("#export_btn").click(function (event) {
+        export_doc();
+    });
+    $("#roll_back_btn").click(function (event) {
+        roll_back();
+    });
+
+    function reply() {
+        var content = $("#doc_content").val() || '同意';
+        var param = {
+            content: wrapJobContent(content),
+            job_id: job_id,
+            op: 'reply'
+        };
+
+        commonPost('/api/work_off', param, function (data) {
+            promptMsg('回复成功，2s后自动刷新...');
+            setTimeout(function () {
+                refresh();
+            }, 2000);
+        });
+    }
+
+    function reject() {
+        showConfirmDialog('拒绝该申请并归档该工作流？', function () {
+            var content = $("#doc_content").val() || '不同意';
+            commonPost('/api/work_off',
+                {job_id: job_id, op: 'reject', content: wrapJobContent(content)},
+                function (data) {
+                    promptMsg('操作成功，2s后自动刷新...');
+                    setTimeout(function () {
+                        refresh();
+                    }, 2000);
+                });
+        });
+    }
+
+    function cancel() {
+        showConfirmDialog('撤消该工作流？', function () {
+            commonPost('/api/work_off', {op: 'cancel', job_id: job_id}, function (data) {
+                promptMsg('撤消成功，2s后自动刷新...');
+                setTimeout(function () {
+                    refresh();
+                }, 2000);
+            });
+        });
+    }
+
+    function export_doc() {
+        commonPost('/detail_of_work_off.html', {job_id: job_id}, function (data) {
+            window.open(data.path);
+        });
+    }
+
+    function roll_back() {
+        commonPost('/api/work_off', {op: 'roll', job_id: job_id}, function (data) {
+
+        });
+    }
+
+    function refresh() {
+        window.location.reload();
+    }
+
+    function deleteJob() {
+        commonPost("api/alter_job", {
+            job_id: job_id,
+            op: "delete"
+        }, function (data) {
+            window.location.href = "/";
+        });
+    }
+
+</script>
+{% end %}

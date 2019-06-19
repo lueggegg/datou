@@ -45,8 +45,10 @@
         if (!param) {
             return;
         }
-        showConfirmDialog('确认提交申请？', function () {
-            commonPost("/api/process_auto_job", param, function (data) {
+        var confirm = param['confirm'] || '确认提交申请？';
+        showConfirmDialog(confirm, function () {
+            var url = param.url || '/api/process_auto_job';
+            commonPost(url, param, function (data) {
                 promptMsg('发送成功，2s后自动跳转...');
                 setTimeout(function () {
                     window.location.href = '/job_record.html#job_sent_by_myself';
@@ -54,6 +56,7 @@
             });
         })
     });
+
 
     $(function () {
         if (__authority === AUTHORITY_CHAIR_LEADER || __authority === AUTHORITY_VIA_LEADER) {

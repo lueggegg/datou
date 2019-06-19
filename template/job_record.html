@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="res/css/list.css">
 <link rel="stylesheet" href="res/css/tabs.css">
 <link rel="stylesheet" href="res/css/job_record.css">
-<script type="text/javascript" src="res/script/job_record.js"></script>
+<script type="text/javascript" src="{{static_url('../res/script/job_record.js')}}"></script>
 <script type="text/javascript" src="res/script/employee_multi_selector.js"></script>
 <script type="text/javascript" src="res/script/page_controller.js"></script>
 <link rel="stylesheet" href="res/css/employee_multi_selector.css">
@@ -24,6 +24,7 @@
         <li id="query_job_tab" value="4"><a href="#query_job_container">查询自动化工作流</a></li>
         <li id="query_report_tab" value="5"><a href="#query_doc_report_container">查询呈报表/公文</a></li>
         <li id="query_leave_detail" value="6"><a href="#query_leave_detail_container">导出请假详情</a></li>
+        <li id="query_leave_statistics" value="8"><a href="#query_leave_statistics_container">休假统计</a></li>
         <li id="query_admin_job" value="7"><a href="#admin_job_container">管理员工作流</a></li>
     </ul>
     <div id="job_search">
@@ -160,11 +161,12 @@
                     <option value="病假">病假</option>
                     <option value="事假">事假</option>
                     <option value="年假">年假</option>
-                    <option value="调休">调休</option>
                     <option value="婚假">婚假</option>
                     <option value="丧假">丧假</option>
                     <option value="产假">产假</option>
                     <option value="陪产假">陪产假</option>
+                    <option value="因公">因公</option>
+                    <option value="其他">其他</option>
                 </select>
                 <button id="export_btn" class="ui-button ui-corner-all element_right" style="margin-right:60px; width: 80px; letter-spacing: 2px;" onclick="onQueryBtnClick()">导出</button>
             </div>
@@ -181,7 +183,7 @@
             <div class="job_query_label" title="休假时段的开始时间在该搜索范围内">开始时间：</div>
             <div class="job_query_content">
                 <input type="text" id="min_begin_time" placeholder="不限" class="invoke_date_picker">
-                》
+                至
                 <input type="text" id="max_begin_time" placeholder="不限" class="invoke_date_picker">
             </div>
         </div>
@@ -189,6 +191,25 @@
     <div id="admin_job_container">
         <div id="admin_job_list"></div>
         <div id="admin_job_page_controller"></div>
+    </div>
+    <div id="query_leave_statistics_container">
+        <div class="common_btn_container">
+            <div class="job_query_label">部门：</div>
+            <div class="job_query_content">
+                <select id="leave_statistics_dept">
+                    <option selected value="0">全部</option>
+                </select>
+            </div>
+            <button id="leave_statistics_export_btn" class="ui-button ui-corner-all element_right" style="margin-right:60px; width: 80px; letter-spacing: 2px;" onclick="onQueryBtnClick()">导出</button>
+        </div>
+        <div class="common_btn_container">
+            <div class="job_query_label" title="休假时段的开始时间在该搜索范围内">开始时间：</div>
+            <div class="job_query_content">
+                <input type="text" id="leave_statistics_min_begin_time" placeholder="不限" class="invoke_date_picker">
+                至
+                <input type="text" id="leave_statistics_max_begin_time" placeholder="不限" class="invoke_date_picker">
+            </div>
+        </div>
     </div>
 </div>
 
