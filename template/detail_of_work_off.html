@@ -104,8 +104,8 @@
             <textarea id='doc_content' class="doc_text_area" placeholder="同意"></textarea>
         </div>
         <div style="height: 32px;">
-            <button id='doc_send_btn' class="doc_send_btn">同意</button>
-            <button id='doc_reject_btn' class="doc_reject_btn">不同意</button>
+            <button id='doc_send_btn' class="doc_send_btn">{{ detail['reply_desc'] }}</button>
+            <button id='doc_reject_btn' class="doc_reject_btn">{{ detail['reject_desc'] }}</button>
         </div>
     </div>
 </div>
@@ -132,7 +132,7 @@
     });
 
     function reply() {
-        var content = $("#doc_content").val() || '同意';
+        var content = $("#doc_content").val() || '{{ detail["reply_desc"] }}';
         var param = {
             content: wrapJobContent(content),
             job_id: job_id,
@@ -149,7 +149,7 @@
 
     function reject() {
         showConfirmDialog('拒绝该申请并归档该工作流？', function () {
-            var content = $("#doc_content").val() || '不同意';
+            var content = $("#doc_content").val() || '{{ detail["reject_desc"] }}';
             commonPost('/api/work_off',
                 {job_id: job_id, op: 'reject', content: wrapJobContent(content)},
                 function (data) {
