@@ -100,7 +100,8 @@ class DetailWorkOffHandler(BaseHandler):
         detail['next_sequence'] = next_sequence
         detail['process_desc'] = seq_desc_map[next_sequence]
         status = job_record['status']
-        detail['waiting'] = status == type_define.STATUS_JOB_PROCESSING
+        mark = yield self.job_dao.query_job_mark(job_id, self.account_info['id'])
+        detail['waiting'] = status == type_define.STATUS_JOB_PROCESSING and mark and mark['status'] == type_define.STATUS_JOB_MARK_WAITING 
         detail['status'] = job_status_desc[status]
         myself = invoker == self.account_info['id']
         detail['can_cancel'] = myself and detail['waiting']
