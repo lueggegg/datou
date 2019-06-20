@@ -247,12 +247,6 @@ class DetailWorkOffHandler(BaseHandler):
         cell_map['via_judge'] = cells[1]
 
         cells = table.add_row().cells
-        self.set_field_cell(cells[0], u'分管人事领导意见')
-        cells[1].merge(cells[2])
-        cells[1].merge(cells[3])
-        cell_map['hr_judge'] = cells[1]
-
-        cells = table.add_row().cells
         self.set_field_cell(cells[0], u'主要负责人意见')
         cells[1].merge(cells[2])
         cells[1].merge(cells[3])
