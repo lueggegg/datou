@@ -110,6 +110,7 @@ app = tornado.web.Application([
     (r'/api/fetch_my_info', handlers.ApiFetchMyInfo),
     (r'/api/query_leave_list', handlers.ApiQueryLeaveList),
     (r'/api/work_off', handlers.ApiWorkOffHandler),
+    (r'/api/annual', handlers.ApiAnnualHandler),
     (r'/api/yc_upload', handlers.YcUpload),
     (r'/(.*)', handlers.HtmlHandler),
 ],

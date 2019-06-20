@@ -19,12 +19,14 @@ var ADD_EMPLOYEE = 12;
 var SET_EMPLOYEE_WEIGHT = 13;
 var RESET_EMPLOYEE_PSD = 14;
 var SET_DEPT_LEADER = 20;
+var EDIT_ANNUAL = 30;
 var current_operation = NULL_OPERATION;
 
 var dept_leader_setting_dlg;
 var employee_weight_dlg;
 var employee_psd_dlg;
 var edit_employee_status_dlg;
+var edit_employee_annual_dlg;
 
 $(document).ready(function () {
     needAuthority(OPERATION_MASK_EMPLOYEE);
@@ -36,12 +38,14 @@ $(document).ready(function () {
     employee_weight_dlg = $("#edit_employee_weight_dlg");
     employee_psd_dlg = $("#edit_employee_psd_dlg");
     edit_employee_status_dlg = $("#edit_employee_status_dlg");
+    edit_employee_annual_dlg = $("#edit_employee_annual_dlg");
 
     initDialog(dept_dialog);
     initDialog(dept_leader_setting_dlg);
     initDialog(employee_weight_dlg);
     initDialog(employee_psd_dlg);
     initDialog(edit_employee_status_dlg);
+    initDialog(edit_employee_annual_dlg);
 
     $( "#add_dept" ).click(function( event ) {
         current_operation = ADD_DEPT;
@@ -176,7 +180,19 @@ function dealOperation() {
         case RESET_EMPLOYEE_PSD:
             resetEmployeePsd();
             break;
+        case EDIT_ANNUAL:
+            editAnnual();
+            break;
     }
+}
+
+function editAnnual() {
+    var total = $("#total_annual").val();
+    var used = $("#used_annual").val();
+    commonPost('/api/annual', {uid: operate_employee, op: 'update', total: total, used: used}, function () {
+        promptMsg('修改成功');
+    });
+    edit_employee_annual_dlg.dialog('close');
 }
 
 function openEmployeeWeightDlg(data) {
@@ -189,6 +205,16 @@ function openEmployeePsdDlg() {
     $("#new_psd").val('');
     $("#confirm_psd").val('');
     employee_psd_dlg.dialog('open');
+}
+
+function openEmployeeAnnualDlg() {
+    $("#total_annual").val(0);
+    $("#used_annual").val(0);
+    commonPost('/api/annual', {op: 'query', uid: operate_employee}, function (data) {
+        $("#total_annual").val(data.total);
+        $("#used_annual").val(data.used);
+    });
+    edit_employee_annual_dlg.dialog('open');
 }
 
 function setEmployeeWeight() {
@@ -399,7 +425,7 @@ function getDeptLeaderHtml(dept) {
 }
 
 function setEmployeeList(data) {
-    var title = ['账号', '姓名', '部门', '职位', '权重', '修改状态'];
+    var title = ['账号', '姓名', '部门', '职位', '权重', '修改状态', '修改年假'];
     try {
         if (data.status !== 0 ) {
             redirectError();
@@ -414,11 +440,12 @@ function setEmployeeList(data) {
                     departments_map[element.department_id].name,
                     element.position,
                     getOperationHtml(SET_EMPLOYEE_WEIGHT, index),
-                    getOperationHtml(EDIT_EMPLOYEE_STATUS, index)
+                    getOperationHtml(EDIT_EMPLOYEE_STATUS, index),
+                    getOperationHtml(EDIT_ANNUAL, index)
                 ]);
             });
             dataList.unshift(title);
-            updateListView($("#employee_list"), dataList);
+            updateListView($("#employee_list"), dataList, {weight: [3, 5, 5, 3, 2, 3, 3]});
         }
     } catch (e) {
         alert("exception " + e);
@@ -451,6 +478,9 @@ function getOperationHtml(operation, index) {
             break;
         case RESET_EMPLOYEE_PSD:
             label = '重置密码';
+            break;
+        case EDIT_ANNUAL:
+            label = '编辑';
             break;
         default:
             break;
@@ -490,6 +520,10 @@ function onItemOperation(operation, index) {
         case RESET_EMPLOYEE_PSD:
             operate_employee = employee_list_data[index].id;
             openEmployeePsdDlg();
+            break;
+        case EDIT_ANNUAL:
+            operate_employee = employee_list_data[index].id;
+            openEmployeeAnnualDlg();
             break;
         default:
             break;

@@ -63,6 +63,8 @@ class DetailWorkOffHandler(BaseHandler):
             'can_roll_back': False,
             'can_del': self.account_info['id'] == 250,
             'status': '处理中',
+            'reply_desc': '同意',
+            'reject_desc': '不同意',
         }
         if leave_detail['extend']:
             detail['type'] += '(%s)' % leave_detail['extend']
@@ -92,6 +94,9 @@ class DetailWorkOffHandler(BaseHandler):
             content = self.unwrap_content(node['content'])
             content = '<div>%s</div><div style="color:gray;font-size:0.8rem">%s　　%s</div>' % (content, node['sender'], node['time'])
             detail[seq_field_map[sequence]] = content
+        if next_sequence == type_define.job_sequence_pre_judge:
+            detail['reply_desc'] = '已核'
+            detail['reject_desc'] = '退回'
         detail['next_sequence'] = next_sequence
         detail['process_desc'] = seq_desc_map[next_sequence]
         status = job_record['status']

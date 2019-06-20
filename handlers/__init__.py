@@ -41,6 +41,7 @@ from api_job_export import ApiJobExport
 from api_dynamic import ApiDynamic
 from api_query_leave_list import ApiQueryLeaveList
 from api_work_off_handler import ApiWorkOffHandler
+from api_annual_handler import ApiAnnualHandler
 
 from job_timer import JobTimer
 

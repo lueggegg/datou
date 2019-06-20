@@ -4,7 +4,7 @@
 {% block custom_head %}
 <link href="res/css/list.css" rel="stylesheet">
 <link href="res/css/tabs.css" rel="stylesheet">
-<script src="res/script/employee_manage.js"></script>
+<script src="{{static_url('../res/script/employee_manage.js')}}"></script>
 <script src="res/script/md5.js"></script>
 <script src="res/script/sha1.js"></script>
 {% end %}
@@ -108,6 +108,11 @@
 
 <div id="edit_employee_status_dlg" title="修改员工状态">
     <select id="dlg_employee_status_selector"></select>
+</div>
+
+<div id="edit_employee_annual_dlg" title="修改员工年假">
+    <p>应休年假：<input id="total_annual" class="common_editor"></p>
+    <p>已休年假：<input id="used_annual" class="common_editor"></p>
 </div>
 {% end %}
 
