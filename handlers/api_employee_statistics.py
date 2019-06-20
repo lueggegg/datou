@@ -37,6 +37,7 @@ class ApiEmployeeStatistics(ApiHandler):
 
     def generate_detail_info_table(self, account_list):
         fields = [
+            ['账号', 'account', 0],
             ['姓名', 'name', 0],
             ['性别', 'sex', 1],
             ['籍贯', 'descent', 1],
