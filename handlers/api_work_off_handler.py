@@ -136,6 +136,7 @@ class ApiWorkOffHandler(JobHandler):
             if cur_sequence != complete_sequence:
                 yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_PROCESSED, job_record['invoker'])
                 job_type = job_record['type']
+                invoker = job_record['invoker']
                 next_sequence = job_sequence_map[job_type][cur_sequence]
                 if next_sequence in [type_define.job_sequence_hr_record, type_define.job_sequence_pre_judge]:
                     uids = yield self.account_dao.query_account_list(dept_id=22, field_type=type_define.TYPE_ACCOUNT_JUST_ID)
@@ -143,11 +144,11 @@ class ApiWorkOffHandler(JobHandler):
                         yield self.job_dao.update_job_mark(job_id, uid['id'], type_define.STATUS_JOB_MARK_WAITING)
                 elif next_sequence == type_define.job_sequence_leader_judge:
                     util = UtilAutoJob(account_dao=self.account_dao, job_dao=self.job_dao)
-                    leader = yield util.get_account_leader(self.account_info['id'], 'dept')
+                    leader = yield util.get_account_leader(invoker, 'dept')
                     yield self.job_dao.update_job_mark(job_id, leader['id'], type_define.STATUS_JOB_MARK_WAITING)
                 elif next_sequence == type_define.job_sequence_via_leader_judge:
                     util = UtilAutoJob(account_dao=self.account_dao, job_dao=self.job_dao)
-                    leader = yield util.get_account_leader(self.account_info['id'], 'via')
+                    leader = yield util.get_account_leader(invoker, 'via')
                     yield self.job_dao.update_job_mark(job_id, leader['id'], type_define.STATUS_JOB_MARK_WAITING)
                 elif next_sequence == type_define.job_sequence_hr_leader_judge:
                     yield self.job_dao.update_job_mark(job_id, 277, type_define.STATUS_JOB_MARK_WAITING)
