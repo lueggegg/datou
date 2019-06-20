@@ -236,7 +236,7 @@ function setJobData(index, data) {
                 "<div title='" + p1.title + "' class=common_clickable onclick='onClickDocItem(" + p1.type + "," + p1.id + "," + p1.branch_id + ")'>" + p1.title + "</div>",
                 "<div>" + p1.invoker_name + "</div>",
                 abstractDateFromDatetime(p1.time),
-                commonGetString(p1.last_operator_name),
+                "<div>" + commonGetString(p1.last_operator_name) + "</div>",
                 abstractDateFromDatetime(p1.mod_time)
             ];
             if (new_status) {
