@@ -81,13 +81,12 @@ class DetailWorkOffHandler(BaseHandler):
             type_define.job_sequence_main_leader_judge: 'main_leader_judgement',
             type_define.job_sequence_hr_record: 'hr_department_record',
         }
-        invoker = None
+        invoker = job_record['invoker']
         next_sequence = job_record['cur_path_index']
         for node in job_nodes:
             sequence = node['branch_id']
             if sequence == type_define.job_sequence_add:
                 detail['invoker'] = node['sender']
-                invoker = node['sender_id']
                 detail['department'] = node['dept']
                 if node['has_attachment']:
                     detail['attachment'] = yield self.job_dao.query_node_attachment_list(node['id'])
@@ -155,7 +154,8 @@ class DetailWorkOffHandler(BaseHandler):
         job_record = yield self.job_dao.query_job_base_info(job_id)
         job_nodes = yield self.job_dao.query_job_node_list(job_id)
         leave_detail = yield self.job_dao.query_new_leave_detail(job_id)
-        annual = yield self.get_annual()
+        invoker = job_record['invoker']
+        annual = yield self.get_annual(invoker)
         doc = Document()
         title = doc.add_paragraph(u'深圳市东部传媒股份有限公司请、休假条')
         title.runs[0].font.size = Pt(24)

@@ -138,39 +138,39 @@ class ApiWorkOffHandler(JobHandler):
                 yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_PROCESSED, job_record['invoker'])
                 job_type = job_record['type']
                 invoker = job_record['invoker']
-            while not stop:
-                stop = True
-                next_sequence = job_sequence_map[job_type][cur_sequence]
-                if next_sequence in [type_define.job_sequence_hr_record, type_define.job_sequence_pre_judge]:
-                    uids = yield self.account_dao.query_account_list(dept_id=22, field_type=type_define.TYPE_ACCOUNT_JUST_ID)
-                    for uid in uids:
-                        yield self.job_dao.update_job_mark(job_id, uid['id'], type_define.STATUS_JOB_MARK_WAITING)
-                elif next_sequence == type_define.job_sequence_leader_judge:
-                    util = UtilAutoJob(account_dao=self.account_dao, job_dao=self.job_dao)
-                    leader = yield util.get_account_leader(invoker, 'dept')
-                    if leader != invoker:
+                while not stop:
+                    stop = True
+                    next_sequence = job_sequence_map[job_type][cur_sequence]
+                    if next_sequence in [type_define.job_sequence_hr_record, type_define.job_sequence_pre_judge]:
+                        uids = yield self.account_dao.query_account_list(dept_id=22, field_type=type_define.TYPE_ACCOUNT_JUST_ID)
+                        for uid in uids:
+                            yield self.job_dao.update_job_mark(job_id, uid['id'], type_define.STATUS_JOB_MARK_WAITING)
+                    elif next_sequence == type_define.job_sequence_leader_judge:
+                        util = UtilAutoJob(account_dao=self.account_dao, job_dao=self.job_dao)
+                        leader = yield util.get_account_leader(invoker, 'dept')
+                        if leader['id'] != invoker:
+                            yield self.job_dao.update_job_mark(job_id, leader['id'], type_define.STATUS_JOB_MARK_WAITING)
+                        else:
+                            stop = False
+                            cur_sequence = next_sequence
+                            job_node = {
+                                'job_id': job_id,
+                                'time': now,
+                                'sender_id': 250,
+                                'content': '{申请人为部门负责人，跳过该步骤}',
+                                'branch_id': cur_sequence,
+                            }
+                            node_id = yield self.job_dao.add_job_node(False, **job_node)
+                            continue
+                    elif next_sequence == type_define.job_sequence_via_leader_judge:
+                        util = UtilAutoJob(account_dao=self.account_dao, job_dao=self.job_dao)
+                        leader = yield util.get_account_leader(invoker, 'via')
                         yield self.job_dao.update_job_mark(job_id, leader['id'], type_define.STATUS_JOB_MARK_WAITING)
-                    else:
-                        stop = False
-                        cur_sequence = next_sequence
-                        job_node = {
-                            'job_id': job_id,
-                            'time': now,
-                            'sender_id': 250,
-                            'content': '{申请人为部门负责人，跳过该步骤}',
-                            'branch_id': cur_sequence,
-                        }
-                        node_id = yield self.job_dao.add_job_node(False, **job_node)
-                        continue
-                elif next_sequence == type_define.job_sequence_via_leader_judge:
-                    util = UtilAutoJob(account_dao=self.account_dao, job_dao=self.job_dao)
-                    leader = yield util.get_account_leader(invoker, 'via')
-                    yield self.job_dao.update_job_mark(job_id, leader['id'], type_define.STATUS_JOB_MARK_WAITING)
-                elif next_sequence == type_define.job_sequence_hr_leader_judge:
-                    yield self.job_dao.update_job_mark(job_id, 277, type_define.STATUS_JOB_MARK_WAITING)
-                elif next_sequence == type_define.job_sequence_main_leader_judge:
-                    yield self.job_dao.update_job_mark(job_id, 212, type_define.STATUS_JOB_MARK_WAITING)
-                yield self.job_dao.update_job(job_id, cur_path_index=next_sequence)
+                    elif next_sequence == type_define.job_sequence_hr_leader_judge:
+                        yield self.job_dao.update_job_mark(job_id, 277, type_define.STATUS_JOB_MARK_WAITING)
+                    elif next_sequence == type_define.job_sequence_main_leader_judge:
+                        yield self.job_dao.update_job_mark(job_id, 212, type_define.STATUS_JOB_MARK_WAITING)
+                    yield self.job_dao.update_job(job_id, cur_path_index=next_sequence)
             else:
                 yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)
                 yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)

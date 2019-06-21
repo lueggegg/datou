@@ -13,7 +13,7 @@
         <div class="doc_detail_anchor common_border element_right">
             <ul id="doc_node_list_anchor">
                 <li id="cancel_btn" class="common_clickable" {% if not detail['can_cancel'] %}hidden{% end %}>撤回</li>
-                <li id="roll_back_btn" class="common_clickable" {% if not detail['can_export'] %}hidden{% end %}>销假</li>
+                <li id="roll_back_btn" class="common_clickable" {% if not detail['can_roll_back'] %}hidden{% end %}>销假</li>
                 <li id="export_btn" class="common_clickable" {% if not detail['can_export'] %}hidden{% end %}>导出</li>
                 <li id="delete_btn" onclick="deleteJob()" class="common_clickable" {% if not detail['can_del'] %}hidden{% end %}>删除</li>
             </ul>
