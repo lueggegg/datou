@@ -128,15 +128,15 @@
         }
         var leave_days = half_days * leave_step;
         var beyond_ond_day = half_days > 2;
-        if (beyond_ond_day) {
-            if (position_type === TYPE_POSITION_NORMAL) {
+        if (position_type === TYPE_POSITION_NORMAL) {
+            if (half_days > 1) {
                 job_type = TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW;
             } else {
-                job_type = TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW;
+                job_type = TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW;
             }
         } else {
-            if (position_type === TYPE_POSITION_NORMAL) {
-                job_type = TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW;
+            if (half_days > 2) {
+                job_type = TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW;
             } else {
                 job_type = TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY_NEW;
             }
