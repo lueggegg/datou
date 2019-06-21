@@ -87,7 +87,7 @@
         selectMenu($("#leave_type"));
         commonInitLeftSpinner( $("#leave_days") );
 
-        $("#job_memo_container").append("<br>**请假时间不包含结束时间指定的时间点，例如开始时间为2月1号上午，结束时间为2月2号上午，则表示2月2号上午正常上班，请假时长为1天");
+        $("#job_memo_container").append("<br>**请假时间包含结束时间指定的时间点，例如开始时间为2月1号上午，结束时间为2月1号上午，则表示2月1号下午正常上班，请假时长为0.5天");
         $("#job_memo_container").append("<br>**病假需要上传相关证明");
         $("#job_memo_container").append("<br>**因公或其他，需要填写其他类型");
     });
@@ -109,7 +109,7 @@
         }
         var end_time_part = $("#end_time_part").val();
 
-        if (begin_time > end_time || (begin_time === end_time && begin_time_part >= end_time_part)) {
+        if (begin_time > end_time || (begin_time === end_time && begin_time_part > end_time_part)) {
             promptMsg('结束时间应该晚于开始时间');
             return;
         }

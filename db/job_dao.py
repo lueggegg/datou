@@ -741,7 +741,10 @@ class JobDAO(BaseDAO):
     def query_user_annual_leave(self, uid):
         sql = 'select * from %s where uid=%s order by year desc limit 1' % (self.annual_tab, uid)
         ret = yield self._executor.async_select(self._get_inst(True), sql)
-        raise gen.Return(ret[0] if ret else None)
+        if not ret:
+            lid = yield self.add_annual_leave(uid=uid)
+            ret = [{'id': lid, 'uid': uid, 'total': 0, 'used': 0, 'undetermined': 0}]
+        raise gen.Return(ret[0])
 
     @gen.coroutine
     def update_user_annual_leave(self, lid, **kwargs):

@@ -97,6 +97,9 @@ class DetailWorkOffHandler(BaseHandler):
         if next_sequence == type_define.job_sequence_pre_judge:
             detail['reply_desc'] = '已核'
             detail['reject_desc'] = '退回'
+        elif next_sequence == type_define.job_sequence_hr_record:
+            detail['reply_desc'] = '已备案'
+            detail['reject_desc'] = '退回'
         detail['next_sequence'] = next_sequence
         detail['process_desc'] = seq_desc_map[next_sequence]
         status = job_record['status']
@@ -104,7 +107,7 @@ class DetailWorkOffHandler(BaseHandler):
         detail['waiting'] = status == type_define.STATUS_JOB_PROCESSING and mark and mark['status'] == type_define.STATUS_JOB_MARK_WAITING 
         detail['status'] = job_status_desc[status]
         myself = invoker == self.account_info['id']
-        detail['can_cancel'] = myself and detail['waiting']
+        detail['can_cancel'] = myself and detail['waiting'] and next_sequence != type_define.job_sequence_hr_record
         detail['can_export'] = type_define.STATUS_JOB_COMPLETED == status
         detail['can_roll_back'] = myself and type_define.STATUS_JOB_COMPLETED == status
         self.render('detail_of_work_off.html', account_info=self.account_info, detail=detail)
