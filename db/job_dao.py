@@ -2,7 +2,7 @@ import db_helper
 import type_define
 import datetime
 from base_dao import BaseDAO
-
+import logging
 from tornado import gen
 
 class JobDAO(BaseDAO):
@@ -693,6 +693,26 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret)
 
     @gen.coroutine
+    def query_new_leave_statistics(self, dept_id=None, min_begin_time=None, max_begin_time=None):
+        sql = 'select sum(t.off_part) as off_part, sum(half_day) as half_day, t.uid, t.leave_type from %s t' % self.new_leave_detail_tab
+        sql += ' left join job_record j on j.id=t.job_id'
+        condition = ['j.status=%s' % type_define.STATUS_JOB_COMPLETED]
+        if dept_id:
+            sql += ' left join employee a on a.id=t.uid'
+            condition.append('a.department_id=%s' % dept_id)
+        if min_begin_time or max_begin_time:
+            if min_begin_time:
+                condition.append('begin_time>="%s"' % min_begin_time)
+            if max_begin_time:
+                condition.append('begin_time<"%s"' % max_begin_time)
+        if condition:
+            sql += ' where %s' % ' and '.join(condition)
+        sql += ' group by t.uid, t.leave_type'
+        logging.info(sql)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
     def query_html_tag_job_node_list(self):
         sql = "SELECT id, content FROM %s WHERE content LIKE '%%<%%>%%'" % self.node_tab
         ret = yield self._executor.async_select(self._get_inst(True), sql)
@@ -752,11 +772,14 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret)
 
     @gen.coroutine
-    def query_annual_leave_list(self, year=2019):
+    def query_annual_leave_list(self, year=2019, dept_id=None):
         sql = 'select al.*, a.name, d.name as dept from %s al ' \
               'left join employee a on al.uid=a.id ' \
               'left join department d on a.department_id=d.id ' \
-              'where al.year=%s order by d.weight desc' % (self.annual_tab, year)
+              'where al.year=%s' % (self.annual_tab, year)
+        if dept_id:
+            sql += ' and a.department_id=%s' % dept_id
+        sql += ' order by d.weight desc'
         ret = yield self._executor.async_select(self._get_inst(True), sql)
         raise gen.Return(ret)
 

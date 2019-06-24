@@ -164,7 +164,7 @@ class DetailWorkOffHandler(BaseHandler):
         cell_map = {}
         self.create_table(doc, cell_map)
         cell_map['type'].text = leave_detail['leave_type'].decode('utf8')
-        cell_map['time'].text = self.get_leave_time_desc(leave_detail).decode('utf8')
+        cell_map['time'].text = u'\n%s\n' % self.get_leave_time_desc(leave_detail).decode('utf8')
         cell_map['total'].text = u'应休年假%s天' % annual['total']
         cell_map['used'].text = u'已休年假%s天' % annual['used']
         for node in job_nodes:
@@ -187,18 +187,10 @@ class DetailWorkOffHandler(BaseHandler):
                 cell = cell_map['hr_record']
             if cell is not None:
                 self.set_cell_content(cell, node)
-        sign = doc.add_paragraph(u'本人确认签名：——————————')
+        sign = doc.add_paragraph(u'本人确认签名：')
         sign.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+        sign.add_run(u'\t\t\t').underline = True
         doc.save(file_path)
-
-    def set_cell_content(self, cell, node):
-        content = self.unwrap_content(node['content'])
-        cell.add_paragraph(content.decode('utf8'))
-        cell.add_paragraph()
-        p = cell.add_paragraph(('%s    %s' % (node['sender'], node['time'].strftime('%Y年%m月%d日'))).decode('utf8'))
-        p.runs[0].font.size = Pt(10)
-        p.runs[0].italic = True
-        cell.add_paragraph()
 
     def create_table(self, doc, cell_map):
         table = doc.add_table(rows=0, cols=4)
@@ -208,13 +200,13 @@ class DetailWorkOffHandler(BaseHandler):
         table.columns[0].width = Inches(1.5)
 
         cells = table.add_row().cells
-        self.set_field_cell(cells[0], u'姓名')
+        self.set_field_cell(cells[0], u'\n姓名\n')
         cells[2].text = u'部门'
         cell_map['name'] = cells[1]
         cell_map['dept'] = cells[3]
 
         cells = table.add_row().cells
-        self.set_field_cell(cells[0], u'请假类别')
+        self.set_field_cell(cells[0], u'\n请假类别\n')
         cell_map['type'] = cells[1]
         cell_map['total'] = cells[2]
         cell_map['used'] = cells[3]
@@ -244,13 +236,13 @@ class DetailWorkOffHandler(BaseHandler):
         cell_map['leader_judge'] = cells[1]
 
         cells = table.add_row().cells
-        self.set_field_cell(cells[0], u'分管领导意见')
+        self.set_field_cell(cells[0], u'\n分管领导意见\n')
         cells[1].merge(cells[2])
         cells[1].merge(cells[3])
         cell_map['via_judge'] = cells[1]
 
         cells = table.add_row().cells
-        self.set_field_cell(cells[0], u'主要负责人意见')
+        self.set_field_cell(cells[0], u'\n主要负责人意见\n')
         cells[1].merge(cells[2])
         cells[1].merge(cells[3])
         cell_map['main_judge'] = cells[1]
@@ -261,9 +253,25 @@ class DetailWorkOffHandler(BaseHandler):
         cells[1].merge(cells[3])
         cell_map['hr_record'] = cells[1]
 
+        self.normalize_cells(table)
+
     def set_field_cell(self, cell, text):
         p = cell.paragraphs[0]
         p.add_run(text).bold = True
         cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+    def normalize_cells(self, table):
+        columns = table.columns
+        for col in columns:
+            for cell in col.cells:
+                cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+
+    def set_cell_content(self, cell, node):
+        content = self.unwrap_content(node['content'])
+        p = cell.add_paragraph(content.decode('utf8'))
+        p = cell.add_paragraph(('%s    %s' % (node['sender'], node['time'].strftime('%Y年%m月%d日'))).decode('utf8'))
+        p.runs[0].font.size = Pt(10)
+        p.paragraph_format.line_spacing = Pt(15)
+        cell.add_paragraph()
 

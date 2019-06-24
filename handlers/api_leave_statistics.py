@@ -15,13 +15,31 @@ class ApiLeaveStatistics(ApiHandler):
         title = ['序号', '部门', '姓名', '应休年假', '已休年假', '剩余年假']
         title.extend(leave_types)
         data = [title]
-        annual_list = yield self.job_dao.query_annual_leave_list()
+        query_arg = {
+            'dept_id': None,
+            'min_begin_time': None,
+            'max_begin_time': None
+        }
+        for key in query_arg:
+            query_arg[key] = self.get_argument(key, None)
+        leave_data = yield self.job_dao.query_new_leave_statistics(**query_arg)
+        leave_map = {}
+        for leave in leave_data:
+            leave_map[leave['uid']] = leave
+        annual_list = yield self.job_dao.query_annual_leave_list(dept_id=query_arg['dept_id'])
         annual_map = {}
         for index, annual in enumerate(annual_list):
-            annual_map[annual['uid']] = annual
-            row = [index+1, annual['dept'], annual['name'], annual['total'], annual['used'], annual['total']-annual['used']]
-            for key in leave_types:
-                row.append(0)
+            uid = annual['uid']
+            annual_map[uid] = annual
+            row = [index+1, annual['dept'], annual['name'], annual['total']/2.0, annual['used']/2.0, (annual['total']-annual['used'])/2.0]
+            if leave_map.has_key(uid):
+                leave = leave_map[uid]
+                row.append(int(leave['off_part'])/2.0 if leave['off_part'] else 0)
+                for key in leave_types[1:]:
+                    row.append(leave['half_day']/2.0 if leave['leave_type'] == key else 0)
+            else:
+                for key in leave_types:
+                    row.append(0)
             data.append(row)
         path = self.generate_excel_file(data, 'leave_sum_statistics')
         self.write_data(path)
