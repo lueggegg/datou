@@ -742,6 +742,21 @@ class JobDAO(BaseDAO):
         raise gen.Return(ret)
 
     @gen.coroutine
+    def query_today_new_leave_list(self):
+        query_date = self.today()
+        begin_bounce = (query_date + datetime.timedelta(days=1)).strftime('%Y-%m-%d')
+        end_bounce = query_date.strftime('%Y-%m-%d')
+        sql = "SELECT l.*, a.name, d.name AS dept FROM %s l " \
+              " LEFT JOIN job_record r ON r.id=l.job_id " \
+              " LEFT JOIN employee a ON a.id=r.invoker " \
+              " LEFT JOIN department d ON d.id=a.department_id " \
+              " WHERE r.status=%s and l.end_time > '%s' and l.begin_time <= '%s' " \
+              " ORDER BY l.begin_time DESC" \
+               % (self.new_leave_detail_tab, type_define.STATUS_JOB_COMPLETED, end_bounce, begin_bounce,)
+        ret = yield self._executor.async_select(self._get_inst(True), sql)
+        raise gen.Return(ret)
+
+    @gen.coroutine
     def yc_new_upload(self, file_path, status=1):
         ret = yield db_helper.insert_into_table_return_id(self._get_inst(), self._executor, 'yc_temp', path=file_path, status=status)
         raise gen.Return(ret)

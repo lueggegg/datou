@@ -12,6 +12,7 @@ class ApiQueryLeaveList(ApiHandler):
     def _real_deal_request(self):
         res = {"status": error_codes.EC_SUCCESS}
         query_date = self.get_argument('date', None)
-        ret = yield self.job_dao.query_leave_list(query_date)
+        # ret = yield self.job_dao.query_leave_list(query_date)
+        ret = yield self.job_dao.query_today_new_leave_list()
         res["data"] = ret
         self.write_json(res)
