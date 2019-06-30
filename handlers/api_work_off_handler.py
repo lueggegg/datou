@@ -85,24 +85,25 @@ class ApiWorkOffHandler(JobHandler):
             cur_sequence = job_record['cur_path_index']
         elif op == 'cancel':
             job_id = self.get_argument_and_check_it('job_id')
+            job_record = yield self.job_dao.query_job_base_info(job_id)
             yield self.job_dao.complete_job(job_id, type_define.STATUS_JOB_CANCEL)
             leave_detail = yield self.job_dao.query_new_leave_detail(job_id)
             if leave_detail['annual_part'] is not None and leave_detail['annual_part'] > 0:
-                annual = yield self.job_dao.query_user_annual_leave(self.account_info['id'])
+                annual = yield self.job_dao.query_user_annual_leave(job_record['invoker'])
                 yield self.job_dao.update_user_annual_leave(annual['id'], undetermined=annual['undetermined']-leave_detail['annual_part'])
             self.process_result(True, '撤消休假流程')
             return
         elif op == 'reject':
             job_id = self.get_argument_and_check_it('job_id')
+            job_record = yield self.job_dao.query_job_base_info(job_id)
             yield self.check_job_mark(job_id)
             yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_REJECTED)
             yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
             msg = '拒绝申请'
-            job_record = yield self.job_dao.query_job_base_info(job_id)
             cur_sequence = job_record['cur_path_index']
             leave_detail = yield self.job_dao.query_new_leave_detail(job_id)
             if leave_detail['annual_part'] is not None and leave_detail['annual_part'] > 0:
-                annual = yield self.job_dao.query_user_annual_leave(self.account_info['id'])
+                annual = yield self.job_dao.query_user_annual_leave(job_record['invoker'])
                 yield self.job_dao.update_user_annual_leave(annual['id'], undetermined=annual['undetermined']-leave_detail['annual_part'])
         elif op == 'roll':
             self.finish_with_error(1, '数据库异常')
@@ -176,7 +177,7 @@ class ApiWorkOffHandler(JobHandler):
                 yield self.job_dao.update_job_all_mark(job_id, type_define.STATUS_JOB_MARK_COMPLETED)
                 leave_detail = yield self.job_dao.query_new_leave_detail(job_id)
                 if leave_detail['annual_part'] is not None and leave_detail['annual_part'] > 0:
-                    annual = yield self.job_dao.query_user_annual_leave(self.account_info['id'])
+                    annual = yield self.job_dao.query_user_annual_leave(job_record['invoker'])
                     yield self.job_dao.update_user_annual_leave(annual['id'], used=annual['used']+leave_detail['annual_part'],
                                                                 undetermined=annual['undetermined'] - leave_detail['annual_part'])
 
