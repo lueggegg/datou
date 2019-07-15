@@ -10,6 +10,27 @@ from docx.enum.table import WD_ALIGN_VERTICAL
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches, Pt
 
+job_sequence_map = {
+    type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW: {
+        type_define.job_sequence_add: type_define.job_sequence_pre_judge,
+        type_define.job_sequence_pre_judge: type_define.job_sequence_leader_judge,
+        type_define.job_sequence_leader_judge: type_define.job_sequence_hr_record,
+    },
+    type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW: {
+        type_define.job_sequence_add: type_define.job_sequence_pre_judge,
+        type_define.job_sequence_pre_judge: type_define.job_sequence_leader_judge,
+        type_define.job_sequence_leader_judge: type_define.job_sequence_via_leader_judge,
+        type_define.job_sequence_via_leader_judge: type_define.job_sequence_hr_record,
+    },
+    type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW: {
+        type_define.job_sequence_add: type_define.job_sequence_pre_judge,
+        type_define.job_sequence_pre_judge: type_define.job_sequence_leader_judge,
+        type_define.job_sequence_leader_judge: type_define.job_sequence_via_leader_judge,
+        type_define.job_sequence_via_leader_judge: type_define.job_sequence_main_leader_judge,
+        type_define.job_sequence_main_leader_judge: type_define.job_sequence_hr_record,
+    }
+}
+
 job_status_desc = {}
 job_status_desc[type_define.STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>'
 job_status_desc[type_define.STATUS_JOB_COMPLETED] = '<span style="color: rgb(0,225,32)">已完成</span>'
@@ -65,7 +86,7 @@ class DetailWorkOffHandler(BaseHandler):
             'can_roll_back': False,
             'can_del': self.account_info['id'] == 250,
             'status': '处理中',
-            'reply_desc': '同意',
+            'reply_desc': '拟同意',
             'reject_desc': '不同意',
             'mark': None,
         }
@@ -108,6 +129,10 @@ class DetailWorkOffHandler(BaseHandler):
         elif next_sequence == type_define.job_sequence_hr_record:
             detail['reply_desc'] = '已备案'
             detail['reject_desc'] = '退回'
+        else:
+            next_next_sequence = job_sequence_map[job_record['type']][next_sequence]
+            if next_next_sequence == type_define.job_sequence_hr_record:
+                detail['reply_desc'] = '同意'
         detail['next_sequence'] = next_sequence
         detail['process_desc'] = seq_desc_map[next_sequence]
         status = job_record['status']
