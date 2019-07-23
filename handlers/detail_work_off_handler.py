@@ -30,6 +30,8 @@ job_sequence_map = {
         type_define.job_sequence_main_leader_judge: type_define.job_sequence_hr_record,
     }
 }
+job_sequence_map[type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY_NEW] = job_sequence_map[type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW]
+
 
 job_status_desc = {}
 job_status_desc[type_define.STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>'
