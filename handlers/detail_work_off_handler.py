@@ -142,7 +142,7 @@ class DetailWorkOffHandler(BaseHandler):
         detail['waiting'] = status == type_define.STATUS_JOB_PROCESSING and mark and mark['status'] == type_define.STATUS_JOB_MARK_WAITING 
         detail['status'] = job_status_desc[status]
         myself = invoker == self.account_info['id']
-        detail['can_cancel'] = myself and next_sequence != type_define.job_sequence_hr_record
+        detail['can_cancel'] = myself and next_sequence != type_define.job_sequence_hr_record and status == type_define.STATUS_JOB_PROCESSING
         detail['can_export'] = type_define.STATUS_JOB_COMPLETED == status
         detail['can_roll_back'] = myself and type_define.STATUS_JOB_COMPLETED == status and not is_roll and not job_record['cur_path_id']
         self.render('detail_of_work_off.html', account_info=self.account_info, detail=detail)
