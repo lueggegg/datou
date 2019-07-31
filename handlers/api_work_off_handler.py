@@ -194,20 +194,32 @@ class ApiWorkOffHandler(JobHandler):
                     elif next_sequence == type_define.job_sequence_leader_judge:
                         util = UtilAutoJob(account_dao=self.account_dao, job_dao=self.job_dao)
                         leader = yield util.get_account_leader(invoker, 'dept')
-                        if leader['id'] != invoker:
-                            yield self.job_dao.update_job_mark(job_id, leader['id'], type_define.STATUS_JOB_MARK_WAITING)
-                        else:
+                        if leader['id'] == invoker:
                             stop = False
                             cur_sequence = next_sequence
                             job_node = {
                                 'job_id': job_id,
                                 'time': now,
                                 'sender_id': 250,
-                                'content': '{申请人为部门负责人，跳过该步骤}',
+                                'content': '{申请人为部门负责人，跳过此步骤}',
                                 'branch_id': cur_sequence,
                             }
                             node_id = yield self.job_dao.add_job_node(False, **job_node)
                             continue
+                        elif invoker in [121, 122, 138]:
+                            stop = False
+                            cur_sequence = next_sequence
+                            job_node = {
+                                'job_id': job_id,
+                                'time': now,
+                                'sender_id': 250,
+                                'content': '{该职位跳过此步骤}',
+                                'branch_id': cur_sequence,
+                            }
+                            node_id = yield self.job_dao.add_job_node(False, **job_node)
+                            continue
+                        else:
+                            yield self.job_dao.update_job_mark(job_id, leader['id'], type_define.STATUS_JOB_MARK_WAITING)
                     elif next_sequence == type_define.job_sequence_via_leader_judge:
                         util = UtilAutoJob(account_dao=self.account_dao, job_dao=self.job_dao)
                         leader = yield util.get_account_leader(invoker, 'via')
