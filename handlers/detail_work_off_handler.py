@@ -30,6 +30,8 @@ job_sequence_map = {
         type_define.job_sequence_main_leader_judge: type_define.job_sequence_hr_record,
     }
 }
+job_sequence_map[type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY_NEW] = job_sequence_map[type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW]
+
 
 job_status_desc = {}
 job_status_desc[type_define.STATUS_JOB_PROCESSING] = '<span style="color: orange">处理中</span>'
@@ -140,7 +142,7 @@ class DetailWorkOffHandler(BaseHandler):
         detail['waiting'] = status == type_define.STATUS_JOB_PROCESSING and mark and mark['status'] == type_define.STATUS_JOB_MARK_WAITING 
         detail['status'] = job_status_desc[status]
         myself = invoker == self.account_info['id']
-        detail['can_cancel'] = myself and detail['waiting'] and next_sequence != type_define.job_sequence_hr_record
+        detail['can_cancel'] = myself and next_sequence != type_define.job_sequence_hr_record and status == type_define.STATUS_JOB_PROCESSING
         detail['can_export'] = type_define.STATUS_JOB_COMPLETED == status
         detail['can_roll_back'] = myself and type_define.STATUS_JOB_COMPLETED == status and not is_roll and not job_record['cur_path_id']
         self.render('detail_of_work_off.html', account_info=self.account_info, detail=detail)
