@@ -1,3 +1,8 @@
 /log
-*.pyg
+*.pyc
 .idea/
+*.docx
+temp.py
+template/res/download/*
+template/res/temp/*
+template/res/attachment/*

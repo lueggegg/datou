@@ -12,13 +12,13 @@ class MySQLConfig:
             db = 'release_oa'
         if 'mode' in kwargs:
             if kwargs['mode'] == 1:
-                host = '203.88.48.251'
+                host = '116.77.36.83'
                 port = 13306
                 db = 'release_oa'
             elif kwargs['mode'] == 2:
                 db = 'debug_oa'
             elif kwargs['mode'] == 3:
-                host = '203.88.48.251'
+                host = 'oa.lgtv.net.cn'
                 port = 13306
                 db = 'debug_oa'
         self.global_metas = (mysql_inst_mgr.DBMeta(host=host, port=port, user='root', passwd=passwd, db=db),)
