@@ -1,0 +1,142 @@
+.table_container {
+    width: 92%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.table_title {
+    text-align: center;
+    font-size: 2.4em;
+    padding: 1.2rem;
+}
+
+table {
+    width: 100%;
+    border-top: 1px solid;
+    border-right: 1px solid;
+}
+
+table tr td {
+    /*     width: 140px; */
+    line-height: 2rem;
+    font-size: 1.4rem;
+    border-left: 1px solid;
+    border-bottom: 1px solid;
+    padding: 1.6rem;
+    vertical-align: center;
+    color: #222222;
+}
+
+table .field {
+    width: 12rem;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: black;
+}
+
+#process_container {
+    margin-top: 15px;
+    background: rgb(255,255,237);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid rgb(170,193,222);
+}
+
+.doc_text_area_container {
+    margin: 10px;
+}
+
+.doc_text_area {
+    padding: 5px;
+    width: 98.5%;
+    height: 240px;
+    border-radius: 4px;
+}
+
+.doc_send_btn {
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    float: right;
+    margin-right: 20px;
+    background: rgb(235,255,235);
+    color: green;
+    border-radius: 3px;
+    border: 1px solid green;
+}
+
+.doc_send_btn:hover {
+    cursor: pointer;
+    background: rgb(245,245,245);
+    letter-spacing: 5px;
+    /*     color: white; */
+}
+
+.doc_send_btn:active {
+    cursor: pointer;
+    background: rgb(0,168,0);
+    color: white;
+}
+
+.doc_reject_btn {
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    float: right;
+    margin-right: 20px;
+    background: rgb(255,235,235);
+    color: rgb(245,64,0);
+    border-radius: 3px;
+    border: 1px solid rgb(245,64,0);
+}
+
+.doc_reject_btn:hover {
+    cursor: pointer;
+    background: rgb(245,245,245);
+    letter-spacing: 5px;
+    /*     color: white; */
+}
+
+.doc_reject_btn:active {
+    cursor: pointer;
+    background: rgb(255,32,0);
+    color: white;
+}
+
+.doc_detail_anchor {
+    background: rgb(245,245,245);
+}
+
+#doc_node_list_anchor {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 1.2rem;
+}
+
+#doc_node_list_anchor li {
+    padding: 0.5em;
+    text-align: center;
+    letter-spacing: 10px;
+    float: left;
+}
+
+.job_status {
+    text-align: left;
+    font-size: 1.5rem;
+    color: orange;
+}
+
+
+.operation_clickable {
+    color: rgb(0,127,255);
+    /*text-decoration: underline;*/
+    font-size: 1.5rem;
+}
+
+.work_off_status {
+    font-size: 1.8rem;
+}

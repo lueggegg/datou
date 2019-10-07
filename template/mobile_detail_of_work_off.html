@@ -13,21 +13,17 @@
     <script type="text/javascript" src="{{static_url('../res/script/base.js')}}"></script>
     <script type="text/javascript" src="res/script/datepicker-zh-CN.js"></script>
     {% module Template("module_date_time_picker.html") %}
-    <link rel="stylesheet" href="res/css/job_common.css">
-    <link rel="stylesheet" href="{{static_url('../res/css/detail_of_work_off.css')}}">
+    <link rel="stylesheet" href="{{static_url('../res/css/mobile_detail_of_work_off.css')}}">
 </head>
-
-{% block custom_body %}
 
 <div class="table_container">
     <div style="height: 2rem; padding-bottom: 0.2rem">
-        <div class="job_status element_left"><span style="color: black">工作流状态：</span>{% raw detail['status'] %}</div>
+        <div class="work_off_status element_left"><span style="color: black">工作流状态：</span>{% raw detail['status'] %}</div>
         <div class="doc_detail_anchor common_border element_right">
             <ul id="doc_node_list_anchor">
-                <li id="cancel_btn" class="common_clickable" {% if not detail['can_cancel'] %}hidden{% end %}>撤回</li>
-                <li id="roll_back_btn" class="common_clickable" {% if not detail['can_roll_back'] %}hidden{% end %}>销假</li>
-                <li id="export_btn" class="common_clickable" {% if not detail['can_export'] %}hidden{% end %}>导出</li>
-                <li id="delete_btn" onclick="deleteJob()" class="common_clickable" {% if not detail['can_del'] %}hidden{% end %}>删除</li>
+                <li id="cancel_btn" class="operation_clickable" {% if not detail['can_cancel'] %}hidden{% end %}>撤回</li>
+                <li id="roll_back_btn" class="operation_clickable" {% if not detail['can_roll_back'] %}hidden{% end %}>销假</li>
+                <li id="delete_btn" onclick="deleteJob()" class="operation_clickable" {% if not detail['can_del'] %}hidden{% end %}>删除</li>
             </ul>
         </div>
     </div>
@@ -301,6 +297,5 @@
     }
 
 </script>
-{% end %}
 
 </html>

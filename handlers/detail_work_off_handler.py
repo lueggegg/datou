@@ -145,7 +145,10 @@ class DetailWorkOffHandler(BaseHandler):
         detail['can_cancel'] = myself and next_sequence != type_define.job_sequence_hr_record and status == type_define.STATUS_JOB_PROCESSING
         detail['can_export'] = type_define.STATUS_JOB_COMPLETED == status
         detail['can_roll_back'] = myself and type_define.STATUS_JOB_COMPLETED == status and not is_roll and not job_record['cur_path_id']
-        self.render('detail_of_work_off.html', account_info=self.account_info, detail=detail)
+        html = 'detail_of_work_off.html'
+        if self.get_argument('mobile', ''):
+            html = 'mobile_' + html
+        self.render(html, account_info=self.account_info, detail=detail)
 
     def is_roll(self, job_record):
         return job_record['sub_type'] == type_define.TYPE_JOB_ROLL_BACK_LEAVE
