@@ -12,7 +12,8 @@ class MySQLConfig:
             db = 'release_oa'
         if 'mode' in kwargs:
             if kwargs['mode'] == 1:
-                host = '116.77.36.83'
+
+                host = 'oa.lgtv.net.cn'
                 port = 13306
                 db = 'release_oa'
             elif kwargs['mode'] == 2:

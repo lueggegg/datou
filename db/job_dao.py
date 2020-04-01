@@ -5,6 +5,16 @@ from base_dao import BaseDAO
 import logging
 from tornado import gen
 
+
+def _is_leave(job_type):
+    return job_type in [
+            type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_BEYOND_ONE_DAY_NEW,
+            type_define.TYPE_JOB_ASK_FOR_LEAVE_LEADER_IN_ONE_DAY_NEW,
+            type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_BEYOND_ONE_DAY_NEW,
+            type_define.TYPE_JOB_ASK_FOR_LEAVE_NORMAL_IN_ONE_DAY_NEW
+    ]
+
+
 class JobDAO(BaseDAO):
     def __init__(self, *args, **kwargs):
         BaseDAO.__init__(self, *args, **kwargs)
@@ -291,6 +301,17 @@ class JobDAO(BaseDAO):
         if count:
             sql += ' LIMIT %s, %s' % (int(offset), int(count))
         ret = yield self._executor.async_select(self._get_inst(True), sql)
+        if status == type_define.STATUS_JOB_MARK_WAITING:
+            cache = ret
+            leave = []
+            not_leave = []
+            for item in cache:
+                if _is_leave(item['type']):
+                    leave.append(item)
+                else:
+                    not_leave.append(item)
+            leave.extend(not_leave)
+            ret = leave
         raise gen.Return((ret, total_count))
 
     @gen.coroutine
