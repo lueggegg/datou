@@ -431,6 +431,12 @@
         module_data.uid = {{ arg['uid'][0] }};
         {% end %}
 
+        document.onkeydown = function (e) {
+            if (e.keyCode === 13) {
+                commit();
+            }
+        };
+
         initFields();
         initDatePicker($(".date_picker"));
 
