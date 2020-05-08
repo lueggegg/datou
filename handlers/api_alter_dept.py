@@ -74,6 +74,6 @@ class ApiAlterDept(ApiHandler):
             rs = yield self.account_dao.delete_dept(dept_id)
             raise gen.Return(rs)
         for dept in dept_tree[dept_id][1:]:
-            yield self.travel_del_dept(dept_tree, dept['id'])
+            yield self.account_dao.update_dept(dept['id'], parent=None)
         rs = yield self.account_dao.delete_dept(dept_id)
         raise gen.Return(rs)
