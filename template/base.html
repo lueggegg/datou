@@ -18,8 +18,10 @@
 
 <body>
 <div class="base_container">
+    {% if account_info %}
     {% block custom_header %}
     {% module Template("header.html", account_info=account_info) %}
+    {% end %}
     {% end %}
 
     <div class="base_body_container">
@@ -40,9 +42,11 @@
 
 <script>
     $("#__common_tag_area").hide();
+    {% if account_info %}
     __authority = {{ account_info['authority'] }};
     __my_uid = {{ account_info['id'] }};
     __my_operation_mask = {{ account_info['operation_mask'] }};
+    {% end %}
 
     function getGuildItemHtml(item) {
         return '<li><a style="color: white;" href="' + item.href + '">' + item.label + '</a></li>'
@@ -75,7 +79,10 @@
     }
 
     $(function () {
+
+        {% if account_info %}
         showGuildBar();
+        {% end %}
         initPromptDialog();
     });
 

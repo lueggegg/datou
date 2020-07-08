@@ -227,7 +227,7 @@ class ApiWorkOffHandler(JobHandler):
                     elif next_sequence == type_define.job_sequence_hr_leader_judge:
                         yield self.job_dao.update_job_mark(job_id, 277, type_define.STATUS_JOB_MARK_WAITING)
                     elif next_sequence == type_define.job_sequence_main_leader_judge:
-                        yield self.job_dao.update_job_mark(job_id, 212, type_define.STATUS_JOB_MARK_WAITING)
+                        yield self.job_dao.update_job_mark(job_id, 302, type_define.STATUS_JOB_MARK_WAITING)
                     yield self.job_dao.update_job(job_id, cur_path_index=next_sequence)
             else:
                 yield self.job_dao.update_job(job_id, status=type_define.STATUS_JOB_COMPLETED)

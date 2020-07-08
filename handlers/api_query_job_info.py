@@ -3,12 +3,12 @@
 import logging
 
 from tornado import gen
-from api_handler import ApiHandler
+from api_handler import ApiNoVerifyHandler
 
 import error_codes
 import type_define
 
-class ApiQueryJobInfo(ApiHandler):
+class ApiQueryJobInfo(ApiNoVerifyHandler):
     @gen.coroutine
     def _real_deal_request(self):
         res = {"status": error_codes.EC_SUCCESS}

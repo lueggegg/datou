@@ -209,17 +209,20 @@ class BaseHandler(RequestHandler):
         self.clear_cookie('account')
 
     @gen.coroutine
-    def verify_user(self):
+    def verify_user(self, redirect=True):
         uid, account = self.get_token()
         if not uid or not account:
-            self.redirect_login()
+            if redirect:
+                self.redirect_login()
             raise gen.Return(False)
         st, account_info = yield self.check_account(uid=uid)
         if st != error_codes.EC_SUCCESS:
-            self.redirect_login()
+            if redirect:
+                self.redirect_login()
             raise gen.Return(False)
         if account_info['account'] != account:
-            self.redirect_login()
+            if redirect:
+                self.redirect_login()
             raise gen.Return(False)
         self.account_info = account_info
         raise gen.Return(True)

@@ -112,6 +112,7 @@ app = tornado.web.Application([
     (r'/api/work_off', handlers.ApiWorkOffHandler),
     (r'/api/annual', handlers.ApiAnnualHandler),
     (r'/api/yc_upload', handlers.YcUpload),
+    (r'/dynamic_detail.html', handlers.NoLoginHandler),
     (r'/(.*)', handlers.HtmlHandler),
 ],
     test_mode=config.test_mode,
